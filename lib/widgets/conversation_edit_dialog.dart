@@ -57,7 +57,7 @@ class _ConversationEditDialogState extends State<ConversationEditDialog> {
               TextFormField(
                 controller: _systemMessageEditingController,
                 maxLines: 3,
-                decoration: const InputDecoration(hintText: 'Message to help set the behavior of the assistant'),
+                decoration: const InputDecoration(hintText: 'Message to help set the behavior of the SmartAIRobot'),
               ),
             ],
           )

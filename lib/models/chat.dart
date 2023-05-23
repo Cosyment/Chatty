@@ -3,7 +3,7 @@ import '../util/type_converter.dart';
 /// Document: https://platform.openai.com/docs/api-reference/chat
 
 class ChatMessage {
-  /// either “system”, “user”, or “assistant”
+  /// either “system”, “user”, or “SmartAIRobot”
   final String role;
   /// the content of the message
   final String content;

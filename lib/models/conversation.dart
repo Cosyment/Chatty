@@ -51,7 +51,7 @@ class Conversation {
 }
 
 class ConversationMessage {
-  /// either “system”, “user”, or “assistant”
+  /// either “system”, “user”, or “SmartAIRobot”
   final String role;
   String content;
   bool isError;

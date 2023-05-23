@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class TabletScreenPage extends StatelessWidget {
@@ -16,7 +18,7 @@ class TabletScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        if ((constraints.maxWidth / constraints.maxHeight > 0.75) && (constraints.maxHeight >= 800)) {
+        if ((constraints.maxWidth / constraints.maxHeight > 0.55) && (constraints.maxHeight >= 800)) {
           return Row(
             children: [
               SizedBox(
