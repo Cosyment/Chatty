@@ -57,7 +57,8 @@ class ConversationScreen extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              ConversationListWidget(selectedConversation: selectedConversation)
+              ConversationListWidget(selectedConversation: selectedConversation),
+              Text("Version: v1.0.0")
             ],
           ),
         )

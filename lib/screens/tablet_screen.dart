@@ -1,5 +1,6 @@
-import 'dart:math';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 class TabletScreenPage extends StatelessWidget {
@@ -18,7 +19,10 @@ class TabletScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        if ((constraints.maxWidth / constraints.maxHeight > 0.55) && (constraints.maxHeight >= 800)) {
+        if (kIsWeb ||
+            Platform.isWindows ||
+            Platform.isMacOS ||
+            Platform.isLinux) {
           return Row(
             children: [
               SizedBox(
@@ -26,9 +30,7 @@ class TabletScreenPage extends StatelessWidget {
                 child: sidebar,
               ),
               const VerticalDivider(thickness: 1, width: 1),
-              Expanded(
-                child: body
-              ),
+              Expanded(child: body),
             ],
           );
         } else {

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -47,25 +49,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
   );
 
   String obscureApiKey(String apiKey) {
-    if (apiKey.length < 7)
+    if (apiKey.length < 7) {
       return 'Invalid API Key';
-    if (apiKey.substring(0, 3) != 'sk-')
+    }
+    if (apiKey.substring(0, 3) != 'sk-') {
       return 'Invalid API Key';
-    return 'sk-...' + LocalStorageService().apiKey.substring(
-        LocalStorageService().apiKey.length - 4, LocalStorageService().apiKey.length
-    );
+    }
+    return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 4, LocalStorageService().apiKey.length)}';
   }
 
   String getRenderModeDescription(String renderMode) {
-    if (renderMode == 'markdown')
+    if (renderMode == 'markdown') {
       return 'Markdown';
-    if (renderMode == 'text')
+    }
+    if (renderMode == 'text') {
       return 'Plain Text';
+    }
     return 'Unknown';
   }
 
   @override
   Widget build(BuildContext context) {
+    var valueWidth = (Platform.isAndroid || Platform.isIOS) ? 100.0 : 300.0;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
       body: SettingsList(
@@ -75,14 +81,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.key),
-                title: const Text('API Key'),
-                value: Text(LocalStorageService().apiKey == ''
-                  ? 'Add your secret API key'
-                  : obscureApiKey(LocalStorageService().apiKey)
+                title: const Text(
+                  'API Key',
+                  softWrap: false,
                 ),
+                value: SizedBox(
+                    width: valueWidth,
+                    child: Text(
+                      LocalStorageService().apiKey == ''
+                          ? 'Add your secret API key'
+                          : obscureApiKey(LocalStorageService().apiKey),
+                      textAlign: TextAlign.end,
+                      overflow: TextOverflow.ellipsis,
+                    )),
                 onPressed: (context) async {
                   _textFieldController.text = LocalStorageService().apiKey;
-                  var result = await openStringDialog(context, 'API Key', 'Open AI API Key like sk-........') ?? '';
+                  var result = await openStringDialog(context, 'API Key',
+                          'Open AI API Key like sk-........') ??
+                      '';
                   LocalStorageService().apiKey = result;
                   setState(() {
                     apiKey = result;
@@ -91,14 +107,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.group),
-                title: const Text('Organization (optional)'),
-                value: Text(LocalStorageService().organization == ''
-                  ? 'None'
-                  : LocalStorageService().organization
-                ),
+                title: const Text('Organization (optional)', softWrap: false),
+                value: SizedBox(
+                    width: valueWidth,
+                    child: Text(
+                        LocalStorageService().organization == ''
+                            ? 'None'
+                            : LocalStorageService().organization,
+                        textAlign: TextAlign.end,
+                        overflow: TextOverflow.ellipsis)),
                 onPressed: (context) async {
-                  _textFieldController.text = LocalStorageService().organization;
-                  var result = await openStringDialog(context, 'Organization (optional)', 'Organization ID like org-.......') ?? '';
+                  _textFieldController.text =
+                      LocalStorageService().organization;
+                  var result = await openStringDialog(
+                          context,
+                          'Organization (optional)',
+                          'Organization ID like org-.......') ??
+                      '';
                   LocalStorageService().organization = result;
                   setState(() {
                     organization = result;
@@ -107,11 +132,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.flight_takeoff),
-                title: const Text('API Host (optional)'),
-                value: Text('Access ${stripTrailingSlash(LocalStorageService().apiHost) + '/v1/chat/completions'}', style: const TextStyle(overflow: TextOverflow.ellipsis)),
+                title: const Text('API Host (optional)', softWrap: false),
+                value: SizedBox(
+                    width: valueWidth,
+                    child: Text(
+                        'Access ${'${stripTrailingSlash(LocalStorageService().apiHost)}/v1/chat/completions'}',
+                        style: const TextStyle(overflow: TextOverflow.ellipsis),
+                        textAlign: TextAlign.end)),
                 onPressed: (context) async {
                   _textFieldController.text = LocalStorageService().apiHost;
-                  var result = await openStringDialog(context, 'API Host (optional)', 'URL like https://api.openai.com') ?? '';
+                  var result = await openStringDialog(
+                          context,
+                          'API Host (optional)',
+                          'URL like https://api.openai.com') ??
+                      '';
                   LocalStorageService().apiHost = result;
                   setState(() {
                     apiHost = result;
@@ -120,136 +154,148 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.open_in_new),
-                title: const Text('Manage API keys'),
-                value: const Text('https://platform.openai.com/account/api-keys'),
+                title: const Text('Manage API keys', softWrap: false),
+                value: SizedBox(
+                    width: valueWidth,
+                    child: const Text(
+                      'https://platform.openai.com/account/api-keys',
+                      textAlign: TextAlign.end,
+                      overflow: TextOverflow.ellipsis,
+                    )),
                 onPressed: (context) async {
-                  await launchUrl(Uri.parse('https://platform.openai.com/account/api-keys'), mode: LaunchMode.externalApplication);
+                  await launchUrl(
+                      Uri.parse('https://platform.openai.com/account/api-keys'),
+                      mode: LaunchMode.externalApplication);
                 },
               ),
             ],
           ),
           SettingsSection(
-            title: const Text('Chat Parameters'),
-            tiles: <SettingsTile>[
-              SettingsTile(
-                leading: const Icon(Icons.view_in_ar),
-                title: const Text('Model'),
-                value: Text(LocalStorageService().model),
-                trailing: PopupMenuButton(
-                  icon: const Icon(Icons.more_vert),
-                  itemBuilder: (context) {
-                    return const [
-                      PopupMenuItem(
-                        value: 'gpt-3.5-turbo',
-                        child: Text('gpt-3.5-turbo'),
-                      ),
-                      PopupMenuItem(
-                        value: 'gpt-4',
-                        child: Text('gpt-4'),
-                      ),
-                      PopupMenuItem(
-                        value: 'gpt-4-32k',
-                        child: Text('gpt-4-32k'),
-                      )
-                    ];
-                  },
-                  onSelected: (value) async {
-                    LocalStorageService().model = value;
-                    setState(() {
-                      model = value;
-                    });
-                  },
+              title: const Text('Chat Parameters'),
+              tiles: <SettingsTile>[
+                SettingsTile(
+                  leading: const Icon(Icons.view_in_ar),
+                  title: const Text('Model'),
+                  value: Text(LocalStorageService().model),
+                  trailing: PopupMenuButton(
+                    icon: const Icon(Icons.more_vert),
+                    itemBuilder: (context) {
+                      return const [
+                        PopupMenuItem(
+                          value: 'gpt-3.5-turbo',
+                          child: Text('gpt-3.5-turbo'),
+                        ),
+                        PopupMenuItem(
+                          value: 'gpt-4',
+                          child: Text('gpt-4'),
+                        ),
+                        PopupMenuItem(
+                          value: 'gpt-4-32k',
+                          child: Text('gpt-4-32k'),
+                        )
+                      ];
+                    },
+                    onSelected: (value) async {
+                      LocalStorageService().model = value;
+                      setState(() {
+                        model = value;
+                      });
+                    },
+                  ),
                 ),
-              ),
-              SettingsTile(
-                leading: const Icon(Icons.history),
-                title: const Text('History Limit'),
-                value: Text(LocalStorageService().historyCount.toString()),
-                trailing: PopupMenuButton(
-                  icon: const Icon(Icons.more_vert),
-                  itemBuilder: (context) {
-                    return const [
-                      PopupMenuItem(
-                        value: '0',
-                        child: Text('0'),
-                      ),
-                      PopupMenuItem(
-                        value: '2',
-                        child: Text('2'),
-                      ),
-                      PopupMenuItem(
-                        value: '4',
-                        child: Text('4'),
-                      ),
-                      PopupMenuItem(
-                        value: '6',
-                        child: Text('6'),
-                      ),
-                      PopupMenuItem(
-                        value: '8',
-                        child: Text('8'),
-                      ),
-                      PopupMenuItem(
-                        value: '10',
-                        child: Text('10'),
-                      )
-                    ];
-                  },
-                  onSelected: (value) async {
-                    int intValue = int.parse(value);
-                    LocalStorageService().historyCount = intValue;
-                    setState(() {
-                      historyCount = intValue;
-                    });
-                  },
+                SettingsTile(
+                  leading: const Icon(Icons.history),
+                  title: const Text('History Limit'),
+                  value: Text(LocalStorageService().historyCount.toString()),
+                  trailing: PopupMenuButton(
+                    icon: const Icon(Icons.more_vert),
+                    itemBuilder: (context) {
+                      return const [
+                        PopupMenuItem(
+                          value: '0',
+                          child: Text('0'),
+                        ),
+                        PopupMenuItem(
+                          value: '2',
+                          child: Text('2'),
+                        ),
+                        PopupMenuItem(
+                          value: '4',
+                          child: Text('4'),
+                        ),
+                        PopupMenuItem(
+                          value: '6',
+                          child: Text('6'),
+                        ),
+                        PopupMenuItem(
+                          value: '8',
+                          child: Text('8'),
+                        ),
+                        PopupMenuItem(
+                          value: '10',
+                          child: Text('10'),
+                        )
+                      ];
+                    },
+                    onSelected: (value) async {
+                      int intValue = int.parse(value);
+                      LocalStorageService().historyCount = intValue;
+                      setState(() {
+                        historyCount = intValue;
+                      });
+                    },
+                  ),
                 ),
-              ),
-            ]
-          ),
+              ]),
           SettingsSection(
-            title: const Text('Appearance'),
-            tiles: <SettingsTile>[
-              SettingsTile(
-                leading: const Icon(Icons.text_format),
-                title: const Text('Render Mode'),
-                value: Text(getRenderModeDescription(LocalStorageService().renderMode)),
-                trailing: PopupMenuButton(
-                  icon: const Icon(Icons.more_vert),
-                  itemBuilder: (context) {
-                    return const [
-                      PopupMenuItem(
-                        value: 'markdown',
-                        child: Text('Markdown'),
-                      ),
-                      PopupMenuItem(
-                        value: 'text',
-                        child: Text('Plain Text'),
-                      )
-                    ];
-                  },
-                  onSelected: (value) async {
-                    LocalStorageService().renderMode = value;
-                    setState(() {
-                      renderMode = value;
-                    });
-                  },
+              title: const Text('Appearance'),
+              tiles: <SettingsTile>[
+                SettingsTile(
+                  leading: const Icon(Icons.text_format),
+                  title: const Text('Render Mode'),
+                  value: Text(getRenderModeDescription(
+                      LocalStorageService().renderMode)),
+                  trailing: PopupMenuButton(
+                    icon: const Icon(Icons.more_vert),
+                    itemBuilder: (context) {
+                      return const [
+                        PopupMenuItem(
+                          value: 'markdown',
+                          child: Text('Markdown'),
+                        ),
+                        PopupMenuItem(
+                          value: 'text',
+                          child: Text('Plain Text'),
+                        )
+                      ];
+                    },
+                    onSelected: (value) async {
+                      LocalStorageService().renderMode = value;
+                      setState(() {
+                        renderMode = value;
+                      });
+                    },
+                  ),
                 ),
-              ),
-            ]
-          ),
-          SettingsSection(
-            title: const Text('About'),
-            tiles: <SettingsTile>[
-              SettingsTile.navigation(
-                leading: const Icon(Icons.home),
-                title: const Text('GitHub Project'),
-                value: const Text('https://github.com/hahastudio/FlutterChat'),
-                onPressed: (context) async {
-                  await launchUrl(Uri.parse('https://github.com/hahastudio/FlutterChat'), mode: LaunchMode.externalApplication);
-                },
-              ),
-            ]
-          )
+              ]),
+          SettingsSection(title: const Text('About'), tiles: <SettingsTile>[
+            SettingsTile.navigation(
+              leading: const Icon(Icons.home),
+              title: const Text('GitHub Project', softWrap: false),
+              value: SizedBox(
+                  width: valueWidth,
+                  child: const Text(
+                    'https://github.com/hahastudio/FlutterChat',
+                    textAlign: TextAlign.end,
+                    overflow: TextOverflow.ellipsis,
+                  )),
+              onPressed: (context) async {
+                await launchUrl(
+                    Uri.parse('https://github.com/hahastudio/FlutterChat'),
+                    mode: LaunchMode.externalApplication);
+              },
+            ),
+          ])
         ],
       ),
     );
