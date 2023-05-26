@@ -390,6 +390,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   IconButton(
                       icon: const Icon(Icons.refresh),
+                      iconSize: 40,
                       onPressed: (state.status == ChatStatus.loading) ||
                               (conversation.messages.isEmpty)
                           ? null

@@ -59,6 +59,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 4, LocalStorageService().apiKey.length)}';
   }
 
+  String shortValue(String value) {
+    if (!kIsWeb&&Platform.isIOS && value != null && value.length >= 10) {
+      return " ${value.substring(0, 15)}...";
+    }
+    return value;
+  }
+
   String getRenderModeDescription(String renderMode) {
     if (renderMode == 'markdown') {
       return 'Markdown';
@@ -71,8 +78,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // var valueWidth = (kIsWeb||Platform.isWindows||Platform.isMacOS) ? 1350.0 : 100.0;
-    var valueWidth = 1000.0;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
@@ -89,12 +94,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 value: SizedBox(
                     child: Text(
-                      LocalStorageService().apiKey == ''
-                          ? 'Add your secret API key'
-                          : obscureApiKey(LocalStorageService().apiKey),
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.ellipsis,
-                    )),
+                  LocalStorageService().apiKey == ''
+                      ? 'Add your secret API key'
+                      : obscureApiKey(LocalStorageService().apiKey),
+                  overflow: TextOverflow.ellipsis,
+                )),
                 onPressed: (context) async {
                   _textFieldController.text = LocalStorageService().apiKey;
                   var result = await openStringDialog(context, 'API Key',
@@ -108,20 +112,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.group),
-                title: const Text('Organization (optional)', softWrap: false),
+                title: const Text('Organization', softWrap: false),
                 value: SizedBox(
                     child: Text(
                         LocalStorageService().organization == ''
                             ? 'None'
-                            : LocalStorageService().organization,
-                        textAlign: TextAlign.start,
+                            : shortValue(LocalStorageService().organization),
+                        textAlign: TextAlign.end,
                         overflow: TextOverflow.ellipsis)),
                 onPressed: (context) async {
                   _textFieldController.text =
                       LocalStorageService().organization;
-                  var result = await openStringDialog(
-                          context,
-                          'Organization (optional)',
+                  var result = await openStringDialog(context, 'Organization',
                           'Organization ID like org-.......') ??
                       '';
                   LocalStorageService().organization = result;
@@ -132,12 +134,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.flight_takeoff),
-                title: const Text('API Host (optional)', softWrap: false),
+                title: const Text('API Host', softWrap: false),
                 value: SizedBox(
                     child: Text(
-                        'Access ${'${stripTrailingSlash(LocalStorageService().apiHost)}/v1/chat/completions'}',
-                        style: const TextStyle(overflow: TextOverflow.ellipsis),
-                        textAlign: TextAlign.start)),
+                  shortValue(
+                      'Access ${'${stripTrailingSlash(LocalStorageService().apiHost)}/v1/chat/completions'}'),
+                )),
                 onPressed: (context) async {
                   _textFieldController.text = LocalStorageService().apiHost;
                   var result = await openStringDialog(
@@ -155,11 +157,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: const Icon(Icons.open_in_new),
                 title: const Text('Manage API keys', softWrap: false),
                 value: SizedBox(
-                    child: const Text(
-                      'https://platform.openai.com/account/api-keys',
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.ellipsis,
-                    )),
+                    child: Text(
+                  shortValue('https://platform.openai.com/account/api-keys'),
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.ellipsis,
+                )),
                 onPressed: (context) async {
                   await launchUrl(
                       Uri.parse('https://platform.openai.com/account/api-keys'),
@@ -280,12 +282,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsTile.navigation(
               leading: const Icon(Icons.home),
               title: const Text('GitHub Project', softWrap: false),
-              value: const SizedBox(
+              value: SizedBox(
                   child: Text(
-                    'https://github.com/hahastudio/FlutterChat',
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.ellipsis,
-                  )),
+                shortValue('https://github.com/hahastudio/FlutterChat'),
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.ellipsis,
+              )),
               onPressed: (context) async {
                 await launchUrl(
                     Uri.parse('https://github.com/hahastudio/FlutterChat'),

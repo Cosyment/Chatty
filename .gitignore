@@ -394,3 +394,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 >>>>>>> 0a2cde6 (init)
+/ios/Podfile.lock

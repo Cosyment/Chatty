@@ -37,7 +37,9 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
                     padding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
                     child: Container(
-                        alignment: Alignment.centerRight,
+                        alignment: isUser
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
                         child: widget.isMarkdown
                             ? MarkdownBody(
                                 data: widget.message.content, selectable: true)
