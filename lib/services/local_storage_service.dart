@@ -4,6 +4,7 @@ import '../models/models.dart';
 
 class LocalStorageService {
   static final LocalStorageService _instance = LocalStorageService._internal();
+
   factory LocalStorageService() => _instance;
 
   LocalStorageService._internal();
@@ -23,10 +24,13 @@ class LocalStorageService {
 
   static const storeConversationList = 'store_conversations';
   static const storeConversationPrefix = 'store_conversation_';
+  static const storeCurrentConversation = 'store_current_conversation';
 
   // preferences
 
-  String get apiKey => _prefs.getString(prefApiKey) ?? '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';
+  String get apiKey =>
+      _prefs.getString(prefApiKey) ??
+      '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';
 
   set apiKey(String value) {
     (() async {
@@ -44,8 +48,9 @@ class LocalStorageService {
 
   String get apiHost {
     var result = _prefs.getString(prefApiHost);
-    if ((result == null) || (result.isEmpty))
+    if ((result == null) || (result.isEmpty)) {
       return 'https://api.openai.com';
+    }
     return result;
   }
 
@@ -81,7 +86,8 @@ class LocalStorageService {
 
   // storage
 
-  String get conversationListJson => _prefs.getString(storeConversationList) ?? '[]';
+  String get conversationListJson =>
+      _prefs.getString(storeConversationList) ?? '[]';
 
   set conversationListJson(String value) {
     (() async {
@@ -89,7 +95,8 @@ class LocalStorageService {
     })();
   }
 
-  String getConversationJsonById(String id) => _prefs.getString(storeConversationPrefix + id) ?? '';
+  String getConversationJsonById(String id) =>
+      _prefs.getString(storeConversationPrefix + id) ?? '';
 
   Future setConversationJsonById(String id, String value) async {
     await _prefs.setString(storeConversationPrefix + id, value);
@@ -98,4 +105,10 @@ class LocalStorageService {
   Future removeConversationJsonById(String id) async {
     await _prefs.remove(storeConversationPrefix + id);
   }
+
+  String get currentConversationId =>
+      _prefs.getString(storeCurrentConversation) ?? '';
+
+  set currentConversationId(String id) =>
+      _prefs.setString(storeCurrentConversation, id);
 }

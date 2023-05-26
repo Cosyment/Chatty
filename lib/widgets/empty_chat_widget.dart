@@ -6,6 +6,7 @@ import '../bloc/conversations_event.dart';
 import '../models/conversation.dart';
 import '../screens/chat_screen.dart';
 import '../services/chat_service.dart';
+import '../services/local_storage_service.dart';
 import 'conversation_edit_dialog.dart';
 
 class EmptyChatWidget extends StatelessWidget {
@@ -49,6 +50,7 @@ class EmptyChatWidget extends StatelessWidget {
             var savedConversation =
                 chatService.getConversationById(newConversation.id)!;
             if (context.mounted) {
+              LocalStorageService().currentConversationId = newConversation.id;
               if (Navigator.of(context).canPop()) {
                 Navigator.of(context)
                     .pushReplacement(ChatScreenPage.route(savedConversation));
