@@ -42,7 +42,7 @@ class TabletScreenPage extends StatelessWidget {
           // return mainView == TabletMainView.body ? body : sidebar;
           return Scaffold(
             appBar: AppBar(
-                title: const Text("聊天",
+                title: const Text("Chat",
                     style: TextStyle(overflow: TextOverflow.ellipsis)),
                 // automaticallyImplyLeading: false,
                 actions: <Widget>[
