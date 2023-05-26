@@ -1,6 +1,6 @@
 {
-    "name": "SmartAI",
-    "short_name": "SmartAI",
+    "name": "SmartAIRobot",
+    "short_name": "SmartAIRobot",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

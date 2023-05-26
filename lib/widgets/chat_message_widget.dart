@@ -55,8 +55,8 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
           const SizedBox(width: 16),
           Expanded(
             child: widget.isMarkdown ?
-              MarkdownBody(data: widget.message.content, selectable: true)
-              : SelectableText(widget.message.content)
+              MarkdownBody(data: widget.message.content, selectable: true,)
+              : SelectableText(widget.message.content,textAlign: TextAlign.justify,)
           )
         ],
       )

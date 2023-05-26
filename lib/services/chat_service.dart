@@ -16,8 +16,9 @@ class ChatService {
 
   Conversation? getConversationById(String id) {
     var conversationJson = LocalStorageService().getConversationJsonById(id);
-    if (conversationJson == '')
+    if (conversationJson == '') {
       return null;
+    }
     return Conversation.fromJson(jsonDecode(conversationJson));
   }
 

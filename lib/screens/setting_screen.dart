@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -70,7 +71,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var valueWidth = (Platform.isAndroid || Platform.isIOS) ? 100.0 : 300.0;
+    // var valueWidth = (kIsWeb||Platform.isWindows||Platform.isMacOS) ? 1350.0 : 100.0;
+    var valueWidth = 1000.0;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
@@ -86,12 +88,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   softWrap: false,
                 ),
                 value: SizedBox(
-                    width: valueWidth,
                     child: Text(
                       LocalStorageService().apiKey == ''
                           ? 'Add your secret API key'
                           : obscureApiKey(LocalStorageService().apiKey),
-                      textAlign: TextAlign.end,
+                      textAlign: TextAlign.start,
                       overflow: TextOverflow.ellipsis,
                     )),
                 onPressed: (context) async {
@@ -109,12 +110,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: const Icon(Icons.group),
                 title: const Text('Organization (optional)', softWrap: false),
                 value: SizedBox(
-                    width: valueWidth,
                     child: Text(
                         LocalStorageService().organization == ''
                             ? 'None'
                             : LocalStorageService().organization,
-                        textAlign: TextAlign.end,
+                        textAlign: TextAlign.start,
                         overflow: TextOverflow.ellipsis)),
                 onPressed: (context) async {
                   _textFieldController.text =
@@ -134,11 +134,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: const Icon(Icons.flight_takeoff),
                 title: const Text('API Host (optional)', softWrap: false),
                 value: SizedBox(
-                    width: valueWidth,
                     child: Text(
                         'Access ${'${stripTrailingSlash(LocalStorageService().apiHost)}/v1/chat/completions'}',
                         style: const TextStyle(overflow: TextOverflow.ellipsis),
-                        textAlign: TextAlign.end)),
+                        textAlign: TextAlign.start)),
                 onPressed: (context) async {
                   _textFieldController.text = LocalStorageService().apiHost;
                   var result = await openStringDialog(
@@ -156,10 +155,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: const Icon(Icons.open_in_new),
                 title: const Text('Manage API keys', softWrap: false),
                 value: SizedBox(
-                    width: valueWidth,
                     child: const Text(
                       'https://platform.openai.com/account/api-keys',
-                      textAlign: TextAlign.end,
+                      textAlign: TextAlign.start,
                       overflow: TextOverflow.ellipsis,
                     )),
                 onPressed: (context) async {
@@ -282,11 +280,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsTile.navigation(
               leading: const Icon(Icons.home),
               title: const Text('GitHub Project', softWrap: false),
-              value: SizedBox(
-                  width: valueWidth,
-                  child: const Text(
+              value: const SizedBox(
+                  child: Text(
                     'https://github.com/hahastudio/FlutterChat',
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.start,
                     overflow: TextOverflow.ellipsis,
                   )),
               onPressed: (context) async {
