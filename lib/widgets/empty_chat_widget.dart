@@ -7,6 +7,7 @@ import '../models/conversation.dart';
 import '../screens/chat_screen.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
+import '../util/android_back_desktop.dart';
 import 'conversation_edit_dialog.dart';
 
 class EmptyChatWidget extends StatelessWidget {
@@ -21,23 +22,30 @@ class EmptyChatWidget extends StatelessWidget {
                 conversation: conversation, isEdit: isEdit);
           });
 
+  Future<bool> _onBackPressed() async {
+    AndroidBackTop.backDeskTop(); //设置为返回不退出app
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     var chatService = context.read<ChatService>();
     var bloc = BlocProvider.of<ConversationsBloc>(context);
 
-    return Scaffold(
-      body: const SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.chat,
-                size: 128,
-              ),
-              Text('Create or choose a conversation to start')
-            ],
+    return WillPopScope(
+        onWillPop: _onBackPressed,
+        child: Scaffold(
+          body: const SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.chat,
+                    size: 128,
+                  ),
+                  Text('Create or choose a conversation to start')
+                ],
           ),
         ),
       ),
@@ -54,16 +62,16 @@ class EmptyChatWidget extends StatelessWidget {
               if (Navigator.of(context).canPop()) {
                 Navigator.of(context)
                     .pushReplacement(ChatScreenPage.route(savedConversation));
-              } else {
-                Navigator.of(context)
-                    .push(ChatScreenPage.route(savedConversation));
+                  } else {
+                    Navigator.of(context)
+                        .push(ChatScreenPage.route(savedConversation));
+                  }
+                }
+                bloc.add(const ConversationsRequested());
               }
-            }
-            bloc.add(const ConversationsRequested());
-          }
-        },
-        child: const Icon(Icons.add),
-      ),
-    );
+            },
+            child: const Icon(Icons.add),
+          ),
+        ));
   }
 }
