@@ -8,7 +8,7 @@
 PRODUCT_NAME = SmartAIRobot
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.waiting.mobile.aichat
+PRODUCT_BUNDLE_IDENTIFIER = com.waiting.smart.airobot
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.waiting.mobile.aichat. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 com.waiting.smart.airobot. All rights reserved.

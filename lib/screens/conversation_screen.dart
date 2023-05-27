@@ -55,90 +55,72 @@ class ConversationScreen extends StatelessWidget {
             // )
           ]),
       body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ConversationListWidget(
-                    selectedConversation: selectedConversation),
-                const Divider(thickness: .5),
-                TextButton.icon(
-                  onPressed: () async {
-                closeDrawer();
-                var newConversation = await showConversationDialog(
-                    context, false, Conversation.create());
-                if (newConversation != null) {
-                  LocalStorageService().currentConversationId =
-                      newConversation.id;
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ConversationListWidget(selectedConversation: selectedConversation),
+            const Divider(thickness: .5),
+            Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextButton.icon(
+                          onPressed: () async {
+                            closeDrawer();
+                            var newConversation = await showConversationDialog(
+                                context, false, Conversation.create());
+                            if (newConversation != null) {
+                              LocalStorageService().currentConversationId =
+                                  newConversation.id;
 
-                  await chatService.updateConversation(newConversation);
-                  var savedConversation =
-                      chatService.getConversationById(newConversation.id)!;
-                  if (context.mounted) {
-                    if (Navigator.of(context).canPop()) {
-                      Navigator.of(context).pushReplacement(
-                          ChatScreenPage.route(savedConversation));
-                    } else {
-                      Navigator.of(context)
-                          .push(ChatScreenPage.route(savedConversation));
-                    }
-                  }
-                  bloc.add(const ConversationsRequested());
-                }
-              },
-              label: const Text('New Conversation'),
-              icon: const Icon(Icons.add_box),
-            ),
-            const SizedBox(
-              height: 6,
-            ),
-            TextButton.icon(
-              onPressed: () {
-                closeDrawer();
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const SettingsScreen()));
-              },
-              label: const Text('Settings'),
-              icon: const Icon(Icons.settings),
-            ),
-            const SizedBox(
-              height: 6,
-            ),
-            FutureBuilder<PackageInfo>(
-                future: PackageInfo.fromPlatform(),
-                builder: (context, packageInfo) {
-                  return TextButton.icon(
-                    onPressed: () {},
-                    label: Text("Version: ${packageInfo.data?.version}"),
-                    icon: const Icon(Icons.info),
-                  );
-                }),
+                              await chatService
+                                  .updateConversation(newConversation);
+                              var savedConversation = chatService
+                                  .getConversationById(newConversation.id)!;
+                              if (context.mounted) {
+                                if (Navigator.of(context).canPop()) {
+                                  Navigator.of(context).pushReplacement(
+                                      ChatScreenPage.route(savedConversation));
+                                } else {
+                                  Navigator.of(context).push(
+                                      ChatScreenPage.route(savedConversation));
+                                }
+                              }
+                              bloc.add(const ConversationsRequested());
+                            }
+                          },
+                          label: const Text('New Conversation'),
+                          icon: const Icon(Icons.add_box)),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      TextButton.icon(
+                        onPressed: () {
+                          closeDrawer();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => const SettingsScreen()));
+                        },
+                        label: const Text('Settings'),
+                        icon: const Icon(Icons.settings),
+                      ),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      FutureBuilder<PackageInfo>(
+                          future: PackageInfo.fromPlatform(),
+                          builder: (context, packageInfo) {
+                            return TextButton.icon(
+                              onPressed: () {},
+                              label:
+                                  Text("Version: ${packageInfo.data?.version}"),
+                              icon: const Icon(Icons.info),
+                            );
+                          })
+                    ])),
           ],
         ),
-      )),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () async {
-      //     var newConversation = await showConversationDialog(
-      //         context, false, Conversation.create());
-      //     if (newConversation != null) {
-      //       await chatService.updateConversation(newConversation);
-      //       var savedConversation =
-      //           chatService.getConversationById(newConversation.id)!;
-      //       if (context.mounted) {
-      //         if (Navigator.of(context).canPop()) {
-      //           Navigator.of(context)
-      //               .pushReplacement(ChatScreenPage.route(savedConversation));
-      //         } else {
-      //           Navigator.of(context)
-      //               .push(ChatScreenPage.route(savedConversation));
-      //         }
-      //       }
-      //       bloc.add(const ConversationsRequested());
-      //     }
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
+      ),
     );
   }
 

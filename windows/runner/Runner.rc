@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.waiting.mobile.aichat" "\0"
+            VALUE "CompanyName", "com.waiting.smart.airobot" "\0"
             VALUE "FileDescription", "SmartAIRobot" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "SmartAIRobot" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.waiting.mobile.aichat. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.waiting.smart.airobot. All rights reserved." "\0"
             VALUE "OriginalFilename", "SmartAIRobot.exe" "\0"
             VALUE "ProductName", "SmartAIRobot" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

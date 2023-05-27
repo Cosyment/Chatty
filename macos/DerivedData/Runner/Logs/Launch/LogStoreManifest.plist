@@ -6,14 +6,14 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>18B65460-EAAD-4AAF-9BBC-7B0089992D3D</key>
+		<key>068BC9DC-988B-493D-BE9C-176C37F14024</key>
 		<dict>
 			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>7DE42CD8-78D7-411C-B273-458BF742CA47</string>
+			<string>EC95C4C8-0278-4B3F-B1D9-CED7BEDC0B05</string>
 			<key>auxiliaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
-				<string>W</string>
+				<string>E</string>
 			</dict>
 			<key>className</key>
 			<string>IDESchemeActionsInvocationRecord</string>
@@ -22,7 +22,7 @@
 			<key>domainType</key>
 			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
 			<key>fileName</key>
-			<string>Run-Runner-2023.05.23_22-02-42-+0800.xcresult</string>
+			<string>Run-Runner-2023.05.27_22-50-45-+0800.xcresult</string>
 			<key>hasAuxiliaryLog</key>
 			<true/>
 			<key>hasConsoleLog</key>
@@ -32,7 +32,7 @@
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
-				<string>W</string>
+				<string>E</string>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>Runner project</string>
@@ -43,13 +43,13 @@
 			<key>signature</key>
 			<string>Run Runner</string>
 			<key>timeStartedRecording</key>
-			<real>706543362.84235001</real>
+			<real>706891845.44523001</real>
 			<key>timeStoppedRecording</key>
 			<real>0.0</real>
 			<key>title</key>
 			<string>Run Runner</string>
 			<key>uniqueIdentifier</key>
-			<string>18B65460-EAAD-4AAF-9BBC-7B0089992D3D</string>
+			<string>068BC9DC-988B-493D-BE9C-176C37F14024</string>
 		</dict>
 	</dict>
 </dict>
