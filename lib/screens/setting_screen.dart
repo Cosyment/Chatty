@@ -293,7 +293,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               )),
               onPressed: (context) async {
                 await launchUrl(
-                    Uri.parse('https://chat.cosyment.com'),
+                    Uri.parse('https://chat.cosyment.com/privacy.html'),
                     mode: LaunchMode.externalApplication);
               },
             ),

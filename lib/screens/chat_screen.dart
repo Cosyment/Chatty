@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -171,10 +169,12 @@ class _ChatScreenState extends State<ChatScreen> {
       });
     }
 
+    var size = MediaQuery.of(context).size;
+
     return ScaffoldMessenger(
       key: scaffoldMessengerKey,
       child: Scaffold(
-        appBar: (kIsWeb || Platform.isWindows || Platform.isMacOS)
+        appBar: (size.width > size.height)
             ? AppBar(
                 title: Text(conversation.title,
                     style: const TextStyle(overflow: TextOverflow.ellipsis)),
@@ -390,7 +390,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   IconButton(
                       icon: const Icon(Icons.refresh),
-                      iconSize: 40,
+                      iconSize: 35,
                       onPressed: (state.status == ChatStatus.loading) ||
                               (conversation.messages.isEmpty)
                           ? null

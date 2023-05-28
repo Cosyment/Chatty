@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/services/local_storage_service.dart';
@@ -64,11 +61,8 @@ class TabletScreenPage extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-
-        if (kIsWeb ||
-            Platform.isWindows ||
-            Platform.isMacOS ||
-            Platform.isLinux) {
+      var size = MediaQuery.of(context).size;
+        if (size.width > size.height) {
           return Row(
             children: [
               SizedBox(
