@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -36,15 +37,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
             decoration: InputDecoration(hintText: hintText),
           ),
           actions: <Widget>[
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () => Navigator.pop(context),
-            ),
-            ElevatedButton(
-              child: const Text('OK'),
-              onPressed: () => Navigator.pop(context, _textFieldController.text),
-            ),
-          ],
+                TextButton(
+                  child: const Text('Cancel'),
+                  onPressed: () =>
+                      Navigator.pop(context, _textFieldController.text),
+                ),
+                ElevatedButton(
+                  child: const Text('OK'),
+                  onPressed: () =>
+                      Navigator.pop(context, _textFieldController.text),
+                ),
+              ],
         );
       }
   );
@@ -280,19 +283,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ]),
           SettingsSection(title: const Text('About'), tiles: <SettingsTile>[
             SettingsTile.navigation(
-              leading: const Icon(Icons.home),
-              title: const Text('GitHub Project', softWrap: false),
+              leading: const Icon(Icons.privacy_tip_outlined),
+              title: const Text('Privacy', softWrap: false),
               value: SizedBox(
                   child: Text(
-                shortValue('https://github.com/hahastudio/FlutterChat'),
+                shortValue('https://chat.cosyment.com/privacy.html'),
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.ellipsis,
               )),
               onPressed: (context) async {
                 await launchUrl(
-                    Uri.parse('https://github.com/hahastudio/FlutterChat'),
+                    Uri.parse('https://chat.cosyment.com'),
                     mode: LaunchMode.externalApplication);
               },
+            ),
+            SettingsTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('Version', softWrap: false),
+              value: FutureBuilder<PackageInfo>(
+                  future: PackageInfo.fromPlatform(),
+                  builder: (context, packageInfo) {
+                    return Text("v${packageInfo.data?.version}");
+                  }),
             ),
           ])
         ],

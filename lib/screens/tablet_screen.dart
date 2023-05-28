@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/services/local_storage_service.dart';
+import 'package:flutter_chat/widgets/empty_chat_widget.dart';
 
 import '../bloc/chat_bloc.dart';
 import '../bloc/chat_event.dart';
@@ -50,7 +51,9 @@ class TabletScreenPage extends StatelessWidget {
     var chatService = context.read<ChatService>();
     var conversation = chatService
         .getConversationById(LocalStorageService().currentConversationId);
-    var title = conversation?.title ?? 'Chat';
+    var title = (conversation?.title == null || body is EmptyChatWidget)
+        ? 'Chat'
+        : conversation?.title;
 
     ChatBloc? chatBloc;
     ConversationsBloc? conversationsBloc;
@@ -61,6 +64,7 @@ class TabletScreenPage extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
+
         if (kIsWeb ||
             Platform.isWindows ||
             Platform.isMacOS ||
@@ -81,18 +85,18 @@ class TabletScreenPage extends StatelessWidget {
           //手机端增加appbar
           return Scaffold(
             appBar: AppBar(
-                title: Text(title,
+                title: Text(title!,
                     style: const TextStyle(overflow: TextOverflow.ellipsis)),
                 // automaticallyImplyLeading: false,
                 actions: <Widget>[
-                  IconButton(
-                    icon: const Icon(Icons.info),
-                    onPressed: () {
-                      // setState(() {
-                      //   _showSystemMessage = !_showSystemMessage;
-                      // });
-                    },
-                  ),
+                  // IconButton(
+                  //   icon: const Icon(Icons.info),
+                  //   onPressed: () {
+                  //     // setState(() {
+                  //     //   _showSystemMessage = !_showSystemMessage;
+                  //     // });
+                  //   },
+                  // ),
                   PopupMenuButton(
                     icon: const Icon(Icons.more_vert),
                     itemBuilder: (context) {

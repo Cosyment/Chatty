@@ -14,6 +14,7 @@ class ConversationScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return const TabletScreenPage(
       sidebar: ConversationScreen(),
       body: EmptyChatWidget(),
@@ -113,7 +114,7 @@ class ConversationScreen extends StatelessWidget {
                             return TextButton.icon(
                               onPressed: () {},
                               label:
-                                  Text("Version: ${packageInfo.data?.version}"),
+                                  Text("Version: v${packageInfo.data?.version}"),
                               icon: const Icon(Icons.info),
                             );
                           })

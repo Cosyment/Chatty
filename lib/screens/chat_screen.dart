@@ -179,14 +179,14 @@ class _ChatScreenState extends State<ChatScreen> {
                 title: Text(conversation.title,
                     style: const TextStyle(overflow: TextOverflow.ellipsis)),
                 actions: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.info),
-                      onPressed: () {
-                        setState(() {
-                          _showSystemMessage = !_showSystemMessage;
-                        });
-                      },
-                    ),
+                    // IconButton(
+                    //   icon: const Icon(Icons.info),
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       _showSystemMessage = !_showSystemMessage;
+                    //     });
+                    //   },
+                    // ),
                     PopupMenuButton(
                       icon: const Icon(Icons.more_vert),
                       itemBuilder: (context) {

@@ -42,9 +42,10 @@ class EmptyChatWidget extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.chat,
-                    size: 128,
+                    size: 100,
                   ),
-                  Text('Create or choose a conversation to start')
+                  Text('Create or choose a conversation to start'),
+                  SizedBox(height: 150,)
                 ],
           ),
         ),
