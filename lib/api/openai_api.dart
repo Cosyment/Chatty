@@ -18,9 +18,10 @@ class OpenAiApi {
   OpenAiApi(this.httpClient);
 
   Future<ChatResponse> chatCompletion(List<ChatMessage> messages) async {
-    final uri = Uri.tryParse(stripTrailingSlash(LocalStorageService().apiHost) + '$endPointPrefix/chat/completions');
-    if (uri == null)
+    final uri = Uri.tryParse('${stripTrailingSlash(LocalStorageService().apiHost)}$endPointPrefix/chat/completions');
+    if (uri == null) {
       throw Exception('API Host ${LocalStorageService().apiHost} is not valid');
+    }
 
     var headers = {
       'Content-Type': 'application/json'
@@ -63,9 +64,10 @@ class OpenAiApi {
   Stream<ChatResponseStream> chatCompletionStream(List<ChatMessage> messages) {
     StreamController<ChatResponseStream> controller = StreamController<ChatResponseStream>();
 
-    final uri = Uri.tryParse(stripTrailingSlash(LocalStorageService().apiHost) + '$endPointPrefix/chat/completions');
-    if (uri == null)
+    final uri = Uri.tryParse('${stripTrailingSlash(LocalStorageService().apiHost)}$endPointPrefix/chat/completions');
+    if (uri == null) {
       throw Exception('API Host ${LocalStorageService().apiHost} is not valid');
+    }
 
     var headers = {
       'Content-Type': 'application/json'
