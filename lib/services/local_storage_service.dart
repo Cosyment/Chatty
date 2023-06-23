@@ -30,7 +30,7 @@ class LocalStorageService {
 
   String get apiKey =>
       _prefs.getString(prefApiKey) ??
-      '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';
+      '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';
 
   set apiKey(String value) {
     (() async {
@@ -49,7 +49,8 @@ class LocalStorageService {
   String get apiHost {
     var result = _prefs.getString(prefApiHost);
     if ((result == null) || (result.isEmpty)) {
-      return 'https://api.openai.com';
+      // return 'https://api.openai.com';
+      return 'https://api.openai-proxy.com';
     }
     return result;
   }
