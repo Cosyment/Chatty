@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/services/local_storage_service.dart';
+import 'package:Chatbot/services/local_storage_service.dart';
 
 import '../bloc/blocs.dart';
 import '../models/models.dart';

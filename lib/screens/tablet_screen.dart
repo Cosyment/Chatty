@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat/services/local_storage_service.dart';
-import 'package:flutter_chat/widgets/empty_chat_widget.dart';
+import 'package:Chatbot/services/local_storage_service.dart';
+import 'package:Chatbot/widgets/empty_chat_widget.dart';
 
 import '../bloc/chat_bloc.dart';
 import '../bloc/chat_event.dart';
