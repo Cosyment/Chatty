@@ -51,7 +51,7 @@ class _AppState extends State<App> {
 
     //友盟初始化
     UmengCommonSdk.initCommon('64979b89a1a164591b38ceda' /*Android AppKey*/,
-        '6496a96887568a379b5ce593' /*ios AppKey*/, 'Chatbot');
+        '6496a96887568a379b5ce593' /*ios AppKey*/, 'Chatbotty');
     UmengCommonSdk.setPageCollectionModeManual();
   }
 

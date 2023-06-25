@@ -50,7 +50,7 @@ class TabletScreenPage extends StatelessWidget {
     var conversation = chatService
         .getConversationById(LocalStorageService().currentConversationId);
     var title = (conversation?.title == null || body is EmptyChatWidget)
-        ? 'ChatBot'
+        ? AppLocalizations.of(context)!.appName
         : conversation?.title;
 
     ChatBloc? chatBloc;

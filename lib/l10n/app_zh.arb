@@ -1,5 +1,5 @@
 {
-  "appName": "ChatBot",
+  "appName": "Chatbotty",
   "chat": "对话",
   "conversations": "会话",
   "settings": "设置",
@@ -16,7 +16,7 @@
   "add_your_secret_api_key": "添加API Key",
   "organization": "组织",
   "api_host": "解析网址",
-  "api_host_optional": "支持配置OPENAI代理地址",
+  "api_host_optional": "OpenAI代理地址",
   "manage_api_keys": "管理API keys",
   "chat_parameters": "聊天参数",
   "model": "模型",

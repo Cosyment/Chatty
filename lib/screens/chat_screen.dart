@@ -125,7 +125,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void handleRefresh(BuildContext context, Conversation conversation) {
     var chatService = context.read<ChatService>();
-    if (conversation.messages.last.role == 'SmartAIRobot') {
+    if (conversation.messages.last.role == 'Chatbotty') {
       conversation.messages.removeLast();
     }
     BlocProvider.of<ChatBloc>(context).add(ChatStreamStarted(conversation));

@@ -6,55 +6,10 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>068BC9DC-988B-493D-BE9C-176C37F14024</key>
+		<key>116DEF76-A183-40D3-8E6D-AF5C05E0EECC</key>
 		<dict>
 			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>EC95C4C8-0278-4B3F-B1D9-CED7BEDC0B05</string>
-			<key>auxiliaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>E</string>
-			</dict>
-			<key>className</key>
-			<string>IDESchemeActionsInvocationRecord</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
-			<key>fileName</key>
-			<string>Run-Runner-2023.05.27_22-50-45-+0800.xcresult</string>
-			<key>hasAuxiliaryLog</key>
-			<true/>
-			<key>hasConsoleLog</key>
-			<true/>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>E</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Runner project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Runner</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Run Runner</string>
-			<key>timeStartedRecording</key>
-			<real>706891845.44523001</real>
-			<key>timeStoppedRecording</key>
-			<real>0.0</real>
-			<key>title</key>
-			<string>Run Runner</string>
-			<key>uniqueIdentifier</key>
-			<string>068BC9DC-988B-493D-BE9C-176C37F14024</string>
-		</dict>
-		<key>29150CDC-3142-4EBE-9052-A9F83057E9D6</key>
-		<dict>
-			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>3C4DA637-2E97-46EB-9BF3-7B54B446AF4F</string>
+			<string>DA1AADCA-D489-474D-AE06-AF33A473570E</string>
 			<key>auxiliaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
@@ -67,7 +22,7 @@
 			<key>domainType</key>
 			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
 			<key>fileName</key>
-			<string>Run-Runner-2023.06.24_20-32-29-+0800.xcresult</string>
+			<string>Run-Runner-2023.06.24_22-00-25-+0800.xcresult</string>
 			<key>hasAuxiliaryLog</key>
 			<true/>
 			<key>hasConsoleLog</key>
@@ -88,238 +43,13 @@
 			<key>signature</key>
 			<string>Run Runner</string>
 			<key>timeStartedRecording</key>
-			<real>709302749.46458995</real>
+			<real>709308025.49442005</real>
 			<key>timeStoppedRecording</key>
 			<real>0.0</real>
 			<key>title</key>
 			<string>Run Runner</string>
 			<key>uniqueIdentifier</key>
-			<string>29150CDC-3142-4EBE-9052-A9F83057E9D6</string>
-		</dict>
-		<key>2A665598-4889-4269-8C04-593401697F33</key>
-		<dict>
-			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>AE3006D0-0CE4-4459-A358-9ED63D7E8E6D</string>
-			<key>auxiliaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>className</key>
-			<string>IDESchemeActionsInvocationRecord</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
-			<key>fileName</key>
-			<string>Run-Runner-2023.06.24_21-59-17-+0800.xcresult</string>
-			<key>hasAuxiliaryLog</key>
-			<true/>
-			<key>hasConsoleLog</key>
-			<true/>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Runner project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Runner</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Run Runner</string>
-			<key>timeStartedRecording</key>
-			<real>709307957.02352202</real>
-			<key>timeStoppedRecording</key>
-			<real>0.0</real>
-			<key>title</key>
-			<string>Run Runner</string>
-			<key>uniqueIdentifier</key>
-			<string>2A665598-4889-4269-8C04-593401697F33</string>
-		</dict>
-		<key>5E629DCF-FA34-41EF-B5A5-D8DBAA074FC2</key>
-		<dict>
-			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>3D2C4F2D-48E3-41D3-837E-4F2D03D0CF92</string>
-			<key>auxiliaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>className</key>
-			<string>IDESchemeActionsInvocationRecord</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
-			<key>fileName</key>
-			<string>Run-Runner-2023.06.24_20-27-59-+0800.xcresult</string>
-			<key>hasAuxiliaryLog</key>
-			<true/>
-			<key>hasConsoleLog</key>
-			<true/>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Runner project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Runner</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Run Runner</string>
-			<key>timeStartedRecording</key>
-			<real>709302479.17901695</real>
-			<key>timeStoppedRecording</key>
-			<real>0.0</real>
-			<key>title</key>
-			<string>Run Runner</string>
-			<key>uniqueIdentifier</key>
-			<string>5E629DCF-FA34-41EF-B5A5-D8DBAA074FC2</string>
-		</dict>
-		<key>AFAA5EFF-1880-4D3C-A040-1E9EFB4BA0F3</key>
-		<dict>
-			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>E18200D3-BB4A-4FB8-9FC8-2C12B6C035BE</string>
-			<key>auxiliaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>W</string>
-			</dict>
-			<key>className</key>
-			<string>IDESchemeActionsInvocationRecord</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
-			<key>fileName</key>
-			<string>Run-Runner-2023.06.24_20-43-34-+0800.xcresult</string>
-			<key>hasAuxiliaryLog</key>
-			<true/>
-			<key>hasConsoleLog</key>
-			<true/>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>W</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Runner project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Runner</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Run Runner</string>
-			<key>timeStartedRecording</key>
-			<real>709303414.79546297</real>
-			<key>timeStoppedRecording</key>
-			<real>0.0</real>
-			<key>title</key>
-			<string>Run Runner</string>
-			<key>uniqueIdentifier</key>
-			<string>AFAA5EFF-1880-4D3C-A040-1E9EFB4BA0F3</string>
-		</dict>
-		<key>B4ED0333-3D74-4757-9783-89651BF52E66</key>
-		<dict>
-			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>EDBCD284-9814-4B8F-A2B5-75F3CE7CE507</string>
-			<key>auxiliaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>E</string>
-			</dict>
-			<key>className</key>
-			<string>IDESchemeActionsInvocationRecord</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
-			<key>fileName</key>
-			<string>Run-Runner-2023.06.24_20-18-31-+0800.xcresult</string>
-			<key>hasAuxiliaryLog</key>
-			<true/>
-			<key>hasConsoleLog</key>
-			<true/>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>E</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Runner project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Runner</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Run Runner</string>
-			<key>timeStartedRecording</key>
-			<real>709301911.45113504</real>
-			<key>timeStoppedRecording</key>
-			<real>0.0</real>
-			<key>title</key>
-			<string>Run Runner</string>
-			<key>uniqueIdentifier</key>
-			<string>B4ED0333-3D74-4757-9783-89651BF52E66</string>
-		</dict>
-		<key>D323F41C-55C1-4F85-B6FB-9E1F1150E100</key>
-		<dict>
-			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>4F18F1B3-77DD-4A96-9467-5F00D95511D5</string>
-			<key>auxiliaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>W</string>
-			</dict>
-			<key>className</key>
-			<string>IDESchemeActionsInvocationRecord</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
-			<key>fileName</key>
-			<string>Run-Runner-2023.06.24_20-44-35-+0800.xcresult</string>
-			<key>hasAuxiliaryLog</key>
-			<true/>
-			<key>hasConsoleLog</key>
-			<true/>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>W</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Runner project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Runner</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Run Runner</string>
-			<key>timeStartedRecording</key>
-			<real>709303475.58646297</real>
-			<key>timeStoppedRecording</key>
-			<real>0.0</real>
-			<key>title</key>
-			<string>Run Runner</string>
-			<key>uniqueIdentifier</key>
-			<string>D323F41C-55C1-4F85-B6FB-9E1F1150E100</string>
+			<string>116DEF76-A183-40D3-8E6D-AF5C05E0EECC</string>
 		</dict>
 	</dict>
 </dict>
