@@ -17,7 +17,7 @@
   "organization": "组织",
   "api_host": "解析网址",
   "api_host_optional": "解析网址（可选）",
-  "manage_api_keys": "管理 API keys",
+  "manage_api_keys": "管理API keys",
   "chat_parameters": "聊天参数",
   "model": "模型",
   "history_limit": "记录限制",
