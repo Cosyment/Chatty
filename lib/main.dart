@@ -11,6 +11,7 @@ import 'screens/screens.dart';
 import 'services/chat_service.dart';
 import 'services/local_storage_service.dart';
 import 'util/extend_http_client.dart';
+import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,31 +21,47 @@ void main() async {
   final chatService = ChatService(apiServer: openAiApi);
 
   // TODO: init token service in background to speed up ChatScreen on the first load
-
   runZonedGuarded(
     () => runApp(App(chatService: chatService)),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key, required this.chatService});
 
   final ChatService chatService;
 
   @override
+  State<StatefulWidget> createState() => _AppState(chatService);
+}
+
+class _AppState extends State<App> {
+  _AppState(this.chatService);
+
+  final ChatService chatService;
+
+  @override
+  void initState() {
+    super.initState();
+
+    //友盟初始化
+    UmengCommonSdk.initCommon('64979b89a1a164591b38ceda' /*Android AppKey*/,
+        '6496a96887568a379b5ce593' /*ios AppKey*/, 'Chatbot');
+    UmengCommonSdk.setPageCollectionModeManual();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
-      value: chatService,
-      child: BlocProvider(
-        create: (context) => ConversationsBloc(
-          chatService: context.read<ChatService>(),
-        )..add(const ConversationsRequested()),
-        child: MaterialApp(
-          theme: ThemeData.dark(useMaterial3: true),
-          home: const ConversationScreenPage(),
-        )
-      )
-    );
+        value: chatService,
+        child: BlocProvider(
+            create: (context) => ConversationsBloc(
+                  chatService: context.read<ChatService>(),
+                )..add(const ConversationsRequested()),
+            child: MaterialApp(
+              theme: ThemeData.dark(useMaterial3: true),
+              home: const ConversationScreenPage(),
+            )));
   }
 }
