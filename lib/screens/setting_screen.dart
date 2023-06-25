@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../services/local_storage_service.dart';
 import '../util/string_util.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -17,7 +18,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-
   String apiKey = LocalStorageService().apiKey;
   String organization = LocalStorageService().organization;
   String apiHost = LocalStorageService().apiHost;
@@ -27,43 +27,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   final _textFieldController = TextEditingController();
 
-  Future openStringDialog (BuildContext context, String title, String hintText) => showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(title),
-          content: TextField(
-            controller: _textFieldController,
-            decoration: InputDecoration(hintText: hintText),
-          ),
-          actions: <Widget>[
+  Future openStringDialog(
+          BuildContext context, String title, String hintText) =>
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(title),
+              content: TextField(
+                controller: _textFieldController,
+                decoration: InputDecoration(hintText: hintText),
+              ),
+              actions: <Widget>[
                 TextButton(
-                  child: const Text('Cancel'),
+                  child: Text(AppLocalizations.of(context)!.cancel),
                   onPressed: () =>
                       Navigator.pop(context, _textFieldController.text),
                 ),
                 ElevatedButton(
-                  child: const Text('OK'),
+                  child: Text(AppLocalizations.of(context)!.ok),
                   onPressed: () =>
                       Navigator.pop(context, _textFieldController.text),
                 ),
               ],
-        );
-      }
-  );
+            );
+          });
 
   String obscureApiKey(String apiKey) {
     if (apiKey.length < 7) {
-      return 'Invalid API Key';
+      return AppLocalizations.of(context)!.invalid_api_key;
     }
     if (apiKey.substring(0, 3) != 'sk-') {
-      return 'Invalid API Key';
+      return AppLocalizations.of(context)!.invalid_api_key;
     }
     return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 4, LocalStorageService().apiKey.length)}';
   }
 
   String shortValue(String value) {
-    if (!kIsWeb&&Platform.isIOS && value != null && value.length >= 10) {
+    if (!kIsWeb && Platform.isIOS && value != null && value.length >= 10) {
       return " ${value.substring(0, 15)}...";
     }
     return value;
@@ -81,13 +82,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings)),
       body: SettingsList(
         sections: [
           SettingsSection(
-            title: const Text('Authentication'),
+            title: Text(AppLocalizations.of(context)!.authentication),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.key),
@@ -98,7 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: SizedBox(
                     child: Text(
                   LocalStorageService().apiKey == ''
-                      ? 'Add your secret API key'
+                      ? AppLocalizations.of(context)!.add_your_secret_api_key
                       : obscureApiKey(LocalStorageService().apiKey),
                   overflow: TextOverflow.ellipsis,
                 )),
@@ -115,7 +115,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.group),
-                title: const Text('Organization', softWrap: false),
+                title: Text(AppLocalizations.of(context)!.organization,
+                    softWrap: false),
                 value: SizedBox(
                     child: Text(
                         LocalStorageService().organization == ''
@@ -126,7 +127,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onPressed: (context) async {
                   _textFieldController.text =
                       LocalStorageService().organization;
-                  var result = await openStringDialog(context, 'Organization',
+                  var result = await openStringDialog(
+                          context,
+                          AppLocalizations.of(context)!.organization,
                           'Organization ID like org-.......') ??
                       '';
                   LocalStorageService().organization = result;
@@ -137,7 +140,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.flight_takeoff),
-                title: const Text('API Host', softWrap: false),
+                title: Text(AppLocalizations.of(context)!.api_host,
+                    softWrap: false),
                 value: SizedBox(
                     child: Text(
                   shortValue(
@@ -147,7 +151,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _textFieldController.text = LocalStorageService().apiHost;
                   var result = await openStringDialog(
                           context,
-                          'API Host (optional)',
+                          AppLocalizations.of(context)!.api_host_optional,
                           'URL like https://api.openai.com') ??
                       '';
                   LocalStorageService().apiHost = result;
@@ -158,7 +162,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.open_in_new),
-                title: const Text('Manage API keys', softWrap: false),
+                title: Text(AppLocalizations.of(context)!.manage_api_keys,
+                    softWrap: false),
                 value: SizedBox(
                     child: Text(
                   shortValue('https://platform.openai.com/account/api-keys'),
@@ -174,11 +179,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
           SettingsSection(
-              title: const Text('Chat Parameters'),
+              title: Text(AppLocalizations.of(context)!.chat_parameters),
               tiles: <SettingsTile>[
                 SettingsTile(
                   leading: const Icon(Icons.view_in_ar),
-                  title: const Text('Model'),
+                  title: Text(AppLocalizations.of(context)!.model),
                   value: Text(LocalStorageService().model),
                   trailing: PopupMenuButton(
                     icon: const Icon(Icons.more_vert),
@@ -208,7 +213,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 SettingsTile(
                   leading: const Icon(Icons.history),
-                  title: const Text('History Limit'),
+                  title: Text(AppLocalizations.of(context)!.history_limit),
                   value: Text(LocalStorageService().historyCount.toString()),
                   trailing: PopupMenuButton(
                     icon: const Icon(Icons.more_vert),
@@ -251,11 +256,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ]),
           SettingsSection(
-              title: const Text('Appearance'),
+              title: Text(AppLocalizations.of(context)!.appearance),
               tiles: <SettingsTile>[
                 SettingsTile(
                   leading: const Icon(Icons.text_format),
-                  title: const Text('Render Mode'),
+                  title: Text(AppLocalizations.of(context)!.render_mode),
                   value: Text(getRenderModeDescription(
                       LocalStorageService().renderMode)),
                   trailing: PopupMenuButton(
@@ -281,32 +286,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
               ]),
-          SettingsSection(title: const Text('About'), tiles: <SettingsTile>[
-            SettingsTile.navigation(
-              leading: const Icon(Icons.privacy_tip_outlined),
-              title: const Text('Privacy', softWrap: false),
-              value: SizedBox(
-                  child: Text(
-                shortValue('https://chat.cosyment.com/privacy.html'),
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-              )),
-              onPressed: (context) async {
-                await launchUrl(
-                    Uri.parse('https://chat.cosyment.com/privacy.html'),
-                    mode: LaunchMode.externalApplication);
-              },
-            ),
-            SettingsTile(
-              leading: const Icon(Icons.info_outline),
-              title: const Text('Version', softWrap: false),
-              value: FutureBuilder<PackageInfo>(
-                  future: PackageInfo.fromPlatform(),
-                  builder: (context, packageInfo) {
-                    return Text("v${packageInfo.data?.version}");
-                  }),
-            ),
-          ])
+          SettingsSection(
+              title: Text(AppLocalizations.of(context)!.about),
+              tiles: <SettingsTile>[
+                SettingsTile.navigation(
+                  leading: const Icon(Icons.privacy_tip_outlined),
+                  title: Text(AppLocalizations.of(context)!.privacy,
+                      softWrap: false),
+                  value: SizedBox(
+                      child: Text(
+                    shortValue('https://chat.cosyment.com/privacy.html'),
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.ellipsis,
+                  )),
+                  onPressed: (context) async {
+                    await launchUrl(
+                        Uri.parse('https://chat.cosyment.com/privacy.html'),
+                        mode: LaunchMode.externalApplication);
+                  },
+                ),
+                SettingsTile(
+                  leading: const Icon(Icons.info_outline),
+                  title: Text(AppLocalizations.of(context)!.version,
+                      softWrap: false),
+                  value: FutureBuilder<PackageInfo>(
+                      future: PackageInfo.fromPlatform(),
+                      builder: (context, packageInfo) {
+                        return Text("v${packageInfo.data?.version}");
+                      }),
+                ),
+              ])
         ],
       ),
     );

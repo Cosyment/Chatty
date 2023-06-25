@@ -8,13 +8,13 @@ import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConversationScreenPage extends StatelessWidget {
   const ConversationScreenPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return const TabletScreenPage(
       sidebar: ConversationScreen(),
       body: EmptyChatWidget(),
@@ -44,7 +44,7 @@ class ConversationScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Conversations'),
+          title: Text(AppLocalizations.of(context)!.conversations),
           automaticallyImplyLeading: false,
           actions: <Widget>[
             // IconButton(
@@ -91,7 +91,8 @@ class ConversationScreen extends StatelessWidget {
                               bloc.add(const ConversationsRequested());
                             }
                           },
-                          label: const Text('New Conversation'),
+                          label: Text(
+                              AppLocalizations.of(context)!.new_conversation),
                           icon: const Icon(Icons.add_box)),
                       const SizedBox(
                         height: 6,
@@ -102,7 +103,7 @@ class ConversationScreen extends StatelessWidget {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (_) => const SettingsScreen()));
                         },
-                        label: const Text('Settings'),
+                        label: Text(AppLocalizations.of(context)!.settings),
                         icon: const Icon(Icons.settings),
                       ),
                       const SizedBox(
@@ -113,8 +114,8 @@ class ConversationScreen extends StatelessWidget {
                           builder: (context, packageInfo) {
                             return TextButton.icon(
                               onPressed: () {},
-                              label:
-                                  Text("Version: v${packageInfo.data?.version}"),
+                              label: Text(
+                                  "${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}"),
                               icon: const Icon(Icons.info),
                             );
                           })

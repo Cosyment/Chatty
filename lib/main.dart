@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
 
 import 'api/openai_api.dart';
@@ -12,6 +14,7 @@ import 'services/chat_service.dart';
 import 'services/local_storage_service.dart';
 import 'util/extend_http_client.dart';
 import 'package:umeng_common_sdk/umeng_common_sdk.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +28,7 @@ void main() async {
     () => runApp(App(chatService: chatService)),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
+  BindingBase.debugZoneErrorsAreFatal = false;
 }
 
 class App extends StatefulWidget {
@@ -60,6 +64,13 @@ class _AppState extends State<App> {
                   chatService: context.read<ChatService>(),
                 )..add(const ConversationsRequested()),
             child: MaterialApp(
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate
+              ],
+              supportedLocales: [Locale('en'), Locale('zh')],
               theme: ThemeData.dark(useMaterial3: true),
               home: const ConversationScreenPage(),
             )));

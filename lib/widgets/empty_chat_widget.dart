@@ -9,6 +9,7 @@ import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../util/android_back_desktop.dart';
 import 'conversation_edit_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmptyChatWidget extends StatelessWidget {
   const EmptyChatWidget({super.key});
@@ -35,34 +36,38 @@ class EmptyChatWidget extends StatelessWidget {
     return WillPopScope(
         onWillPop: _onBackPressed,
         child: Scaffold(
-          body: const SafeArea(
+          body: SafeArea(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.chat,
                     size: 100,
                   ),
-                  Text('Create or choose a conversation to start'),
-                  SizedBox(height: 150,)
+                  Text(AppLocalizations.of(context)!
+                      .create_conversation_to_start),
+                  const SizedBox(
+                    height: 150,
+                  )
                 ],
+              ),
+            ),
           ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          var newConversation = await showConversationDialog(
-              context, false, Conversation.create());
-          if (newConversation != null) {
-            await chatService.updateConversation(newConversation);
-            var savedConversation =
-                chatService.getConversationById(newConversation.id)!;
-            if (context.mounted) {
-              LocalStorageService().currentConversationId = newConversation.id;
-              if (Navigator.of(context).canPop()) {
-                Navigator.of(context)
-                    .pushReplacement(ChatScreenPage.route(savedConversation));
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              var newConversation = await showConversationDialog(
+                  context, false, Conversation.create());
+              if (newConversation != null) {
+                await chatService.updateConversation(newConversation);
+                var savedConversation =
+                    chatService.getConversationById(newConversation.id)!;
+                if (context.mounted) {
+                  LocalStorageService().currentConversationId =
+                      newConversation.id;
+                  if (Navigator.of(context).canPop()) {
+                    Navigator.of(context).pushReplacement(
+                        ChatScreenPage.route(savedConversation));
                   } else {
                     Navigator.of(context)
                         .push(ChatScreenPage.route(savedConversation));

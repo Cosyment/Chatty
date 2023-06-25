@@ -10,6 +10,7 @@ import '../services/local_storage_service.dart';
 import '../services/token_service.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChatScreenPage extends StatelessWidget {
   const ChatScreenPage({super.key});
@@ -86,9 +87,9 @@ class _ChatScreenState extends State<ChatScreen> {
       showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
-          return const ConfirmDialog(
-            title: 'Clear conversation',
-            content: 'Would you like to clear conversation history?',
+          return ConfirmDialog(
+            title: AppLocalizations.of(context)!.clear_conversation,
+            content: AppLocalizations.of(context)!.clear_conversation_tips,
           );
         },
       );
@@ -158,7 +159,7 @@ class _ChatScreenState extends State<ChatScreen> {
           SnackBar(
             content: Text(conversation.error),
             action: SnackBarAction(
-              label: 'Resend',
+              label: AppLocalizations.of(context)!.resend,
               onPressed: () {
                 BlocProvider.of<ChatBloc>(context)
                     .add(ChatSubmitted(conversation));
@@ -190,14 +191,15 @@ class _ChatScreenState extends State<ChatScreen> {
                     PopupMenuButton(
                       icon: const Icon(Icons.more_vert),
                       itemBuilder: (context) {
-                        return const [
+                        return [
                           PopupMenuItem(
                             value: 'edit',
-                            child: Text('Edit'),
+                            child: Text(AppLocalizations.of(context)!.edit),
                           ),
                           PopupMenuItem(
                             value: 'clear',
-                            child: Text('Clear conversation'),
+                            child: Text(AppLocalizations.of(context)!
+                                .clear_conversation),
                           ),
                         ];
                       },
@@ -354,8 +356,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         children: [
                           Expanded(
                             child: TextField(
-                              decoration: const InputDecoration(
-                                  hintText: 'Send a message...',
+                              decoration: InputDecoration(
+                                  hintText: AppLocalizations.of(context)!
+                                      .send_a_message,
                                   border: InputBorder.none),
                               controller: _textEditingController,
                               focusNode: _focusNode,

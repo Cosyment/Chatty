@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../models/models.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConversationEditDialog extends StatefulWidget {
   final Conversation conversation;
   final bool isEdit;
 
-  const ConversationEditDialog({
-    required this.conversation,
-    this.isEdit = false,
-    super.key
-  });
+  const ConversationEditDialog(
+      {required this.conversation, this.isEdit = false, super.key});
 
   @override
   State<ConversationEditDialog> createState() => _ConversationEditDialogState();
@@ -50,31 +48,39 @@ class _ConversationEditDialogState extends State<ConversationEditDialog> {
               TextFormField(
                 controller: _titleEditingController,
                 validator: (value) {
-                  return value != null && value.isEmpty ? 'Title should not be empty' : null;
+                  return value != null && value.isEmpty
+                      ? AppLocalizations.of(context)!.title_should_not_be_empty
+                      : null;
                 },
-                decoration: const InputDecoration(hintText: 'Enter a conversation title'),
+                decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!
+                        .enter_a_conversation_title),
               ),
               TextFormField(
                 controller: _systemMessageEditingController,
                 maxLines: 3,
-                decoration: const InputDecoration(hintText: 'Message to help set the behavior of the SmartAIRobot'),
+                decoration: InputDecoration(
+                    hintText:
+                        '${AppLocalizations.of(context)!.message_to_help_set_the_behavior_of_the} ${AppLocalizations.of(context)!.appName}'),
               ),
             ],
-          )
-      ),
-      title: Text(widget.isEdit? 'Edit conversation' : 'New conversation'),
+          )),
+      title: Text(widget.isEdit
+          ? AppLocalizations.of(context)!.edit_conversation
+          : AppLocalizations.of(context)!.new_conversation),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context)!.cancel),
           onPressed: () => Navigator.of(context).pop(),
         ),
         ElevatedButton(
-          child: const Text('OK'),
+          child: Text(AppLocalizations.of(context)!.ok),
           onPressed: () {
-            if (_formKey.currentState == null || !_formKey.currentState!.validate())
-              return;
+            if (_formKey.currentState == null ||
+                !_formKey.currentState!.validate()) return;
             widget.conversation.title = _titleEditingController.text;
-            widget.conversation.systemMessage = _systemMessageEditingController.text;
+            widget.conversation.systemMessage =
+                _systemMessageEditingController.text;
             if (!widget.isEdit)
               widget.conversation.lastUpdated = DateTime.now();
             Navigator.of(context).pop(widget.conversation);
@@ -83,5 +89,4 @@ class _ConversationEditDialogState extends State<ConversationEditDialog> {
       ],
     );
   }
-
 }

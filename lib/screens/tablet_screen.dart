@@ -11,6 +11,7 @@ import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../widgets/confirm_dialog.dart';
 import '../widgets/conversation_edit_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TabletScreenPage extends StatelessWidget {
   final Widget sidebar;
@@ -36,9 +37,9 @@ class TabletScreenPage extends StatelessWidget {
       showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
-          return const ConfirmDialog(
-            title: 'Clear conversation',
-            content: 'Would you like to clear conversation history?',
+          return ConfirmDialog(
+            title: AppLocalizations.of(context)!.clear_conversation,
+            content: AppLocalizations.of(context)!.clear_conversation_tips,
           );
         },
       );
@@ -49,7 +50,7 @@ class TabletScreenPage extends StatelessWidget {
     var conversation = chatService
         .getConversationById(LocalStorageService().currentConversationId);
     var title = (conversation?.title == null || body is EmptyChatWidget)
-        ? 'Chat'
+        ? 'ChatBot'
         : conversation?.title;
 
     ChatBloc? chatBloc;
@@ -61,7 +62,7 @@ class TabletScreenPage extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-      var size = MediaQuery.of(context).size;
+        var size = MediaQuery.of(context).size;
         if (size.width > size.height) {
           return Row(
             children: [
@@ -94,14 +95,15 @@ class TabletScreenPage extends StatelessWidget {
                   PopupMenuButton(
                     icon: const Icon(Icons.more_vert),
                     itemBuilder: (context) {
-                      return const [
+                      return [
                         PopupMenuItem(
                           value: 'edit',
-                          child: Text('Edit'),
+                          child: Text(AppLocalizations.of(context)!.edit),
                         ),
                         PopupMenuItem(
                           value: 'clear',
-                          child: Text('Clear conversation'),
+                          child: Text(AppLocalizations.of(context)!
+                              .clear_conversation),
                         ),
                       ];
                     },

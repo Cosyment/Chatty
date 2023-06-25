@@ -54,30 +54,30 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    buildTypes {
-//        debug {
-//            minifyEnabled false
-//            shrinkResources false
-//            zipAlignEnabled false
-//            signingConfig signingConfigs.config
-//            versionNameSuffix "-test"
-////            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
-//        release {
-//            minifyEnabled true
-//            shrinkResources true
-//            zipAlignEnabled true
-//            signingConfig signingConfigs.config
-////            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
-    }
-
     signingConfigs {
         config {//签名配置
             storeFile file("../smartairobot.jks")
             keyAlias "smartairobot"
             storePassword "1q2w3e4r5t~Q"
             keyPassword "1q2w3e4r5t~Q"
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            signingConfig signingConfigs.config
+            versionNameSuffix "-test"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }

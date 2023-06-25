@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConfirmDialog extends StatelessWidget {
   final String title;
@@ -17,11 +18,11 @@ class ConfirmDialog extends StatelessWidget {
       content: Text(content),
       actions: [
         TextButton(
-          child: const Text('Cancel'),
+          child:  Text(AppLocalizations.of(context)!.cancel),
           onPressed: () => Navigator.pop(context, false),
         ),
         ElevatedButton(
-          child: const Text('OK'),
+          child:  Text(AppLocalizations.of(context)!.ok),
           onPressed: () => Navigator.pop(context, true),
         ),
       ],
