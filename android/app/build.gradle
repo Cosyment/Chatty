@@ -56,8 +56,8 @@ android {
 
     signingConfigs {
         config {//签名配置
-            storeFile file("../smartairobot.jks")
-            keyAlias "smartairobot"
+            storeFile file("../chatbotty.jks")
+            keyAlias "chatbotty"
             storePassword "1q2w3e4r5t~Q"
             keyPassword "1q2w3e4r5t~Q"
         }
