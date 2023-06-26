@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
+import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
 import 'api/openai_api.dart';
 import 'bloc/blocs.dart';
@@ -13,8 +16,6 @@ import 'screens/screens.dart';
 import 'services/chat_service.dart';
 import 'services/local_storage_service.dart';
 import 'util/extend_http_client.dart';
-import 'package:umeng_common_sdk/umeng_common_sdk.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,10 +50,11 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
 
-    //友盟初始化
-    UmengCommonSdk.initCommon('64979b89a1a164591b38ceda' /*Android AppKey*/,
-        '6496a96887568a379b5ce593' /*ios AppKey*/, 'Chatbotty');
-    UmengCommonSdk.setPageCollectionModeManual();
+    if (Platform.isAndroid || Platform.isIOS) {
+      //友盟初始化
+      UmengCommonSdk.initCommon('64979b89a1a164591b38ceda' /*Android AppKey*/,
+          '6496a96887568a379b5ce593' /*ios AppKey*/, 'Chatbotty');
+    }
   }
 
   @override
