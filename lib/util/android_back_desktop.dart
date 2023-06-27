@@ -14,7 +14,6 @@ class AndroidBackTop {
       if (out) debugPrint('返回到桌面');
     } on PlatformException catch (e) {
       debugPrint("通信失败(设置回退到安卓手机桌面:设置失败)");
-      print(e.toString());
     }
     return Future.value(false);
   }

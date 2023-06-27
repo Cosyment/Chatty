@@ -49,7 +49,6 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-
     if (Platform.isAndroid || Platform.isIOS) {
       //友盟初始化
       UmengCommonSdk.initCommon('64979b89a1a164591b38ceda' /*Android AppKey*/,
@@ -72,8 +71,9 @@ class _AppState extends State<App> {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate
               ],
-              supportedLocales: [Locale('en'), Locale('zh')],
+              supportedLocales: const [Locale('en'), Locale('zh')],
               theme: ThemeData.dark(useMaterial3: true),
+              debugShowCheckedModeBanner: false,
               home: const ConversationScreenPage(),
             )));
   }

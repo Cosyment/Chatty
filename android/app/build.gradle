@@ -1,8 +1,7 @@
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
+    localPropertiesFile.withReader('UTF-8') { reader -> localProperties.load(reader)
     }
 }
 
@@ -21,12 +20,28 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+/// 获取渠道参数使用,这里设置一下默认值
+def dartEnvironmentVariables = [APP_CHANNEL: 'main',
+                                OTHER_VAR  : 'other',]
+
+if (project.hasProperty('dart-defines')) {
+    dartEnvironmentVariables = dartEnvironmentVariables + project.property('dart-defines')
+            .split(',')
+            .collectEntries { entry ->
+                // 1.22.6 版本
+                //def pair = URLDecoder.decode(entry).split('=')
+                // 2.2 版本
+                def pair = new String(entry.decodeBase64(), 'UTF-8').split('=')
+                [(pair.first()): pair.last()]
+            }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    namespace "com.waiting.smart.airobot"
+    namespace 'com.waiting.smart.airobot'
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -39,6 +54,8 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode 2
         versionName flutterVersionName
+
+        consumerProguardFiles 'proguard-rules.pro'
     }
 
     compileOptions {
@@ -65,9 +82,9 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled false
-            shrinkResources false
-            zipAlignEnabled false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
             signingConfig signingConfigs.config
             versionNameSuffix "-test"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -80,6 +97,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if(variant.buildType.name == "release"){
+                // 获取版本
+                def versionName = variant.versionName
+                def versionCode = variant.versionName
+                // 设置新名称
+                def newApkName ="app_v${defaultConfig.versionName}_${defaultConfig.versionCode}_channel_${dartEnvironmentVariables.APP_CHANNEL}.apk"
+                outputFileName = new File(newApkName)
+            }
+        }
+    }
 }
 
 flutter {
@@ -88,4 +118,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api  'com.umeng.umsdk:common:9.5.6'// 必选
+    api  'com.umeng.umsdk:asms:1.6.3'// 必选
 }

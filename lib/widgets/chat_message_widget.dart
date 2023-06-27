@@ -16,7 +16,7 @@ class ChatMessageWidget extends StatefulWidget {
 }
 
 class _ChatMessageWidgetState extends State<ChatMessageWidget> {
-  bool _showContextMenu = false;
+  final bool _showContextMenu = false;
 
   @override
   Widget build(BuildContext context) {

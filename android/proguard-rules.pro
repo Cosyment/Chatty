@@ -20,29 +20,32 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-dontwarn io.flutter.**
+-keep class io.flutter.app.** { *; }
+-keep class io.flutter.plugin.**  { *; }
+-keep class io.flutter.util.**  { *; }
+-keep class io.flutter.view.**  { *; }
+-keep class io.flutter.**  { *; }
+-keep class io.flutter.plugins.**  { *; }
+
 -keep public class com.waiting.smart.airobot.R$*{
     public static final int *;
 }
 
 -keep class com.umeng.** {*;}
+
 -keep class org.repackage.** {*;}
+
 -keepclassmembers class * {
    public <init> (org.json.JSONObject);
 }
+
 -keepclassmembers enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
 
-#过滤okhttp
--dontwarn com.squareup.okhttp3.**
--keep class com.squareup.okhttp3.** { *;}
--dontwarn okio.**
-
 -keepattributes Signature
--keep class com.zh.pocket.**{*;}
 
 -keepattributes SourceFile,LineNumberTable        # Keep file names and line numbers.
 -keep public class * extends java.lang.Exception  # Optional: Keep custom exceptions.
-
--keep class io.flutter.plugin.** { *; }
