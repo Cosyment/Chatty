@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "appName": "Chatbotty",
   "chat": "Chat",
   "conversations": "Conversations",

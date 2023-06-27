@@ -101,7 +101,7 @@ class ConversationScreen extends StatelessWidget {
                         onPressed: () {
                           closeDrawer();
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => const SettingsScreen()));
+                              builder: (_) => const SettingsScreenPage()));
                         },
                         label: Text(AppLocalizations.of(context)!.settings),
                         icon: const Icon(Icons.settings),

@@ -2,22 +2,22 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../services/local_storage_service.dart';
 import '../util/string_util.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+class SettingsScreenPage extends StatefulWidget {
+  const SettingsScreenPage({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  State<SettingsScreenPage> createState() => _SettingsScreenPageState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _SettingsScreenPageState extends State<SettingsScreenPage> {
   String apiKey = LocalStorageService().apiKey;
   String organization = LocalStorageService().organization;
   String apiHost = LocalStorageService().apiHost;

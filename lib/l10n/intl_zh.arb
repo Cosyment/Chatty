@@ -1,4 +1,5 @@
 {
+  "@@locale": "zh",
   "appName": "Chatbotty",
   "chat": "对话",
   "conversations": "会话",

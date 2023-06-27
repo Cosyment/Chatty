@@ -33,6 +33,7 @@
 }
 
 -keep class com.umeng.** {*;}
+-keep class com.umeng.analytics.a.** {*;}
 
 -keep class org.repackage.** {*;}
 
