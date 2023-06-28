@@ -33,19 +33,23 @@ class TokenService {
   }
 
   static List<ConversationMessage> getEffectiveMessages(Conversation conversation, String pendingMessage) {
-    if (conversation.messages.isEmpty)
+    if (conversation.messages.isEmpty) {
       return [];
+    }
     int remainingToken = getTokenLimit() - getToken(conversation.systemMessage) - getToken(pendingMessage);
-    if (remainingToken <= 0)
+    if (remainingToken <= 0) {
       return [];
+    }
     int historyCount = LocalStorageService().historyCount;
     // newest user message doesn't belong to history
-    if ((pendingMessage.isNotEmpty) || (conversation.messages.isNotEmpty && conversation.messages.last.role == 'user'))
+    if ((pendingMessage.isNotEmpty) || (conversation.messages.isNotEmpty && conversation.messages.last.role == 'user')) {
       historyCount += 1;
+    }
     List<ConversationMessage> effectiveMessages = [];
     for (final m in conversation.messages.reversed) {
-      if (effectiveMessages.length >= historyCount)
+      if (effectiveMessages.length >= historyCount) {
         break;
+      }
       if (m.content.isEmpty) {
         effectiveMessages.insert(0, m);
       } else {
@@ -62,20 +66,24 @@ class TokenService {
   }
 
   static int getEffectiveMessagesToken(Conversation conversation, String pendingMessage) {
-    if (conversation.messages.isEmpty)
+    if (conversation.messages.isEmpty) {
       return 0;
+    }
     int remainingToken = getTokenLimit() - getToken(conversation.systemMessage)  - getToken(pendingMessage);
-    if (remainingToken <= 0)
+    if (remainingToken <= 0) {
       return 0;
+    }
     int effectiveToken = 0;
     int historyCount = LocalStorageService().historyCount;
     // newest user message doesn't belong to history
-    if ((pendingMessage.isNotEmpty) || (conversation.messages.isNotEmpty && conversation.messages.last.role == 'user'))
+    if ((pendingMessage.isNotEmpty) || (conversation.messages.isNotEmpty && conversation.messages.last.role == 'user')) {
       historyCount += 1;
+    }
     List<ConversationMessage> effectiveMessages = [];
     for (final m in conversation.messages.reversed) {
-      if (effectiveMessages.length >= historyCount)
+      if (effectiveMessages.length >= historyCount) {
         break;
+      }
       if (m.content.isEmpty) {
         effectiveMessages.insert(0, m);
       } else {

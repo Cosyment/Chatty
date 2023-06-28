@@ -56,7 +56,7 @@ class _ChatScreenState extends State<ChatScreen> {
   late ScrollController _scrollController;
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
-  bool _showSystemMessage = false;
+  final bool _showSystemMessage = false;
 
   @override
   void initState() {
