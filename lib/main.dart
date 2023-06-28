@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:chatbotty/util/environment_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,8 +52,10 @@ class _AppState extends State<App> {
     super.initState();
     if (Platform.isAndroid || Platform.isIOS) {
       //友盟初始化
-      UmengCommonSdk.initCommon('64979b89a1a164591b38ceda' /*Android AppKey*/,
-          '6496a96887568a379b5ce593' /*ios AppKey*/, 'Chatbotty');
+      UmengCommonSdk.initCommon(
+          '64979b89a1a164591b38ceda' /*Android AppKey*/,
+          '6496a96887568a379b5ce593' /*ios AppKey*/,
+          EnvironmentConfig.APP_CHANNEL);
     }
   }
 

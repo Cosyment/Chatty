@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chatbotty/util/environment_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -312,7 +313,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   value: FutureBuilder<PackageInfo>(
                       future: PackageInfo.fromPlatform(),
                       builder: (context, packageInfo) {
-                        return Text("v${packageInfo.data?.version}");
+                        return Text(
+                            "v${packageInfo.data?.version}-${EnvironmentConfig.APP_CHANNEL}");
                       }),
                 ),
               ])

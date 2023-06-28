@@ -100,12 +100,12 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            if(variant.buildType.name == "release"){
+            if (variant.buildType.name == "release") {
                 // 获取版本
                 def versionName = variant.versionName
                 def versionCode = variant.versionName
                 // 设置新名称
-                def newApkName ="app_v${defaultConfig.versionName}_${defaultConfig.versionCode}_channel_${dartEnvironmentVariables.APP_CHANNEL}.apk"
+                def newApkName = "app_v${defaultConfig.versionName}_${defaultConfig.versionCode}_channel_${dartEnvironmentVariables.APP_CHANNEL}.apk"
                 outputFileName = new File(newApkName)
             }
         }

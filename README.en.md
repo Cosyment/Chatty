@@ -6,3 +6,7 @@
 
 build apk for channel command
 flutter build apk --dart-define=APP_CHANNEL=xxx-channel --dart-define=OTHER_VAR=Dart(optional)
+flutter build apk --dart-define=APP_CHANNEL=xiaomi//小米
+flutter build apk --dart-define=APP_CHANNEL=huawei//华为
+flutter build apk --dart-define=APP_CHANNEL=amazon//亚马逊
+flutter build apk --dart-define=APP_CHANNEL=google//谷歌
