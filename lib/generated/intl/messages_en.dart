@@ -33,7 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "authentication":
             MessageLookupByLibrary.simpleMessage("Authentication"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
-        "chat": MessageLookupByLibrary.simpleMessage("Chat"),
+        "chat": MessageLookupByLibrary.simpleMessage("閒聊"),
         "chat_parameters":
             MessageLookupByLibrary.simpleMessage("Chat Parameters"),
         "clear_conversation":

@@ -90,7 +90,7 @@ class CustomMarkdownWidget extends StatelessWidget {
         background = MdTextStyles.primaryLightValue;
         break;
       case kDarkTheme:
-        background = Color.fromARGB(0, 55, 1, 200);
+        background = const Color.fromARGB(0, 55, 1, 200);
         break;
     }
     return background;

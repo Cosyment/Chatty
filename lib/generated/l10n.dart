@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `Chat`
+  /// `閒聊`
   String get chat {
     return Intl.message(
-      'Chat',
+      '閒聊',
       name: 'chat',
       desc: '',
       args: [],
@@ -407,6 +407,9 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ja'),
+      Locale.fromSubtags(languageCode: 'ko'),
+      Locale.fromSubtags(languageCode: 'zh'),
       Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
