@@ -42,7 +42,9 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
                             ? Alignment.centerRight
                             : Alignment.centerLeft,
                         child: widget.isMarkdown
-                            ? CustomMarkdownWidget(
+                            ?
+                        // MarkdownBody(data: widget.message.content)
+                        CustomMarkdownWidget(
                                 markdownData: widget.message.content,
                               )
                             : SelectableText(widget.message.content)))),
