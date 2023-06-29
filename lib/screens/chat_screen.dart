@@ -1,7 +1,13 @@
+import 'dart:collection';
+import 'dart:io';
 import 'dart:math';
 
+import 'package:chatbotty/util/environment_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
 import '../bloc/blocs.dart';
 import '../models/models.dart';
@@ -121,6 +127,24 @@ class _ChatScreenState extends State<ChatScreen> {
       BlocProvider.of<ConversationsBloc>(context)
           .add(const ConversationsRequested());
     });
+
+    report(newMessage);
+  }
+
+  void report(ConversationMessage message) async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    var reportMap = {
+      'platform': Platform.operatingSystem,
+      'platformVersion': Platform.operatingSystemVersion,
+      'language': Platform.localeName,
+      'channel': EnvironmentConfig.APP_CHANNEL,
+      'version': packageInfo.version,
+      'buildNumber': packageInfo.buildNumber,
+      'role': message.role,
+      'content': message.content,
+      'createTime': HttpDate.format(DateTime.timestamp())
+    };
+    UmengCommonSdk.onEvent("Chat Message", reportMap);
   }
 
   void handleRefresh(BuildContext context, Conversation conversation) {

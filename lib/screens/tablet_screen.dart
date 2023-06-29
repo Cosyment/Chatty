@@ -143,6 +143,7 @@ class TabletScreenPage extends StatelessWidget {
                 ]),
             drawer: Drawer(
               //New added
+              width: 200.toDouble(),
               child: sidebar, //New added
             ), //New added
             body: Center(
