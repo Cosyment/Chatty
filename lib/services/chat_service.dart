@@ -64,8 +64,9 @@ class ChatService {
     } catch (e) {
       // drop 'Exception: '
       conversation.error = e.toString();
-      if (conversation.error.startsWith('Exception: '))
+      if (conversation.error.startsWith('Exception: ')) {
         conversation.error = conversation.error.substring(11);
+      }
       conversation.messages.last.isError = true;
     }
 
@@ -77,8 +78,9 @@ class ChatService {
 
   Future _handleErrorGetResponseStream(dynamic error, Conversation conversation) async {
     conversation.error = error.toString();
-    if (conversation.error.startsWith('Exception: '))
+    if (conversation.error.startsWith('Exception: ')) {
       conversation.error = conversation.error.substring(11);
+    }
     conversation.messages.last.isError = true;
     conversation.lastUpdated = DateTime.now();
     await updateConversation(conversation);
@@ -95,10 +97,12 @@ class ChatService {
 
     var responseStream = _apiServer.chatCompletionStream(messages);
     responseStream.listen((chatStream) {
-      if (chatStream.choices[0].delta.role.isNotEmpty)
+      if (chatStream.choices[0].delta.role.isNotEmpty) {
         conversation.messages.add(ConversationMessage(chatStream.choices[0].delta.role, ''));
-      if (chatStream.choices[0].delta.content.isNotEmpty)
+      }
+      if (chatStream.choices[0].delta.content.isNotEmpty) {
         conversation.messages.last.content += chatStream.choices[0].delta.content;
+      }
       conversation.lastUpdated = DateTime.now();
       conversationStream.add(conversation);
     },

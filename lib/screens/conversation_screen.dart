@@ -46,7 +46,7 @@ class ConversationScreen extends StatelessWidget {
       appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.conversations),
           automaticallyImplyLeading: false,
-          actions: <Widget>[
+          actions: const <Widget>[
             // IconButton(
             //   icon: const Icon(Icons.settings),
             //   onPressed: () {

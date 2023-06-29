@@ -34,7 +34,7 @@
 
 -keep class com.umeng.** {*;}
 -keep class com.umeng.analytics.a.** {*;}
-
+-keep class com.umeng.commonsdk.a.** {*;}
 -keep class org.repackage.** {*;}
 
 -keepclassmembers class * {

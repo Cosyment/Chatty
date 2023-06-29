@@ -114,7 +114,7 @@ class TabletScreenPage extends StatelessWidget {
                               context, true, conversation!);
                           if (newConversation != null) {
                             conversation.lastUpdated = DateTime.now();
-                            title = newConversation.title ?? '';
+                            title = newConversation.title;
                             await chatService
                                 .updateConversation(newConversation);
                             chatBloc?.add(ChatLastUpdatedChanged(

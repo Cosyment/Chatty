@@ -81,8 +81,9 @@ class _ConversationEditDialogState extends State<ConversationEditDialog> {
             widget.conversation.title = _titleEditingController.text;
             widget.conversation.systemMessage =
                 _systemMessageEditingController.text;
-            if (!widget.isEdit)
+            if (!widget.isEdit) {
               widget.conversation.lastUpdated = DateTime.now();
+            }
             Navigator.of(context).pop(widget.conversation);
           },
         ),
