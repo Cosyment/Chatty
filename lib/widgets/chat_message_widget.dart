@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 import '../models/models.dart';
+import 'markdown/custom _markdown_widget.dart';
 
 class ChatMessageWidget extends StatefulWidget {
   final ConversationMessage message;
@@ -41,8 +42,9 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
                             ? Alignment.centerRight
                             : Alignment.centerLeft,
                         child: widget.isMarkdown
-                            ? MarkdownBody(
-                                data: widget.message.content, selectable: true)
+                            ? CustomMarkdownWidget(
+                                markdownData: widget.message.content,
+                              )
                             : SelectableText(widget.message.content)))),
             isUser ? itemUser() : const SizedBox(),
           ],
