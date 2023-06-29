@@ -74,7 +74,14 @@ class _AppState extends State<App> {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate
               ],
-              supportedLocales: const [Locale('en'), Locale('zh'),Locale('ja'),Locale('ko'),Locale('zh_tw')],
+              supportedLocales: const [
+                Locale('en'),
+                Locale.fromSubtags(languageCode: 'zh'),
+                Locale.fromSubtags(
+                    languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+                Locale('ja'),
+                Locale('ko')
+              ],
               theme: ThemeData.dark(useMaterial3: true),
               debugShowCheckedModeBanner: false,
               home: const ConversationScreenPage(),
