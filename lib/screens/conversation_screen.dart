@@ -15,9 +15,18 @@ class ConversationScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TabletScreenPage(
-      sidebar: ConversationScreen(),
-      body: EmptyChatWidget(),
+    var chatService = context.read<ChatService>();
+    var conversation = chatService
+        .getConversationById(LocalStorageService().currentConversationId);
+
+    return TabletScreenPage(
+      sidebar: const ConversationScreen(),
+      body: conversation == null
+          ? const EmptyChatWidget()
+          : BlocProvider(
+              create: (context) => ChatBloc(
+                  chatService: chatService, initialConversation: conversation),
+              child: const ChatScreen()),
       mainView: TabletMainView.sidebar,
     );
   }
@@ -45,16 +54,7 @@ class ConversationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.conversations),
-          automaticallyImplyLeading: false,
-          actions: const <Widget>[
-            // IconButton(
-            //   icon: const Icon(Icons.settings),
-            //   onPressed: () {
-            //     Navigator.of(context).push(
-            //         MaterialPageRoute(builder: (_) => const SettingsScreen()));
-            //   },
-            // )
-          ]),
+          automaticallyImplyLeading: false),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

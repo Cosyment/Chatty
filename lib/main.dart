@@ -39,13 +39,10 @@ class App extends StatefulWidget {
   final ChatService chatService;
 
   @override
-  State<StatefulWidget> createState() => _AppState(chatService);
+  State<StatefulWidget> createState() => _AppState();
 }
 
 class _AppState extends State<App> {
-  _AppState(this.chatService);
-
-  final ChatService chatService;
 
   @override
   void initState() {
@@ -62,7 +59,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
-        value: chatService,
+        value: widget.chatService,
         child: BlocProvider(
             create: (context) => ConversationsBloc(
                   chatService: context.read<ChatService>(),
