@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import '../models/models.dart';
 
-enum ConversationsStatus { initial, loading, success, failure }
+enum ConversationsStatus { initial, clear, loading, success, failure }
 
 class ConversationsState extends Equatable {
   const ConversationsState({

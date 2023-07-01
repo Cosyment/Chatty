@@ -1,13 +1,13 @@
+import 'package:chatbotty/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:chatbotty/services/local_storage_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../bloc/blocs.dart';
 import '../models/models.dart';
 import '../screens/screens.dart';
 import '../services/chat_service.dart';
 import '../widgets/widgets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConversationListWidget extends StatefulWidget {
   final Conversation? selectedConversation;
@@ -35,8 +35,7 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
     super.dispose();
   }
 
-  Future<Conversation?> showConversationDialog(
-          BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
@@ -61,6 +60,12 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
     var bloc = BlocProvider.of<ConversationsBloc>(context);
     final state = context.watch<ConversationsBloc>().state;
     var conversations = state.conversations;
+
+    if (selectedConversation == null &&
+        LocalStorageService().currentConversationId != null) {
+      selectedConversation = chatService
+          .getConversationById(LocalStorageService().currentConversationId);
+    }
 
     return Flexible(
         child: ListView.builder(
@@ -96,6 +101,7 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
               ? null
               : PopupMenuButton(
                   icon: const Icon(Icons.more_vert),
+                  padding: const EdgeInsets.only(left: 30),
                   itemBuilder: (context) {
                     return [
                       PopupMenuItem(
@@ -120,7 +126,9 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
                             context, true, conversation);
                         if (newConversation != null) {
                           await chatService.updateConversation(newConversation);
-                          bloc.add(const ConversationsRequested());
+                          setState(() {
+                            bloc.add(const ConversationsRequested());
+                          });
                         }
                         break;
                       case 'delete':

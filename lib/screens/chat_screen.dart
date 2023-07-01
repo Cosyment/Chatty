@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
@@ -14,7 +15,6 @@ import '../services/local_storage_service.dart';
 import '../services/token_service.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChatScreenPage extends StatelessWidget {
   const ChatScreenPage({super.key});
@@ -61,12 +61,14 @@ class _ChatScreenState extends State<ChatScreen> {
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
   final bool _showSystemMessage = false;
+  late bool _initScroll = true;
 
   @override
   void initState() {
     _scrollController = ScrollController();
     _textEditingController = TextEditingController();
     _focusNode = FocusNode();
+
     super.initState();
   }
 
@@ -149,6 +151,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<ChatBloc>().state;
+    final conversationState = context.watch<ConversationsBloc>().state;
     var conversation = state.initialConversation;
     var isMarkdown = LocalStorageService().renderMode == 'markdown';
 
@@ -167,6 +170,20 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         );
       });
+    }
+
+    if (conversationState.status == ConversationsStatus.clear) {
+      if (conversation.messages.isNotEmpty) {
+        var chatService = context.read<ChatService>();
+        conversation = chatService
+            .getConversationById(LocalStorageService().currentConversationId)!;
+      }
+    }
+
+    if (_initScroll && _scrollController.hasClients) {
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 100), curve: Curves.bounceIn);
+      _initScroll = false;
     }
 
     var size = MediaQuery.of(context).size;

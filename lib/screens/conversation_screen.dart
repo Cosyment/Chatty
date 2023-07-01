@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../bloc/blocs.dart';
@@ -8,7 +9,6 @@ import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConversationScreenPage extends StatelessWidget {
   const ConversationScreenPage({super.key});
@@ -49,7 +49,7 @@ class ConversationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var chatService = context.read<ChatService>();
-    var bloc = BlocProvider.of<ConversationsBloc>(context);
+    var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -88,7 +88,8 @@ class ConversationScreen extends StatelessWidget {
                                       ChatScreenPage.route(savedConversation));
                                 }
                               }
-                              bloc.add(const ConversationsRequested());
+                              conversationsBloc
+                                  .add(const ConversationsRequested());
                             }
                           },
                           label: Text(
@@ -102,6 +103,13 @@ class ConversationScreen extends StatelessWidget {
                           closeDrawer();
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (_) => const SettingsScreenPage()));
+
+                          //pc,macos,web
+                          // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          //     builder: (_) => const TabletScreenPage(
+                          //         sidebar: ConversationScreen(
+                          //             selectedConversation: null),
+                          //         body: SettingsScreenPage())));
                         },
                         label: Text(AppLocalizations.of(context)!.settings),
                         icon: const Icon(Icons.settings),

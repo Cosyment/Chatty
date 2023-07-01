@@ -1,10 +1,9 @@
 import 'package:chatbotty/bloc/blocs.dart';
+import 'package:chatbotty/services/local_storage_service.dart';
 import 'package:chatbotty/widgets/chat_screen_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:chatbotty/services/local_storage_service.dart';
 
-import '../bloc/conversations_event.dart';
 import '../services/chat_service.dart';
 
 class TabletScreenPage extends StatelessWidget {
@@ -12,24 +11,16 @@ class TabletScreenPage extends StatelessWidget {
   final Widget body;
   final TabletMainView mainView;
 
-  const TabletScreenPage(
-      {super.key,
-      required this.sidebar,
-      required this.body,
-      this.mainView = TabletMainView.body});
+  const TabletScreenPage({super.key,
+    required this.sidebar,
+    required this.body,
+    this.mainView = TabletMainView.body});
 
   @override
   Widget build(BuildContext context) {
     var chatService = context.read<ChatService>();
     var conversation = chatService
         .getConversationById(LocalStorageService().currentConversationId);
-
-    ChatBloc? chatBloc;
-    ConversationsBloc? conversationsBloc;
-    if (conversation != null) {
-      // chatBloc = BlocProvider.of<ChatBloc>(context);
-      conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
-    }
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -49,12 +40,13 @@ class TabletScreenPage extends StatelessWidget {
           // return mainView == TabletMainView.body ? body : sidebar;
           return BlocProvider(
               create: (context) =>
-                  ConversationsBloc(chatService: context.read<ChatService>())
-                    ..add(const ConversationsRequested()),
+              ConversationsBloc(chatService: context.read<ChatService>())
+                ..add(const ConversationsRequested()),
               child:
-                  //手机端增加appbar
-                  Scaffold(
-                appBar: ChatScreenAppBar(currentConversation: conversation),
+              //手机端增加appbar
+              Scaffold(
+                appBar: ChatScreenAppBar(
+                    currentConversation: conversation),
                 drawer: Drawer(
                   //New added
                   width: 250.toDouble(),

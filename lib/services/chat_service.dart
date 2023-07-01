@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import '../api/openai_api.dart';
+import '../models/models.dart';
 import 'local_storage_service.dart';
 import 'token_service.dart';
-import '../models/models.dart';
 
 class ChatService {
 
@@ -98,11 +98,14 @@ class ChatService {
     var responseStream = _apiServer.chatCompletionStream(messages);
     responseStream.listen((chatStream) {
       if (chatStream.choices[0].delta.role.isNotEmpty) {
-        conversation.messages.add(ConversationMessage(chatStream.choices[0].delta.role, ''));
+        conversation.messages
+            .add(ConversationMessage(chatStream.choices[0].delta.role, ''));
       }
       if (chatStream.choices[0].delta.content.isNotEmpty) {
-        conversation.messages.last.content += chatStream.choices[0].delta.content;
+        conversation.messages.last.content +=
+            chatStream.choices[0].delta.content;
       }
+
       conversation.lastUpdated = DateTime.now();
       conversationStream.add(conversation);
     },

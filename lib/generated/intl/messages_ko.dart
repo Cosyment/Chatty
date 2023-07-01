@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_host_optional":
             MessageLookupByLibrary.simpleMessage("API Host 선택 가능"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatbotty"),
-        "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
+        "appearance": MessageLookupByLibrary.simpleMessage("외모"),
         "authentication": MessageLookupByLibrary.simpleMessage("인증"),
         "cancel": MessageLookupByLibrary.simpleMessage("취소"),
         "chat": MessageLookupByLibrary.simpleMessage("잡담"),
@@ -53,7 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("관리 API keys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage("도움말 설정 비헤이비어 메시지"),
-        "model": MessageLookupByLibrary.simpleMessage("Model"),
+        "model": MessageLookupByLibrary.simpleMessage("모델"),
         "new_conversation": MessageLookupByLibrary.simpleMessage("새 대화"),
         "ok": MessageLookupByLibrary.simpleMessage("그래"),
         "organization": MessageLookupByLibrary.simpleMessage("조직"),

@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "appName": "Chatbotty",
-  "chat": "閒聊",
+  "chat": "Chat",
   "conversations": "Conversations",
   "settings": "Settings",
   "version": "Version",

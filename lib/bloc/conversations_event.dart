@@ -21,3 +21,7 @@ class ConversationDeleted extends ConversationsEvent {
   @override
   List<Object> get props => [conversationIndex];
 }
+
+class ConversationsCleared extends ConversationsEvent {
+  const ConversationsCleared();
+}

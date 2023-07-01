@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `閒聊`
+  /// `Chat`
   String get chat {
     return Intl.message(
-      '閒聊',
+      'Chat',
       name: 'chat',
       desc: '',
       args: [],
