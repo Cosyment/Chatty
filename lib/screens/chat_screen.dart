@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:chatbotty/util/environment_config.dart';
+import 'package:chatbotty/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -186,13 +187,12 @@ class _ChatScreenState extends State<ChatScreen> {
       _initScroll = false;
     }
 
-    var size = MediaQuery.of(context).size;
     return ScaffoldMessenger(
       key: scaffoldMessengerKey,
       child: Scaffold(
-        appBar: (size.width > size.height)
-            ? ChatScreenAppBar(currentConversation: conversation)
-            : null,
+        appBar: (PlatformUtl.isMobile)
+            ? null
+            : ChatScreenAppBar(currentConversation: conversation),
         body: SafeArea(
             child: Column(children: [
           // system message

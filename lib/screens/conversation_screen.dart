@@ -1,10 +1,12 @@
+import 'package:chatbotty/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
-import '../bloc/blocs.dart';
-import '../models/models.dart';
+import '../bloc/chat_bloc.dart';
+import '../bloc/conversations_bloc.dart';
+import '../bloc/conversations_event.dart';
+import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../widgets/widgets.dart';
@@ -100,16 +102,20 @@ class ConversationScreen extends StatelessWidget {
                       ),
                       TextButton.icon(
                         onPressed: () {
-                          closeDrawer();
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => const SettingsScreenPage()));
-
-                          //pc,macos,web
-                          // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          //     builder: (_) => const TabletScreenPage(
-                          //         sidebar: ConversationScreen(
-                          //             selectedConversation: null),
-                          //         body: SettingsScreenPage())));
+                          if(PlatformUtl.isMobile){
+                             closeDrawer();
+                             Navigator.of(context).push(MaterialPageRoute(
+                                 builder: (_) => const SettingsScreenPage()));
+                          }else{
+                            //pc,macos,web
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (_) => const TabletScreenPage(
+                                        sidebar: ConversationScreen(
+                                            selectedConversation: null),
+                                        body: SettingsScreenPage())),
+                                    (route) => true);
+                          }
                         },
                         label: Text(AppLocalizations.of(context)!.settings),
                         icon: const Icon(Icons.settings),

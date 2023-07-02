@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../services/chat_service.dart';
+import '../util/platform_util.dart';
 
 class TabletScreenPage extends StatelessWidget {
   final Widget sidebar;
@@ -24,8 +25,7 @@ class TabletScreenPage extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        var size = MediaQuery.of(context).size;
-        if (size.width > size.height) {
+        if (!PlatformUtl.isMobile) {
           return Row(
             children: [
               SizedBox(
