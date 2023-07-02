@@ -18,7 +18,7 @@
   "organization": "組織",
   "api_host": "API Host",
   "api_host_optional": "API Host オプション",
-  "manage_api_keys": "管理 API keys",
+  "manage_api_keys": "かんり API keys",
   "chat_parameters": "チャットパラメータ",
   "model": "モデルとなって着る",
   "history_limit": "履歴の制限",

@@ -50,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ダイアログのタイトルを入力"),
         "history_limit": MessageLookupByLibrary.simpleMessage("履歴の制限"),
         "invalid_api_key": MessageLookupByLibrary.simpleMessage("無効な API Key"),
-        "manage_api_keys": MessageLookupByLibrary.simpleMessage("管理 API keys"),
+        "manage_api_keys": MessageLookupByLibrary.simpleMessage("かんり API keys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage("設定した動作を支援するメッセージ"),
         "model": MessageLookupByLibrary.simpleMessage("モデルとなって着る"),
