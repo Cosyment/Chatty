@@ -114,6 +114,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   });
                 },
               ),
+
               SettingsTile.navigation(
                 leading: const Icon(Icons.group),
                 title: Text(AppLocalizations.of(context)!.organization,
@@ -139,6 +140,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   });
                 },
               ),
+
               SettingsTile.navigation(
                 leading: const Icon(Icons.flight_takeoff),
                 title: Text(AppLocalizations.of(context)!.api_host,
@@ -161,6 +163,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   });
                 },
               ),
+
               SettingsTile.navigation(
                 leading: const Icon(Icons.open_in_new),
                 title: Text(AppLocalizations.of(context)!.manage_api_keys,
@@ -174,9 +177,10 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                 onPressed: (context) async {
                   await launchUrl(
                       Uri.parse('https://platform.openai.com/account/api-keys'),
-                      mode: LaunchMode.externalApplication);
+                      mode: LaunchMode.inAppWebView);
                 },
               ),
+
             ],
           ),
           SettingsSection(
@@ -303,7 +307,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   onPressed: (context) async {
                     await launchUrl(
                         Uri.parse('https://chat.cosyment.com/privacy.html'),
-                        mode: LaunchMode.externalApplication);
+                        mode: LaunchMode.inAppWebView);
                   },
                 ),
                 SettingsTile(
