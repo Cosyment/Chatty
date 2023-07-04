@@ -30,7 +30,7 @@ class LocalStorageService {
 
   String get apiKey =>
       _prefs.getString(prefApiKey) ??
-      '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';
+      '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';
 
   set apiKey(String value) {
     (() async {
