@@ -1,7 +1,10 @@
+import 'package:chatbotty/widgets/popup_box_constraints.dart';
 import 'package:flutter/material.dart';
 
 import '../models/models.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../util/platform_util.dart';
 
 class ConversationEditDialog extends StatefulWidget {
   final Conversation conversation;
@@ -40,31 +43,34 @@ class _ConversationEditDialogState extends State<ConversationEditDialog> {
     _systemMessageEditingController.text = widget.conversation.systemMessage;
 
     return AlertDialog(
-      content: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                controller: _titleEditingController,
-                validator: (value) {
-                  return value != null && value.isEmpty
-                      ? AppLocalizations.of(context)!.title_should_not_be_empty
-                      : null;
-                },
-                decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!
-                        .enter_a_conversation_title),
-              ),
-              TextFormField(
-                controller: _systemMessageEditingController,
-                maxLines: 3,
-                decoration: InputDecoration(
-                    hintText:
-                        '${AppLocalizations.of(context)!.message_to_help_set_the_behavior_of_the} ${AppLocalizations.of(context)!.appName}'),
-              ),
-            ],
-          )),
+      content: Container(
+          constraints: PopupBoxConstraints.custom(),
+          child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: _titleEditingController,
+                    validator: (value) {
+                      return value != null && value.isEmpty
+                          ? AppLocalizations.of(context)!
+                              .title_should_not_be_empty
+                          : null;
+                    },
+                    decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!
+                            .enter_a_conversation_title),
+                  ),
+                  TextFormField(
+                    controller: _systemMessageEditingController,
+                    maxLines: 3,
+                    decoration: InputDecoration(
+                        hintText:
+                            '${AppLocalizations.of(context)!.message_to_help_set_the_behavior_of_the} ${AppLocalizations.of(context)!.appName}'),
+                  ),
+                ],
+              ))),
       title: Text(widget.isEdit
           ? AppLocalizations.of(context)!.edit_conversation
           : AppLocalizations.of(context)!.new_conversation),

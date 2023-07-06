@@ -102,11 +102,11 @@ class ConversationScreen extends StatelessWidget {
                       ),
                       TextButton.icon(
                         onPressed: () {
-                          if(PlatformUtl.isMobile){
-                             closeDrawer();
-                             Navigator.of(context).push(MaterialPageRoute(
-                                 builder: (_) => const SettingsScreenPage()));
-                          }else{
+                          if (PlatformUtl.isMobile) {
+                            closeDrawer();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => const SettingsScreenPage()));
+                          } else {
                             //pc,macos,web
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
@@ -114,7 +114,7 @@ class ConversationScreen extends StatelessWidget {
                                         sidebar: ConversationScreen(
                                             selectedConversation: null),
                                         body: SettingsScreenPage())),
-                                    (route) => true);
+                                (route) => true);
                           }
                         },
                         label: Text(AppLocalizations.of(context)!.settings),
@@ -127,7 +127,8 @@ class ConversationScreen extends StatelessWidget {
                           future: PackageInfo.fromPlatform(),
                           builder: (context, packageInfo) {
                             return TextButton.icon(
-                              onPressed: () {},
+                              onPressed: () async {
+                              },
                               label: Text(
                                   "${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}"),
                               icon: const Icon(Icons.info),

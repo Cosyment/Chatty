@@ -2,9 +2,12 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:chatbotty/api/http_request.dart';
 import 'package:chatbotty/util/environment_config.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,6 +16,7 @@ import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
 import 'api/openai_api.dart';
 import 'bloc/blocs.dart';
+import 'models/secret_key.dart';
 import 'screens/screens.dart';
 import 'services/chat_service.dart';
 import 'services/local_storage_service.dart';
@@ -31,6 +35,8 @@ void main() async {
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
   BindingBase.debugZoneErrorsAreFatal = false;
+
+  registerNetWorkListening();
 }
 
 class App extends StatefulWidget {
@@ -43,10 +49,13 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-
   @override
   void initState() {
     super.initState();
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.black,
+        statusBarColor: Colors.transparent));
+
     if (Platform.isAndroid || Platform.isIOS) {
       //友盟初始化
       UmengCommonSdk.initCommon(
@@ -84,4 +93,23 @@ class _AppState extends State<App> {
               home: const ConversationScreenPage(),
             )));
   }
+}
+
+void registerNetWorkListening() {
+  if (Platform.isIOS) {
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.wifi ||
+          result == ConnectivityResult.mobile) {
+        initialConfiguration();
+      }
+    });
+  } else {
+    initialConfiguration();
+  }
+}
+
+void initialConfiguration() async {
+  var secretKey = await HttpRequest.request<SecretKey>(
+      'apikey/query', (jsonData) => SecretKey.fromJson(jsonData));
+  LocalStorageService().apiKey = secretKey.apiKey;
 }

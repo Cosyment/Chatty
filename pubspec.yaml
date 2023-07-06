@@ -50,6 +50,7 @@ dependencies:
   package_info_plus: ^4.0.1
   umeng_common_sdk: 1.2.6
   device_info_plus: 9.0.2
+  connectivity_plus: ^4.0.1
 
 dev_dependencies:
   flutter_test:
