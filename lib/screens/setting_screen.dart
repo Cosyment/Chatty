@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chatbotty/api/http_request.dart';
 import 'package:chatbotty/util/environment_config.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,6 +11,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:chatbotty/widgets/popup_box_constraints.dart';
 
+import '../models/language_model.dart';
 import '../services/local_storage_service.dart';
 import '../util/string_util.dart';
 
@@ -21,17 +23,38 @@ class SettingsScreenPage extends StatefulWidget {
 }
 
 class _SettingsScreenPageState extends State<SettingsScreenPage> {
+
   String apiKey = LocalStorageService().apiKey;
   String organization = LocalStorageService().organization;
   String apiHost = LocalStorageService().apiHost;
   String model = LocalStorageService().model;
   int historyCount = LocalStorageService().historyCount;
   String renderMode = LocalStorageService().renderMode;
+  List<PopupMenuItem> modelPopupMenuItems = [
+    const PopupMenuItem(
+      value: 'gpt-3.5-turbo',
+      child: Text('gpt-3.5-turbo'),
+    ),
+    const PopupMenuItem(
+      value: 'gpt-4',
+      child: Text('gpt-4'),
+    ),
+    const PopupMenuItem(
+      value: 'gpt-4-32k',
+      child: Text('gpt-4-32k'),
+    )
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    initialModel();
+  }
 
   final _textFieldController = TextEditingController();
 
-  Future openStringDialog(
-          BuildContext context, String title, String hintText) =>
+  Future openStringDialog(BuildContext context, String title,
+      String hintText) =>
       showDialog(
           context: context,
           builder: (context) {
@@ -46,14 +69,16 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
               actions: <Widget>[
                 TextButton(
                     child: Text(AppLocalizations.of(context)!.cancel),
-                    onPressed: () => {
-                          Navigator.pop(context, 'cancel'),
-                        }),
+                    onPressed: () =>
+                    {
+                      Navigator.pop(context, 'cancel'),
+                    }),
                 ElevatedButton(
                     child: Text(AppLocalizations.of(context)!.ok),
-                    onPressed: () => {
-                          Navigator.pop(context, _textFieldController.text),
-                        }),
+                    onPressed: () =>
+                    {
+                      Navigator.pop(context, _textFieldController.text),
+                    }),
               ],
             );
           });
@@ -67,9 +92,13 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     }
 
     if (LocalStorageService().apiKey.length >= 30) {
-      return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 25, LocalStorageService().apiKey.length)}';
+      return 'sk-...${LocalStorageService().apiKey.substring(
+          LocalStorageService().apiKey.length - 25,
+          LocalStorageService().apiKey.length)}';
     } else {
-      return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 10, LocalStorageService().apiKey.length)}';
+      return 'sk-...${LocalStorageService().apiKey.substring(
+          LocalStorageService().apiKey.length - 10,
+          LocalStorageService().apiKey.length)}';
     }
   }
 
@@ -90,6 +119,22 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     return 'Unknown';
   }
 
+  void initialModel() async {
+    var models = await HttpRequest.request<LanguageModel>(
+        'model/query?type=0', (jsonData) => LanguageModel.fromJson(jsonData));
+
+    if (models != null && models is List && models.isNotEmpty) {
+      modelPopupMenuItems.clear();
+      for (var element in models) {
+        modelPopupMenuItems.add(PopupMenuItem(
+          value: element.modelName,
+          child: Text(element.modelName),
+        ));
+      }
+    }
+    // modelPopupMenuItems.length
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,18 +152,21 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                 ),
                 value: SizedBox(
                     child: Text(
-                  LocalStorageService().apiKey == ''
-                      ? AppLocalizations.of(context)!.add_your_secret_api_key
-                      : obscureApiKey(LocalStorageService().apiKey),
-                  overflow: TextOverflow.ellipsis,
-                )),
+                      LocalStorageService().apiKey == ''
+                          ? AppLocalizations.of(context)!
+                          .add_your_secret_api_key
+                          : obscureApiKey(LocalStorageService().apiKey),
+                      overflow: TextOverflow.ellipsis,
+                    )),
                 onPressed: (context) async {
                   var result = await openStringDialog(context, 'API Key',
-                          'Open AI API Key like sk-........') ??
+                      'Open AI API Key like sk-........') ??
                       '';
 
                   if (result != null &&
-                      result.toString().length > 15 &&
+                      result
+                          .toString()
+                          .length > 15 &&
                       result.toString().contains('sk-')) {
                     HttpRequest.request(
                         'apikey/save?key=$result', (p0) => null);
@@ -144,9 +192,9 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   _textFieldController.text =
                       LocalStorageService().organization;
                   var result = await openStringDialog(
-                          context,
-                          AppLocalizations.of(context)!.organization,
-                          'Organization ID like org-.......') ??
+                      context,
+                      AppLocalizations.of(context)!.organization,
+                      'Organization ID like org-.......') ??
                       '';
                   if (result != 'cancel') {
                     LocalStorageService().organization = result;
@@ -162,15 +210,16 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                     softWrap: false),
                 value: SizedBox(
                     child: Text(
-                  shortValue(
-                      'Access ${'${stripTrailingSlash(LocalStorageService().apiHost)}/v1/chat/completions'}'),
-                )),
+                      shortValue(
+                          'Access ${'${stripTrailingSlash(LocalStorageService()
+                              .apiHost)}/v1/chat/completions'}'),
+                    )),
                 onPressed: (context) async {
                   _textFieldController.text = LocalStorageService().apiHost;
                   var result = await openStringDialog(
-                          context,
-                          AppLocalizations.of(context)!.api_host_optional,
-                          'URL like https://api.openai.com') ??
+                      context,
+                      AppLocalizations.of(context)!.api_host_optional,
+                      'URL like https://api.openai.com') ??
                       '';
 
                   if (result != 'cancel') {
@@ -187,10 +236,11 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                     softWrap: false),
                 value: SizedBox(
                     child: Text(
-                  shortValue('https://platform.openai.com/account/api-keys'),
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.ellipsis,
-                )),
+                      shortValue(
+                          'https://platform.openai.com/account/api-keys'),
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                    )),
                 onPressed: (context) async {
                   await launchUrl(
                       Uri.parse('https://platform.openai.com/account/api-keys'),
@@ -209,20 +259,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   trailing: PopupMenuButton(
                     icon: const Icon(Icons.more_vert),
                     itemBuilder: (context) {
-                      return const [
-                        PopupMenuItem(
-                          value: 'gpt-3.5-turbo',
-                          child: Text('gpt-3.5-turbo'),
-                        ),
-                        PopupMenuItem(
-                          value: 'gpt-4',
-                          child: Text('gpt-4'),
-                        ),
-                        PopupMenuItem(
-                          value: 'gpt-4-32k',
-                          child: Text('gpt-4-32k'),
-                        )
-                      ];
+                      return modelPopupMenuItems;
                     },
                     onSelected: (value) async {
                       LocalStorageService().model = value;
@@ -316,10 +353,10 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                       softWrap: false),
                   value: SizedBox(
                       child: Text(
-                    shortValue('https://chat.cosyment.com/privacy.html'),
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.ellipsis,
-                  )),
+                        shortValue('https://chat.cosyment.com/privacy.html'),
+                        textAlign: TextAlign.start,
+                        overflow: TextOverflow.ellipsis,
+                      )),
                   onPressed: (context) async {
                     await launchUrl(
                         Uri.parse('https://chat.cosyment.com/privacy.html'),
@@ -334,7 +371,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                       future: PackageInfo.fromPlatform(),
                       builder: (context, packageInfo) {
                         return Text(
-                            "v${packageInfo.data?.version}-${EnvironmentConfig.APP_CHANNEL}");
+                            "v${packageInfo.data?.version}-${EnvironmentConfig
+                                .APP_CHANNEL}");
                       }),
                 ),
               ])

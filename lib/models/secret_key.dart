@@ -1,7 +1,6 @@
 class SecretKey {
   final int id;
   final String apiKey;
-  // final String createTime;
 
   SecretKey({required this.id, required this.apiKey});
 
