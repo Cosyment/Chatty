@@ -297,22 +297,28 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   },
                 ),
               ),
-              SettingsTile.navigation(
-                leading: const Icon(Icons.open_in_new),
-                title: Text(AppLocalizations.of(context)!.manage_api_keys,
-                    softWrap: false),
-                value: SizedBox(
-                  width: sizeBoxWidth,
-                    child: Text(
-                  shortValue(Urls.openaiKeysUrl),
-                  textAlign: textAlign,
-                  overflow: TextOverflow.ellipsis,
-                )),
-                onPressed: (context) async {
-                  await launchUrl(Uri.parse(Urls.openaiKeysUrl),
-                      mode: LaunchMode.inAppWebView);
-                },
-              ),
+              !kIsWeb&&Platform.isMacOS
+                  ? SettingsTile(
+                      leading: const Icon(Icons.open_in_new),
+                      title:
+                          Text(AppLocalizations.of(context)!.manage_api_keys),
+                      value: Text(shortValue(Urls.openaiKeysUrl)))
+                  : SettingsTile.navigation(
+                      leading: const Icon(Icons.open_in_new),
+                      title: Text(AppLocalizations.of(context)!.manage_api_keys,
+                          softWrap: false),
+                      value: SizedBox(
+                          width: sizeBoxWidth,
+                          child: Text(
+                            shortValue(Urls.openaiKeysUrl),
+                            textAlign: textAlign,
+                            overflow: TextOverflow.ellipsis,
+                          )),
+                      onPressed: (context) async {
+                        await launchUrl(Uri.parse(Urls.openaiKeysUrl),
+                            mode: LaunchMode.inAppWebView);
+                      },
+                    ),
             ],
           ),
           SettingsSection(
