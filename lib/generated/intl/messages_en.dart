@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "add_your_secret_api_key":
-            MessageLookupByLibrary.simpleMessage("Add your secret API key"),
+            MessageLookupByLibrary.simpleMessage("Add your api key"),
         "api_host": MessageLookupByLibrary.simpleMessage("API Host"),
         "api_host_optional":
             MessageLookupByLibrary.simpleMessage("API Host Optional"),
@@ -68,9 +68,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("New conversation"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organization"),
+        "other": MessageLookupByLibrary.simpleMessage("Other"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
+            "Please add your api key first"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy"),
         "render_mode": MessageLookupByLibrary.simpleMessage("Render Mode"),
         "resend": MessageLookupByLibrary.simpleMessage("Resend"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("Reset API Key"),
+        "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to reset the api key? After the reset, you need to add a new api key or restart the app"),
         "send_a_message":
             MessageLookupByLibrary.simpleMessage("Send a message..."),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),

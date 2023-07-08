@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_host": MessageLookupByLibrary.simpleMessage("API Host"),
         "api_host_optional":
             MessageLookupByLibrary.simpleMessage("API Host 可選"),
+        "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatbotty"),
         "appearance": MessageLookupByLibrary.simpleMessage("外觀"),
         "authentication": MessageLookupByLibrary.simpleMessage("身份驗證"),
@@ -59,9 +60,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_conversation": MessageLookupByLibrary.simpleMessage("新對話"),
         "ok": MessageLookupByLibrary.simpleMessage("好"),
         "organization": MessageLookupByLibrary.simpleMessage("組織"),
+        "other": MessageLookupByLibrary.simpleMessage("其他"),
+        "please_add_your_api_key":
+            MessageLookupByLibrary.simpleMessage("請先添加您的API Key"),
         "privacy": MessageLookupByLibrary.simpleMessage("隱私"),
         "render_mode": MessageLookupByLibrary.simpleMessage("渲染模式"),
         "resend": MessageLookupByLibrary.simpleMessage("重新發送"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("重置API Key"),
+        "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
+            "您確定要重置API Key嗎？ 重置後您需要添加新的API Key或重新啟動應用程序"),
         "send_a_message": MessageLookupByLibrary.simpleMessage("發送消息..."),
         "settings": MessageLookupByLibrary.simpleMessage("設定"),
         "title_should_not_be_empty":

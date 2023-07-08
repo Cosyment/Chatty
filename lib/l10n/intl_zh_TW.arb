@@ -14,7 +14,9 @@
   "ok": "好",
   "invalid_api_key": "無效的API Key",
   "authentication": "身份驗證",
+  "api_key":"API Key",
   "add_your_secret_api_key": "添加API key",
+  "please_add_your_api_key": "請先添加您的API Key",
   "organization": "組織",
   "api_host": "API Host",
   "custom_api_host": "定製 API Host",
@@ -35,5 +37,8 @@
   "delete_conversation": "删除對話",
   "delete_conversation_tips": "你想删除對話嗎?",
   "delete": "删去",
-  "create_conversation_to_start": "創建或選擇要啟動的對話"
+  "create_conversation_to_start": "創建或選擇要啟動的對話",
+  "other":"其他",
+  "reset_api_key": "重置API Key",
+  "reset_api_key_tips": "您確定要重置API Key嗎？ 重置後您需要添加新的API Key或重新啟動應用程序"
 }

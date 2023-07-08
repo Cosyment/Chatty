@@ -60,9 +60,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_conversation": MessageLookupByLibrary.simpleMessage("새 대화"),
         "ok": MessageLookupByLibrary.simpleMessage("그래"),
         "organization": MessageLookupByLibrary.simpleMessage("조직"),
+        "other": MessageLookupByLibrary.simpleMessage("다른"),
+        "please_add_your_api_key":
+            MessageLookupByLibrary.simpleMessage("먼저 API Key 추가하세요."),
         "privacy": MessageLookupByLibrary.simpleMessage("프라이버시"),
         "render_mode": MessageLookupByLibrary.simpleMessage("렌더링 모드"),
         "resend": MessageLookupByLibrary.simpleMessage("다시 보내기"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("API 키 재설정"),
+        "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
+            "API 키를 재설정하시겠습니까? 재설정 후 새 API 키를 추가하거나 앱을 다시 시작해야 하나요"),
         "send_a_message": MessageLookupByLibrary.simpleMessage("메시지 보내기..."),
         "settings": MessageLookupByLibrary.simpleMessage("설치"),
         "title_should_not_be_empty":

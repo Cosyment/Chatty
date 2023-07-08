@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:chatbotty/util/platform_util.dart';
+import 'package:chatbotty/util/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -82,6 +84,14 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void handleSend(BuildContext context, Conversation conversation) {
+    if (LocalStorageService().apiKey == '') {
+      scaffoldMessengerKey.currentState?.showSnackBar(
+          SnackBar(
+              content: Text(AppLocalizations.of(context)!.please_add_your_api_key)
+          ));
+      return;
+    }
+
     if (TokenService.getToken(conversation.systemMessage) +
             TokenService.getToken(_textEditingController.text) >=
         TokenService.getTokenLimit()) return;
@@ -129,6 +139,14 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void handleRefresh(BuildContext context, Conversation conversation) {
+    if (LocalStorageService().apiKey == '') {
+      scaffoldMessengerKey.currentState?.showSnackBar(
+          SnackBar(
+              content: Text(AppLocalizations.of(context)!.please_add_your_api_key)
+          ));
+      return;
+    }
+
     var chatService = context.read<ChatService>();
     if (conversation.messages.last.role == 'Chatbotty') {
       conversation.messages.removeLast();

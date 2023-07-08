@@ -15,7 +15,8 @@
   "invalid_api_key": "無効な API Key",
   "authentication": "認証",
   "api_key":"API Key",
-  "add_your_secret_api_key": "追加 secret API key",
+  "add_your_secret_api_key": "追加 API key",
+  "please_add_your_api_key": "最初に API キーを追加してください",
   "organization": "組織",
   "api_host": "API Host",
   "custom_api_host": "カスタマイズ API Host",
@@ -36,5 +37,8 @@
   "delete_conversation": "ダイアログの削除",
   "delete_conversation_tips": "会話を削除したいですか?",
   "delete": "削除",
-  "create_conversation_to_start": "起動するセッションの作成または選択"
+  "create_conversation_to_start": "起動するセッションの作成または選択",
+  "other":"他の",
+  "reset_api_key": "APIキーをリセット",
+  "reset_api_key_tips": "API キーをリセットしてもよろしいですか? リセット後、新しい API キーを追加するか、アプリを再起動する必要がありますか"
 }

@@ -16,6 +16,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../models/language_model.dart';
 import '../services/local_storage_service.dart';
+import '../widgets/confirm_dialog.dart';
 import 'conversation_screen.dart';
 
 class SettingsScreenPage extends StatefulWidget {
@@ -95,19 +96,28 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
               actions: <Widget>[
                 TextButton(
                     child: Text(AppLocalizations.of(context)!.cancel),
-                    onPressed: () =>
-                    {
-                      Navigator.pop(context, 'cancel'),
-                    }),
+                    onPressed: () => {
+                          Navigator.pop(context, 'cancel'),
+                        }),
                 ElevatedButton(
                     child: Text(AppLocalizations.of(context)!.ok),
-                    onPressed: () =>
-                    {
-                      Navigator.pop(context, _textFieldController.text),
-                    }),
+                    onPressed: () => {
+                          Navigator.pop(context, _textFieldController.text),
+                        }),
               ],
             );
           });
+
+  Future<bool?> showResetConfirmDialog(BuildContext context) =>
+      showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmDialog(
+            title: AppLocalizations.of(context)!.reset_api_key,
+            content: AppLocalizations.of(context)!.reset_api_key_tips,
+          );
+        },
+      );
 
   String obscureApiKey(String apiKey) {
     if (apiKey.length < 15) {
@@ -118,9 +128,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     }
 
     if (LocalStorageService().apiKey.length >= 30) {
-      return 'sk-...${LocalStorageService().apiKey.substring(
-          LocalStorageService().apiKey.length - 25,
-          LocalStorageService().apiKey.length)}';
+      return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 25, LocalStorageService().apiKey.length)}';
     } else {
       return 'sk-...${LocalStorageService().apiKey.substring(
           LocalStorageService().apiKey.length - 10,
@@ -442,9 +450,25 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                       future: PackageInfo.fromPlatform(),
                       builder: (context, packageInfo) {
                         return Text(
-                            "v${packageInfo.data?.version}-${EnvironmentConfig
-                                .APP_CHANNEL}");
+                            "v${packageInfo.data?.version}-${EnvironmentConfig.APP_CHANNEL}");
                       }),
+                ),
+              ]),
+          SettingsSection(
+              title: Text(AppLocalizations.of(context)!.other),
+              tiles: <SettingsTile>[
+                SettingsTile(
+                  leading: const Icon(Icons.refresh_rounded,color:Colors.deepOrange),
+                  title: Text(AppLocalizations.of(context)!.reset_api_key,
+                      softWrap: false),
+                  onPressed: (context) async {
+                    var result = await showResetConfirmDialog(context);
+                    if (result == true) {
+                      setState(() {
+                        LocalStorageService().apiKey = '';
+                      });
+                    }
+                  },
                 ),
               ])
         ],

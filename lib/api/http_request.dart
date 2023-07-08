@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import '../util/constants.dart';
@@ -20,10 +21,13 @@ class HttpRequest {
           headers: headers, body: params);
     }
 
+    debugPrint("request url： ${response.request?.url} \nheaders：${response.headers} \nparams：${params}");
+
     String errorMessage = '';
     try {
       Utf8Decoder decoder = const Utf8Decoder();
       var content = jsonDecode(decoder.convert(response.bodyBytes));
+      debugPrint("response： ${content}");
       errorMessage = content['msg'];
       var data = content['data'];
       if (content['code'] == 0 && data != null) {

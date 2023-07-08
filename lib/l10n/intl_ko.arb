@@ -16,6 +16,7 @@
   "authentication": "인증",
   "api_key":"API Key",
   "add_your_secret_api_key": "추가 API key",
+  "please_add_your_api_key": "먼저 API Key 추가하세요.",
   "organization": "조직",
   "api_host": "API Host",
   "custom_api_host": "사용자화 API Host",
@@ -36,5 +37,8 @@
   "delete_conversation": "대화 삭제",
   "delete_conversation_tips": "대화를 삭제하시겠습니까?",
   "delete": "삭제",
-  "create_conversation_to_start": "시작할 대화 만들기 또는 선택"
+  "create_conversation_to_start": "시작할 대화 만들기 또는 선택",
+  "other":"다른",
+  "reset_api_key": "API 키 재설정",
+  "reset_api_key_tips": "API 키를 재설정하시겠습니까? 재설정 후 새 API 키를 추가하거나 앱을 다시 시작해야 하나요"
 }

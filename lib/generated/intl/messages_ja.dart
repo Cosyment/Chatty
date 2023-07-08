@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("について"),
         "add_your_secret_api_key":
-            MessageLookupByLibrary.simpleMessage("追加 secret API key"),
+            MessageLookupByLibrary.simpleMessage("追加 API key"),
         "api_host": MessageLookupByLibrary.simpleMessage("API Host"),
         "api_host_optional":
             MessageLookupByLibrary.simpleMessage("API Host オプション"),
@@ -60,9 +60,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_conversation": MessageLookupByLibrary.simpleMessage("新しい会話"),
         "ok": MessageLookupByLibrary.simpleMessage("わかった"),
         "organization": MessageLookupByLibrary.simpleMessage("組織"),
+        "other": MessageLookupByLibrary.simpleMessage("他の"),
+        "please_add_your_api_key":
+            MessageLookupByLibrary.simpleMessage("最初に API キーを追加してください"),
         "privacy": MessageLookupByLibrary.simpleMessage("プライバシー"),
         "render_mode": MessageLookupByLibrary.simpleMessage("レンダリングモード"),
         "resend": MessageLookupByLibrary.simpleMessage("再送信"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("APIキーをリセット"),
+        "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
+            "API キーをリセットしてもよろしいですか? リセット後、新しい API キーを追加するか、アプリを再起動する必要がありますか"),
         "send_a_message": MessageLookupByLibrary.simpleMessage("メッセージを送信..."),
         "settings": MessageLookupByLibrary.simpleMessage("設定＃セッテイ＃"),
         "title_should_not_be_empty":

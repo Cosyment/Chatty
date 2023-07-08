@@ -15,7 +15,8 @@
   "invalid_api_key": "Invalid API Key",
   "authentication": "Authentication",
   "api_key":"API Key",
-  "add_your_secret_api_key": "Add your secret API key",
+  "add_your_secret_api_key": "Add your api key",
+  "please_add_your_api_key": "Please add your api key first",
   "organization": "Organization",
   "api_host": "API Host",
   "custom_api_host": "Customization API Host",
@@ -36,5 +37,8 @@
   "delete_conversation": "Delete conversation",
   "delete_conversation_tips": "Would you like to delete the conversation?",
   "delete": "Delete",
-  "create_conversation_to_start": "Create or choose a conversation to start"
+  "create_conversation_to_start": "Create or choose a conversation to start",
+  "other":"Other",
+  "reset_api_key": "Reset API Key",
+  "reset_api_key_tips": "Are you sure you want to reset the api key? After the reset, you need to add a new api key or restart the app"
 }

@@ -59,9 +59,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_conversation": MessageLookupByLibrary.simpleMessage("创建会话"),
         "ok": MessageLookupByLibrary.simpleMessage("确认"),
         "organization": MessageLookupByLibrary.simpleMessage("组织"),
+        "other": MessageLookupByLibrary.simpleMessage("其他"),
+        "please_add_your_api_key":
+            MessageLookupByLibrary.simpleMessage("请先添加您的API Key"),
         "privacy": MessageLookupByLibrary.simpleMessage("隐私政策"),
         "render_mode": MessageLookupByLibrary.simpleMessage("渲染模式"),
         "resend": MessageLookupByLibrary.simpleMessage("重试"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("重置API Key"),
+        "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
+            "确定重置API Key吗？重置后您需要添加新的API Key或重启APP"),
         "send_a_message": MessageLookupByLibrary.simpleMessage("发送消息..."),
         "settings": MessageLookupByLibrary.simpleMessage("设置"),
         "title_should_not_be_empty":

@@ -200,11 +200,21 @@ class S {
     );
   }
 
-  /// `Add your secret API key`
+  /// `Add your api key`
   String get add_your_secret_api_key {
     return Intl.message(
-      'Add your secret API key',
+      'Add your api key',
       name: 'add_your_secret_api_key',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please add your api key first`
+  String get please_add_your_api_key {
+    return Intl.message(
+      'Please add your api key first',
+      name: 'please_add_your_api_key',
       desc: '',
       args: [],
     );
@@ -415,6 +425,36 @@ class S {
     return Intl.message(
       'Create or choose a conversation to start',
       name: 'create_conversation_to_start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Other`
+  String get other {
+    return Intl.message(
+      'Other',
+      name: 'other',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset API Key`
+  String get reset_api_key {
+    return Intl.message(
+      'Reset API Key',
+      name: 'reset_api_key',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to reset the api key? After the reset, you need to add a new api key or restart the app`
+  String get reset_api_key_tips {
+    return Intl.message(
+      'Are you sure you want to reset the api key? After the reset, you need to add a new api key or restart the app',
+      name: 'reset_api_key_tips',
       desc: '',
       args: [],
     );

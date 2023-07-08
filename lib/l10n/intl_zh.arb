@@ -16,6 +16,7 @@
   "authentication": "验证",
   "api_key":"API Key",
   "add_your_secret_api_key": "添加API Key",
+  "please_add_your_api_key": "请先添加您的API Key",
   "organization": "组织",
   "api_host": "接口域名",
   "custom_api_host": "自定义域名",
@@ -36,5 +37,8 @@
   "delete_conversation": "删除会话",
   "delete_conversation_tips": "确认要删除当前会话吗？",
   "delete": "删除",
-  "create_conversation_to_start": "创建或选择会话"
+  "create_conversation_to_start": "创建或选择会话",
+  "other":"其他",
+  "reset_api_key": "重置API Key",
+  "reset_api_key_tips": "确定重置API Key吗？重置后您需要添加新的API Key或重启APP"
 }
