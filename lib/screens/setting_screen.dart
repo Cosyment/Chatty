@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chatbotty/api/http_request.dart';
 import 'package:chatbotty/models/domain.dart';
+import 'package:chatbotty/screens/tablet_screen.dart';
 import 'package:chatbotty/util/constants.dart';
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:chatbotty/util/platform_util.dart';
@@ -15,9 +16,22 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../models/language_model.dart';
 import '../services/local_storage_service.dart';
+import 'conversation_screen.dart';
 
 class SettingsScreenPage extends StatefulWidget {
   const SettingsScreenPage({super.key});
+
+  static Route<void> route(){
+    return PageRouteBuilder(
+        pageBuilder: (context, animation,
+            secodaryAnmation) =>
+        const TabletScreenPage(
+            sidebar: ConversationScreen(
+              selectedConversation: null,
+            ),
+            body: SettingsScreenPage()),
+        transitionDuration: Duration.zero);
+  }
 
   @override
   State<SettingsScreenPage> createState() => _SettingsScreenPageState();

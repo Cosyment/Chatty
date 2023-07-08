@@ -1,5 +1,4 @@
 import 'package:chatbotty/util/platform_util.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -110,29 +109,12 @@ class ConversationScreen extends StatelessWidget {
                                 builder: (_) => const SettingsScreenPage()));
                           } else {
                             //pc,macos,web
-                            print(
-                                '------->>>>${Navigator.of(context).canPop()}');
                             if (Navigator.of(context).canPop()) {
-                              Navigator.of(context).pushReplacement(
-                                  PageRouteBuilder(
-                                      pageBuilder: (context, animation,
-                                              secodaryAnmation) =>
-                                          const TabletScreenPage(
-                                              sidebar: ConversationScreen(
-                                                selectedConversation: null,
-                                              ),
-                                              body: SettingsScreenPage()),
-                                      transitionDuration: Duration.zero));
+                              Navigator.of(context)
+                                  .pushReplacement(SettingsScreenPage.route());
                             } else {
-                              Navigator.of(context).push(PageRouteBuilder(
-                                  pageBuilder:
-                                      (context, animation, secodaryAnmation) =>
-                                          const TabletScreenPage(
-                                              sidebar: ConversationScreen(
-                                                selectedConversation: null,
-                                              ),
-                                              body: SettingsScreenPage()),
-                                  transitionDuration: Duration.zero));
+                              Navigator.of(context)
+                                  .push(SettingsScreenPage.route());
                             }
                           }
                         },
