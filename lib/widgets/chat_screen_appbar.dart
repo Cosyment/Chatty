@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../models/conversation.dart';
 import '../services/chat_service.dart';
+import '../util/platform_util.dart';
 import 'confirm_dialog.dart';
 import 'conversation_edit_dialog.dart';
 
@@ -42,7 +43,7 @@ class ChatScreenAppBar extends StatefulWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(50.0);
+  Size get preferredSize => const Size.fromHeight(56.0);
 }
 
 class _ChatScreenAppbar extends State<ChatScreenAppBar> {
@@ -54,7 +55,7 @@ class _ChatScreenAppbar extends State<ChatScreenAppBar> {
     return AppBar(
         title: Text(widget.currentConversation?.title ?? 'Chatbotty',
             style: const TextStyle(overflow: TextOverflow.ellipsis)),
-        // automaticallyImplyLeading: false,
+        automaticallyImplyLeading:PlatformUtl.isMobile,
         actions: widget.currentConversation == null
             ? []
             : <Widget>[

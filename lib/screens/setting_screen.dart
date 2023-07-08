@@ -4,6 +4,7 @@ import 'package:chatbotty/api/http_request.dart';
 import 'package:chatbotty/models/domain.dart';
 import 'package:chatbotty/util/constants.dart';
 import 'package:chatbotty/util/environment_config.dart';
+import 'package:chatbotty/util/platform_util.dart';
 import 'package:chatbotty/widgets/popup_box_constraints.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -169,14 +170,14 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    double sizeBoxWidth = Platform.isIOS
+    double sizeBoxWidth = !kIsWeb&&Platform.isIOS
         ? 160.0
-        : Platform.isAndroid
+        : !kIsWeb&&Platform.isAndroid
             ? Size.infinite.width
             : 350.0;
-    TextAlign textAlign = Platform.isAndroid ? TextAlign.start : TextAlign.end;
+    TextAlign textAlign = kIsWeb||Platform.isAndroid ? TextAlign.start : TextAlign.end;
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings)),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings),automaticallyImplyLeading:PlatformUtl.isMobile),
       body: SettingsList(
         sections: [
           SettingsSection(

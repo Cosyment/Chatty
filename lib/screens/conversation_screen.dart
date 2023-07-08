@@ -1,8 +1,10 @@
 import 'package:chatbotty/util/platform_util.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
 import '../bloc/chat_bloc.dart';
 import '../bloc/conversations_bloc.dart';
 import '../bloc/conversations_event.dart';
@@ -108,13 +110,30 @@ class ConversationScreen extends StatelessWidget {
                                 builder: (_) => const SettingsScreenPage()));
                           } else {
                             //pc,macos,web
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (_) => const TabletScreenPage(
-                                        sidebar: ConversationScreen(
-                                            selectedConversation: null),
-                                        body: SettingsScreenPage())),
-                                (route) => true);
+                            print(
+                                '------->>>>${Navigator.of(context).canPop()}');
+                            if (Navigator.of(context).canPop()) {
+                              Navigator.of(context).pushReplacement(
+                                  PageRouteBuilder(
+                                      pageBuilder: (context, animation,
+                                              secodaryAnmation) =>
+                                          const TabletScreenPage(
+                                              sidebar: ConversationScreen(
+                                                selectedConversation: null,
+                                              ),
+                                              body: SettingsScreenPage()),
+                                      transitionDuration: Duration.zero));
+                            } else {
+                              Navigator.of(context).push(PageRouteBuilder(
+                                  pageBuilder:
+                                      (context, animation, secodaryAnmation) =>
+                                          const TabletScreenPage(
+                                              sidebar: ConversationScreen(
+                                                selectedConversation: null,
+                                              ),
+                                              body: SettingsScreenPage()),
+                                  transitionDuration: Duration.zero));
+                            }
                           }
                         },
                         label: Text(AppLocalizations.of(context)!.settings),

@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:chatbotty/util/platform_util.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -319,6 +320,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               focusNode: _focusNode,
                               minLines: 1,
                               maxLines: 3,
+                              textInputAction: TextInputAction.done,
                               onSubmitted: (value) async {},
                             ),
                           ),

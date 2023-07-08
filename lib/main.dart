@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:chatbotty/api/http_request.dart';
 import 'package:chatbotty/util/constants.dart';
 import 'package:chatbotty/util/environment_config.dart';
+import 'package:chatbotty/util/platform_util.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class _AppState extends State<App> {
         systemNavigationBarColor: Colors.black,
         statusBarColor: Colors.transparent));
 
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (PlatformUtl.isMobile) {
       //友盟初始化
       UmengCommonSdk.initCommon(
           '64979b89a1a164591b38ceda' /*Android AppKey*/,
@@ -98,7 +99,7 @@ class _AppState extends State<App> {
 }
 
 void registerNetWorkListening() {
-  if (Platform.isIOS) {
+  if (!kIsWeb&&Platform.isIOS) {
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       if (result == ConnectivityResult.wifi ||
           result == ConnectivityResult.mobile) {
