@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "conversations": MessageLookupByLibrary.simpleMessage("對話"),
         "create_conversation_to_start":
             MessageLookupByLibrary.simpleMessage("創建或選擇要啟動的對話"),
+        "custom_api_host": MessageLookupByLibrary.simpleMessage("定製 API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("删去"),
         "delete_conversation": MessageLookupByLibrary.simpleMessage("删除對話"),
         "delete_conversation_tips":
@@ -50,7 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("輸入對話標題"),
         "history_limit": MessageLookupByLibrary.simpleMessage("記錄限制"),
         "invalid_api_key": MessageLookupByLibrary.simpleMessage("無效的API Key"),
-        "manage_api_keys": MessageLookupByLibrary.simpleMessage("管理API keys"),
+        "manage_api_keys": MessageLookupByLibrary.simpleMessage("尋找 Keys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage(
                 "你可以輸入AI角色及身份資訊，幫助AI更好理解您的問題，給出更加專業的回復"),

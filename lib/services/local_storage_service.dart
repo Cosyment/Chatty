@@ -25,8 +25,7 @@ class LocalStorageService {
   static const storeConversationList = 'store_conversations';
   static const storeConversationPrefix = 'store_conversation_';
   static const storeCurrentConversation = 'store_current_conversation';
-
-  // preferences
+  static const prefCountry = 'pref_country';
 
   String get apiKey =>
       _prefs.getString(prefApiKey) ??
@@ -112,4 +111,11 @@ class LocalStorageService {
 
   set currentConversationId(String id) =>
       _prefs.setString(storeCurrentConversation, id);
+
+  bool get isChina =>
+      _prefs.getString(prefCountry)?.toLowerCase() == 'cn' ||
+      _prefs.getString(prefCountry)?.toLowerCase() == 'hk' ||
+      _prefs.getString(prefCountry)?.toLowerCase() == 'tw';
+
+  set currentCountry(String country) => _prefs.setString(prefCountry, country);
 }

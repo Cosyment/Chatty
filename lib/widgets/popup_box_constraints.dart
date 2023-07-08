@@ -8,7 +8,7 @@ class PopupBoxConstraints extends BoxConstraints {
     return BoxConstraints(
       minWidth: width ?? (PlatformUtl.isMobile ? 300.0 : 500.0),
       maxWidth: width ?? (PlatformUtl.isMobile ? 300.0 : 500.0),
-      minHeight: height ?? (PlatformUtl.isMobile ? 100.0 : 130.0),
+      minHeight: height ?? (PlatformUtl.isMobile ? 60.0 : 100.0),
       maxHeight: height ?? (PlatformUtl.isMobile ? 200.0 : 230.0),
     );
   }

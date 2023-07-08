@@ -15,7 +15,8 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		9C430B21AEF0B6A9E6CC963C /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAC0E4A773E7437F02D41A9 /* Pods_RunnerTests.framework */; };
-		A46917C82A51730100690EDF /* Launch Screen-ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A46917C72A51730100690EDF /* Launch Screen-ipad.storyboard */; };
+		A45683822A590DDD00673429 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A45683812A590DDD00673429 /* icon.png */; };
+		A46917C82A51730100690EDF /* Launch Screen-custom.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A46917C72A51730100690EDF /* Launch Screen-custom.storyboard */; };
 		A48E27A82A22513100C591F2 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A48E27A72A22513100C591F2 /* Launch Screen.storyboard */; };
 		A48E27AA2A22519D00C591F2 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A48E27A92A22519D00C591F2 /* LaunchImage.png */; };
 /* End PBXBuildFile section */
@@ -64,7 +65,8 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Runner/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A01BAC42E7754C4395E0D5EF /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
-		A46917C72A51730100690EDF /* Launch Screen-ipad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen-ipad.storyboard"; sourceTree = "<group>"; };
+		A45683812A590DDD00673429 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../screenshots/icon.png; sourceTree = "<group>"; };
+		A46917C72A51730100690EDF /* Launch Screen-custom.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen-custom.storyboard"; sourceTree = "<group>"; };
 		A46917C92A517AF500690EDF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		A46917CA2A517AFF00690EDF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		A46917CB2A517B0500690EDF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
@@ -163,8 +165,9 @@
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				A48E27A72A22513100C591F2 /* Launch Screen.storyboard */,
-				A46917C72A51730100690EDF /* Launch Screen-ipad.storyboard */,
+				A46917C72A51730100690EDF /* Launch Screen-custom.storyboard */,
 				A48E27A92A22519D00C591F2 /* LaunchImage.png */,
+				A45683812A590DDD00673429 /* icon.png */,
 				97C147021CF9000F007C117D /* Info.plist */,
 				1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */,
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
@@ -273,7 +276,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A46917C82A51730100690EDF /* Launch Screen-ipad.storyboard in Resources */,
+				A46917C82A51730100690EDF /* Launch Screen-custom.storyboard in Resources */,
+				A45683822A590DDD00673429 /* icon.png in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				A48E27A82A22513100C591F2 /* Launch Screen.storyboard in Resources */,

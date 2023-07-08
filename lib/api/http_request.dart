@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:ffi';
 
-import '../util/extend_http_client.dart';
 import 'package:http/http.dart' as http;
+
 import '../util/constants.dart';
+import '../util/extend_http_client.dart';
 
 class HttpRequest {
   static final SafeHttpClient _httpClient = SafeHttpClient(http.Client());
@@ -11,12 +11,13 @@ class HttpRequest {
   static Future<dynamic> request<T>(String url, T Function(dynamic) fromJson,
       {method = 'GET', Map<String, dynamic>? params}) async {
     var headers = {'Content-Type': 'application/json'};
-    Uri uri = Uri.parse(Constants.hostUrl + url);
     http.Response? response;
     if (method == 'GET') {
-      response = await _httpClient.get(uri, headers: headers);
+      response = await _httpClient.get(Uri.https(Urls.hostname, url, params),
+          headers: headers);
     } else {
-      response = await _httpClient.post(uri, headers: headers, body: params);
+      response = await _httpClient.post(Uri.https(Urls.hostname, url),
+          headers: headers, body: params);
     }
 
     String errorMessage = '';
@@ -41,19 +42,22 @@ class HttpRequest {
     throw Exception(errorMessage);
   }
 
-  static List<T> _parseResponse<T>(String responseBody) {
-    // 在这里根据期望的响应数据类型，将字符串解析为相应的对象
-    // 这里需要根据实际情况进行具体的解析逻辑
-    // 假设你期望的响应数据类型是`T`，在这里进行相应的解析操作
-    // 返回解析后的对象
-
-    // 例如，假设期望的响应数据类型是`List<String>`
-    // 则可以使用以下代码进行解析：
-    return List<T>.from(jsonDecode(responseBody));
-
-    // 如果无法确定响应数据类型或解析逻辑，请将返回类型改为`dynamic`或`Object`
-    // 并在请求后手动处理响应的数据解析
-
-    throw UnimplementedError('Response parsing not implemented for type $T');
+  static Future<Map<String, dynamic>> requestJson(String url,
+      {method = 'GET', Map<String, dynamic>? params}) async {
+    Uri uri = Uri.parse(url);
+    var headers = {'Content-Type': 'application/json'};
+    http.Response? response;
+    if (method == 'GET') {
+      response = await _httpClient.get(uri, headers: headers);
+    } else {
+      response = await _httpClient.post(uri, headers: headers, body: params);
+    }
+    if (response.statusCode == 200) {
+      Utf8Decoder decoder = const Utf8Decoder();
+      return jsonDecode(decoder.convert(response.bodyBytes));
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+      return {};
+    }
   }
 }

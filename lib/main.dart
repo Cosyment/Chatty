@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:chatbotty/api/http_request.dart';
+import 'package:chatbotty/util/constants.dart';
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -16,6 +17,7 @@ import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
 import 'api/openai_api.dart';
 import 'bloc/blocs.dart';
+import 'models/domain.dart';
 import 'models/secret_key.dart';
 import 'screens/screens.dart';
 import 'services/chat_service.dart';
@@ -110,6 +112,33 @@ void registerNetWorkListening() {
 
 void initialConfiguration() async {
   var secretKey = await HttpRequest.request<SecretKey>(
-      'apikey/query', (jsonData) => SecretKey.fromJson(jsonData));
+      Urls.querySecretKey, (jsonData) => SecretKey.fromJson(jsonData));
   LocalStorageService().apiKey = secretKey.apiKey;
+
+  getCurrentCountry();
+}
+
+void getCurrentCountry() async {
+  dynamic result = await HttpRequest.requestJson(Urls.queryCountry);
+  LocalStorageService().currentCountry = result['countryCode'];
+  getDomain();
+}
+
+void getDomain() async {
+  var domains = await HttpRequest.request<Domain>(
+      Urls.queryDomain,
+      params: {'type': '0'},
+      (jsonData) => Domain.fromJson(jsonData));
+  List<Domain> domainList = domains;
+  if (LocalStorageService().apiHost == '' &&
+      domainList != null &&
+      domainList.isNotEmpty) {
+    if (LocalStorageService().isChina) {
+      LocalStorageService().apiHost =
+          domainList.where((element) => element.type != 0).first.hostname;
+    } else {
+      LocalStorageService().apiHost =
+          domainList.where((element) => element.type == 0).first.hostname;
+    }
+  }
 }

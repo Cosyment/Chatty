@@ -25,8 +25,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("关于"),
         "add_your_secret_api_key":
             MessageLookupByLibrary.simpleMessage("添加API Key"),
-        "api_host": MessageLookupByLibrary.simpleMessage("解析网址"),
-        "api_host_optional": MessageLookupByLibrary.simpleMessage("OpenAI代理地址"),
+        "api_host": MessageLookupByLibrary.simpleMessage("接口域名"),
+        "api_host_optional": MessageLookupByLibrary.simpleMessage("接口域名"),
+        "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatbotty"),
         "appearance": MessageLookupByLibrary.simpleMessage("界面"),
         "authentication": MessageLookupByLibrary.simpleMessage("验证"),
@@ -39,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "conversations": MessageLookupByLibrary.simpleMessage("会话"),
         "create_conversation_to_start":
             MessageLookupByLibrary.simpleMessage("创建或选择会话"),
+        "custom_api_host": MessageLookupByLibrary.simpleMessage("自定义域名"),
         "delete": MessageLookupByLibrary.simpleMessage("删除"),
         "delete_conversation": MessageLookupByLibrary.simpleMessage("删除会话"),
         "delete_conversation_tips":
@@ -49,7 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("输入会话标题"),
         "history_limit": MessageLookupByLibrary.simpleMessage("记录限制"),
         "invalid_api_key": MessageLookupByLibrary.simpleMessage("无效API Key"),
-        "manage_api_keys": MessageLookupByLibrary.simpleMessage("管理API keys"),
+        "manage_api_keys": MessageLookupByLibrary.simpleMessage("查看Keys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage(
                 "您可以输入AI角色及身份信息，帮助AI更好理解您的问题，给出更加专业的回复"),

@@ -190,6 +190,16 @@ class S {
     );
   }
 
+  /// `API Key`
+  String get api_key {
+    return Intl.message(
+      'API Key',
+      name: 'api_key',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add your secret API key`
   String get add_your_secret_api_key {
     return Intl.message(
@@ -220,6 +230,16 @@ class S {
     );
   }
 
+  /// `Customization API Host`
+  String get custom_api_host {
+    return Intl.message(
+      'Customization API Host',
+      name: 'custom_api_host',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `API Host Optional`
   String get api_host_optional {
     return Intl.message(
@@ -230,10 +250,10 @@ class S {
     );
   }
 
-  /// `Manage API keys`
+  /// `Find Keys`
   String get manage_api_keys {
     return Intl.message(
-      'Manage API keys',
+      'Find Keys',
       name: 'manage_api_keys',
       desc: '',
       args: [],

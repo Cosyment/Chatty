@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_host": MessageLookupByLibrary.simpleMessage("API Host"),
         "api_host_optional":
             MessageLookupByLibrary.simpleMessage("API Host オプション"),
+        "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatbotty"),
         "appearance": MessageLookupByLibrary.simpleMessage("の表面に化粧張りを"),
         "authentication": MessageLookupByLibrary.simpleMessage("認証"),
@@ -40,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "conversations": MessageLookupByLibrary.simpleMessage("ダイアログ"),
         "create_conversation_to_start":
             MessageLookupByLibrary.simpleMessage("起動するセッションの作成または選択"),
+        "custom_api_host":
+            MessageLookupByLibrary.simpleMessage("カスタマイズ API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("削除"),
         "delete_conversation": MessageLookupByLibrary.simpleMessage("ダイアログの削除"),
         "delete_conversation_tips":
@@ -50,7 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ダイアログのタイトルを入力"),
         "history_limit": MessageLookupByLibrary.simpleMessage("履歴の制限"),
         "invalid_api_key": MessageLookupByLibrary.simpleMessage("無効な API Key"),
-        "manage_api_keys": MessageLookupByLibrary.simpleMessage("かんり API keys"),
+        "manage_api_keys": MessageLookupByLibrary.simpleMessage("見付けるKeys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage("設定した動作を支援するメッセージ"),
         "model": MessageLookupByLibrary.simpleMessage("モデルとなって着る"),

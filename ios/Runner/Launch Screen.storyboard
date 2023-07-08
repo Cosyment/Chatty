@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
@@ -14,17 +14,24 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JLS-0a-hE6">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LaunchImage.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pqt-Pk-v73">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchImage.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pqt-Pk-v73">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.035109397023916245" green="0.058648861944675446" blue="0.11394263058900833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Wu1-bZ-rXW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Pqt-Pk-v73" firstAttribute="centerY" secondItem="JLS-0a-hE6" secondAttribute="centerY" id="7FJ-Zh-cCR"/>
+                            <constraint firstAttribute="bottom" secondItem="Pqt-Pk-v73" secondAttribute="bottom" id="QUz-Ao-Czm"/>
+                            <constraint firstItem="Pqt-Pk-v73" firstAttribute="centerX" secondItem="JLS-0a-hE6" secondAttribute="centerX" id="cTb-ic-IaY"/>
+                            <constraint firstAttribute="trailing" secondItem="Pqt-Pk-v73" secondAttribute="trailing" id="dOy-wG-DxZ"/>
+                            <constraint firstItem="Pqt-Pk-v73" firstAttribute="leading" secondItem="JLS-0a-hE6" secondAttribute="leading" id="lSI-pv-zNj"/>
+                            <constraint firstItem="Pqt-Pk-v73" firstAttribute="top" secondItem="JLS-0a-hE6" secondAttribute="top" id="oRb-Xc-wKT"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

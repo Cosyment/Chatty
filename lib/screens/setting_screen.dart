@@ -1,19 +1,19 @@
 import 'dart:io';
 
 import 'package:chatbotty/api/http_request.dart';
+import 'package:chatbotty/models/domain.dart';
+import 'package:chatbotty/util/constants.dart';
 import 'package:chatbotty/util/environment_config.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:chatbotty/widgets/popup_box_constraints.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:chatbotty/widgets/popup_box_constraints.dart';
 
 import '../models/language_model.dart';
 import '../services/local_storage_service.dart';
-import '../util/string_util.dart';
 
 class SettingsScreenPage extends StatefulWidget {
   const SettingsScreenPage({super.key});
@@ -30,6 +30,16 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
   String model = LocalStorageService().model;
   int historyCount = LocalStorageService().historyCount;
   String renderMode = LocalStorageService().renderMode;
+  List<PopupMenuItem> domainPopupItems = [
+    const PopupMenuItem(
+      value: 'https://api.openai-proxy.com',
+      child: Text('https://api.openai-proxy.com'),
+    ),
+    const PopupMenuItem(
+      value: 'https://api.openai.com',
+      child: Text('https://api.openai.com'),
+    )
+  ];
   List<PopupMenuItem> modelPopupMenuItems = [
     const PopupMenuItem(
       value: 'gpt-3.5-turbo',
@@ -48,7 +58,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
   @override
   void initState() {
     super.initState();
-    initialModel();
+    initialModels();
+    initialDomains();
   }
 
   final _textFieldController = TextEditingController();
@@ -103,8 +114,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
   }
 
   String shortValue(String value) {
-    if (!kIsWeb && Platform.isIOS && value.length >= 10) {
-      return " ${value.substring(0, 15)}...";
+    if (!kIsWeb && Platform.isIOS && value.length >= 20) {
+      return " ${value.substring(0, 20)}...";
     }
     return value;
   }
@@ -119,9 +130,10 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     return 'Unknown';
   }
 
-  void initialModel() async {
+  void initialModels() async {
     var models = await HttpRequest.request<LanguageModel>(
-        'model/query?type=0', (jsonData) => LanguageModel.fromJson(jsonData));
+        Urls.queryLanguageModel, (jsonData) => LanguageModel.fromJson(jsonData),
+        params: {'type': '0'});
 
     if (models != null && models is List && models.isNotEmpty) {
       modelPopupMenuItems.clear();
@@ -132,11 +144,37 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
         ));
       }
     }
-    // modelPopupMenuItems.length
+  }
+
+  void initialDomains() async {
+    var domains = await HttpRequest.request<Domain>(
+        Urls.queryDomain,
+        params: {'type': '0'},
+        (jsonData) => Domain.fromJson(jsonData));
+    if (domains != null && domains is List && domains.isNotEmpty) {
+      domainPopupItems.clear();
+      for (var element in domains) {
+        domainPopupItems.add(PopupMenuItem(
+          value: element.hostname,
+          child: Text(element.area),
+        ));
+      }
+    }
+
+    domainPopupItems.add(PopupMenuItem(
+      value: 'custom',
+      child: Text(AppLocalizations.of(context)!.custom_api_host),
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
+    double sizeBoxWidth = Platform.isIOS
+        ? 160.0
+        : Platform.isAndroid
+            ? Size.infinite.width
+            : 350.0;
+    TextAlign textAlign = Platform.isAndroid ? TextAlign.start : TextAlign.end;
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings)),
       body: SettingsList(
@@ -146,30 +184,34 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.key),
-                title: const Text(
-                  'API Key',
+                title: Text(
+                  AppLocalizations.of(context)!
+                      .api_key,
                   softWrap: false,
                 ),
                 value: SizedBox(
+                    width: sizeBoxWidth,
                     child: Text(
                       LocalStorageService().apiKey == ''
                           ? AppLocalizations.of(context)!
-                          .add_your_secret_api_key
+                              .add_your_secret_api_key
                           : obscureApiKey(LocalStorageService().apiKey),
                       overflow: TextOverflow.ellipsis,
+                      textAlign: textAlign,
                     )),
                 onPressed: (context) async {
+                  _textFieldController.text = '';
                   var result = await openStringDialog(context, 'API Key',
-                      'Open AI API Key like sk-........') ??
+                          'Open AI API Key like sk-........') ??
                       '';
 
                   if (result != null &&
-                      result
-                          .toString()
-                          .length > 15 &&
+                      result.toString().length > 15 &&
                       result.toString().contains('sk-')) {
                     HttpRequest.request(
-                        'apikey/save?key=$result', (p0) => null);
+                        Urls.saveSecretKey,
+                        params: {"key": result.toString()},
+                        (p0) => null);
                     LocalStorageService().apiKey = result;
                     setState(() {
                       apiKey = result;
@@ -182,19 +224,20 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                 title: Text(AppLocalizations.of(context)!.organization,
                     softWrap: false),
                 value: SizedBox(
+                    width: sizeBoxWidth,
                     child: Text(
                         LocalStorageService().organization == ''
                             ? 'None'
                             : shortValue(LocalStorageService().organization),
-                        textAlign: TextAlign.end,
-                        overflow: TextOverflow.ellipsis)),
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: textAlign)),
                 onPressed: (context) async {
                   _textFieldController.text =
                       LocalStorageService().organization;
                   var result = await openStringDialog(
-                      context,
-                      AppLocalizations.of(context)!.organization,
-                      'Organization ID like org-.......') ??
+                          context,
+                          AppLocalizations.of(context)!.organization,
+                          'Organization ID like org-.......') ??
                       '';
                   if (result != 'cancel') {
                     LocalStorageService().organization = result;
@@ -204,46 +247,54 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   }
                 },
               ),
-              SettingsTile.navigation(
+              SettingsTile(
                 leading: const Icon(Icons.flight_takeoff),
-                title: Text(AppLocalizations.of(context)!.api_host,
-                    softWrap: false),
+                title: Text(AppLocalizations.of(context)!.api_host),
                 value: SizedBox(
-                    child: Text(
-                      shortValue(
-                          'Access ${'${stripTrailingSlash(LocalStorageService()
-                              .apiHost)}/v1/chat/completions'}'),
-                    )),
-                onPressed: (context) async {
-                  _textFieldController.text = LocalStorageService().apiHost;
-                  var result = await openStringDialog(
-                      context,
-                      AppLocalizations.of(context)!.api_host_optional,
-                      'URL like https://api.openai.com') ??
-                      '';
-
-                  if (result != 'cancel') {
-                    LocalStorageService().apiHost = result;
-                    setState(() {
-                      apiHost = result;
-                    });
-                  }
-                },
+                    width: sizeBoxWidth,
+                    child: Text(LocalStorageService().apiHost,
+                        overflow: TextOverflow.ellipsis, textAlign: textAlign)),
+                trailing: PopupMenuButton(
+                  icon: const Icon(Icons.more_vert),
+                  itemBuilder: (context) {
+                    return domainPopupItems;
+                  },
+                  onSelected: (value) async {
+                    if (value == 'custom') {
+                      _textFieldController.text = LocalStorageService().apiHost;
+                      var result = await openStringDialog(
+                              context,
+                              AppLocalizations.of(context)!.api_host_optional,
+                              'URL like https://api.openai.com') ??
+                          '';
+                      if (result != 'cancel') {
+                        LocalStorageService().apiHost = result;
+                        setState(() {
+                          apiHost = result;
+                        });
+                      }
+                    } else {
+                      LocalStorageService().apiHost = value;
+                      setState(() {
+                        apiHost = value;
+                      });
+                    }
+                  },
+                ),
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.open_in_new),
                 title: Text(AppLocalizations.of(context)!.manage_api_keys,
                     softWrap: false),
                 value: SizedBox(
+                  width: sizeBoxWidth,
                     child: Text(
-                      shortValue(
-                          'https://platform.openai.com/account/api-keys'),
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.ellipsis,
-                    )),
+                  shortValue(Urls.openaiKeysUrl),
+                  textAlign: textAlign,
+                  overflow: TextOverflow.ellipsis,
+                )),
                 onPressed: (context) async {
-                  await launchUrl(
-                      Uri.parse('https://platform.openai.com/account/api-keys'),
+                  await launchUrl(Uri.parse(Urls.openaiKeysUrl),
                       mode: LaunchMode.inAppWebView);
                 },
               ),
@@ -353,13 +404,12 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                       softWrap: false),
                   value: SizedBox(
                       child: Text(
-                        shortValue('https://chat.cosyment.com/privacy.html'),
-                        textAlign: TextAlign.start,
-                        overflow: TextOverflow.ellipsis,
-                      )),
+                    shortValue(Urls.privacyUrl),
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.ellipsis,
+                  )),
                   onPressed: (context) async {
-                    await launchUrl(
-                        Uri.parse('https://chat.cosyment.com/privacy.html'),
+                    await launchUrl(Uri.parse(Urls.privacyUrl),
                         mode: LaunchMode.inAppWebView);
                   },
                 ),

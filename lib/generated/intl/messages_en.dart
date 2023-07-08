@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_host": MessageLookupByLibrary.simpleMessage("API Host"),
         "api_host_optional":
             MessageLookupByLibrary.simpleMessage("API Host Optional"),
+        "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatbotty"),
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
         "authentication":
@@ -43,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "conversations": MessageLookupByLibrary.simpleMessage("Conversations"),
         "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
             "Create or choose a conversation to start"),
+        "custom_api_host":
+            MessageLookupByLibrary.simpleMessage("Customization API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "delete_conversation":
             MessageLookupByLibrary.simpleMessage("Delete conversation"),
@@ -56,8 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "history_limit": MessageLookupByLibrary.simpleMessage("History Limit"),
         "invalid_api_key":
             MessageLookupByLibrary.simpleMessage("Invalid API Key"),
-        "manage_api_keys":
-            MessageLookupByLibrary.simpleMessage("Manage API keys"),
+        "manage_api_keys": MessageLookupByLibrary.simpleMessage("Find Keys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage(
                 "Message to help set the behavior of the"),

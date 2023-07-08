@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_host": MessageLookupByLibrary.simpleMessage("API Host"),
         "api_host_optional":
             MessageLookupByLibrary.simpleMessage("API Host 선택 가능"),
+        "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatbotty"),
         "appearance": MessageLookupByLibrary.simpleMessage("외모"),
         "authentication": MessageLookupByLibrary.simpleMessage("인증"),
@@ -40,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "conversations": MessageLookupByLibrary.simpleMessage("대화"),
         "create_conversation_to_start":
             MessageLookupByLibrary.simpleMessage("시작할 대화 만들기 또는 선택"),
+        "custom_api_host":
+            MessageLookupByLibrary.simpleMessage("사용자화 API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("삭제"),
         "delete_conversation": MessageLookupByLibrary.simpleMessage("대화 삭제"),
         "delete_conversation_tips":
@@ -50,7 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("대화 제목 입력"),
         "history_limit": MessageLookupByLibrary.simpleMessage("기록 제한"),
         "invalid_api_key": MessageLookupByLibrary.simpleMessage("잘못된 API Key"),
-        "manage_api_keys": MessageLookupByLibrary.simpleMessage("관리 API keys"),
+        "manage_api_keys": MessageLookupByLibrary.simpleMessage("찾아내다 Keys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage("도움말 설정 비헤이비어 메시지"),
         "model": MessageLookupByLibrary.simpleMessage("모델"),
