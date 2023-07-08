@@ -6,12 +6,18 @@ import 'local_storage_service.dart';
 class TokenService {
   static const Map<String, int> _tokenLimit = {
     'gpt-3.5-turbo': 4096,
+    'gpt-3.5-turbo-0301': 4096,
+    'gpt-3.5-turbo-0613': 4096,
+    'gpt-3.5-turbo-16k': 4096,
+    'gpt-3.5-turbo-16k-0613': 4096,
     'gpt-4': 8192,
-    'gpt-4-32k': 32768
+    'gpt-4-0613': 8192,
+    'gpt-4-32k': 32768,
+    'gpt-4-32k-0613': 32768
   };
 
   static int getTokenLimit() {
-    return _tokenLimit[LocalStorageService().model] ?? 0;
+    return _tokenLimit[LocalStorageService().model] ?? 4096;
   }
 
   static int getToken(String message) {
