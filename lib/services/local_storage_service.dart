@@ -21,6 +21,7 @@ class LocalStorageService {
   static const prefModel = 'pref_model';
   static const prefHistoryCount = 'pref_historyCount';
   static const prefRenderMode = 'pref_renderMode';
+  static const prefCustomApiKey = 'pref_customApiKey';
 
   static const storeConversationList = 'store_conversations';
   static const storeConversationPrefix = 'store_conversation_';
@@ -29,7 +30,7 @@ class LocalStorageService {
 
   String get apiKey =>
       _prefs.getString(prefApiKey) ??
-      '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';
+          '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';
 
   set apiKey(String value) {
     (() async {
@@ -114,8 +115,12 @@ class LocalStorageService {
 
   bool get isChina =>
       _prefs.getString(prefCountry)?.toLowerCase() == 'cn' ||
-      _prefs.getString(prefCountry)?.toLowerCase() == 'hk' ||
-      _prefs.getString(prefCountry)?.toLowerCase() == 'tw';
+          _prefs.getString(prefCountry)?.toLowerCase() == 'hk' ||
+          _prefs.getString(prefCountry)?.toLowerCase() == 'tw';
 
   set currentCountry(String country) => _prefs.setString(prefCountry, country);
+
+  bool get isCustomApiKey => _prefs.getBool(prefCustomApiKey) ?? false;
+
+  set isCustomApiKey(bool value) => _prefs.setBool(prefCustomApiKey, value);
 }
