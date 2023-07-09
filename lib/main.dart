@@ -112,9 +112,11 @@ void registerNetWorkListening() {
 }
 
 void initialConfiguration() async {
-  var secretKey = await HttpRequest.request<SecretKey>(
-      Urls.querySecretKey, (jsonData) => SecretKey.fromJson(jsonData));
-  LocalStorageService().apiKey = secretKey.apiKey;
+  if (!LocalStorageService().isCustomApiKey) {
+    var secretKey = await HttpRequest.request<SecretKey>(
+        Urls.querySecretKey, (jsonData) => SecretKey.fromJson(jsonData));
+    LocalStorageService().apiKey = secretKey.apiKey;
+  }
 
   getCurrentCountry();
 }

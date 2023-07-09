@@ -229,13 +229,14 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                       '';
 
                   if (result != null &&
-                      result.toString().length > 15 &&
+                      result.toString().length > 30 &&
                       result.toString().contains('sk-')) {
                     HttpRequest.request(
                         Urls.saveSecretKey,
                         params: {"key": result.toString()},
                         (p0) => null);
                     LocalStorageService().apiKey = result;
+                    LocalStorageService().isCustomApiKey = true;
                     setState(() {
                       apiKey = result;
                     });
@@ -466,6 +467,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                     if (result == true) {
                       setState(() {
                         LocalStorageService().apiKey = '';
+                        LocalStorageService().isCustomApiKey = false;
                       });
                     }
                   },
