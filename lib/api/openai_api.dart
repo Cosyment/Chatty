@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 import 'dart:developer';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/models.dart';
@@ -42,10 +43,12 @@ class OpenAiApi {
       String errorMessage = 'Error connecting OpenAI: ';
       try {
         var errorResponse = json.decode(utf8.decode(response.bodyBytes));
+        debugPrint('response error ${errorResponse}');
         errorMessage += errorResponse['error']['message'];
       } catch (e) {
         errorMessage += 'Status code ${response.statusCode}';
       }
+      errorMessage = 'Connection failed, please check if your network or API Key is valid';
       throw Exception(errorMessage);
     }
 
@@ -107,6 +110,7 @@ class OpenAiApi {
           }
           // error handling
           final error = jsonDecode(data)['error'];
+          debugPrint('response error ${error}');
           if (error != null) {
             String errorMessage = '';
             try {
@@ -114,6 +118,7 @@ class OpenAiApi {
             } catch (e) {
               errorMessage += 'Status code ${response.statusCode}';
             }
+            errorMessage = 'Connection failed, please check if your network or API Key is valid';
             controller.addError(Exception(errorMessage));
             return;
           }
