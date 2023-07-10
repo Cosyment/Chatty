@@ -128,7 +128,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     }
 
     if (LocalStorageService().apiKey.length >= 30) {
-      return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 25, LocalStorageService().apiKey.length)}';
+      return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 30, LocalStorageService().apiKey.length)}';
     } else {
       return 'sk-...${LocalStorageService().apiKey.substring(
           LocalStorageService().apiKey.length - 10,

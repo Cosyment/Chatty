@@ -52,7 +52,7 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 20
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 4
+        versionCode 5
         versionName flutterVersionName
 
         flavorDimensions "channel"
@@ -61,9 +61,21 @@ android {
     }
 
    productFlavors {
-       google{
-           applicationId "com.waiting.smart.airobot.assistant"
-       }
+//       official{
+//           applicationId "com.waiting.smart.airobot"
+//       }
+//       xiaomi{
+//           applicationId "com.waiting.smart.airobot"
+//       }
+//       huawei{
+//           applicationId "com.waiting.smart.airobot"
+//       }
+//       amazon{
+//           applicationId "com.waiting.smart.airobot"
+//       }
+//       google{
+//           applicationId "com.waiting.smart.airobot.assistant"
+//       }
    }
 
     compileOptions {
