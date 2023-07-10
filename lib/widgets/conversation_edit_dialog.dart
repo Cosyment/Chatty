@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import '../models/models.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../util/platform_util.dart';
-
 class ConversationEditDialog extends StatefulWidget {
   final Conversation conversation;
   final bool isEdit;
