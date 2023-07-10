@@ -22,15 +22,14 @@ import 'conversation_screen.dart';
 class SettingsScreenPage extends StatefulWidget {
   const SettingsScreenPage({super.key});
 
-  static Route<void> route(){
+  static Route<void> route() {
     return PageRouteBuilder(
-        pageBuilder: (context, animation,
-            secodaryAnmation) =>
-        const TabletScreenPage(
-            sidebar: ConversationScreen(
-              selectedConversation: null,
-            ),
-            body: SettingsScreenPage()),
+        pageBuilder: (context, animation, secodaryAnmation) =>
+            const TabletScreenPage(
+                sidebar: ConversationScreen(
+                  selectedConversation: null,
+                ),
+                body: SettingsScreenPage()),
         transitionDuration: Duration.zero);
   }
 
@@ -39,33 +38,33 @@ class SettingsScreenPage extends StatefulWidget {
 }
 
 class _SettingsScreenPageState extends State<SettingsScreenPage> {
-
   String apiKey = LocalStorageService().apiKey;
   String organization = LocalStorageService().organization;
   String apiHost = LocalStorageService().apiHost;
   String model = LocalStorageService().model;
   int historyCount = LocalStorageService().historyCount;
   String renderMode = LocalStorageService().renderMode;
+  List<String> domainList = [];
   List<PopupMenuItem> domainPopupItems = [
-    const PopupMenuItem(
+    const CheckedPopupMenuItem(
       value: 'https://api.openai-proxy.com',
       child: Text('https://api.openai-proxy.com'),
     ),
-    const PopupMenuItem(
+    const CheckedPopupMenuItem(
       value: 'https://api.openai.com',
       child: Text('https://api.openai.com'),
     )
   ];
   List<PopupMenuItem> modelPopupMenuItems = [
-    const PopupMenuItem(
+    const CheckedPopupMenuItem(
       value: 'gpt-3.5-turbo',
       child: Text('gpt-3.5-turbo'),
     ),
-    const PopupMenuItem(
+    const CheckedPopupMenuItem(
       value: 'gpt-4',
       child: Text('gpt-4'),
     ),
-    const PopupMenuItem(
+    const CheckedPopupMenuItem(
       value: 'gpt-4-32k',
       child: Text('gpt-4-32k'),
     )
@@ -80,8 +79,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
 
   final _textFieldController = TextEditingController();
 
-  Future openStringDialog(BuildContext context, String title,
-      String hintText) =>
+  Future openStringDialog(
+          BuildContext context, String title, String hintText) =>
       showDialog(
           context: context,
           builder: (context) {
@@ -130,9 +129,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     if (LocalStorageService().apiKey.length >= 30) {
       return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 30, LocalStorageService().apiKey.length)}';
     } else {
-      return 'sk-...${LocalStorageService().apiKey.substring(
-          LocalStorageService().apiKey.length - 10,
-          LocalStorageService().apiKey.length)}';
+      return 'sk-...${LocalStorageService().apiKey.substring(LocalStorageService().apiKey.length - 10, LocalStorageService().apiKey.length)}';
     }
   }
 
@@ -161,8 +158,9 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     if (models != null && models is List && models.isNotEmpty) {
       modelPopupMenuItems.clear();
       for (var element in models) {
-        modelPopupMenuItems.add(PopupMenuItem(
+        modelPopupMenuItems.add(CheckedPopupMenuItem(
           value: element.modelName,
+          checked: LocalStorageService().model == element.modelName,
           child: Text(element.modelName),
         ));
       }
@@ -177,29 +175,36 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     if (domains != null && domains is List && domains.isNotEmpty) {
       domainPopupItems.clear();
       for (var element in domains) {
-        domainPopupItems.add(PopupMenuItem(
+        domainList.add(element.hostname);
+        domainPopupItems.add(CheckedPopupMenuItem(
           value: element.hostname,
+          checked: LocalStorageService().apiHost == element.hostname,
           child: Text(element.area),
         ));
       }
     }
 
-    domainPopupItems.add(PopupMenuItem(
+    domainPopupItems.add(CheckedPopupMenuItem(
       value: 'custom',
+      checked: domainList
+              .where((element) => element == LocalStorageService().apiHost).isEmpty,
       child: Text(AppLocalizations.of(context)!.custom_api_host),
     ));
   }
 
   @override
   Widget build(BuildContext context) {
-    double sizeBoxWidth = !kIsWeb&&Platform.isIOS
+    double sizeBoxWidth = !kIsWeb && Platform.isIOS
         ? 160.0
-        : !kIsWeb&&Platform.isAndroid
+        : !kIsWeb && Platform.isAndroid
             ? Size.infinite.width
             : 350.0;
-    TextAlign textAlign = kIsWeb||Platform.isAndroid ? TextAlign.start : TextAlign.end;
+    TextAlign textAlign =
+        kIsWeb || Platform.isAndroid ? TextAlign.start : TextAlign.end;
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings),automaticallyImplyLeading:PlatformUtl.isMobile),
+      appBar: AppBar(
+          title: Text(AppLocalizations.of(context)!.settings),
+          automaticallyImplyLeading: PlatformUtl.isMobile),
       body: SettingsList(
         sections: [
           SettingsSection(
@@ -208,8 +213,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
               SettingsTile.navigation(
                 leading: const Icon(Icons.key),
                 title: Text(
-                  AppLocalizations.of(context)!
-                      .api_key,
+                  AppLocalizations.of(context)!.api_key,
                   softWrap: false,
                 ),
                 value: SizedBox(
@@ -303,10 +307,11 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                         apiHost = value;
                       });
                     }
+                    initialDomains();
                   },
                 ),
               ),
-              !kIsWeb&&Platform.isMacOS
+              !kIsWeb && Platform.isMacOS
                   ? SettingsTile(
                       leading: const Icon(Icons.open_in_new),
                       title:
@@ -344,6 +349,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                     },
                     onSelected: (value) async {
                       LocalStorageService().model = value;
+                      initialModels();
                       setState(() {
                         model = value;
                       });
@@ -357,30 +363,48 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   trailing: PopupMenuButton(
                     icon: const Icon(Icons.more_vert),
                     itemBuilder: (context) {
-                      return const [
-                        PopupMenuItem(
+                      return [
+                        CheckedPopupMenuItem(
                           value: '0',
-                          child: Text('0'),
+                          checked:
+                              LocalStorageService().historyCount.toString() ==
+                                  '0',
+                          child: const Text('0'),
                         ),
-                        PopupMenuItem(
+                        CheckedPopupMenuItem(
                           value: '2',
-                          child: Text('2'),
+                          checked:
+                              LocalStorageService().historyCount.toString() ==
+                                  '2',
+                          child: const Text('2'),
                         ),
-                        PopupMenuItem(
+                        CheckedPopupMenuItem(
                           value: '4',
-                          child: Text('4'),
+                          checked:
+                              LocalStorageService().historyCount.toString() ==
+                                  '4',
+                          child: const Text('4'),
                         ),
-                        PopupMenuItem(
+                        CheckedPopupMenuItem(
                           value: '6',
-                          child: Text('6'),
+                          checked:
+                              LocalStorageService().historyCount.toString() ==
+                                  '6',
+                          child: const Text('6'),
                         ),
-                        PopupMenuItem(
+                        CheckedPopupMenuItem(
                           value: '8',
-                          child: Text('8'),
+                          checked:
+                              LocalStorageService().historyCount.toString() ==
+                                  '8',
+                          child: const Text('8'),
                         ),
-                        PopupMenuItem(
+                        CheckedPopupMenuItem(
                           value: '10',
-                          child: Text('10'),
+                          checked:
+                              LocalStorageService().historyCount.toString() ==
+                                  '10',
+                          child: const Text('10'),
                         )
                       ];
                     },
@@ -405,14 +429,17 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   trailing: PopupMenuButton(
                     icon: const Icon(Icons.more_vert),
                     itemBuilder: (context) {
-                      return const [
-                        PopupMenuItem(
+                      return [
+                        CheckedPopupMenuItem(
                           value: 'markdown',
-                          child: Text('Markdown'),
+                          checked:
+                              LocalStorageService().renderMode == 'markdown',
+                          child: const Text('Markdown'),
                         ),
-                        PopupMenuItem(
+                        CheckedPopupMenuItem(
                           value: 'text',
-                          child: Text('Plain Text'),
+                          checked: LocalStorageService().renderMode == 'text',
+                          child: const Text('Plain Text'),
                         )
                       ];
                     },
@@ -459,7 +486,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
               title: Text(AppLocalizations.of(context)!.other),
               tiles: <SettingsTile>[
                 SettingsTile(
-                  leading: const Icon(Icons.refresh_rounded,color:Colors.deepOrange),
+                  leading: const Icon(Icons.refresh_rounded,
+                      color: Colors.deepOrange),
                   title: Text(AppLocalizations.of(context)!.reset_api_key,
                       softWrap: false),
                   onPressed: (context) async {

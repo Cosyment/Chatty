@@ -1,11 +1,10 @@
-import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:chatbotty/util/platform_util.dart';
-import 'package:chatbotty/util/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -65,6 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
   late FocusNode _focusNode;
   final bool _showSystemMessage = false;
   late bool _initScroll = true;
+  GlobalKey _inputKey = GlobalKey();
 
   @override
   void initState() {
@@ -85,10 +85,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void handleSend(BuildContext context, Conversation conversation) {
     if (LocalStorageService().apiKey == '') {
-      scaffoldMessengerKey.currentState?.showSnackBar(
-          SnackBar(
-              content: Text(AppLocalizations.of(context)!.please_add_your_api_key)
-          ));
+      scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(
+          content:
+              Text(AppLocalizations.of(context)!.please_add_your_api_key)));
       return;
     }
 
@@ -140,10 +139,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void handleRefresh(BuildContext context, Conversation conversation) {
     if (LocalStorageService().apiKey == '') {
-      scaffoldMessengerKey.currentState?.showSnackBar(
-          SnackBar(
-              content: Text(AppLocalizations.of(context)!.please_add_your_api_key)
-          ));
+      scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(
+          content:
+              Text(AppLocalizations.of(context)!.please_add_your_api_key)));
       return;
     }
 
@@ -165,6 +163,32 @@ class _ChatScreenState extends State<ChatScreen> {
       BlocProvider.of<ConversationsBloc>(context)
           .add(const ConversationsRequested());
     });
+  }
+
+  void showPromptMenu() {
+    RenderBox? rect1 =
+        _inputKey.currentContext?.findRenderObject() as RenderBox?;
+    Rect? rect = _inputKey.currentContext?.findRenderObject()?.semanticBounds;
+    Offset? offset = rect1?.localToGlobal(Offset.zero);
+    print('---------------->>>${rect!.width},${rect1?.localToGlobal(Offset.zero)}');
+    showMenu(
+        context: context,
+        position: RelativeRect.fromLTRB(
+            offset!.dx, offset!.dy - 160, rect!.width, offset!.dy + 120),
+        items: [
+          PopupMenuItem<String>(
+            value: '语文',
+            child: Container(width: rect!.width, child: Text('语文')),
+          ),
+          PopupMenuItem<String>(
+            value: '语文',
+            child: Container(width: rect!.width, child: Text('语文')),
+          ),
+          PopupMenuItem<String>(
+            value: '语文',
+            child: Container(width: rect!.width, child: Text('语文')),
+          )
+        ]);
   }
 
   @override
@@ -336,6 +360,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               controller: _textEditingController,
                               focusNode: _focusNode,
                               minLines: 1,
+                              key: _inputKey,
                               maxLines: 3,
                               textInputAction: TextInputAction.done,
                               onSubmitted: (value) async {},
@@ -344,6 +369,13 @@ class _ChatScreenState extends State<ChatScreen> {
                           ValueListenableBuilder<TextEditingValue>(
                               valueListenable: _textEditingController,
                               builder: (context, value, child) {
+                                if (value.text.isNotEmpty &&
+                                    value.text.length == 1 &&
+                                    value.text == '/') {
+                                  Future.delayed(Duration.zero, () {
+                                    showPromptMenu();
+                                  });
+                                }
                                 return IconButton(
                                     icon: const Icon(Icons.send),
                                     color: TokenService.getToken(conversation
