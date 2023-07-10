@@ -13,7 +13,7 @@ class ConfirmDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(title),
       content: Container(
-          constraints: PopupBoxConstraints.custom(height: 40.0),
+          constraints: PopupBoxConstraints.custom(height: 45.0),
           child: Text(content)),
       actions: [
         TextButton(
