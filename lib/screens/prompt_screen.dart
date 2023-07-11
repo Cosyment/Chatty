@@ -54,13 +54,10 @@ class _PromptState extends State<PromptScreen> {
         appBar: AppBar(title: Text('Prompt'), automaticallyImplyLeading: PlatformUtl.isMobile),
         body: MasonryGridView.count(
           crossAxisCount: 3,
-          //几列
           mainAxisSpacing: 5,
-          // 间距
           crossAxisSpacing: 5,
-          // 纵向间距？
+          padding: const EdgeInsets.all(10),
           itemCount: promptList.length,
-          //元素个数
           itemBuilder: (context, index) {
             return promptItem(context, promptList[index], chatService);
           },
