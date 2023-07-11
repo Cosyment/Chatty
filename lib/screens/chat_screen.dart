@@ -224,8 +224,10 @@ class _ChatScreenState extends State<ChatScreen> {
     }
 
     if (_initScroll && _scrollController.hasClients) {
-      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 100), curve: Curves.bounceIn);
+      // _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+      //     duration: const Duration(milliseconds: 50), curve: Curves.linear);
+
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
       _initScroll = false;
     }
 
@@ -446,7 +448,11 @@ class _ChatScreenState extends State<ChatScreen> {
                               maxLines: 3,
                               textInputAction: TextInputAction.send,
                               onSubmitted: (value) async {
-                                handleSend(context, conversation);
+                                if ((state.status != ChatStatus.loading) &&
+                                    (value.isNotEmpty &&
+                                        value.trim().isEmpty)) {
+                                  handleSend(context, conversation);
+                                }
                               },
                             ),
                           ),

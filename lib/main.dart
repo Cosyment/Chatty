@@ -32,12 +32,25 @@ void main() async {
   final openAiApi = OpenAiApi(SafeHttpClient(http.Client()));
   final chatService = ChatService(apiServer: openAiApi);
 
+  // if (Platform.isWindows || Platform.isMacOS) {
+  //   SystemChrome.setApplicationSwitcherDescription(
+  //       const ApplicationSwitcherDescription(label: 'Chatbotty'));
+  //
+  //   final view = View.of(context as BuildContext);
+  //   final window = PlatformDispatcher.instance.implicitView;
+  //   window.setMinSize(const Size(600, 400)); // 设置最小窗口大小
+  //   window.setMaxSize(const Size(800, 600)); // 设置最大窗口大小
+  // }
+
+  BindingBase.debugZoneErrorsAreFatal = false;
   // TODO: init token service in background to speed up ChatScreen on the first load
   runZonedGuarded(
-    () => runApp(App(chatService: chatService)),
+    () => {
+      WidgetsFlutterBinding.ensureInitialized(),
+      runApp(App(chatService: chatService))
+    },
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
-  BindingBase.debugZoneErrorsAreFatal = false;
 
   registerNetWorkListening();
 }
@@ -99,7 +112,7 @@ class _AppState extends State<App> {
 }
 
 void registerNetWorkListening() {
-  if (!kIsWeb&&Platform.isIOS) {
+  if (!kIsWeb && Platform.isIOS) {
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       if (result == ConnectivityResult.wifi ||
           result == ConnectivityResult.mobile) {

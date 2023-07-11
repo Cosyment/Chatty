@@ -98,6 +98,7 @@ class ConversationScreen extends StatelessWidget {
                           label: Text(
                               AppLocalizations.of(context)!.new_conversation),
                           icon: const Icon(Icons.add_box)),
+
                       const SizedBox(
                         height: 6,
                       ),
@@ -106,7 +107,7 @@ class ConversationScreen extends StatelessWidget {
                           if (PlatformUtl.isMobile) {
                             closeDrawer();
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => const SettingsScreenPage()));
+                                builder: (_) =>  PromptScreen()));
                           } else {
                             //pc,macos,web
                             if (Navigator.of(context).canPop()) {
@@ -116,6 +117,31 @@ class ConversationScreen extends StatelessWidget {
                               Navigator.of(context)
                                   .push(SettingsScreenPage.route());
                             }
+                          }
+                        },
+                        label: Text('Prompt'),
+                        icon: const Icon(Icons.add_road_sharp),
+                      ),
+
+                      const SizedBox(
+                        height: 6,
+                      ),
+
+                      TextButton.icon(
+                        onPressed: () {
+                          if (PlatformUtl.isMobile) {
+                            closeDrawer();
+                             Navigator.of(context).push(MaterialPageRoute(
+                                 builder: (_) => const SettingsScreenPage()));
+                          } else {
+                            //pc,macos,web
+                             if (Navigator.of(context).canPop()) {
+                               Navigator.of(context)
+                                   .pushReplacement(SettingsScreenPage.route());
+                             } else {
+                               Navigator.of(context)
+                                   .push(SettingsScreenPage.route());
+                             }
                           }
                         },
                         label: Text(AppLocalizations.of(context)!.settings),
@@ -128,8 +154,7 @@ class ConversationScreen extends StatelessWidget {
                           future: PackageInfo.fromPlatform(),
                           builder: (context, packageInfo) {
                             return TextButton.icon(
-                              onPressed: () async {
-                              },
+                              onPressed: () async {},
                               label: Text(
                                   "${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}"),
                               icon: const Icon(Icons.info),
