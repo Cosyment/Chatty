@@ -1,3 +1,4 @@
+import 'package:chatbotty/util/navigation.dart';
 import 'package:chatbotty/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,9 +28,8 @@ class ConversationScreenPage extends StatelessWidget {
       body: conversation == null
           ? const EmptyChatWidget()
           : BlocProvider(
-              create: (context) => ChatBloc(
-                  chatService: chatService, initialConversation: conversation),
-              child: const ChatScreen()),
+          create: (context) => ChatBloc(chatService: chatService, initialConversation: conversation),
+          child: const ChatScreen()),
       mainView: TabletMainView.sidebar,
     );
   }
@@ -40,13 +40,11 @@ class ConversationScreen extends StatelessWidget {
 
   const ConversationScreen({super.key, this.selectedConversation});
 
-  Future<Conversation?> showConversationDialog(
-          BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(
-                conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
           });
 
   @override
@@ -69,96 +67,52 @@ class ConversationScreen extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextButton.icon(
-                          onPressed: () async {
-                            closeDrawer();
-                            var newConversation = await showConversationDialog(
-                                context, false, Conversation.create());
-                            if (newConversation != null) {
-                              LocalStorageService().currentConversationId =
-                                  newConversation.id;
+                      textButton(AppLocalizations.of(context)!.new_conversation, Icons.add_box, () async{
+                        var newConversation = await showConversationDialog(
+                            context, false, Conversation.create());
+                        if (newConversation != null) {
+                          LocalStorageService().currentConversationId =
+                              newConversation.id;
 
-                              await chatService
-                                  .updateConversation(newConversation);
-                              var savedConversation = chatService
-                                  .getConversationById(newConversation.id)!;
-                              if (context.mounted) {
-                                if (Navigator.of(context).canPop()) {
-                                  Navigator.of(context).pushReplacement(
-                                      ChatScreenPage.route(savedConversation));
-                                } else {
-                                  Navigator.of(context).push(
-                                      ChatScreenPage.route(savedConversation));
-                                }
-                              }
-                              conversationsBloc
-                                  .add(const ConversationsRequested());
-                            }
-                          },
-                          label: Text(
-                              AppLocalizations.of(context)!.new_conversation),
-                          icon: const Icon(Icons.add_box)),
-
-                      const SizedBox(
-                        height: 6,
-                      ),
-                      TextButton.icon(
-                        onPressed: () {
-                          if (PlatformUtl.isMobile) {
-                            closeDrawer();
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) =>  PromptScreen()));
-                          } else {
-                            //pc,macos,web
+                          await chatService
+                              .updateConversation(newConversation);
+                          var savedConversation = chatService
+                              .getConversationById(newConversation.id)!;
+                          if (context.mounted) {
                             if (Navigator.of(context).canPop()) {
-                              Navigator.of(context)
-                                  .pushReplacement(SettingsScreenPage.route());
+                              Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
                             } else {
-                              Navigator.of(context)
-                                  .push(SettingsScreenPage.route());
+                              Navigator.of(context).push(ChatScreenPage.route(savedConversation));
                             }
                           }
-                        },
-                        label: Text('Prompt'),
-                        icon: const Icon(Icons.add_road_sharp),
-                      ),
+                          conversationsBloc
+                              .add(const ConversationsRequested());
+                        }
+                      }),
 
                       const SizedBox(
                         height: 6,
                       ),
-
-                      TextButton.icon(
-                        onPressed: () {
-                          if (PlatformUtl.isMobile) {
-                            closeDrawer();
-                             Navigator.of(context).push(MaterialPageRoute(
-                                 builder: (_) => const SettingsScreenPage()));
-                          } else {
-                            //pc,macos,web
-                             if (Navigator.of(context).canPop()) {
-                               Navigator.of(context)
-                                   .pushReplacement(SettingsScreenPage.route());
-                             } else {
-                               Navigator.of(context)
-                                   .push(SettingsScreenPage.route());
-                             }
-                          }
-                        },
-                        label: Text(AppLocalizations.of(context)!.settings),
-                        icon: const Icon(Icons.settings),
+                      textButton('Prompt', Icons.add_road_sharp, () {
+                        Navigation.navigator(context, const PromptScreen());
+                      }),
+                      const SizedBox(
+                        height: 6,
                       ),
+                      textButton(AppLocalizations.of(context)!.settings, Icons.settings, () {
+                        if (PlatformUtl.isMobile) {
+                          closeDrawer();
+                        }
+                        Navigation.navigator(context, const SettingsScreenPage());
+                      }),
                       const SizedBox(
                         height: 6,
                       ),
                       FutureBuilder<PackageInfo>(
                           future: PackageInfo.fromPlatform(),
                           builder: (context, packageInfo) {
-                            return TextButton.icon(
-                              onPressed: () async {},
-                              label: Text(
-                                  "${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}"),
-                              icon: const Icon(Icons.info),
-                            );
+                            return textButton(
+                                "${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}", Icons.info, () {});
                           })
                     ])),
           ],
@@ -171,5 +125,13 @@ class ConversationScreen extends StatelessWidget {
     // if (GetPlatform.isMobile) {
     //   Get.back();
     // }
+  }
+
+  Widget textButton(String value, IconData iconData, VoidCallback? onPressed) {
+    return TextButton.icon(
+      onPressed: onPressed,
+      label: Text(value, style: const TextStyle(color: Colors.white70)),
+      icon: Icon(iconData, color: Colors.white70),
+    );
   }
 }

@@ -74,11 +74,11 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
       itemBuilder: (context, index) {
         var conversationIndex = conversations[index];
         return ListTile(
-          title: Text(conversationIndex.title,
-              style: const TextStyle(overflow: TextOverflow.ellipsis)),
+          title: Text(conversationIndex.title, style: const TextStyle(overflow: TextOverflow.ellipsis)),
+          horizontalTitleGap: 5,
+          contentPadding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
           selected: conversations[index].id == selectedConversation?.id,
-          selectedTileColor: Color.lerp(
-              Theme.of(context).colorScheme.background, Colors.white, 0.2),
+          selectedTileColor: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.2),
           onTap: () async {
             var id = conversations[index].id;
             var conversation = chatService.getConversationById(id);
@@ -101,7 +101,6 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
               ? null
               : PopupMenuButton(
                   icon: const Icon(Icons.more_vert),
-                  padding: const EdgeInsets.only(left: 30),
                   itemBuilder: (context) {
                     return [
                       PopupMenuItem(

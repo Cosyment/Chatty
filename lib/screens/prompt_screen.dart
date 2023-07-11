@@ -1,11 +1,17 @@
 import 'package:chatbotty/api/http_request.dart';
+import 'package:chatbotty/bloc/conversations_bloc.dart';
+import 'package:chatbotty/models/models.dart';
+import 'package:chatbotty/screens/chat_screen.dart';
+import 'package:chatbotty/services/chat_service.dart';
 import 'package:chatbotty/util/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+import '../bloc/conversations_event.dart';
 import '../models/prompt.dart';
 import '../services/local_storage_service.dart';
 import '../util/platform_util.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class PromptScreen extends StatefulWidget {
   const PromptScreen({super.key});
@@ -28,16 +34,13 @@ class _PromptState extends State<PromptScreen> {
   void fetchPromptList() async {
     var prompts = await HttpRequest.request<Prompt>(
         Urls.queryPromptByCountryCode,
-        params: {
-          'countryCode': LocalStorageService().currentCountryCode.toString()
-        },
+        params: {'countryCode': LocalStorageService().currentCountryCode.toString()},
         (p0) => Prompt.fromJson(p0));
 
     if (prompts != null && prompts is List && prompts.isNotEmpty) {
       setState(() {
         for (var element in prompts) {
-          promptList.add(Prompt(
-              title: element.title, promptContent: element.promptContent));
+          promptList.add(Prompt(title: element.title, promptContent: element.promptContent));
         }
       });
     }
@@ -45,10 +48,10 @@ class _PromptState extends State<PromptScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ChatService chatService = context.read<ChatService>();
+
     return Scaffold(
-        appBar: AppBar(
-            title: Text('Prompt'),
-            automaticallyImplyLeading: PlatformUtl.isMobile),
+        appBar: AppBar(title: Text('Prompt'), automaticallyImplyLeading: PlatformUtl.isMobile),
         body: MasonryGridView.count(
           crossAxisCount: 3,
           //几列
@@ -59,39 +62,45 @@ class _PromptState extends State<PromptScreen> {
           itemCount: promptList.length,
           //元素个数
           itemBuilder: (context, index) {
-            return promptItem(promptList[index]);
+            return promptItem(context, promptList[index], chatService);
           },
-        )
-
-        // GridView.builder(
-        //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        //       crossAxisCount: 3,
-        //       mainAxisSpacing: 10,
-        //       crossAxisSpacing: 10,
-        //       childAspectRatio: 0.7,
-        //     ),
-        //     itemCount: promptList.length,
-        //     itemBuilder: (context, index) {
-        //       return promptItem(promptList[index]);
-        //     }));
-        );
+        ));
   }
-}
 
-Widget promptItem(Prompt prompt) {
-  return Column(
-    children: [
-      Container(
-          margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
-          padding: EdgeInsets.all(5),
-          child:
-              Text(prompt.title, style: const TextStyle(color: Colors.amber))),
-      Container(
-          margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
-          padding: EdgeInsets.all(5),
-          child: Text(prompt.promptContent,
-              maxLines: 5,
-              style: const TextStyle(color: Colors.amber)))
-    ],
-  );
+  Widget promptItem(BuildContext context, Prompt prompt, ChatService chatService) {
+    return GestureDetector(
+      child: Container(
+          margin: const EdgeInsets.fromLTRB(3, 3, 3, 3),
+          padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
+          decoration: BoxDecoration(color: Colors.white10, borderRadius: BorderRadius.circular(8)),
+          child: Column(
+            children: [
+              Text(prompt.title, style: const TextStyle(color: Colors.white70, fontSize: 15, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 5),
+              Text(prompt.promptContent,
+                  maxLines: 5, style: const TextStyle(color: Colors.white70, fontSize: 13, overflow: TextOverflow.ellipsis))
+            ],
+          )),
+      onTap: () async {
+        // ChatScreen
+        Conversation newConversation = Conversation.create();
+        newConversation.lastUpdated = DateTime.now();
+        newConversation.title = prompt.title;
+        newConversation.systemMessage = prompt.promptContent;
+
+        await chatService.updateConversation(newConversation);
+        var savedConversation = chatService.getConversationById(newConversation.id)!;
+        if (context.mounted) {
+          if (Navigator.of(context).canPop()) {
+            Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
+          } else {
+            Navigator.of(context).push(ChatScreenPage.route(savedConversation));
+          }
+        }
+
+        var conversationsBloc = ConversationsBloc(chatService: chatService);
+        conversationsBloc.add(const ConversationsRequested());
+      },
+    );
+  }
 }
