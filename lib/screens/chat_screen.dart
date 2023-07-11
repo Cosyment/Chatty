@@ -371,14 +371,15 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         ),
                       )),
-                      AnimatedOpacity(
-                          opacity: _showPromptPopup ? 1 : 0,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeIn,
-                          child: AnimatedSlide(
-                              offset: Offset(0, _showPromptPopup ? 0 : 0),
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.linear,
+                       AnimatedOpacity(
+                           opacity: _showPromptPopup ? 1 : 0,
+                           duration: const Duration(milliseconds: 500),
+                           curve: Curves.easeIn,
+                           child:
+                          AnimatedSlide(
+                              offset: Offset(0, _showPromptPopup ? 0 : 300),
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.ease,
                               child: Container(
                                   constraints: BoxConstraints(
                                       minHeight: 10,
@@ -390,11 +391,11 @@ class _ChatScreenState extends State<ChatScreen> {
                                             .background,
                                         Colors.white,
                                         0.1),
-                                    borderRadius: BorderRadius.circular(5),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                   padding: const EdgeInsets.all(10),
                                   margin:
-                                      const EdgeInsets.fromLTRB(12, 10, 12, 0),
+                                      const EdgeInsets.fromLTRB(12, 10, 49, 0),
                                   child: ListView.separated(
                                       shrinkWrap: true,
                                       itemCount: _promptList.length,
@@ -426,7 +427,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                           (BuildContext context, int index) =>
                                               const Divider(
                                                   height: 1.0,
-                                                  color: Colors.white10)))))
+                                                  color: Colors.white10))))
+                      )
                     ]);
               }),
 
