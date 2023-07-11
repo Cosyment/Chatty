@@ -133,18 +133,17 @@ class _ChatScreenState extends State<ChatScreen> {
         (conversation) {
       BlocProvider.of<ChatBloc>(context)
           .add(ChatStreaming(conversation, conversation.lastUpdated));
-      _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent - 10,
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.fastOutSlowIn);
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent - 10,
+          duration: const Duration(milliseconds: 200), curve: Curves.fastOutSlowIn);
     }, onDone: () {
       BlocProvider.of<ChatBloc>(context).add(ChatStreamEnded(conversation));
-      BlocProvider.of<ConversationsBloc>(context)
-          .add(const ConversationsRequested());
+      BlocProvider.of<ConversationsBloc>(context).add(const ConversationsRequested());
     });
 
     _isPromptMessage = false;
-    report(newMessage);
+    if (PlatformUtl.isMobile) {
+      report(newMessage);
+    }
   }
 
   void report(ConversationMessage message) async {
@@ -160,6 +159,7 @@ class _ChatScreenState extends State<ChatScreen> {
       'content': message.content,
       'createTime': HttpDate.format(DateTime.timestamp())
     };
+
     UmengCommonSdk.onEvent("Chat Message", reportMap);
   }
 
