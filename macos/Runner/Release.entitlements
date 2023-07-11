@@ -6,6 +6,5 @@
 	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
-	<true/>
 </dict>
 </plist>
