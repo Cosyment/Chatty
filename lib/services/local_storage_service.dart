@@ -30,7 +30,7 @@ class LocalStorageService {
 
   String get apiKey =>
       _prefs.getString(prefApiKey) ??
-          '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';
+      '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';
 
   set apiKey(String value) {
     (() async {
@@ -115,10 +115,12 @@ class LocalStorageService {
 
   bool get isChina =>
       _prefs.getString(prefCountry)?.toLowerCase() == 'cn' ||
-          _prefs.getString(prefCountry)?.toLowerCase() == 'hk' ||
-          _prefs.getString(prefCountry)?.toLowerCase() == 'tw';
+      _prefs.getString(prefCountry)?.toLowerCase() == 'hk' ||
+      _prefs.getString(prefCountry)?.toLowerCase() == 'tw';
 
-  set currentCountry(String country) => _prefs.setString(prefCountry, country);
+  set currentCountryCode(String country) => _prefs.setString(prefCountry, country);
+
+  String get currentCountryCode => _prefs.getString(prefCountry) ?? 'us';
 
   bool get isCustomApiKey => _prefs.getBool(prefCustomApiKey) ?? false;
 

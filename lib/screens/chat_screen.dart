@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:chatbotty/api/http_request.dart';
 import 'package:chatbotty/models/prompt.dart';
+import 'package:chatbotty/util/constants.dart';
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:chatbotty/util/platform_util.dart';
 import 'package:flutter/material.dart';
@@ -65,40 +67,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final bool _showSystemMessage = false;
   late bool _initScroll = true;
   late bool _showPromptPopup = false;
-  final List<Prompt> _promptList = [
-    Prompt(
-        title: '充当 Linux 终端',
-        promptContent:
-            '我想让你充当 Linux 终端。我将输入命令，您将回复终端应显示的内容。我希望您只在一个唯一的代码块内回复终端输出，而不是其他任何内容。不要写解释。除非我指示您这样做，否则不要键入命令。当我需要用英语告诉你一些事情时，我会把文字放在中括号内[就像这样]。我的第一个命令是 pwd'),
-    Prompt(
-        title: '充当英语翻译和改进者',
-        promptContent:
-            '我希望你能担任英语翻译、拼写校对和修辞改进的角色。我会用任何语言和你交流，你会识别语言，将其翻译并用更为优美和精炼的英语回答我。请将我简单的词汇和句子替换成更为优美和高雅的表达方式，确保意思不变，但使其更具文学性。请仅回答更正和改进的部分，不要写解释。我的第一句话是“how are you ?”，请翻译它。'),
-    Prompt(
-        title: '充当论文润色者',
-        promptContent:
-            '请你充当一名论文编辑专家，在论文评审的角度去修改论文摘要部分，使其更加流畅，优美。下面是具体要求：1.能让读者快速获得文章的要点或精髓，让文章引人入胜；能让读者了解全文中的重要信息、分析和论点；帮助读者记住论文的要点2.字数限制在300字以下3.请你在摘要中明确指出您的模型和方法的创新点，强调您的贡献。4.用简洁、明了的语言描述您的方法和结果，以便评审更容易理解论文下文是论文的摘要部分，请你修改它：'),
-    Prompt(
-        title: '充当英翻中',
-        promptContent:
-            '下面我让你来充当翻译家，你的目标是把任何语言翻译成中文，请翻译时不要带翻译腔，而是要翻译得自然、流畅和地道，使用优美和高雅的表达方式。请翻译下面这句话：“how are you ?”'),
-    Prompt(
-        title: '担任面试官',
-        promptContent:
-            '示例：Java 后端开发工程师、React 前端开发工程师、全栈开发工程师、iOS 开发工程师、Android开发工程师等。 回复截图请看这我想让你担任Android开发工程师面试官。我将成为候选人，您将向我询问Android开发工程师职位的面试问题。我希望你只作为面试官回答。不要一次写出所有的问题。我希望你只对我进行采访。问我问题，等待我的回答。不要写解释。像面试官一样一个一个问我，等我回答。我的第一句话是“面试官你好”'),
-    Prompt(
-        title: '担任产品经理',
-        promptContent:
-            '请确认我的以下请求。请您作为产品经理回复我。我将会提供一个主题，您将帮助我编写一份包括以下章节标题的PRD文档：主题、简介、问题陈述、目标与目的、用户故事、技术要求、收益、KPI指标、开发风险以及结论。我的需求是：做一个赛博朋克的网站首页。'),
-    Prompt(
-        title: '充当“电影/书籍/任何东西”中的“角色”',
-        promptContent:
-            '角色可自行替换我希望你表现得像西游记中的唐三藏。我希望你像唐三藏一样回应和回答。不要写任何解释。必须以唐三藏的语气和知识范围为基础。我的第一句话是“你好”'),
-    Prompt(
-        title: '充当花哨的标题生成器',
-        promptContent:
-            '我想让你充当一个花哨的标题生成器。我会用逗号输入关键字，你会用花哨的标题回复。我的第一个关键字是 api、test、automation'),
-  ];
+  final List<Prompt> _promptList = [];
   bool _isPromptMessage = false;
 
   @override
@@ -106,7 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _scrollController = ScrollController();
     _textEditingController = TextEditingController();
     _focusNode = FocusNode();
-
+    initialPrompts();
     super.initState();
   }
 
@@ -116,6 +85,22 @@ class _ChatScreenState extends State<ChatScreen> {
     _textEditingController.dispose();
     _focusNode.dispose();
     super.dispose();
+  }
+
+  void initialPrompts() async {
+    var prompts = await HttpRequest.request<Prompt>(
+        Urls.queryPromptByCountryCode,
+        params: {
+          'countryCode': LocalStorageService().currentCountryCode.toString()
+        },
+        (p0) => Prompt.fromJson(p0));
+    if (prompts != null && prompts is List && prompts.isNotEmpty) {
+      _promptList.clear();
+      for (var element in prompts) {
+        _promptList.add(
+            Prompt(title: element.title, promptContent: element.promptContent));
+      }
+    }
   }
 
   void handleSend(BuildContext context, Conversation conversation) {
@@ -132,7 +117,7 @@ class _ChatScreenState extends State<ChatScreen> {
     var chatService = context.read<ChatService>();
     var newMessage = ConversationMessage('user', _textEditingController.text);
 
-    if(_isPromptMessage){
+    if (_isPromptMessage) {
       conversation.systemMessage = _textEditingController.text;
     }
 
@@ -295,7 +280,8 @@ class _ChatScreenState extends State<ChatScreen> {
               builder: (context, value, child) {
                 if (value.text.isNotEmpty &&
                     value.text.length == 1 &&
-                    value.text == '/') {
+                    value.text == '/' &&
+                    _promptList.isNotEmpty) {
                   _showPromptPopup = true;
                 } else {
                   _showPromptPopup = false;
@@ -371,12 +357,11 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         ),
                       )),
-                       AnimatedOpacity(
-                           opacity: _showPromptPopup ? 1 : 0,
-                           duration: const Duration(milliseconds: 500),
-                           curve: Curves.easeIn,
-                           child:
-                          AnimatedSlide(
+                      AnimatedOpacity(
+                          opacity: _showPromptPopup ? 1 : 0,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeIn,
+                          child: AnimatedSlide(
                               offset: Offset(0, _showPromptPopup ? 0 : 300),
                               duration: const Duration(milliseconds: 500),
                               curve: Curves.ease,
@@ -427,8 +412,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                           (BuildContext context, int index) =>
                                               const Divider(
                                                   height: 1.0,
-                                                  color: Colors.white10))))
-                      )
+                                                  color: Colors.white10)))))
                     ]);
               }),
 

@@ -123,7 +123,7 @@ void initialConfiguration() async {
 
 void getCurrentCountry() async {
   dynamic result = await HttpRequest.requestJson(Urls.queryCountry);
-  LocalStorageService().currentCountry = result['countryCode'];
+  LocalStorageService().currentCountryCode = result['countryCode'];
   getDomain();
 }
 
