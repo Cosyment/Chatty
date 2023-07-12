@@ -1,5 +1,7 @@
 import 'package:chatbotty/api/http_request.dart';
 import 'package:chatbotty/bloc/conversations_bloc.dart';
+import 'package:chatbotty/event/event_bus.dart';
+import 'package:chatbotty/event/event_message.dart';
 import 'package:chatbotty/models/models.dart';
 import 'package:chatbotty/screens/chat_screen.dart';
 import 'package:chatbotty/services/chat_service.dart';
@@ -79,7 +81,6 @@ class _PromptState extends State<PromptScreen> {
             ],
           )),
       onTap: () async {
-        // ChatScreen
         Conversation newConversation = Conversation.create();
         newConversation.lastUpdated = DateTime.now();
         newConversation.title = prompt.title;
@@ -87,16 +88,17 @@ class _PromptState extends State<PromptScreen> {
 
         await chatService.updateConversation(newConversation);
         var savedConversation = chatService.getConversationById(newConversation.id)!;
-        if (context.mounted) {
-          if (Navigator.of(context).canPop()) {
-            Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
-          } else {
-            Navigator.of(context).push(ChatScreenPage.route(savedConversation));
-          }
-        }
-
+         if (context.mounted) {
+           if (Navigator.of(context).canPop()) {
+             Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
+           } else {
+             Navigator.of(context).push(ChatScreenPage.route(savedConversation));
+           }
+         }
         var conversationsBloc = ConversationsBloc(chatService: chatService);
         conversationsBloc.add(const ConversationsRequested());
+
+        EventBus.getDefault().post(EventMessage(newConversation));
       },
     );
   }

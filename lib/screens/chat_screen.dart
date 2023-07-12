@@ -13,6 +13,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
 import '../bloc/blocs.dart';
+import '../event/event_message.dart';
 import '../models/models.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
@@ -76,6 +77,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _textEditingController = TextEditingController();
     _focusNode = FocusNode();
     initialPrompts();
+
     super.initState();
   }
 

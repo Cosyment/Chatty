@@ -1,4 +1,7 @@
+
 import 'package:chatbotty/bloc/blocs.dart';
+import 'package:chatbotty/event/event_bus.dart';
+import 'package:chatbotty/event/event_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -47,6 +50,25 @@ class ChatScreenAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _ChatScreenAppbar extends State<ChatScreenAppBar> {
+
+  @override
+  void initState() {
+    EventBus.getDefault().register<EventMessage<Conversation>>(null, (event) {
+      // setState(() {
+      //   widget.currentConversation?.title= event.data.title;
+      // });
+      print("--------->>${event.data.title}");
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    EventBus.getDefault().unregister(null);
+  }
+
   @override
   Widget build(BuildContext context) {
     var chatService = context.read<ChatService>();
