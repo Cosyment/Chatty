@@ -85,6 +85,7 @@ class _PromptState extends State<PromptScreen> {
         newConversation.lastUpdated = DateTime.now();
         newConversation.title = prompt.title;
         newConversation.systemMessage = prompt.promptContent;
+        LocalStorageService().currentConversationId = newConversation.id;
 
         await chatService.updateConversation(newConversation);
         var savedConversation = chatService.getConversationById(newConversation.id)!;
@@ -98,7 +99,7 @@ class _PromptState extends State<PromptScreen> {
         var conversationsBloc = ConversationsBloc(chatService: chatService);
         conversationsBloc.add(const ConversationsRequested());
 
-        EventBus.getDefault().post(EventMessage(newConversation));
+        // EventBus.getDefault().post(EventMessage(newConversation));
       },
     );
   }

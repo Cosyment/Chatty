@@ -144,7 +144,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
     _isPromptMessage = false;
     if (PlatformUtl.isMobile) {
-      report(newMessage);
+      // report(newMessage);
     }
   }
 
