@@ -40,5 +40,6 @@
   "create_conversation_to_start": "시작할 대화 만들기 또는 선택",
   "other":"다른",
   "reset_api_key": "API 키 재설정",
-  "reset_api_key_tips": "API 키를 재설정하시겠습니까? 재설정 후 새 API 키를 추가하거나 앱을 다시 시작해야 하나요"
+  "reset_api_key_tips": "API 키를 재설정하시겠습니까? 재설정 후 새 API 키를 추가하거나 앱을 다시 시작해야 하나요",
+  "prompt":"프롬프트"
 }

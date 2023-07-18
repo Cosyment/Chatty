@@ -40,5 +40,6 @@
   "create_conversation_to_start": "起動するセッションの作成または選択",
   "other":"他の",
   "reset_api_key": "APIキーをリセット",
-  "reset_api_key_tips": "API キーをリセットしてもよろしいですか? リセット後、新しい API キーを追加するか、アプリを再起動する必要がありますか"
+  "reset_api_key_tips": "API キーをリセットしてもよろしいですか? リセット後、新しい API キーを追加するか、アプリを再起動する必要がありますか",
+  "prompt":"プロンプト"
 }

@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_add_your_api_key":
             MessageLookupByLibrary.simpleMessage("먼저 API Key 추가하세요."),
         "privacy": MessageLookupByLibrary.simpleMessage("프라이버시"),
+        "prompt": MessageLookupByLibrary.simpleMessage("프롬프트"),
         "render_mode": MessageLookupByLibrary.simpleMessage("렌더링 모드"),
         "resend": MessageLookupByLibrary.simpleMessage("다시 보내기"),
         "reset_api_key": MessageLookupByLibrary.simpleMessage("API 키 재설정"),

@@ -40,5 +40,6 @@
   "create_conversation_to_start": "創建或選擇要啟動的對話",
   "other":"其他",
   "reset_api_key": "重置API Key",
-  "reset_api_key_tips": "您確定要重置API Key嗎？ 重置後您需要添加新的API Key或重新啟動應用程序"
+  "reset_api_key_tips": "您確定要重置API Key嗎？ 重置後您需要添加新的API Key或重新啟動應用程序",
+  "prompt":"提示語"
 }

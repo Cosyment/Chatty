@@ -1,14 +1,14 @@
 import 'package:chatbotty/api/http_request.dart';
 import 'package:chatbotty/bloc/conversations_bloc.dart';
-import 'package:chatbotty/event/event_bus.dart';
-import 'package:chatbotty/event/event_message.dart';
 import 'package:chatbotty/models/models.dart';
 import 'package:chatbotty/screens/chat_screen.dart';
 import 'package:chatbotty/services/chat_service.dart';
 import 'package:chatbotty/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:intl/intl.dart';
 
 import '../bloc/conversations_event.dart';
 import '../models/prompt.dart';
@@ -34,6 +34,7 @@ class _PromptState extends State<PromptScreen> {
   }
 
   void fetchPromptList() async {
+    debugPrint('---------------->>>${Intl.getCurrentLocale()}----');
     var prompts = await HttpRequest.request<Prompt>(
         Urls.queryPromptByCountryCode,
         params: {'countryCode': LocalStorageService().currentCountryCode.toString()},
@@ -53,7 +54,7 @@ class _PromptState extends State<PromptScreen> {
     ChatService chatService = context.read<ChatService>();
 
     return Scaffold(
-        appBar: AppBar(title: Text('Prompt'), automaticallyImplyLeading: PlatformUtl.isMobile),
+        appBar: AppBar(title: Text(AppLocalizations.of(context)!.prompt), automaticallyImplyLeading: PlatformUtl.isMobile),
         body: MasonryGridView.count(
           crossAxisCount: 3,
           mainAxisSpacing: 5,

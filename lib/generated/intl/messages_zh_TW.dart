@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_add_your_api_key":
             MessageLookupByLibrary.simpleMessage("請先添加您的API Key"),
         "privacy": MessageLookupByLibrary.simpleMessage("隱私"),
+        "prompt": MessageLookupByLibrary.simpleMessage("提示語"),
         "render_mode": MessageLookupByLibrary.simpleMessage("渲染模式"),
         "resend": MessageLookupByLibrary.simpleMessage("重新發送"),
         "reset_api_key": MessageLookupByLibrary.simpleMessage("重置API Key"),

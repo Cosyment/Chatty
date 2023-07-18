@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_add_your_api_key":
             MessageLookupByLibrary.simpleMessage("最初に API キーを追加してください"),
         "privacy": MessageLookupByLibrary.simpleMessage("プライバシー"),
+        "prompt": MessageLookupByLibrary.simpleMessage("プロンプト"),
         "render_mode": MessageLookupByLibrary.simpleMessage("レンダリングモード"),
         "resend": MessageLookupByLibrary.simpleMessage("再送信"),
         "reset_api_key": MessageLookupByLibrary.simpleMessage("APIキーをリセット"),

@@ -40,5 +40,6 @@
   "create_conversation_to_start": "Create or choose a conversation to start",
   "other":"Other",
   "reset_api_key": "Reset API Key",
-  "reset_api_key_tips": "Are you sure you want to reset the api key? After the reset, you need to add a new api key or restart the app"
+  "reset_api_key_tips": "Are you sure you want to reset the api key? After the reset, you need to add a new api key or restart the app",
+  "prompt":"Prompt"
 }

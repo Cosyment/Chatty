@@ -7,6 +7,7 @@ import 'package:chatbotty/util/constants.dart';
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:chatbotty/util/platform_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -135,11 +136,14 @@ class _ChatScreenState extends State<ChatScreen> {
         (conversation) {
       BlocProvider.of<ChatBloc>(context)
           .add(ChatStreaming(conversation, conversation.lastUpdated));
-      _scrollController.animateTo(_scrollController.position.maxScrollExtent - 10,
-          duration: const Duration(milliseconds: 200), curve: Curves.fastOutSlowIn);
+      _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent - 10,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.fastOutSlowIn);
     }, onDone: () {
       BlocProvider.of<ChatBloc>(context).add(ChatStreamEnded(conversation));
-      BlocProvider.of<ConversationsBloc>(context).add(const ConversationsRequested());
+      BlocProvider.of<ConversationsBloc>(context)
+          .add(const ConversationsRequested());
     });
 
     _isPromptMessage = false;
@@ -228,9 +232,12 @@ class _ChatScreenState extends State<ChatScreen> {
     if (_initScroll && _scrollController.hasClients) {
       // _scrollController.animateTo(_scrollController.position.maxScrollExtent,
       //     duration: const Duration(milliseconds: 50), curve: Curves.linear);
-
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      _initScroll = false;
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+          _initScroll = false;
+        });
+      });
     }
 
     return ScaffoldMessenger(
