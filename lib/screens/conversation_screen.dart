@@ -93,7 +93,7 @@ class ConversationScreen extends StatelessWidget {
                       const SizedBox(
                         height: 6,
                       ),
-                      textButton('Prompt', Icons.add_road_sharp, () {
+                      textButton(AppLocalizations.of(context)!.prompt, Icons.add_road_sharp, () {
                         Navigation.navigator(context, const PromptScreen());
                       }),
                       const SizedBox(
