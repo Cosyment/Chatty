@@ -301,84 +301,87 @@ class _ChatScreenState extends State<ChatScreen> {
 
                 return Stack(alignment: AlignmentDirectional.center, fit: StackFit.loose, children: [
                   Positioned(
-                      child: SizedBox(
-                    height: _showPromptPopup ? 200 : 24,
-                    child: Container(
-                      alignment: Alignment.bottomCenter,
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Row(
-                        children: [
-                          Row(
-                            children: [
-                              Icon(Icons.history, size: 16, color: Theme.of(context).colorScheme.primary),
-                              const SizedBox(width: 8),
-                              Text(
-                                  '${min(TokenService.getEffectiveMessages(conversation, value.text).length, LocalStorageService().historyCount)}/${LocalStorageService().historyCount}',
-                                  style: const TextStyle(fontSize: 12))
-                            ],
-                          ),
-                          const SizedBox(width: 20),
-                          Row(
-                            children: [
-                              Icon(Icons.translate, size: 16, color: Theme.of(context).colorScheme.primary),
-                              const SizedBox(width: 8),
-                              Text('System: ${TokenService.getToken(conversation.systemMessage)}',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: TokenService.getToken(conversation.systemMessage) >= TokenService.getTokenLimit()
-                                          ? Theme.of(context).colorScheme.error
-                                          : null)),
-                              const SizedBox(width: 8),
-                              Text('Input: ${TokenService.getToken(value.text)}',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color:
-                                          TokenService.getToken(conversation.systemMessage) + TokenService.getToken(value.text) >=
-                                                  TokenService.getTokenLimit()
-                                              ? Theme.of(context).colorScheme.error
-                                              : null)),
-                              const SizedBox(width: 8),
-                              Text('History: ${TokenService.getEffectiveMessagesToken(conversation, value.text)}',
-                                  style: const TextStyle(fontSize: 12)),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )),
-                  AnimatedPositioned(
-                          bottom: _showPromptPopup ? 0 : -200,
+                      child: AnimatedSize(
                           duration: const Duration(milliseconds: 200),
-                          curve: Curves.fastOutSlowIn,
-                          child:
-                          Container(
-                              constraints: BoxConstraints(minHeight: 10, maxHeight: _showPromptPopup ? 400 : 10),
-                              // width: PlatformUtl.isMobile ? 315 : 435,
-                              width: inputBoxWidth!+10,
-                              height: 200.0,
-                              decoration: BoxDecoration(
-                                color: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.1),
-                                borderRadius: BorderRadius.circular(8),
+                          curve: Curves.linear,
+                          child: SizedBox(
+                            height: _showPromptPopup ? 210 : 24,
+                            child: Container(
+                              alignment: Alignment.bottomCenter,
+                              padding: const EdgeInsets.only(left: 16),
+                              child: Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.history, size: 16, color: Theme.of(context).colorScheme.primary),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                          '${min(TokenService.getEffectiveMessages(conversation, value.text).length, LocalStorageService().historyCount)}/${LocalStorageService().historyCount}',
+                                          style: const TextStyle(fontSize: 12))
+                                    ],
+                                  ),
+                                  const SizedBox(width: 20),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.translate, size: 16, color: Theme.of(context).colorScheme.primary),
+                                      const SizedBox(width: 8),
+                                      Text('System: ${TokenService.getToken(conversation.systemMessage)}',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: TokenService.getToken(conversation.systemMessage) >=
+                                                      TokenService.getTokenLimit()
+                                                  ? Theme.of(context).colorScheme.error
+                                                  : null)),
+                                      const SizedBox(width: 8),
+                                      Text('Input: ${TokenService.getToken(value.text)}',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: TokenService.getToken(conversation.systemMessage) +
+                                                          TokenService.getToken(value.text) >=
+                                                      TokenService.getTokenLimit()
+                                                  ? Theme.of(context).colorScheme.error
+                                                  : null)),
+                                      const SizedBox(width: 8),
+                                      Text('History: ${TokenService.getEffectiveMessagesToken(conversation, value.text)}',
+                                          style: const TextStyle(fontSize: 12)),
+                                    ],
+                                  )
+                                ],
                               ),
-                              padding: const EdgeInsets.all(10),
-                              margin: const EdgeInsets.fromLTRB(12, 10, 49, 0),
-                              child: ListView.separated(
-                                  shrinkWrap: true,
-                                  itemCount: _promptList.length,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                        child: SizedBox(
-                                            height: 40,
-                                            child: Center(child: Text(_promptList[index].title, textAlign: TextAlign.center))),
-                                        onTap: () {
-                                          _textEditingController.text = _promptList[index].promptContent;
-                                          _textEditingController.selection = TextSelection.fromPosition(
-                                              TextPosition(offset: _textEditingController.text.length));
-                                          _isPromptMessage = true;
-                                        });
-                                  },
-                                  separatorBuilder: (BuildContext context, int index) =>
-                                      const Divider(height: 1.0, color: Colors.white10))))
+                            ),
+                          ))),
+                  AnimatedPositioned(
+                      bottom: _showPromptPopup ? 0 : -200,
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.easeIn,
+                      child: Container(
+                          constraints: BoxConstraints(minHeight: 10, maxHeight: _showPromptPopup ? 400 : 10),
+                          // width: PlatformUtl.isMobile ? 315 : 435,
+                          width: inputBoxWidth! + 5,
+                          height: 200.0,
+                          decoration: BoxDecoration(
+                            color: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.fromLTRB(12, 10, 49, 0),
+                          child: ListView.separated(
+                              shrinkWrap: true,
+                              itemCount: _promptList.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                    child: SizedBox(
+                                        height: 40,
+                                        child: Center(child: Text(_promptList[index].title, textAlign: TextAlign.center))),
+                                    onTap: () {
+                                      _textEditingController.text = _promptList[index].promptContent;
+                                      _textEditingController.selection =
+                                          TextSelection.fromPosition(TextPosition(offset: _textEditingController.text.length));
+                                      _isPromptMessage = true;
+                                    });
+                              },
+                              separatorBuilder: (BuildContext context, int index) =>
+                                  const Divider(height: 1.0, color: Colors.white10))))
                 ]);
               }),
           // chat input
