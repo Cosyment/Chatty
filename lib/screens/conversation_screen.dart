@@ -28,8 +28,9 @@ class ConversationScreenPage extends StatelessWidget {
       body: conversation == null
           ? const EmptyChatWidget()
           : BlocProvider(
-          create: (context) => ChatBloc(chatService: chatService, initialConversation: conversation),
-          child: const ChatScreen()),
+              create: (context) => ChatBloc(
+                  chatService: chatService, initialConversation: conversation),
+              child: const ChatScreen()),
       mainView: TabletMainView.sidebar,
     );
   }
@@ -40,11 +41,13 @@ class ConversationScreen extends StatelessWidget {
 
   const ConversationScreen({super.key, this.selectedConversation});
 
-  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(
+          BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(
+                conversation: conversation, isEdit: isEdit);
           });
 
   @override
@@ -67,43 +70,46 @@ class ConversationScreen extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      textButton(AppLocalizations.of(context)!.new_conversation, Icons.add_box, () async{
+                      textButton(AppLocalizations.of(context)!.new_conversation,
+                          Icons.add_box_outlined, () async {
                         var newConversation = await showConversationDialog(
                             context, false, Conversation.create());
                         if (newConversation != null) {
                           LocalStorageService().currentConversationId =
                               newConversation.id;
 
-                          await chatService
-                              .updateConversation(newConversation);
+                          await chatService.updateConversation(newConversation);
                           var savedConversation = chatService
                               .getConversationById(newConversation.id)!;
                           if (context.mounted) {
                             if (Navigator.of(context).canPop()) {
-                              Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
+                              Navigator.of(context).pushReplacement(
+                                  ChatScreenPage.route(savedConversation));
                             } else {
-                              Navigator.of(context).push(ChatScreenPage.route(savedConversation));
+                              Navigator.of(context).push(
+                                  ChatScreenPage.route(savedConversation));
                             }
                           }
-                          conversationsBloc
-                              .add(const ConversationsRequested());
+                          conversationsBloc.add(const ConversationsRequested());
                         }
                       }),
-
                       const SizedBox(
                         height: 6,
                       ),
-                      textButton(AppLocalizations.of(context)!.prompt, Icons.add_road_sharp, () {
+                      textButton(AppLocalizations.of(context)!.prompt,
+                          Icons.tips_and_updates_outlined, () {
                         Navigation.navigator(context, const PromptScreen());
                       }),
                       const SizedBox(
                         height: 6,
                       ),
-                      textButton(AppLocalizations.of(context)!.settings, Icons.settings, () {
+                      textButton(AppLocalizations.of(context)!.settings,
+                          Icons.settings_outlined, () {
                         if (PlatformUtl.isMobile) {
                           closeDrawer();
                         }
-                        Navigation.navigator(context, const SettingsScreenPage());
+                        Navigation.navigator(
+                            context, const SettingsScreenPage());
                       }),
                       const SizedBox(
                         height: 6,
@@ -112,7 +118,9 @@ class ConversationScreen extends StatelessWidget {
                           future: PackageInfo.fromPlatform(),
                           builder: (context, packageInfo) {
                             return textButton(
-                                "${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}", Icons.info, () {});
+                                "${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}",
+                                Icons.info_outline,
+                                () {});
                           })
                     ])),
           ],
@@ -131,7 +139,11 @@ class ConversationScreen extends StatelessWidget {
     return TextButton.icon(
       onPressed: onPressed,
       label: Text(value, style: const TextStyle(color: Colors.white70)),
-      icon: Icon(iconData, color: Colors.white70),
+      icon: Icon(
+        iconData,
+        color: Colors.white70,
+        size: 20.0
+      ),
     );
   }
 }
