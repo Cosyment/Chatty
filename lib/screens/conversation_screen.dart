@@ -65,6 +65,9 @@ class ConversationScreen extends StatelessWidget {
           children: [
             ConversationListWidget(selectedConversation: selectedConversation),
             const Divider(thickness: .5),
+            Container(color: Colors.black87,
+                width: 300,
+                child:
             Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
                 child: Column(
@@ -122,7 +125,7 @@ class ConversationScreen extends StatelessWidget {
                                 Icons.info_outline,
                                 () {});
                           })
-                    ])),
+                    ]))),
           ],
         ),
       ),
