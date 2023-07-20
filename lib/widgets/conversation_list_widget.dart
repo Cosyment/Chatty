@@ -78,7 +78,7 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
           horizontalTitleGap: 5,
           contentPadding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
           selected: conversations[index].id == selectedConversation?.id,
-          selectedTileColor: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.2),
+          selectedTileColor: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.05),
           onTap: () async {
             var id = conversations[index].id;
             var conversation = chatService.getConversationById(id);

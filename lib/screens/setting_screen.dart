@@ -6,6 +6,8 @@ import 'package:chatbotty/util/constants.dart';
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:chatbotty/util/platform_util.dart';
 import 'package:chatbotty/widgets/popup_box_constraints.dart';
+import 'package:chatbotty/widgets/theme_color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

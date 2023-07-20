@@ -1,5 +1,7 @@
 import 'package:chatbotty/util/navigation.dart';
 import 'package:chatbotty/util/platform_util.dart';
+import 'package:chatbotty/widgets/theme_color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -56,38 +58,29 @@ class ConversationScreen extends StatelessWidget {
     var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
 
     return Scaffold(
-      appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.conversations),
-          automaticallyImplyLeading: false),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.conversations), automaticallyImplyLeading: false),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ConversationListWidget(selectedConversation: selectedConversation),
             const Divider(thickness: .5),
-            Container(color: Colors.black87,
+            Container(
+                color: CupertinoColors.darkBackgroundGray,
                 width: 300,
-                child:
-            Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textButton(AppLocalizations.of(context)!.new_conversation,
-                          Icons.add_box_outlined, () async {
-                        var newConversation = await showConversationDialog(
-                            context, false, Conversation.create());
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      textButton(AppLocalizations.of(context)!.new_conversation, Icons.add_box_outlined, () async {
+                        var newConversation = await showConversationDialog(context, false, Conversation.create());
                         if (newConversation != null) {
-                          LocalStorageService().currentConversationId =
-                              newConversation.id;
+                          LocalStorageService().currentConversationId = newConversation.id;
 
                           await chatService.updateConversation(newConversation);
-                          var savedConversation = chatService
-                              .getConversationById(newConversation.id)!;
+                          var savedConversation = chatService.getConversationById(newConversation.id)!;
                           if (context.mounted) {
                             if (Navigator.of(context).canPop()) {
-                              Navigator.of(context).pushReplacement(
-                                  ChatScreenPage.route(savedConversation));
+                              Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
                             } else {
                               Navigator.of(context).push(
                                   ChatScreenPage.route(savedConversation));

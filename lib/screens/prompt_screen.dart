@@ -4,6 +4,7 @@ import 'package:chatbotty/models/models.dart';
 import 'package:chatbotty/screens/chat_screen.dart';
 import 'package:chatbotty/services/chat_service.dart';
 import 'package:chatbotty/util/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +15,7 @@ import '../bloc/conversations_event.dart';
 import '../models/prompt.dart';
 import '../services/local_storage_service.dart';
 import '../util/platform_util.dart';
+import '../widgets/theme_color.dart';
 
 class PromptScreen extends StatefulWidget {
   const PromptScreen({super.key});

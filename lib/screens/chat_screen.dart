@@ -7,8 +7,8 @@ import 'package:chatbotty/models/prompt.dart';
 import 'package:chatbotty/util/constants.dart';
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:chatbotty/util/platform_util.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -19,6 +19,7 @@ import '../models/models.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../services/token_service.dart';
+import '../widgets/theme_color.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
 
@@ -230,13 +231,12 @@ class _ChatScreenState extends State<ChatScreen> {
     }
 
     if (_initScroll && _scrollController.hasClients) {
-      // _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-      //     duration: const Duration(milliseconds: 50), curve: Curves.linear);
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-          _initScroll = false;
-        });
+        // SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 100), curve: Curves.linear);
+        _initScroll = false;
+        // });
       });
     }
 

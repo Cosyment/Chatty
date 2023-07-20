@@ -1,11 +1,13 @@
 import 'package:chatbotty/bloc/blocs.dart';
 import 'package:chatbotty/services/local_storage_service.dart';
 import 'package:chatbotty/widgets/chat_screen_appbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../services/chat_service.dart';
 import '../util/platform_util.dart';
+import '../widgets/theme_color.dart';
 
 class TabletScreenPage extends StatelessWidget {
   final Widget sidebar;

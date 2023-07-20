@@ -2,6 +2,7 @@
 import 'package:chatbotty/bloc/blocs.dart';
 import 'package:chatbotty/event/event_bus.dart';
 import 'package:chatbotty/event/event_message.dart';
+import 'package:chatbotty/widgets/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

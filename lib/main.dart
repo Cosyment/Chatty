@@ -6,6 +6,7 @@ import 'package:chatbotty/api/http_request.dart';
 import 'package:chatbotty/util/constants.dart';
 import 'package:chatbotty/util/environment_config.dart';
 import 'package:chatbotty/util/platform_util.dart';
+import 'package:chatbotty/widgets/theme_color.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -99,12 +100,30 @@ class _AppState extends State<App> {
               supportedLocales: const [
                 Locale('en'),
                 Locale.fromSubtags(languageCode: 'zh'),
-                Locale.fromSubtags(
-                    languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+                Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
                 Locale('ja'),
                 Locale('ko')
               ],
-              theme: ThemeData.dark(useMaterial3: true),
+              theme: ThemeData(
+                  useMaterial3: true,
+                  brightness: Brightness.dark,
+                  cardColor: ThemeColor.primaryColor,
+                  dialogBackgroundColor: ThemeColor.backgroundColor,
+                  scaffoldBackgroundColor: ThemeColor.backgroundColor,
+                  textButtonTheme: const TextButtonThemeData(
+                      style: ButtonStyle(foregroundColor: MaterialStatePropertyAll<Color>(Colors.white30))),
+                  elevatedButtonTheme: const ElevatedButtonThemeData(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll<Color>(Colors.black38),
+                          foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+                          textStyle: MaterialStatePropertyAll<TextStyle>(TextStyle(color: Colors.white)))),
+                  appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor),
+                  listTileTheme: const ListTileThemeData(
+                      // tileColor: Colors.black12,
+                      // selectedTileColor: Colors.blue,
+                      textColor: Colors.white70,
+                      selectedColor: Colors.white),
+                  primaryColor: ThemeColor.backgroundColor),
               debugShowCheckedModeBanner: false,
               home: const ConversationScreenPage(),
             )));
