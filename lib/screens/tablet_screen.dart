@@ -27,7 +27,7 @@ class TabletScreenPage extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        if (!PlatformUtl.isMobile) {
+        if (!PlatformUtil.isMobile) {
           return Row(
             children: [
               SizedBox(

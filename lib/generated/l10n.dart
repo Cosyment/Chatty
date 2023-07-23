@@ -420,10 +420,10 @@ class S {
     );
   }
 
-  /// `Create or choose a conversation to start`
+  /// `Create or select a session, tips: Entering '/' can trigger more surprises`
   String get create_conversation_to_start {
     return Intl.message(
-      'Create or choose a conversation to start',
+      'Create or select a session, tips: Entering \'/\' can trigger more surprises',
       name: 'create_conversation_to_start',
       desc: '',
       args: [],
@@ -465,6 +465,26 @@ class S {
     return Intl.message(
       'Prompt',
       name: 'prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tips`
+  String get clean_conversation {
+    return Intl.message(
+      'Tips',
+      name: 'clean_conversation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure to clear all conversations？`
+  String get clean_conversation_tips {
+    return Intl.message(
+      'Are you sure to clear all conversations？',
+      name: 'clean_conversation_tips',
       desc: '',
       args: [],
     );

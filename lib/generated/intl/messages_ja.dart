@@ -35,12 +35,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
         "chat": MessageLookupByLibrary.simpleMessage("おしゃべり"),
         "chat_parameters": MessageLookupByLibrary.simpleMessage("チャットパラメータ"),
+        "clean_conversation": MessageLookupByLibrary.simpleMessage("暖かいヒント"),
+        "clean_conversation_tips":
+            MessageLookupByLibrary.simpleMessage("すべてのセッションをクリアすることを確認しますか？"),
         "clear_conversation": MessageLookupByLibrary.simpleMessage("はっきりした会話"),
         "clear_conversation_tips":
             MessageLookupByLibrary.simpleMessage("会話履歴をクリアしたいですか?"),
         "conversations": MessageLookupByLibrary.simpleMessage("ダイアログ"),
-        "create_conversation_to_start":
-            MessageLookupByLibrary.simpleMessage("起動するセッションの作成または選択"),
+        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
+            "セッションを作成または選択します。tips：\'/\'を入力すると、より多くの驚きをトリガーできますよ"),
         "custom_api_host":
             MessageLookupByLibrary.simpleMessage("カスタマイズ API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("削除"),

@@ -37,13 +37,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chat_parameters":
             MessageLookupByLibrary.simpleMessage("Chat Parameters"),
+        "clean_conversation": MessageLookupByLibrary.simpleMessage("Tips"),
+        "clean_conversation_tips": MessageLookupByLibrary.simpleMessage(
+            "Are you sure to clear all conversations？"),
         "clear_conversation":
             MessageLookupByLibrary.simpleMessage("Clear conversation"),
         "clear_conversation_tips": MessageLookupByLibrary.simpleMessage(
             "Would you like to clear conversation history?"),
         "conversations": MessageLookupByLibrary.simpleMessage("Conversations"),
         "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
-            "Create or choose a conversation to start"),
+            "Create or select a session, tips: Entering \'/\' can trigger more surprises"),
         "custom_api_host":
             MessageLookupByLibrary.simpleMessage("Customization API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),

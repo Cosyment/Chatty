@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'md_text_styles.dart';
 import 'syntax_high_lighter.dart';
@@ -167,19 +168,18 @@ class CustomMarkdownWidget extends StatelessWidget {
     return Container(
       color: _getBackgroundColor(context),
       child: SingleChildScrollView(
-        child: MarkdownBody(
-          // styleSheet: _getStyle(context),
-          styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
-              .copyWith(textScaleFactor: 1.1),
-          syntaxHighlighter: Highlighter(),
-          data: _getMarkDownData(markdownData),
-          selectable: true,
-          onTapLink: (String text, String? href, String title) {
-            print(href);
-            // jumpLaunchUrl(href);
-          },
-        ),
-      ),
+          child: MarkdownBody(
+        // styleSheet: _getStyle(context),
+        styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(textScaleFactor: 1.1),
+        syntaxHighlighter: Highlighter(),
+        data: _getMarkDownData(markdownData),
+        selectable: true,
+        onTapLink: (String text, String? href, String title) {
+          print(href);
+          // jumpLaunchUrl(href);
+          launchUrl(Uri.parse(href!), mode: LaunchMode.inAppWebView);
+        },
+      )),
     );
   }
 }

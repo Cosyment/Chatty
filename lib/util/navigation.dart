@@ -6,7 +6,7 @@ import '../screens/tablet_screen.dart';
 
 class Navigation {
   static navigator(BuildContext context, Widget page) {
-    if (PlatformUtl.isMobile) {
+    if (PlatformUtil.isMobile) {
       Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
     } else {
       if (Navigator.of(context).canPop()) {

@@ -35,12 +35,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("취소"),
         "chat": MessageLookupByLibrary.simpleMessage("잡담"),
         "chat_parameters": MessageLookupByLibrary.simpleMessage("채팅 매개 변수"),
+        "clean_conversation": MessageLookupByLibrary.simpleMessage("따뜻한 힌트"),
+        "clean_conversation_tips":
+            MessageLookupByLibrary.simpleMessage("모든 세션을 비우시겠습니까?"),
         "clear_conversation": MessageLookupByLibrary.simpleMessage("명료한 대화"),
         "clear_conversation_tips":
             MessageLookupByLibrary.simpleMessage("대화 기록을 지우시겠습니까?"),
         "conversations": MessageLookupByLibrary.simpleMessage("대화"),
-        "create_conversation_to_start":
-            MessageLookupByLibrary.simpleMessage("시작할 대화 만들기 또는 선택"),
+        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
+            "세션을 만들거나 선택합니다. tips:\'/\'를 입력하면 더 많은 이벤트가 발생합니다."),
         "custom_api_host":
             MessageLookupByLibrary.simpleMessage("사용자화 API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("삭제"),

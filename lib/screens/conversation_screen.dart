@@ -1,6 +1,5 @@
 import 'package:chatbotty/util/navigation.dart';
 import 'package:chatbotty/util/platform_util.dart';
-import 'package:chatbotty/widgets/theme_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,14 +23,12 @@ class ConversationScreenPage extends StatelessWidget {
     var chatService = context.read<ChatService>();
     var conversation = chatService
         .getConversationById(LocalStorageService().currentConversationId);
-
     return TabletScreenPage(
       sidebar: const ConversationScreen(),
       body: conversation == null
-          ? const EmptyChatWidget()
+          ? const EmptyChatScreen()
           : BlocProvider(
-              create: (context) => ChatBloc(
-                  chatService: chatService, initialConversation: conversation),
+              create: (context) => ChatBloc(chatService: chatService, initialConversation: conversation),
               child: const ChatScreen()),
       mainView: TabletMainView.sidebar,
     );
@@ -43,14 +40,22 @@ class ConversationScreen extends StatelessWidget {
 
   const ConversationScreen({super.key, this.selectedConversation});
 
-  Future<Conversation?> showConversationDialog(
-          BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(
-                conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
           });
+
+  Future<bool?> showCleanConfirmDialog(BuildContext context) => showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmDialog(
+            title: AppLocalizations.of(context)!.clean_conversation,
+            content: AppLocalizations.of(context)!.clean_conversation_tips,
+          );
+        },
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +63,22 @@ class ConversationScreen extends StatelessWidget {
     var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.conversations), automaticallyImplyLeading: false),
+      appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(AppLocalizations.of(context)!.conversations),
+              IconButton(
+                  onPressed: () async {
+                    var result = await showCleanConfirmDialog(context);
+                    if (result == true) {
+                      LocalStorageService().removeConversationJsonAll();
+                    }
+                  },
+                  icon: const Icon(Icons.cleaning_services_outlined))
+            ],
+          ),
+          automaticallyImplyLeading: false),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,20 +112,17 @@ class ConversationScreen extends StatelessWidget {
                       const SizedBox(
                         height: 6,
                       ),
-                      textButton(AppLocalizations.of(context)!.prompt,
-                          Icons.tips_and_updates_outlined, () {
+                      textButton(AppLocalizations.of(context)!.prompt, Icons.tips_and_updates_outlined, () {
                         Navigation.navigator(context, const PromptScreen());
                       }),
                       const SizedBox(
                         height: 6,
                       ),
-                      textButton(AppLocalizations.of(context)!.settings,
-                          Icons.settings_outlined, () {
-                        if (PlatformUtl.isMobile) {
+                      textButton(AppLocalizations.of(context)!.settings, Icons.settings_outlined, () {
+                        if (PlatformUtil.isMobile) {
                           closeDrawer();
                         }
-                        Navigation.navigator(
-                            context, const SettingsScreenPage());
+                        Navigation.navigator(context, const SettingsScreenPage());
                       }),
                       const SizedBox(
                         height: 6,
@@ -113,10 +130,8 @@ class ConversationScreen extends StatelessWidget {
                       FutureBuilder<PackageInfo>(
                           future: PackageInfo.fromPlatform(),
                           builder: (context, packageInfo) {
-                            return textButton(
-                                "${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}",
-                                Icons.info_outline,
-                                () {});
+                            return textButton("${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}",
+                                Icons.info_outline, () {});
                           })
                     ]))),
           ],

@@ -193,7 +193,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     return Scaffold(
       appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.settings),
-          automaticallyImplyLeading: PlatformUtl.isMobile),
+          automaticallyImplyLeading: PlatformUtil.isMobile),
       body: SettingsList(
         sections: [
           SettingsSection(

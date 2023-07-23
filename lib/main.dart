@@ -16,6 +16,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:umeng_common_sdk/umeng_common_sdk.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'api/openai_api.dart';
 import 'bloc/blocs.dart';
@@ -28,30 +29,38 @@ import 'util/extend_http_client.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await LocalStorageService().init();
   Bloc.observer = const AppBlocObserver();
   final openAiApi = OpenAiApi(SafeHttpClient(http.Client()));
   final chatService = ChatService(apiServer: openAiApi);
 
-  // if (Platform.isWindows || Platform.isMacOS) {
-  //   SystemChrome.setApplicationSwitcherDescription(
-  //       const ApplicationSwitcherDescription(label: 'Chatbotty'));
-  //
-  //   final view = View.of(context as BuildContext);
-  //   final window = PlatformDispatcher.instance.implicitView;
-  //   window.setMinSize(const Size(600, 400)); // 设置最小窗口大小
-  //   window.setMaxSize(const Size(800, 600)); // 设置最大窗口大小
-  // }
+  if (kIsWeb || Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
+    if (!kIsWeb) {
+      await windowManager.ensureInitialized();
+    }
+    WindowOptions windowOptions = const WindowOptions(
+      size: Size(900, 600),
+      minimumSize: Size(900, 600),
+      center: true,
+      backgroundColor: Colors.transparent,
+      windowButtonVisibility: true,
+      skipTaskbar: true,
+      titleBarStyle: TitleBarStyle.normal,
+    );
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
 
-  BindingBase.debugZoneErrorsAreFatal = false;
-  // TODO: init token service in background to speed up ChatScreen on the first load
-  runZonedGuarded(
-    () => {
-      WidgetsFlutterBinding.ensureInitialized(),
-      runApp(App(chatService: chatService))
-    },
-    (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
-  );
+  runApp(App(chatService: chatService));
+
+  // BindingBase.debugZoneErrorsAreFatal = true;
+  // runZonedGuarded(
+  //   () => {runApp(App(chatService: chatService))},
+  //   (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
+  // );
 
   registerNetWorkListening();
 }
@@ -73,7 +82,7 @@ class _AppState extends State<App> {
         systemNavigationBarColor: Colors.black,
         statusBarColor: Colors.transparent));
 
-    if (PlatformUtl.isMobile) {
+    if (PlatformUtil.isMobile) {
       //友盟初始化
       UmengCommonSdk.initCommon(
           '64979b89a1a164591b38ceda' /*Android AppKey*/,
@@ -110,6 +119,7 @@ class _AppState extends State<App> {
                   cardColor: ThemeColor.primaryColor,
                   dialogBackgroundColor: ThemeColor.backgroundColor,
                   scaffoldBackgroundColor: ThemeColor.backgroundColor,
+                  dialogTheme: DialogTheme(backgroundColor: ThemeColor.backgroundColor),
                   textButtonTheme: const TextButtonThemeData(
                       style: ButtonStyle(foregroundColor: MaterialStatePropertyAll<Color>(Colors.white30))),
                   elevatedButtonTheme: const ElevatedButtonThemeData(

@@ -22,15 +22,14 @@ class LocalStorageService {
   static const prefHistoryCount = 'pref_historyCount';
   static const prefRenderMode = 'pref_renderMode';
   static const prefCustomApiKey = 'pref_customApiKey';
+  static const prefCountry = 'pref_country';
 
   static const storeConversationList = 'store_conversations';
   static const storeConversationPrefix = 'store_conversation_';
   static const storeCurrentConversation = 'store_current_conversation';
-  static const prefCountry = 'pref_country';
+  static const storePromptList = 'store_prompts';
 
-  String get apiKey =>
-      _prefs.getString(prefApiKey) ??
-      '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';
+  String get apiKey => _prefs.getString(prefApiKey) ?? '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';
 
   set apiKey(String value) {
     (() async {
@@ -107,6 +106,10 @@ class LocalStorageService {
     await _prefs.remove(storeConversationPrefix + id);
   }
 
+  Future removeConversationJsonAll() async {
+    await _prefs.remove(storeConversationPrefix);
+  }
+
   String get currentConversationId =>
       _prefs.getString(storeCurrentConversation) ?? '';
 
@@ -125,4 +128,12 @@ class LocalStorageService {
   bool get isCustomApiKey => _prefs.getBool(prefCustomApiKey) ?? false;
 
   set isCustomApiKey(bool value) => _prefs.setBool(prefCustomApiKey, value);
+
+  String get promptListJson => _prefs.getString(storePromptList) ?? '';
+
+  set promptListJson(String value) {
+    (() async {
+      await _prefs.setString(storePromptList, value);
+    })();
+  }
 }

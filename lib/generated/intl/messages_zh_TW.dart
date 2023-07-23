@@ -35,12 +35,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "chat": MessageLookupByLibrary.simpleMessage("閒聊"),
         "chat_parameters": MessageLookupByLibrary.simpleMessage("聊天參數"),
+        "clean_conversation": MessageLookupByLibrary.simpleMessage("溫馨提示"),
+        "clean_conversation_tips":
+            MessageLookupByLibrary.simpleMessage("確認清空所有會話嗎？"),
         "clear_conversation": MessageLookupByLibrary.simpleMessage("清空會話"),
         "clear_conversation_tips":
             MessageLookupByLibrary.simpleMessage("你想清除對話歷史記錄嗎?"),
         "conversations": MessageLookupByLibrary.simpleMessage("對話"),
-        "create_conversation_to_start":
-            MessageLookupByLibrary.simpleMessage("創建或選擇要啟動的對話"),
+        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
+            "創建或選擇會話，tips:輸入\'/\'能觸發更多驚喜哦"),
         "custom_api_host": MessageLookupByLibrary.simpleMessage("定製 API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("删去"),
         "delete_conversation": MessageLookupByLibrary.simpleMessage("删除對話"),

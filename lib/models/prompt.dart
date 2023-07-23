@@ -7,4 +7,9 @@ class Prompt{
   factory Prompt.fromJson(Map<String,dynamic> json){
     return Prompt(title: json['title'], promptContent: json['promptContent']);
   }
+
+  Map<String, dynamic> toJson() => {
+    'title': title,
+    'promptContent': promptContent,
+  };
 }

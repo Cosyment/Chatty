@@ -60,7 +60,7 @@ class _ChatScreenAppbar extends State<ChatScreenAppBar> {
     return AppBar(
         title: Text(widget.currentConversation?.title ?? 'Chatbotty',
             style: const TextStyle(overflow: TextOverflow.ellipsis)),
-        automaticallyImplyLeading:PlatformUtl.isMobile,
+        automaticallyImplyLeading:PlatformUtil.isMobile,
         actions: widget.currentConversation == null
             ? []
             : <Widget>[

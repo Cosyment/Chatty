@@ -37,9 +37,11 @@
   "delete_conversation": "대화 삭제",
   "delete_conversation_tips": "대화를 삭제하시겠습니까?",
   "delete": "삭제",
-  "create_conversation_to_start": "시작할 대화 만들기 또는 선택",
+  "create_conversation_to_start": "세션을 만들거나 선택합니다. tips:'/'를 입력하면 더 많은 이벤트가 발생합니다.",
   "other":"다른",
   "reset_api_key": "API 키 재설정",
   "reset_api_key_tips": "API 키를 재설정하시겠습니까? 재설정 후 새 API 키를 추가하거나 앱을 다시 시작해야 하나요",
-  "prompt":"프롬프트"
+  "prompt":"프롬프트",
+  "clean_conversation": "따뜻한 힌트",
+  "clean_conversation_tips": "모든 세션을 비우시겠습니까?"
 }
