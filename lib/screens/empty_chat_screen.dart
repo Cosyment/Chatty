@@ -18,7 +18,6 @@ import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../util/android_back_desktop.dart';
 import '../util/constants.dart';
-import '../widgets/chat_screen_appbar.dart';
 import '../widgets/conversation_edit_dialog.dart';
 
 class EmptyChatScreen extends StatefulWidget {
@@ -77,21 +76,14 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                    height: 150,
-                    width: 150,
-                    child: Lottie.asset('assets/thinking.json', repeat: true)),
-                const SizedBox(height: 20),
+                SizedBox(height: 150, width: 150, child: Lottie.asset('assets/thinking.json', repeat: true)),
+                PlatformUtil.isMobile ? const SizedBox.shrink() : const SizedBox(height: 20),
                 Container(
                     margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: Column(
                       children: [
-                        Text(
-                            AppLocalizations.of(context)!
-                                .create_conversation_to_start,
-                            style: const TextStyle(
-                                color: Colors.white70, fontSize: 18),
-                            textAlign: TextAlign.center),
+                        Text(AppLocalizations.of(context)!.create_conversation_to_start,
+                            style: const TextStyle(color: Colors.white70, fontSize: 18), textAlign: TextAlign.center),
                         Text(
                             AppLocalizations.of(context)!
                                 .create_conversation_tip,
