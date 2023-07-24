@@ -1,6 +1,6 @@
 {
   "@@locale": "zh_TW",
-  "appName": "Chatbotty",
+  "appName": "Chatty",
   "chat": "閒聊",
   "conversations": "對話",
   "settings": "設定",
@@ -37,7 +37,8 @@
   "delete_conversation": "删除對話",
   "delete_conversation_tips": "你想删除對話嗎?",
   "delete": "删去",
-  "create_conversation_to_start": "創建或選擇會話，tips:輸入'/'能觸發更多驚喜哦",
+  "create_conversation_to_start": "創建或選擇會話",
+  "create_conversation_tip": "tips:輸入'/'能觸發更多驚喜哦",
   "other":"其他",
   "reset_api_key": "重置API Key",
   "reset_api_key_tips": "您確定要重置API Key嗎？ 重置後您需要添加新的API Key或重新啟動應用程序",

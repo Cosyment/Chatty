@@ -1,4 +1,4 @@
-import 'package:chatbotty/util/platform_util.dart';
+import 'package:chatty/util/platform_util.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/conversation_screen.dart';
@@ -19,7 +19,7 @@ class Navigation {
 
   static _route(Widget page) {
     return PageRouteBuilder(
-        pageBuilder: (context, animation, secodaryAnmation) => TabletScreenPage(
+        pageBuilder: (context, animation, _) => TabletScreenPage(
             sidebar: const ConversationScreen(
               selectedConversation: null,
             ),

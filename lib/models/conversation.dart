@@ -51,7 +51,7 @@ class Conversation {
 }
 
 class ConversationMessage {
-  /// either “system”, “user”, or “Chatbotty”
+  /// either “system”, “user”, or “Chatty”
   final String role;
   String content;
   bool isError;

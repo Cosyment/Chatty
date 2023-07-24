@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Chatbotty`
+  /// `Chatty`
   String get appName {
     return Intl.message(
-      'Chatbotty',
+      'Chatty',
       name: 'appName',
       desc: '',
       args: [],
@@ -420,11 +420,21 @@ class S {
     );
   }
 
-  /// `Create or select a session, tips: Entering '/' can trigger more surprises`
+  /// `Create or select a conversation`
   String get create_conversation_to_start {
     return Intl.message(
-      'Create or select a session, tips: Entering \'/\' can trigger more surprises',
+      'Create or select a conversation',
       name: 'create_conversation_to_start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `tips: Entering '/' can trigger more surprises`
+  String get create_conversation_tip {
+    return Intl.message(
+      'tips: Entering \'/\' can trigger more surprises',
+      name: 'create_conversation_tip',
       desc: '',
       args: [],
     );

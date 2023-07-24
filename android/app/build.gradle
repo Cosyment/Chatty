@@ -60,23 +60,11 @@ android {
         consumerProguardFiles 'proguard-rules.pro'
     }
 
-   productFlavors {
-//       official{
-//           applicationId "com.waiting.smart.airobot"
-//       }
-//       xiaomi{
-//           applicationId "com.waiting.smart.airobot"
-//       }
-//       huawei{
-//           applicationId "com.waiting.smart.airobot"
-//       }
-//       amazon{
-//           applicationId "com.waiting.smart.airobot"
-//       }
+//   productFlavors {
 //       google{
 //           applicationId "com.waiting.smart.airobot.assistant"
 //       }
-   }
+//   }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

@@ -28,7 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_host": MessageLookupByLibrary.simpleMessage("接口域名"),
         "api_host_optional": MessageLookupByLibrary.simpleMessage("接口域名"),
         "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
-        "appName": MessageLookupByLibrary.simpleMessage("Chatbotty"),
+        "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("界面"),
         "authentication": MessageLookupByLibrary.simpleMessage("验证"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
@@ -41,8 +41,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "clear_conversation_tips":
             MessageLookupByLibrary.simpleMessage("确认清空会话历史吗?"),
         "conversations": MessageLookupByLibrary.simpleMessage("会话"),
-        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
-            "创建或选择会话，tips: 输入\'/\'能触发更多惊喜哦"),
+        "create_conversation_tip":
+            MessageLookupByLibrary.simpleMessage("tips: 输入\'/\'能触发更多惊喜哦"),
+        "create_conversation_to_start":
+            MessageLookupByLibrary.simpleMessage("创建或选择会话"),
         "custom_api_host": MessageLookupByLibrary.simpleMessage("自定义域名"),
         "delete": MessageLookupByLibrary.simpleMessage("删除"),
         "delete_conversation": MessageLookupByLibrary.simpleMessage("删除会话"),

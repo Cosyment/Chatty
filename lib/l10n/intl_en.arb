@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appName": "Chatbotty",
+  "appName": "Chatty",
   "chat": "Chat",
   "conversations": "Conversations",
   "settings": "Settings",
@@ -37,7 +37,8 @@
   "delete_conversation": "Delete conversation",
   "delete_conversation_tips": "Would you like to delete the conversation?",
   "delete": "Delete",
-  "create_conversation_to_start": "Create or select a session, tips: Entering '/' can trigger more surprises",
+  "create_conversation_to_start": "Create or select a conversation",
+  "create_conversation_tip": "tips: Entering '/' can trigger more surprises",
   "other":"Other",
   "reset_api_key": "Reset API Key",
   "reset_api_key_tips": "Are you sure you want to reset the api key? After the reset, you need to add a new api key or restart the app",

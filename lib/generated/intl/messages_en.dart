@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_host_optional":
             MessageLookupByLibrary.simpleMessage("API Host Optional"),
         "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
-        "appName": MessageLookupByLibrary.simpleMessage("Chatbotty"),
+        "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
         "authentication":
             MessageLookupByLibrary.simpleMessage("Authentication"),
@@ -45,8 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "clear_conversation_tips": MessageLookupByLibrary.simpleMessage(
             "Would you like to clear conversation history?"),
         "conversations": MessageLookupByLibrary.simpleMessage("Conversations"),
+        "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
+            "tips: Entering \'/\' can trigger more surprises"),
         "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
-            "Create or select a session, tips: Entering \'/\' can trigger more surprises"),
+            "Create or select a conversation"),
         "custom_api_host":
             MessageLookupByLibrary.simpleMessage("Customization API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),

@@ -1,8 +1,8 @@
 
-import 'package:chatbotty/bloc/blocs.dart';
-import 'package:chatbotty/event/event_bus.dart';
-import 'package:chatbotty/event/event_message.dart';
-import 'package:chatbotty/widgets/theme_color.dart';
+import 'package:chatty/bloc/blocs.dart';
+import 'package:chatty/event/event_bus.dart';
+import 'package:chatty/event/event_message.dart';
+import 'package:chatty/widgets/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -58,7 +58,7 @@ class _ChatScreenAppbar extends State<ChatScreenAppBar> {
     var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
 
     return AppBar(
-        title: Text(widget.currentConversation?.title ?? 'Chatbotty',
+        title: Text(widget.currentConversation?.title ?? 'Chatty',
             style: const TextStyle(overflow: TextOverflow.ellipsis)),
         automaticallyImplyLeading:PlatformUtil.isMobile,
         actions: widget.currentConversation == null

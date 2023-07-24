@@ -1,4 +1,4 @@
-# Chatbotty
+# Chatty
 
 ### Description
 #### AI Chat App: Natural Conversations, Personalized Assistance. Powered by GPT technology, it's your ultimate digital assistant.

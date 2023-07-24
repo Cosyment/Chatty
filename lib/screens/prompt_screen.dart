@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:chatbotty/api/http_request.dart';
-import 'package:chatbotty/bloc/conversations_bloc.dart';
-import 'package:chatbotty/models/models.dart';
-import 'package:chatbotty/screens/chat_screen.dart';
-import 'package:chatbotty/services/chat_service.dart';
-import 'package:chatbotty/util/constants.dart';
+import 'package:chatty/api/http_request.dart';
+import 'package:chatty/bloc/conversations_bloc.dart';
+import 'package:chatty/models/models.dart';
+import 'package:chatty/screens/chat_screen.dart';
+import 'package:chatty/services/chat_service.dart';
+import 'package:chatty/util/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

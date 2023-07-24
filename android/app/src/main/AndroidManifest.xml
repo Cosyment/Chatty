@@ -9,7 +9,7 @@
     <application
         android:name=".App"
         android:icon="@mipmap/ic_launcher"
-        android:label="Chatbotty">
+        android:label="Chatty">
 
         <activity
             android:name=".MainActivity"

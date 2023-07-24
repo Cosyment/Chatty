@@ -1,13 +1,11 @@
 import 'dart:io';
 
-import 'package:chatbotty/api/http_request.dart';
-import 'package:chatbotty/models/domain.dart';
-import 'package:chatbotty/util/constants.dart';
-import 'package:chatbotty/util/environment_config.dart';
-import 'package:chatbotty/util/platform_util.dart';
-import 'package:chatbotty/widgets/popup_box_constraints.dart';
-import 'package:chatbotty/widgets/theme_color.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:chatty/api/http_request.dart';
+import 'package:chatty/models/domain.dart';
+import 'package:chatty/util/constants.dart';
+import 'package:chatty/util/environment_config.dart';
+import 'package:chatty/util/platform_util.dart';
+import 'package:chatty/widgets/popup_box_constraints.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

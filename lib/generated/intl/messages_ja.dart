@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_host_optional":
             MessageLookupByLibrary.simpleMessage("API Host オプション"),
         "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
-        "appName": MessageLookupByLibrary.simpleMessage("Chatbotty"),
+        "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("の表面に化粧張りを"),
         "authentication": MessageLookupByLibrary.simpleMessage("認証"),
         "cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
@@ -42,8 +42,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "clear_conversation_tips":
             MessageLookupByLibrary.simpleMessage("会話履歴をクリアしたいですか?"),
         "conversations": MessageLookupByLibrary.simpleMessage("ダイアログ"),
-        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
-            "セッションを作成または選択します。tips：\'/\'を入力すると、より多くの驚きをトリガーできますよ"),
+        "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
+            "tips：\'/\'を入力すると、より多くの驚きをトリガーできますよ"),
+        "create_conversation_to_start":
+            MessageLookupByLibrary.simpleMessage("セッションを作成または選択します"),
         "custom_api_host":
             MessageLookupByLibrary.simpleMessage("カスタマイズ API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("削除"),

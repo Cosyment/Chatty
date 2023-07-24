@@ -3,11 +3,11 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:chatbotty/api/http_request.dart';
-import 'package:chatbotty/models/prompt.dart';
-import 'package:chatbotty/util/constants.dart';
-import 'package:chatbotty/util/environment_config.dart';
-import 'package:chatbotty/util/platform_util.dart';
+import 'package:chatty/api/http_request.dart';
+import 'package:chatty/models/prompt.dart';
+import 'package:chatty/util/constants.dart';
+import 'package:chatty/util/environment_config.dart';
+import 'package:chatty/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -162,7 +162,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }
 
     var chatService = context.read<ChatService>();
-    if (conversation.messages.last.role == 'Chatbotty') {
+    if (conversation.messages.last.role == 'Chatty') {
       conversation.messages.removeLast();
     }
     BlocProvider.of<ChatBloc>(context).add(ChatStreamStarted(conversation));

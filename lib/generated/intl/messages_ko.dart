@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_host_optional":
             MessageLookupByLibrary.simpleMessage("API Host 선택 가능"),
         "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
-        "appName": MessageLookupByLibrary.simpleMessage("Chatbotty"),
+        "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("외모"),
         "authentication": MessageLookupByLibrary.simpleMessage("인증"),
         "cancel": MessageLookupByLibrary.simpleMessage("취소"),
@@ -42,8 +42,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "clear_conversation_tips":
             MessageLookupByLibrary.simpleMessage("대화 기록을 지우시겠습니까?"),
         "conversations": MessageLookupByLibrary.simpleMessage("대화"),
-        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
-            "세션을 만들거나 선택합니다. tips:\'/\'를 입력하면 더 많은 이벤트가 발생합니다."),
+        "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
+            "tips:\'/\'를 입력하면 더 많은 이벤트가 발생합니다."),
+        "create_conversation_to_start":
+            MessageLookupByLibrary.simpleMessage("세션을 만들거나 선택합니다"),
         "custom_api_host":
             MessageLookupByLibrary.simpleMessage("사용자화 API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("삭제"),

@@ -1,4 +1,4 @@
-import 'package:chatbotty/widgets/popup_box_constraints.dart';
+import 'package:chatty/widgets/popup_box_constraints.dart';
 import 'package:flutter/material.dart';
 
 import '../models/models.dart';

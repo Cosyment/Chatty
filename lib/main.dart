@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:chatbotty/api/http_request.dart';
-import 'package:chatbotty/util/constants.dart';
-import 'package:chatbotty/util/environment_config.dart';
-import 'package:chatbotty/util/platform_util.dart';
-import 'package:chatbotty/widgets/theme_color.dart';
+import 'package:chatty/api/http_request.dart';
+import 'package:chatty/util/constants.dart';
+import 'package:chatty/util/environment_config.dart';
+import 'package:chatty/util/platform_util.dart';
+import 'package:chatty/widgets/theme_color.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -109,7 +109,8 @@ class _AppState extends State<App> {
               supportedLocales: const [
                 Locale('en'),
                 Locale.fromSubtags(languageCode: 'zh'),
-                Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+                Locale.fromSubtags(
+                    languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
                 Locale('ja'),
                 Locale('ko')
               ],
@@ -119,15 +120,22 @@ class _AppState extends State<App> {
                   cardColor: ThemeColor.primaryColor,
                   dialogBackgroundColor: ThemeColor.backgroundColor,
                   scaffoldBackgroundColor: ThemeColor.backgroundColor,
-                  dialogTheme: DialogTheme(backgroundColor: ThemeColor.backgroundColor),
+                  dialogTheme:
+                      DialogTheme(backgroundColor: ThemeColor.backgroundColor),
                   textButtonTheme: const TextButtonThemeData(
-                      style: ButtonStyle(foregroundColor: MaterialStatePropertyAll<Color>(Colors.white30))),
+                      style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStatePropertyAll<Color>(Colors.white54))),
                   elevatedButtonTheme: const ElevatedButtonThemeData(
                       style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(Colors.black38),
-                          foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
-                          textStyle: MaterialStatePropertyAll<TextStyle>(TextStyle(color: Colors.white)))),
-                  appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor),
+                          backgroundColor:
+                              MaterialStatePropertyAll<Color>(Colors.black38),
+                          foregroundColor:
+                              MaterialStatePropertyAll<Color>(Colors.white),
+                          textStyle: MaterialStatePropertyAll<TextStyle>(
+                              TextStyle(color: Colors.white)))),
+                  appBarTheme: AppBarTheme(
+                      backgroundColor: ThemeColor.appBarBackgroundColor),
                   listTileTheme: const ListTileThemeData(
                       // tileColor: Colors.black12,
                       // selectedTileColor: Colors.blue,
