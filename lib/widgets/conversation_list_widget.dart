@@ -35,7 +35,8 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
     super.dispose();
   }
 
-  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(
+          BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
@@ -74,11 +75,13 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
       itemBuilder: (context, index) {
         var conversationIndex = conversations[index];
         return ListTile(
-          title: Text(conversationIndex.title, style: const TextStyle(overflow: TextOverflow.ellipsis)),
+          title: Text(conversationIndex.title,
+              style: const TextStyle(overflow: TextOverflow.ellipsis)),
           horizontalTitleGap: 5,
           contentPadding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
           selected: conversations[index].id == selectedConversation?.id,
-          selectedTileColor: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.05),
+          selectedTileColor: Color.lerp(
+              Theme.of(context).colorScheme.background, Colors.white, 0.05),
           onTap: () async {
             var id = conversations[index].id;
             var conversation = chatService.getConversationById(id);
@@ -87,13 +90,7 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
                 setState(() {
                   LocalStorageService().currentConversationId = id;
                 });
-                if (Navigator.of(context).canPop()) {
-                  Navigator.of(context)
-                      .pushReplacement(ChatScreenPage.route(conversation));
-                } else {
-                  Navigator.of(context)
-                      .push(ChatScreenPage.route(conversation));
-                }
+                ChatScreenPage.navigator(context, conversation);
               }
             }
           },

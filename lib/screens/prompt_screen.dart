@@ -6,6 +6,7 @@ import 'package:chatty/models/models.dart';
 import 'package:chatty/screens/chat_screen.dart';
 import 'package:chatty/services/chat_service.dart';
 import 'package:chatty/util/constants.dart';
+import 'package:chatty/util/navigation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +52,9 @@ class _PromptState extends State<PromptScreen> {
   Widget build(BuildContext context) {
     ChatService chatService = context.read<ChatService>();
     return Scaffold(
-        appBar: AppBar(title: Text(AppLocalizations.of(context)!.prompt), automaticallyImplyLeading: PlatformUtil.isMobile),
+        appBar: AppBar(
+            title: Text(AppLocalizations.of(context)!.prompt),
+            automaticallyImplyLeading: PlatformUtil.isMobile),
         body: MasonryGridView.count(
           crossAxisCount: 3,
           mainAxisSpacing: 5,
@@ -64,18 +67,28 @@ class _PromptState extends State<PromptScreen> {
         ));
   }
 
-  Widget promptItem(BuildContext context, Prompt prompt, ChatService chatService) {
+  Widget promptItem(
+      BuildContext context, Prompt prompt, ChatService chatService) {
     return GestureDetector(
       child: Container(
           margin: const EdgeInsets.fromLTRB(3, 3, 3, 3),
           padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
-          decoration: BoxDecoration(color: Colors.white10, borderRadius: BorderRadius.circular(8)),
+          decoration: BoxDecoration(
+              color: Colors.white10, borderRadius: BorderRadius.circular(8)),
           child: Column(
             children: [
-              Text(prompt.title, style: const TextStyle(color: Colors.white70, fontSize: 15, fontWeight: FontWeight.bold)),
+              Text(prompt.title,
+                  style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
               Text(prompt.promptContent,
-                  maxLines: 5, style: const TextStyle(color: Colors.white70, fontSize: 13, overflow: TextOverflow.ellipsis))
+                  maxLines: 5,
+                  style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 13,
+                      overflow: TextOverflow.ellipsis))
             ],
           )),
       onTap: () async {
@@ -86,13 +99,15 @@ class _PromptState extends State<PromptScreen> {
         LocalStorageService().currentConversationId = newConversation.id;
 
         await chatService.updateConversation(newConversation);
-        var savedConversation = chatService.getConversationById(newConversation.id)!;
+        var savedConversation =
+            chatService.getConversationById(newConversation.id)!;
         if (context.mounted) {
-          if (Navigator.of(context).canPop()) {
-            Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
-          } else {
-            Navigator.of(context).push(ChatScreenPage.route(savedConversation));
-          }
+          // if (Navigator.of(context).canPop()) {
+          //   Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
+          // } else {
+          //   Navigator.of(context).push(ChatScreenPage.route(savedConversation));
+          // }
+          ChatScreenPage.navigator(context, savedConversation);
         }
         var conversationsBloc = ConversationsBloc(chatService: chatService);
         conversationsBloc.add(const ConversationsRequested());

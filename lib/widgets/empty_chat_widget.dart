@@ -65,13 +65,7 @@ class EmptyChatWidget extends StatelessWidget {
                 if (context.mounted) {
                   LocalStorageService().currentConversationId =
                       newConversation.id;
-                  if (Navigator.of(context).canPop()) {
-                    Navigator.of(context).pushReplacement(
-                        ChatScreenPage.route(savedConversation));
-                  } else {
-                    Navigator.of(context)
-                        .push(ChatScreenPage.route(savedConversation));
-                  }
+                  ChatScreenPage.navigator(context, savedConversation);
                 }
                 bloc.add(const ConversationsRequested());
               }

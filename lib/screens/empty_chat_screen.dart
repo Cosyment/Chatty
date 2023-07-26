@@ -76,14 +76,23 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 150, width: 150, child: Lottie.asset('assets/thinking.json', repeat: true)),
-                PlatformUtil.isMobile ? const SizedBox.shrink() : const SizedBox(height: 20),
+                SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Lottie.asset('assets/thinking.json', repeat: true)),
+                PlatformUtil.isMobile
+                    ? const SizedBox.shrink()
+                    : const SizedBox(height: 20),
                 Container(
                     margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: Column(
                       children: [
-                        Text(AppLocalizations.of(context)!.create_conversation_to_start,
-                            style: const TextStyle(color: Colors.white70, fontSize: 18), textAlign: TextAlign.center),
+                        Text(
+                            AppLocalizations.of(context)!
+                                .create_conversation_to_start,
+                            style: const TextStyle(
+                                color: Colors.white70, fontSize: 18),
+                            textAlign: TextAlign.center),
                         Text(
                             AppLocalizations.of(context)!
                                 .create_conversation_tip,
@@ -133,13 +142,7 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
                   if (context.mounted) {
                     LocalStorageService().currentConversationId =
                         newConversation.id;
-                    if (Navigator.of(context).canPop()) {
-                      Navigator.of(context).pushReplacement(
-                          ChatScreenPage.route(savedConversation));
-                    } else {
-                      Navigator.of(context)
-                          .push(ChatScreenPage.route(savedConversation));
-                    }
+                    ChatScreenPage.navigator(context, savedConversation);
                   }
                   bloc.add(const ConversationsRequested());
                 }
@@ -187,12 +190,7 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
         var savedConversation =
             chatService.getConversationById(newConversation.id)!;
         if (context.mounted) {
-          if (Navigator.of(context).canPop()) {
-            Navigator.of(context)
-                .pushReplacement(ChatScreenPage.route(savedConversation));
-          } else {
-            Navigator.of(context).push(ChatScreenPage.route(savedConversation));
-          }
+          ChatScreenPage.navigator(context, savedConversation);
         }
         var conversationsBloc = ConversationsBloc(chatService: chatService);
         conversationsBloc.add(const ConversationsRequested());

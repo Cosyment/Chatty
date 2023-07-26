@@ -29,14 +29,17 @@ class ConversationScreen extends StatefulWidget {
 class _ConversationScreen extends State<ConversationScreen> {
   late Conversation? currentConversation = widget.selectedConversation;
 
-  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(
+          BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(
+                conversation: conversation, isEdit: isEdit);
           });
 
-  Future<bool?> showCleanConfirmDialog(BuildContext context) => showDialog<bool>(
+  Future<bool?> showCleanConfirmDialog(BuildContext context) =>
+      showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
           return ConfirmDialog(
@@ -50,8 +53,13 @@ class _ConversationScreen extends State<ConversationScreen> {
   Widget build(BuildContext context) {
     var chatService = context.read<ChatService>();
     var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
+    if (currentConversation != widget.selectedConversation) {
+      setState(() {
+        currentConversation = widget.selectedConversation;
+      });
+    }
 
-    debugPrint('----------->>build ');
+    print('---------------ConversationScreen>>>${currentConversation?.title}');
 
     return Scaffold(
       appBar: AppBar(
@@ -64,16 +72,19 @@ class _ConversationScreen extends State<ConversationScreen> {
                       onPressed: () async {
                         var result = await showCleanConfirmDialog(context);
                         if (result == true) {
-                          List<ConversationIndex> list = chatService.getConversationList();
+                          List<ConversationIndex> list =
+                              chatService.getConversationList();
                           for (var element in list) {
                             chatService.removeConversationById(element.id);
-                            LocalStorageService().removeConversationJsonById(element.id);
+                            LocalStorageService()
+                                .removeConversationJsonById(element.id);
                           }
                         }
                         setState(() {
                           currentConversation = null;
                           Future.delayed(Duration.zero, () {
-                            Navigation.navigator(context, const EmptyChatScreen());
+                            Navigation.navigator(
+                                context, const EmptyChatScreen());
                           });
                         });
                       },
@@ -87,36 +98,47 @@ class _ConversationScreen extends State<ConversationScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             currentConversation != null
-                ? ConversationListWidget(selectedConversation: currentConversation)
+                ? ConversationListWidget(
+                    selectedConversation: currentConversation)
                 : Flexible(
                     flex: 1,
                     fit: FlexFit.tight,
-                    child:
-                        Center(child: SizedBox(width: 100, height: 100, child: Lottie.asset('assets/empty.json', repeat: true)))),
+                    child: Center(
+                        child: SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: Lottie.asset('assets/empty.json',
+                                repeat: true)))),
             const Divider(thickness: .5),
             Container(
                 color: CupertinoColors.darkBackgroundGray,
                 width: 300,
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      textButton(AppLocalizations.of(context)!.new_conversation, Icons.add_box_outlined, () async {
-                        var newConversation = await showConversationDialog(context, false, Conversation.create());
-                        if (newConversation != null) {
-                          LocalStorageService().currentConversationId = newConversation.id;
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textButton(
+                              AppLocalizations.of(context)!.new_conversation,
+                              Icons.add_box_outlined, () async {
+                            var newConversation = await showConversationDialog(
+                                context, false, Conversation.create());
+                            if (newConversation != null) {
+                              LocalStorageService().currentConversationId =
+                                  newConversation.id;
 
-                          await chatService.updateConversation(newConversation);
-                          var savedConversation = chatService.getConversationById(newConversation.id)!;
-                          if (context.mounted) {
-                            if (Navigator.of(context).canPop()) {
-                              Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
-                            } else {
-                              Navigator.of(context).push(ChatScreenPage.route(savedConversation));
+                              await chatService
+                                  .updateConversation(newConversation);
+                              var savedConversation = chatService
+                                  .getConversationById(newConversation.id)!;
+                              if (context.mounted) {
+                                ChatScreenPage.navigator(
+                                    context, savedConversation);
+                              }
+                              conversationsBloc
+                                  .add(const ConversationsRequested());
                             }
-                          }
-                          conversationsBloc.add(const ConversationsRequested());
-                        }
-                      }),
+                          }),
                           const SizedBox(
                             height: 6,
                           ),

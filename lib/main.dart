@@ -43,7 +43,7 @@ void main() async {
       center: true,
       backgroundColor: Colors.transparent,
       windowButtonVisibility: true,
-      skipTaskbar: true,
+      skipTaskbar: false,
       titleBarStyle: TitleBarStyle.normal,
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
@@ -118,16 +118,23 @@ class _AppState extends State<App> {
                   cardColor: ThemeColor.primaryColor,
                   dialogBackgroundColor: ThemeColor.backgroundColor,
                   scaffoldBackgroundColor: ThemeColor.backgroundColor,
-                  dialogTheme: DialogTheme(backgroundColor: ThemeColor.backgroundColor),
+                  dialogTheme:
+                      DialogTheme(backgroundColor: ThemeColor.backgroundColor),
                   hoverColor: Colors.black12,
                   textButtonTheme: const TextButtonThemeData(
-                      style: ButtonStyle(foregroundColor: MaterialStatePropertyAll<Color>(Colors.white54))),
+                      style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStatePropertyAll<Color>(Colors.white54))),
                   elevatedButtonTheme: const ElevatedButtonThemeData(
                       style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(Colors.black38),
-                          foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
-                          textStyle: MaterialStatePropertyAll<TextStyle>(TextStyle(color: Colors.white)))),
-                  appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor),
+                          backgroundColor:
+                              MaterialStatePropertyAll<Color>(Colors.black38),
+                          foregroundColor:
+                              MaterialStatePropertyAll<Color>(Colors.white),
+                          textStyle: MaterialStatePropertyAll<TextStyle>(
+                              TextStyle(color: Colors.white)))),
+                  appBarTheme: AppBarTheme(
+                      backgroundColor: ThemeColor.appBarBackgroundColor),
                   listTileTheme: const ListTileThemeData(
                       // tileColor: Colors.black12,
                       // selectedTileColor: Colors.blue,
