@@ -79,14 +79,15 @@ class _ConversationScreen extends State<ConversationScreen> {
                             LocalStorageService()
                                 .removeConversationJsonById(element.id);
                           }
-                        }
-                        setState(() {
-                          currentConversation = null;
-                          Future.delayed(Duration.zero, () {
-                            Navigation.navigator(
-                                context, const EmptyChatScreen());
+
+                          setState(() {
+                            currentConversation = null;
+                            Future.delayed(Duration.zero, () {
+                              Navigation.navigator(
+                                  context, const EmptyChatScreen());
+                            });
                           });
-                        });
+                        }
                       },
                       icon: const Icon(Icons.cleaning_services_outlined))
                   : const SizedBox()
