@@ -1,3 +1,5 @@
+import 'package:chatty/event/event_bus.dart';
+import 'package:chatty/event/event_message.dart';
 import 'package:chatty/util/navigation.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,6 +52,16 @@ class _ConversationScreen extends State<ConversationScreen> {
       );
 
   @override
+  void initState() {
+
+    EventBus.getDefault().register<EventMessage<Conversation>>(this, (event) {
+      debugPrint('----------_>>>${event.data.title}');
+      setState(() {
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     var chatService = context.read<ChatService>();
     var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
@@ -58,8 +70,6 @@ class _ConversationScreen extends State<ConversationScreen> {
         currentConversation = widget.selectedConversation;
       });
     }
-
-    print('---------------ConversationScreen>>>${currentConversation?.title}');
 
     return Scaffold(
       appBar: AppBar(

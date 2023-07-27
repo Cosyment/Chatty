@@ -40,14 +40,14 @@ class _MainScreen extends State<MainScreen> {
     Conversation? conversation = chatService
         .getConversationById(LocalStorageService().currentConversationId);
     if (body is ChatScreenPage) {
+      debugPrint('-----------_>>>${conversation?.title}');
       setState(() {
         body = BlocProvider(
             create: (context) => ChatBloc(
                 chatService: chatService, initialConversation: conversation!),
-            child: const ChatScreen());
+            child:  ChatScreenPage(currentConversation: conversation));
       });
     }
-    debugPrint('---------------->>>build conversation ${conversation?.title}');
 
     return TabletScreenPage(
       sidebar: ConversationScreen(selectedConversation: conversation),

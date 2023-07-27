@@ -7,6 +7,7 @@ import '../bloc/blocs.dart';
 import '../models/models.dart';
 import '../screens/screens.dart';
 import '../services/chat_service.dart';
+import '../util/navigation.dart';
 import '../widgets/widgets.dart';
 
 class ConversationListWidget extends StatefulWidget {
@@ -35,17 +36,14 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
     super.dispose();
   }
 
-  Future<Conversation?> showConversationDialog(
-          BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(
-                conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
           });
 
-  Future<bool?> showDeleteConfirmDialog(BuildContext context) =>
-      showDialog<bool>(
+  Future<bool?> showDeleteConfirmDialog(BuildContext context) => showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
           return ConfirmDialog(
@@ -62,10 +60,8 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
     final state = context.watch<ConversationsBloc>().state;
     var conversations = state.conversations;
 
-    if (selectedConversation == null &&
-        LocalStorageService().currentConversationId != null) {
-      selectedConversation = chatService
-          .getConversationById(LocalStorageService().currentConversationId);
+    if (selectedConversation == null && LocalStorageService().currentConversationId != null) {
+      selectedConversation = chatService.getConversationById(LocalStorageService().currentConversationId);
     }
 
     return Flexible(
@@ -75,22 +71,21 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
       itemBuilder: (context, index) {
         var conversationIndex = conversations[index];
         return ListTile(
-          title: Text(conversationIndex.title,
-              style: const TextStyle(overflow: TextOverflow.ellipsis)),
+          title: Text(conversationIndex.title, style: const TextStyle(overflow: TextOverflow.ellipsis)),
           horizontalTitleGap: 5,
           contentPadding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
           selected: conversations[index].id == selectedConversation?.id,
-          selectedTileColor: Color.lerp(
-              Theme.of(context).colorScheme.background, Colors.white, 0.05),
+          selectedTileColor: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.05),
           onTap: () async {
             var id = conversations[index].id;
             var conversation = chatService.getConversationById(id);
             if (conversation != null) {
+              selectedConversation = conversation;
               if (context.mounted) {
                 setState(() {
                   LocalStorageService().currentConversationId = id;
+                  Navigation.navigator(context, ChatScreenPage(currentConversation: selectedConversation));
                 });
-                ChatScreenPage.navigator(context, conversation);
               }
             }
           },
@@ -118,8 +113,7 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
                         if (conversation == null) {
                           break;
                         }
-                        var newConversation = await showConversationDialog(
-                            context, true, conversation);
+                        var newConversation = await showConversationDialog(context, true, conversation);
                         if (newConversation != null) {
                           await chatService.updateConversation(newConversation);
                           setState(() {
@@ -130,11 +124,8 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
                       case 'delete':
                         var result = await showDeleteConfirmDialog(context);
                         if (result == true) {
-                          if (context.mounted &&
-                              (conversations[index].id ==
-                                  selectedConversation?.id)) {
-                            Navigator.popUntil(context,
-                                (Route<dynamic> route) => route.isFirst);
+                          if (context.mounted && (conversations[index].id == selectedConversation?.id)) {
+                            Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
                           }
                           bloc.add(ConversationDeleted(conversations[index]));
                         }

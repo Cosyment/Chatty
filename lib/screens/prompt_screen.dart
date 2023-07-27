@@ -101,14 +101,14 @@ class _PromptState extends State<PromptScreen> {
         await chatService.updateConversation(newConversation);
         var savedConversation =
             chatService.getConversationById(newConversation.id)!;
-        if (context.mounted) {
+        // if (context.mounted) {
           // if (Navigator.of(context).canPop()) {
           //   Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
           // } else {
           //   Navigator.of(context).push(ChatScreenPage.route(savedConversation));
           // }
-          ChatScreenPage.navigator(context, savedConversation);
-        }
+          Navigation.navigator(context, ChatScreenPage(currentConversation: newConversation));
+        // }
         var conversationsBloc = ConversationsBloc(chatService: chatService);
         conversationsBloc.add(const ConversationsRequested());
 
