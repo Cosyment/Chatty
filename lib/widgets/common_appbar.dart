@@ -1,37 +1,30 @@
-
 import 'package:chatty/bloc/blocs.dart';
-import 'package:chatty/event/event_bus.dart';
-import 'package:chatty/event/event_message.dart';
-import 'package:chatty/widgets/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../generated/l10n.dart';
 import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../util/platform_util.dart';
 import 'confirm_dialog.dart';
 import 'conversation_edit_dialog.dart';
 
-class ChatScreenAppBar extends StatefulWidget implements PreferredSizeWidget {
+class CommonAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final String? title;
   final Conversation? currentConversation;
+  final bool? hasAppBar;
 
-  const ChatScreenAppBar({
-    super.key,
-    this.currentConversation,
-  });
+  const CommonAppBar(this.title, {super.key, this.currentConversation, this.hasAppBar});
 
-  Future<Conversation?> showConversationDialog(
-          BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(
-                conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
           });
 
-  Future<bool?> showClearConfirmDialog(BuildContext context) =>
-      showDialog<bool>(
+  Future<bool?> showClearConfirmDialog(BuildContext context) => showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
           return ConfirmDialog(
@@ -50,17 +43,22 @@ class ChatScreenAppBar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(56.0);
 }
 
-class _ChatScreenAppbar extends State<ChatScreenAppBar> {
-
+class _ChatScreenAppbar extends State<CommonAppBar> {
   @override
   Widget build(BuildContext context) {
+    return widget.hasAppBar == true
+        ? appBar(context)
+        : (PlatformUtil.isMobile)
+            ? const SizedBox()
+            : appBar(context);
+  }
+
+  Widget appBar(BuildContext context) {
     var chatService = context.read<ChatService>();
     var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
-
     return AppBar(
-        title: Text(widget.currentConversation?.title ?? 'Chatty',
-            style: const TextStyle(overflow: TextOverflow.ellipsis)),
-        automaticallyImplyLeading:PlatformUtil.isMobile,
+        title: Text(widget.title ?? S().appName, style: const TextStyle(overflow: TextOverflow.ellipsis)),
+        automaticallyImplyLeading: PlatformUtil.isMobile,
         actions: widget.currentConversation == null
             ? []
             : <Widget>[
@@ -74,52 +72,40 @@ class _ChatScreenAppbar extends State<ChatScreenAppBar> {
                       ),
                       PopupMenuItem(
                         value: 'clear',
-                        child: Text(
-                            AppLocalizations.of(context)!.clear_conversation),
+                        child: Text(AppLocalizations.of(context)!.clear_conversation),
                       ),
                     ];
                   },
                   onSelected: (value) async {
                     switch (value) {
                       case 'edit':
-                        var newConversation =
-                            await widget.showConversationDialog(
-                                context, true, widget.currentConversation!);
+                        var newConversation = await widget.showConversationDialog(context, true, widget.currentConversation!);
                         if (newConversation != null) {
-                          widget.currentConversation?.lastUpdated =
-                              DateTime.now();
+                          widget.currentConversation?.lastUpdated = DateTime.now();
                           setState(() {
-                            widget.currentConversation?.title =
-                                newConversation.title;
+                            widget.currentConversation?.title = newConversation.title;
                           });
 
                           await chatService.updateConversation(newConversation);
 
-                          var chatBloc = ChatBloc(
-                              chatService: chatService,
-                              initialConversation: newConversation);
+                          var chatBloc = ChatBloc(chatService: chatService, initialConversation: newConversation);
 
-                          chatBloc.add(ChatLastUpdatedChanged(
-                              newConversation, newConversation.lastUpdated));
+                          chatBloc.add(ChatLastUpdatedChanged(newConversation, newConversation.lastUpdated));
                           conversationsBloc.add(const ConversationsRequested());
                         }
                         break;
                       case 'clear':
-                        var result =
-                            await widget.showClearConfirmDialog(context);
+                        var result = await widget.showClearConfirmDialog(context);
                         if (result == true) {
                           widget.currentConversation?.messages = [];
-                          widget.currentConversation?.lastUpdated =
-                              DateTime.now();
+                          widget.currentConversation?.lastUpdated = DateTime.now();
 
                           await chatService.updateConversation(widget.currentConversation!);
 
-                          var chatBloc = ChatBloc(
-                              chatService: chatService,
-                              initialConversation: widget.currentConversation!);
+                          var chatBloc = ChatBloc(chatService: chatService, initialConversation: widget.currentConversation!);
 
-                          chatBloc.add(ChatLastUpdatedChanged(
-                              widget.currentConversation!, widget.currentConversation!.lastUpdated));
+                          chatBloc
+                              .add(ChatLastUpdatedChanged(widget.currentConversation!, widget.currentConversation!.lastUpdated));
                           conversationsBloc.add(const ConversationsCleared());
                         }
                         break;

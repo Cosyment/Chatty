@@ -38,8 +38,8 @@ void main() async {
       await windowManager.ensureInitialized();
     }
     WindowOptions windowOptions = const WindowOptions(
-      size: Size(900, 600),
-      minimumSize: Size(900, 600),
+      size: Size(950, 650),
+      minimumSize: Size(950, 650),
       center: true,
       backgroundColor: Colors.transparent,
       windowButtonVisibility: true,
@@ -76,15 +76,12 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.black,
-        statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(systemNavigationBarColor: Colors.black, statusBarColor: Colors.transparent));
 
     if (PlatformUtil.isMobile) {
       //友盟初始化
-      UmengCommonSdk.initCommon(
-          '64979b89a1a164591b38ceda' /*Android AppKey*/,
-          '6496a96887568a379b5ce593' /*ios AppKey*/,
+      UmengCommonSdk.initCommon('64979b89a1a164591b38ceda' /*Android AppKey*/, '6496a96887568a379b5ce593' /*ios AppKey*/,
           EnvironmentConfig.APP_CHANNEL);
     }
   }
@@ -107,8 +104,7 @@ class _AppState extends State<App> {
               supportedLocales: const [
                 Locale('en'),
                 Locale.fromSubtags(languageCode: 'zh'),
-                Locale.fromSubtags(
-                    languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
+                Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
                 Locale('ja'),
                 Locale('ko')
               ],
@@ -118,23 +114,16 @@ class _AppState extends State<App> {
                   cardColor: ThemeColor.primaryColor,
                   dialogBackgroundColor: ThemeColor.backgroundColor,
                   scaffoldBackgroundColor: ThemeColor.backgroundColor,
-                  dialogTheme:
-                      DialogTheme(backgroundColor: ThemeColor.backgroundColor),
+                  dialogTheme: DialogTheme(backgroundColor: ThemeColor.backgroundColor),
                   hoverColor: Colors.black12,
                   textButtonTheme: const TextButtonThemeData(
-                      style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStatePropertyAll<Color>(Colors.white54))),
+                      style: ButtonStyle(foregroundColor: MaterialStatePropertyAll<Color>(Colors.white54))),
                   elevatedButtonTheme: const ElevatedButtonThemeData(
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll<Color>(Colors.black38),
-                          foregroundColor:
-                              MaterialStatePropertyAll<Color>(Colors.white),
-                          textStyle: MaterialStatePropertyAll<TextStyle>(
-                              TextStyle(color: Colors.white)))),
-                  appBarTheme: AppBarTheme(
-                      backgroundColor: ThemeColor.appBarBackgroundColor),
+                          backgroundColor: MaterialStatePropertyAll<Color>(Colors.black38),
+                          foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+                          textStyle: MaterialStatePropertyAll<TextStyle>(TextStyle(color: Colors.white)))),
+                  appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor),
                   listTileTheme: const ListTileThemeData(
                       // tileColor: Colors.black12,
                       // selectedTileColor: Colors.blue,
@@ -150,8 +139,7 @@ class _AppState extends State<App> {
 void registerNetWorkListening() {
   if (!kIsWeb && Platform.isIOS) {
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if (result == ConnectivityResult.wifi ||
-          result == ConnectivityResult.mobile) {
+      if (result == ConnectivityResult.wifi || result == ConnectivityResult.mobile) {
         initialConfiguration();
       }
     });
@@ -162,8 +150,7 @@ void registerNetWorkListening() {
 
 void initialConfiguration() async {
   if (!LocalStorageService().isCustomApiKey) {
-    var secretKey = await HttpRequest.request<SecretKey>(
-        Urls.querySecretKey, (jsonData) => SecretKey.fromJson(jsonData));
+    var secretKey = await HttpRequest.request<SecretKey>(Urls.querySecretKey, (jsonData) => SecretKey.fromJson(jsonData));
     LocalStorageService().apiKey = secretKey.apiKey;
   }
 
@@ -177,20 +164,14 @@ void getCurrentCountry() async {
 }
 
 void getDomain() async {
-  var domains = await HttpRequest.request<Domain>(
-      Urls.queryDomain,
-      params: {'type': '0'},
-      (jsonData) => Domain.fromJson(jsonData));
+  var domains =
+      await HttpRequest.request<Domain>(Urls.queryDomain, params: {'type': '0'}, (jsonData) => Domain.fromJson(jsonData));
   List<Domain> domainList = domains;
-  if (LocalStorageService().apiHost == '' &&
-      domainList != null &&
-      domainList.isNotEmpty) {
+  if (LocalStorageService().apiHost == '' && domainList != null && domainList.isNotEmpty) {
     if (LocalStorageService().isChina) {
-      LocalStorageService().apiHost =
-          domainList.where((element) => element.type != 0).first.hostname;
+      LocalStorageService().apiHost = domainList.where((element) => element.type != 0).first.hostname;
     } else {
-      LocalStorageService().apiHost =
-          domainList.where((element) => element.type == 0).first.hostname;
+      LocalStorageService().apiHost = domainList.where((element) => element.type == 0).first.hostname;
     }
   }
 }

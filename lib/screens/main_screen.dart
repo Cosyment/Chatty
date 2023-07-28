@@ -1,6 +1,7 @@
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/screens/tablet_screen.dart';
+import 'package:chatty/widgets/common_stateful_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +27,7 @@ class _MainScreen extends State<MainScreen> {
 
   @override
   void initState() {
-    EventBus.getDefault().register<EventMessage<Widget>>(this, (event) {
+    EventBus.getDefault().register<EventMessage<CommonStatefulWidget>>(this, (event) {
       setState(() {
         body = event.data;
       });
@@ -41,16 +42,13 @@ class _MainScreen extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     var chatService = context.read<ChatService>();
-    Conversation? conversation = chatService
-        .getConversationById(LocalStorageService().currentConversationId);
+    Conversation? conversation = chatService.getConversationById(LocalStorageService().currentConversationId);
 
     if (body is ChatScreenPage) {
       setState(() {
         if (conversation != null) {
           body = BlocProvider(
-              create: (context) => ChatBloc(
-                  chatService: chatService, initialConversation: conversation),
-              child: body);
+              create: (context) => ChatBloc(chatService: chatService, initialConversation: conversation), child: body);
         } else {
           body = const EmptyChatScreen();
         }

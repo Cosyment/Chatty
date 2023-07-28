@@ -3,4 +3,4 @@ export 'confirm_dialog.dart';
 export 'conversation_edit_dialog.dart';
 export 'conversation_list_widget.dart';
 export 'empty_chat_widget.dart';
-export 'chat_screen_appbar.dart';
+export 'common_appbar.dart';
