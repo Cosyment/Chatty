@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:chatty/api/http_request.dart';
 import 'package:chatty/bloc/conversations_bloc.dart';
+import 'package:chatty/event/event_bus.dart';
+import 'package:chatty/event/event_message.dart';
 import 'package:chatty/models/models.dart';
 import 'package:chatty/screens/chat_screen.dart';
 import 'package:chatty/services/chat_service.dart';
@@ -52,9 +54,11 @@ class _PromptState extends State<PromptScreen> {
   Widget build(BuildContext context) {
     ChatService chatService = context.read<ChatService>();
     return Scaffold(
-        appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.prompt),
-            automaticallyImplyLeading: PlatformUtil.isMobile),
+        appBar: (PlatformUtil.isMobile)
+            ? null
+            : AppBar(
+                title: Text(AppLocalizations.of(context)!.prompt),
+                automaticallyImplyLeading: PlatformUtil.isMobile),
         body: MasonryGridView.count(
           crossAxisCount: 3,
           mainAxisSpacing: 5,
@@ -102,17 +106,20 @@ class _PromptState extends State<PromptScreen> {
         var savedConversation =
             chatService.getConversationById(newConversation.id)!;
         // if (context.mounted) {
-          // if (Navigator.of(context).canPop()) {
-          //   Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
-          // } else {
-          //   Navigator.of(context).push(ChatScreenPage.route(savedConversation));
-          // }
-          Navigation.navigator(context, ChatScreenPage(currentConversation: newConversation));
+        // if (Navigator.of(context).canPop()) {
+        //   Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
+        // } else {
+        //   Navigator.of(context).push(ChatScreenPage.route(savedConversation));
+        // }
         // }
         var conversationsBloc = ConversationsBloc(chatService: chatService);
         conversationsBloc.add(const ConversationsRequested());
 
         // EventBus.getDefault().post(EventMessage(newConversation));
+        if (context.mounted) {
+          Navigation.navigator(
+              context, ChatScreenPage(currentConversation: savedConversation));
+        }
       },
     );
   }

@@ -11,6 +11,8 @@ import 'package:lottie/lottie.dart';
 
 import '../bloc/conversations_bloc.dart';
 import '../bloc/conversations_event.dart';
+import '../event/event_bus.dart';
+import '../event/event_message.dart';
 import '../models/conversation.dart';
 import '../models/prompt.dart';
 import '../screens/chat_screen.dart';
@@ -18,6 +20,7 @@ import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../util/android_back_desktop.dart';
 import '../util/constants.dart';
+import '../util/navigation.dart';
 import '../widgets/conversation_edit_dialog.dart';
 
 class EmptyChatScreen extends StatefulWidget {
@@ -108,7 +111,9 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
                     margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                     child: GridView.builder(
                         scrollDirection: Axis.horizontal,
+                        controller: ScrollController(),
                         itemCount: promptList.length,
+                        // 允终邀动
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return promptItem(
@@ -142,7 +147,9 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
                   if (context.mounted) {
                     LocalStorageService().currentConversationId =
                         newConversation.id;
-                    ChatScreenPage.navigator(context, savedConversation);
+                    // ChatScreenPage.navigator(context, savedConversation);
+                    EventBus.getDefault()
+                        .post(EventMessage<Conversation>(savedConversation));
                   }
                   bloc.add(const ConversationsRequested());
                 }
@@ -190,12 +197,12 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
         var savedConversation =
             chatService.getConversationById(newConversation.id)!;
         if (context.mounted) {
-          ChatScreenPage.navigator(context, savedConversation);
+          // ChatScreenPage.navigator(context, savedConversation);
+          Navigation.navigator(
+              context, ChatScreenPage(currentConversation: savedConversation));
         }
         var conversationsBloc = ConversationsBloc(chatService: chatService);
         conversationsBloc.add(const ConversationsRequested());
-
-        // EventBus.getDefault().post(EventMessage(newConversation));
       },
     );
   }

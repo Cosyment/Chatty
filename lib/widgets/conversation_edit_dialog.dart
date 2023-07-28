@@ -1,3 +1,5 @@
+import 'package:chatty/screens/chat_screen.dart';
+import 'package:chatty/util/navigation.dart';
 import 'package:chatty/widgets/popup_box_constraints.dart';
 import 'package:flutter/material.dart';
 
@@ -87,6 +89,10 @@ class _ConversationEditDialogState extends State<ConversationEditDialog> {
                 _systemMessageEditingController.text;
             if (!widget.isEdit) {
               widget.conversation.lastUpdated = DateTime.now();
+            }
+            if (!widget.isEdit) {
+              Navigation.navigator(context,
+                  ChatScreenPage(currentConversation: widget.conversation));
             }
             Navigator.of(context).pop(widget.conversation);
           },

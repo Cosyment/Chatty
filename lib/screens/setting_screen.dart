@@ -174,7 +174,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     domainPopupItems.add(CheckedPopupMenuItem(
       value: 'custom',
       checked: domainList
-              .where((element) => element == LocalStorageService().apiHost).isEmpty,
+          .where((element) => element == LocalStorageService().apiHost)
+          .isEmpty,
       child: Text(AppLocalizations.of(context)!.custom_api_host),
     ));
   }
@@ -189,13 +190,16 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     TextAlign textAlign =
         kIsWeb || Platform.isAndroid ? TextAlign.start : TextAlign.end;
     return Scaffold(
-      appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.settings),
-          automaticallyImplyLeading: PlatformUtil.isMobile),
+      appBar: (PlatformUtil.isMobile)
+          ? null
+          : AppBar(
+              title: Text(AppLocalizations.of(context)!.settings),
+              automaticallyImplyLeading: PlatformUtil.isMobile),
       body: SettingsList(
         sections: [
           SettingsSection(
-            title: titleCategoryText(AppLocalizations.of(context)!.authentication),
+            title:
+                titleCategoryText(AppLocalizations.of(context)!.authentication),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.key),
@@ -204,7 +208,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                     width: sizeBoxWidth,
                     child: Text(
                       LocalStorageService().apiKey == ''
-                          ? AppLocalizations.of(context)!.add_your_secret_api_key
+                          ? AppLocalizations.of(context)!
+                              .add_your_secret_api_key
                           : obscureApiKey(LocalStorageService().apiKey),
                       overflow: TextOverflow.ellipsis,
                       textAlign: textAlign,
@@ -236,11 +241,14 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                 value: SizedBox(
                     width: sizeBoxWidth,
                     child: Text(
-                        LocalStorageService().organization == '' ? 'None' : shortValue(LocalStorageService().organization),
+                        LocalStorageService().organization == ''
+                            ? 'None'
+                            : shortValue(LocalStorageService().organization),
                         overflow: TextOverflow.ellipsis,
                         textAlign: textAlign)),
                 onPressed: (context) async {
-                  _textFieldController.text = LocalStorageService().organization;
+                  _textFieldController.text =
+                      LocalStorageService().organization;
                   var result = await openStringDialog(
                           context,
                           AppLocalizations.of(context)!.organization,
@@ -259,7 +267,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                 title: titleText(AppLocalizations.of(context)!.api_host),
                 value: SizedBox(
                     width: sizeBoxWidth,
-                    child: Text(LocalStorageService().apiHost, overflow: TextOverflow.ellipsis, textAlign: textAlign)),
+                    child: Text(LocalStorageService().apiHost,
+                        overflow: TextOverflow.ellipsis, textAlign: textAlign)),
                 trailing: PopupMenuButton(
                   icon: const Icon(Icons.more_vert),
                   itemBuilder: (context) {
@@ -291,12 +300,14 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
               ),
               !kIsWeb && Platform.isMacOS
                   ? SettingsTile(
-                  leading: const Icon(Icons.open_in_new),
-                      title: titleText(AppLocalizations.of(context)!.manage_api_keys),
+                      leading: const Icon(Icons.open_in_new),
+                      title: titleText(
+                          AppLocalizations.of(context)!.manage_api_keys),
                       value: Text(shortValue(Urls.openaiKeysUrl)))
                   : SettingsTile.navigation(
-                leading: const Icon(Icons.open_in_new),
-                      title: titleText(AppLocalizations.of(context)!.manage_api_keys),
+                      leading: const Icon(Icons.open_in_new),
+                      title: titleText(
+                          AppLocalizations.of(context)!.manage_api_keys),
                       value: SizedBox(
                           width: sizeBoxWidth,
                           child: Text(
@@ -305,42 +316,48 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                             overflow: TextOverflow.ellipsis,
                           )),
                       onPressed: (context) async {
-                        await launchUrl(Uri.parse(Urls.openaiKeysUrl), mode: LaunchMode.inAppWebView);
+                        await launchUrl(Uri.parse(Urls.openaiKeysUrl),
+                            mode: LaunchMode.inAppWebView);
                       },
                     ),
             ],
           ),
-          SettingsSection(title: titleCategoryText(AppLocalizations.of(context)!.chat_parameters), tiles: <SettingsTile>[
-            SettingsTile(
-              leading: const Icon(Icons.view_in_ar),
-              title: titleText(AppLocalizations.of(context)!.model),
-              value: Text(LocalStorageService().model),
-              trailing: PopupMenuButton(
-                icon: const Icon(Icons.more_vert),
-                itemBuilder: (context) {
-                  return modelPopupMenuItems;
-                },
-                onSelected: (value) async {
-                  LocalStorageService().model = value;
-                  initialModels();
-                  setState(() {
-                    model = value;
-                  });
-                },
-              ),
-            ),
-            SettingsTile(
-              leading: const Icon(Icons.history),
-              title: titleText(AppLocalizations.of(context)!.history_limit),
-              value: Text(LocalStorageService().historyCount.toString()),
-              trailing: PopupMenuButton(
-                icon: const Icon(Icons.more_vert),
-                itemBuilder: (context) {
-                  return [
-                    CheckedPopupMenuItem(
-                      value: '0',
-                      checked: LocalStorageService().historyCount.toString() == '0',
-                      child: const Text('0'),
+          SettingsSection(
+              title: titleCategoryText(
+                  AppLocalizations.of(context)!.chat_parameters),
+              tiles: <SettingsTile>[
+                SettingsTile(
+                  leading: const Icon(Icons.view_in_ar),
+                  title: titleText(AppLocalizations.of(context)!.model),
+                  value: Text(LocalStorageService().model),
+                  trailing: PopupMenuButton(
+                    icon: const Icon(Icons.more_vert),
+                    itemBuilder: (context) {
+                      return modelPopupMenuItems;
+                    },
+                    onSelected: (value) async {
+                      LocalStorageService().model = value;
+                      initialModels();
+                      setState(() {
+                        model = value;
+                      });
+                    },
+                  ),
+                ),
+                SettingsTile(
+                  leading: const Icon(Icons.history),
+                  title: titleText(AppLocalizations.of(context)!.history_limit),
+                  value: Text(LocalStorageService().historyCount.toString()),
+                  trailing: PopupMenuButton(
+                    icon: const Icon(Icons.more_vert),
+                    itemBuilder: (context) {
+                      return [
+                        CheckedPopupMenuItem(
+                          value: '0',
+                          checked:
+                              LocalStorageService().historyCount.toString() ==
+                                  '0',
+                          child: const Text('0'),
                         ),
                         CheckedPopupMenuItem(
                           value: '2',
@@ -389,26 +406,31 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   ),
                 ),
               ]),
-          SettingsSection(title: titleCategoryText(AppLocalizations.of(context)!.appearance), tiles: <SettingsTile>[
-            SettingsTile(
-              leading: const Icon(Icons.text_format),
-              title: titleText(AppLocalizations.of(context)!.render_mode),
-              value: Text(getRenderModeDescription(LocalStorageService().renderMode)),
-              trailing: PopupMenuButton(
-                icon: const Icon(Icons.more_vert),
-                itemBuilder: (context) {
-                  return [
-                    CheckedPopupMenuItem(
-                      value: 'markdown',
-                      checked: LocalStorageService().renderMode == 'markdown',
-                      child: const Text('Markdown'),
-                    ),
-                    CheckedPopupMenuItem(
-                      value: 'text',
-                      checked: LocalStorageService().renderMode == 'text',
-                      child: const Text('Plain Text'),
-                    )
-                  ];
+          SettingsSection(
+              title:
+                  titleCategoryText(AppLocalizations.of(context)!.appearance),
+              tiles: <SettingsTile>[
+                SettingsTile(
+                  leading: const Icon(Icons.text_format),
+                  title: titleText(AppLocalizations.of(context)!.render_mode),
+                  value: Text(getRenderModeDescription(
+                      LocalStorageService().renderMode)),
+                  trailing: PopupMenuButton(
+                    icon: const Icon(Icons.more_vert),
+                    itemBuilder: (context) {
+                      return [
+                        CheckedPopupMenuItem(
+                          value: 'markdown',
+                          checked:
+                              LocalStorageService().renderMode == 'markdown',
+                          child: const Text('Markdown'),
+                        ),
+                        CheckedPopupMenuItem(
+                          value: 'text',
+                          checked: LocalStorageService().renderMode == 'text',
+                          child: const Text('Plain Text'),
+                        )
+                      ];
                     },
                     onSelected: (value) async {
                       LocalStorageService().renderMode = value;
@@ -419,45 +441,52 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   ),
                 ),
               ]),
-          SettingsSection(title: titleCategoryText(AppLocalizations.of(context)!.about), tiles: <SettingsTile>[
-            SettingsTile.navigation(
-              leading: const Icon(Icons.privacy_tip_outlined),
-              title: titleText(AppLocalizations.of(context)!.privacy),
-              value: SizedBox(
-                  child: Text(
-                shortValue(Urls.privacyUrl),
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-              )),
-              onPressed: (context) async {
-                await launchUrl(Uri.parse(Urls.privacyUrl), mode: LaunchMode.inAppWebView);
-              },
-            ),
-            SettingsTile(
-              leading: const Icon(Icons.info_outline),
-              title: titleText(AppLocalizations.of(context)!.version),
-              value: FutureBuilder<PackageInfo>(
-                  future: PackageInfo.fromPlatform(),
-                  builder: (context, packageInfo) {
-                    return Text("v${packageInfo.data?.version}-${EnvironmentConfig.APP_CHANNEL}");
-                  }),
-            ),
+          SettingsSection(
+              title: titleCategoryText(AppLocalizations.of(context)!.about),
+              tiles: <SettingsTile>[
+                SettingsTile.navigation(
+                  leading: const Icon(Icons.privacy_tip_outlined),
+                  title: titleText(AppLocalizations.of(context)!.privacy),
+                  value: SizedBox(
+                      child: Text(
+                    shortValue(Urls.privacyUrl),
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.ellipsis,
+                  )),
+                  onPressed: (context) async {
+                    await launchUrl(Uri.parse(Urls.privacyUrl),
+                        mode: LaunchMode.inAppWebView);
+                  },
+                ),
+                SettingsTile(
+                  leading: const Icon(Icons.info_outline),
+                  title: titleText(AppLocalizations.of(context)!.version),
+                  value: FutureBuilder<PackageInfo>(
+                      future: PackageInfo.fromPlatform(),
+                      builder: (context, packageInfo) {
+                        return Text(
+                            "v${packageInfo.data?.version}-${EnvironmentConfig.APP_CHANNEL}");
+                      }),
+                ),
               ]),
-          SettingsSection(title: titleCategoryText(AppLocalizations.of(context)!.other), tiles: <SettingsTile>[
-            SettingsTile(
-              leading: const Icon(Icons.refresh_rounded, color: Colors.deepOrange),
-              title: titleText(AppLocalizations.of(context)!.reset_api_key),
-              onPressed: (context) async {
-                var result = await showResetConfirmDialog(context);
-                if (result == true) {
-                  setState(() {
-                    LocalStorageService().apiKey = '';
-                    LocalStorageService().isCustomApiKey = false;
-                  });
-                }
-              },
-            ),
-          ])
+          SettingsSection(
+              title: titleCategoryText(AppLocalizations.of(context)!.other),
+              tiles: <SettingsTile>[
+                SettingsTile(
+                  leading: const Icon(Icons.refresh_rounded,
+                      color: Colors.deepOrange),
+                  title: titleText(AppLocalizations.of(context)!.reset_api_key),
+                  onPressed: (context) async {
+                    var result = await showResetConfirmDialog(context);
+                    if (result == true) {
+                      setState(() {
+                        LocalStorageService().apiKey = '';
+                        LocalStorageService().isCustomApiKey = false;
+                      });
+                    }
+                  },
+                ),
+              ])
         ],
       ),
     );

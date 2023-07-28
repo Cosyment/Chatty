@@ -31,6 +31,10 @@ class _MainScreen extends State<MainScreen> {
         body = event.data;
       });
     });
+
+    if (LocalStorageService().currentConversationId != null) {
+      body = ChatScreenPage();
+    }
     super.initState();
   }
 
@@ -39,13 +43,17 @@ class _MainScreen extends State<MainScreen> {
     var chatService = context.read<ChatService>();
     Conversation? conversation = chatService
         .getConversationById(LocalStorageService().currentConversationId);
+
     if (body is ChatScreenPage) {
-      debugPrint('-----------_>>>${conversation?.title}');
       setState(() {
-        body = BlocProvider(
-            create: (context) => ChatBloc(
-                chatService: chatService, initialConversation: conversation!),
-            child:  ChatScreenPage(currentConversation: conversation));
+        if (conversation != null) {
+          body = BlocProvider(
+              create: (context) => ChatBloc(
+                  chatService: chatService, initialConversation: conversation),
+              child: body);
+        } else {
+          body = const EmptyChatScreen();
+        }
       });
     }
 

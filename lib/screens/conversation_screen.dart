@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/util/navigation.dart';
@@ -53,12 +55,12 @@ class _ConversationScreen extends State<ConversationScreen> {
 
   @override
   void initState() {
-
     EventBus.getDefault().register<EventMessage<Conversation>>(this, (event) {
-      debugPrint('----------_>>>${event.data.title}');
       setState(() {
+        currentConversation = event.data;
       });
     });
+    super.initState();
   }
 
   @override
@@ -91,6 +93,7 @@ class _ConversationScreen extends State<ConversationScreen> {
                           }
 
                           setState(() {
+                            list.clear();
                             currentConversation = null;
                             Future.delayed(Duration.zero, () {
                               Navigation.navigator(
@@ -123,7 +126,7 @@ class _ConversationScreen extends State<ConversationScreen> {
             const Divider(thickness: .5),
             Container(
                 color: CupertinoColors.darkBackgroundGray,
-                width: 300,
+                width: PlatformUtil.isMobile ? 300 : 250,
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
                     child: Column(
@@ -142,12 +145,13 @@ class _ConversationScreen extends State<ConversationScreen> {
                                   .updateConversation(newConversation);
                               var savedConversation = chatService
                                   .getConversationById(newConversation.id)!;
+                              conversationsBloc
+                                  .add(const ConversationsRequested());
                               if (context.mounted) {
+                                closeDrawer();
                                 ChatScreenPage.navigator(
                                     context, savedConversation);
                               }
-                              conversationsBloc
-                                  .add(const ConversationsRequested());
                             }
                           }),
                           const SizedBox(
@@ -155,6 +159,7 @@ class _ConversationScreen extends State<ConversationScreen> {
                           ),
                           textButton(AppLocalizations.of(context)!.prompt,
                               Icons.tips_and_updates_outlined, () {
+                            closeDrawer();
                             Navigation.navigator(context, const PromptScreen());
                           }),
                           const SizedBox(
@@ -162,9 +167,7 @@ class _ConversationScreen extends State<ConversationScreen> {
                           ),
                           textButton(AppLocalizations.of(context)!.settings,
                               Icons.settings_outlined, () {
-                            if (PlatformUtil.isMobile) {
-                              closeDrawer();
-                            }
+                            closeDrawer();
                             Navigation.navigator(
                                 context, const SettingsScreenPage());
                           }),
@@ -187,9 +190,16 @@ class _ConversationScreen extends State<ConversationScreen> {
   }
 
   void closeDrawer() {
-    // if (GetPlatform.isMobile) {
-    //   Get.back();
-    // }
+    if (PlatformUtil.isMobile) {
+      EventBus.getDefault()
+          .post(EventMessage<EventType>(EventType.CLOSE_DRAWER));
+    }
+  }
+
+  @override
+  void dispose() {
+    EventBus.getDefault().unregister(this);
+    super.dispose();
   }
 
   Widget textButton(String value, IconData iconData, VoidCallback? onPressed) {

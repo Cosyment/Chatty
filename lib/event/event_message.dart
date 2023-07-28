@@ -3,3 +3,7 @@ class EventMessage<T> {
 
   EventMessage(this.data);
 }
+
+enum EventType {
+  CLOSE_DRAWER
+}
