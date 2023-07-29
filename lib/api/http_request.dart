@@ -10,21 +10,20 @@ class HttpRequest {
   static final SafeHttpClient _httpClient = SafeHttpClient(http.Client());
 
   static Future<dynamic> request<T>(String url, T Function(dynamic) fromJson,
-      {method = 'GET', Map<String, dynamic>? params}) async {
+      {method = 'GET', Map<String, dynamic>? params, Function(Object)? exception}) async {
     var headers = {'Content-Type': 'application/json'};
     http.Response? response;
-    if (method == 'GET') {
-      response = await _httpClient.get(Uri.https(Urls.hostname, url, params),
-          headers: headers);
-    } else {
-      response = await _httpClient.post(Uri.https(Urls.hostname, url),
-          headers: headers, body: params);
-    }
-
-    debugPrint("request url： ${response.request?.url} \nheaders：${response.headers} \nparams：${params}");
 
     String errorMessage = '';
     try {
+      if (method == 'GET') {
+        response = await _httpClient.get(Uri.https(Urls.hostname, url, params), headers: headers);
+      } else {
+        response = await _httpClient.post(Uri.https(Urls.hostname, url), headers: headers, body: params);
+      }
+
+      debugPrint("request url： ${response.request?.url} \nheaders：${response.headers} \nparams：${params}");
+
       Utf8Decoder decoder = const Utf8Decoder();
       var content = jsonDecode(decoder.convert(response.bodyBytes));
       debugPrint("response： ${content}");
@@ -42,12 +41,12 @@ class HttpRequest {
     } catch (e) {
       print(e);
       errorMessage = 'server internal exception';
+      exception?.call(e);
     }
     throw Exception(errorMessage);
   }
 
-  static Future<Map<String, dynamic>> requestJson(String url,
-      {method = 'GET', Map<String, dynamic>? params}) async {
+  static Future<Map<String, dynamic>> requestJson(String url, {method = 'GET', Map<String, dynamic>? params}) async {
     Uri uri = Uri.parse(url);
     var headers = {'Content-Type': 'application/json'};
     http.Response? response;

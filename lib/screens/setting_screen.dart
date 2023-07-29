@@ -7,7 +7,6 @@ import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/widgets/popup_box_constraints.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,37 +35,27 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
   String model = LocalStorageService().model;
   int historyCount = LocalStorageService().historyCount;
   String renderMode = LocalStorageService().renderMode;
-  List<String> domainList = [];
-  List<PopupMenuItem> domainPopupItems = [
-    const CheckedPopupMenuItem(
-      value: 'https://api.openai-proxy.com',
-      child: Text('https://api.openai-proxy.com'),
-    ),
-    const CheckedPopupMenuItem(
-      value: 'https://api.openai.com',
-      child: Text('https://api.openai.com'),
+  List<Domain> domainList = [
+    Domain(hostname: 'https://api.openai.com', area: 'official'),
+    Domain(
+      hostname: 'https://api.openai.com-proxy',
+      area: 'Japan',
     )
   ];
-  List<PopupMenuItem> modelPopupMenuItems = [
-    const CheckedPopupMenuItem(
-      value: 'gpt-3.5-turbo',
-      child: Text('gpt-3.5-turbo'),
-    ),
-    const CheckedPopupMenuItem(
-      value: 'gpt-4',
-      child: Text('gpt-4'),
-    ),
-    const CheckedPopupMenuItem(
-      value: 'gpt-4-32k',
-      child: Text('gpt-4-32k'),
-    )
+  List<PopupMenuItem> domainPopupItems = [];
+  List<LanguageModel> modelList = [
+    LanguageModel(modelName: 'gpt-3.5-turbo'),
+    LanguageModel(modelName: 'gpt-3.5-turbo-0613'),
+    LanguageModel(modelName: 'gpt-3.5-turbo-16k'),
+    LanguageModel(modelName: 'gpt-4')
   ];
+  List<PopupMenuItem> modelPopupMenuItems = [];
 
   @override
   void initState() {
+    fetchDomainList();
+    fetchModelList();
     super.initState();
-    initialModels();
-    initialDomains();
   }
 
   final _textFieldController = TextEditingController();
@@ -139,13 +128,24 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     return 'Unknown';
   }
 
-  void initialModels() async {
-    var models = await HttpRequest.request<LanguageModel>(Urls.queryLanguageModel, (jsonData) => LanguageModel.fromJson(jsonData),
-        params: {'type': '0'});
+  void fetchModelList() async {
+    modelList = await HttpRequest.request<LanguageModel>(Urls.queryLanguageModel, (jsonData) => LanguageModel.fromJson(jsonData),
+        exception: (e) => {initialModels()}, params: {'type': '0'});
+    if (context.mounted && modelList.isNotEmpty) {
+      setState(() {
+        initialModels();
+      });
+    }
+  }
 
-    if (context.mounted && models != null && models is List && models.isNotEmpty) {
+  void initialModels() async {
+    if (modelPopupMenuItems.isNotEmpty) {
       modelPopupMenuItems.clear();
-      for (var element in models) {
+    }
+
+    if (context.mounted && modelList.isNotEmpty) {
+      modelPopupMenuItems.clear();
+      for (var element in modelList) {
         modelPopupMenuItems.add(CheckedPopupMenuItem(
           value: element.modelName,
           checked: LocalStorageService().model == element.modelName,
@@ -155,28 +155,36 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     }
   }
 
-  void initialDomains() async {
-    var domains =
-        await HttpRequest.request<Domain>(Urls.queryDomain, params: {'type': '0'}, (jsonData) => Domain.fromJson(jsonData));
+  void fetchDomainList() async {
+    domainList = await HttpRequest.request<Domain>(
+        Urls.queryDomain, params: {'type': '0'}, (jsonData) => Domain.fromJson(jsonData), exception: (e) => {initialDomains()});
+    if (context.mounted && domainList.isNotEmpty) {
+      setState(() {
+        initialDomains();
+      });
+    }
+  }
 
-    if (context.mounted && domains != null && domains is List && domains.isNotEmpty) {
-      domainPopupItems.clear();
-      for (var element in domains) {
-        domainList.add(element.hostname);
+  void initialDomains() {
+    if (context.mounted) {
+      if (domainPopupItems.isNotEmpty) {
+        domainPopupItems.clear();
+      }
+
+      for (var domain in domainList) {
         domainPopupItems.add(CheckedPopupMenuItem(
-          value: element.hostname,
-          checked: LocalStorageService().apiHost == element.hostname,
-          child: Text(element.area),
+          value: domain.hostname,
+          checked: LocalStorageService().apiHost == domain.hostname,
+          child: Text(domain.area),
         ));
       }
-    }
 
-    if (context.mounted) {
       domainPopupItems.add(CheckedPopupMenuItem(
         value: 'custom',
-        checked: domainList.where((element) => element == LocalStorageService().apiHost).isEmpty,
+        checked: domainList.where((element) => element.hostname == LocalStorageService().apiHost).isEmpty,
         child: Text(S.current.custom_api_host),
       ));
+      setState(() {});
     }
   }
 
@@ -232,9 +240,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                         textAlign: textAlign)),
                 onPressed: (context) async {
                   _textFieldController.text = LocalStorageService().organization;
-                  var result = await openStringDialog(
-                          context, S.current.organization, 'Organization ID like org-.......') ??
-                      '';
+                  var result = await openStringDialog(context, S.current.organization, 'Organization ID like org-.......') ?? '';
                   if (result != 'cancel') {
                     LocalStorageService().organization = result;
                     setState(() {
@@ -257,9 +263,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   onSelected: (value) async {
                     if (value == 'custom') {
                       _textFieldController.text = LocalStorageService().apiHost;
-                      var result = await openStringDialog(
-                              context, S.current.api_host_optional, 'URL like https://api.openai.com') ??
-                          '';
+                      var result =
+                          await openStringDialog(context, S.current.api_host_optional, 'URL like https://api.openai.com') ?? '';
                       if (result != 'cancel') {
                         LocalStorageService().apiHost = result;
                         setState(() {
