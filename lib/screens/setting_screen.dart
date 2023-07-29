@@ -113,7 +113,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
 
   String shortValue(String value) {
     if (!kIsWeb && Platform.isIOS && value.length >= 20) {
-      return " ${value.substring(0, 20)}...";
+      return " ${value.substring(0, 19)}...";
     }
     return value;
   }
