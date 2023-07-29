@@ -23,7 +23,7 @@ class SettingsScreenPage extends CommonStatefulWidget {
   const SettingsScreenPage({super.key});
 
   @override
-  String title() => S().settings;
+  String title() => S.current.settings;
 
   @override
   State<SettingsScreenPage> createState() => _SettingsScreenPageState();
@@ -84,12 +84,12 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
               )),
           actions: <Widget>[
             TextButton(
-                child: Text(AppLocalizations.of(context)!.cancel),
+                child: Text(S.current.cancel),
                 onPressed: () => {
                       Navigator.pop(context, 'cancel'),
                     }),
             ElevatedButton(
-                child: Text(AppLocalizations.of(context)!.ok),
+                child: Text(S.current.ok),
                 onPressed: () => {
                       Navigator.pop(context, _textFieldController.text),
                     }),
@@ -101,18 +101,18 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
         context: context,
         builder: (BuildContext context) {
           return ConfirmDialog(
-            title: AppLocalizations.of(context)!.reset_api_key,
-            content: AppLocalizations.of(context)!.reset_api_key_tips,
+            title: S.current.reset_api_key,
+            content: S.current.reset_api_key_tips,
           );
         },
       );
 
   String obscureApiKey(String apiKey) {
     if (apiKey.length < 15) {
-      return AppLocalizations.of(context)!.invalid_api_key;
+      return S.current.invalid_api_key;
     }
     if (apiKey.substring(0, 3) != 'sk-') {
-      return AppLocalizations.of(context)!.invalid_api_key;
+      return S.current.invalid_api_key;
     }
 
     if (LocalStorageService().apiKey.length >= 30) {
@@ -175,7 +175,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
       domainPopupItems.add(CheckedPopupMenuItem(
         value: 'custom',
         checked: domainList.where((element) => element == LocalStorageService().apiHost).isEmpty,
-        child: Text(AppLocalizations.of(context)!.custom_api_host),
+        child: Text(S.current.custom_api_host),
       ));
     }
   }
@@ -189,20 +189,20 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
             : 350.0;
     TextAlign textAlign = kIsWeb || Platform.isAndroid ? TextAlign.start : TextAlign.end;
     return Scaffold(
-      appBar: CommonAppBar(AppLocalizations.of(context)!.settings),
+      appBar: CommonAppBar(S.current.settings),
       body: SettingsList(
         sections: [
           SettingsSection(
-            title: titleCategoryText(AppLocalizations.of(context)!.authentication),
+            title: titleCategoryText(S.current.authentication),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.key),
-                title: titleText(AppLocalizations.of(context)!.api_key),
+                title: titleText(S.current.api_key),
                 value: SizedBox(
                     width: sizeBoxWidth,
                     child: Text(
                       LocalStorageService().apiKey == ''
-                          ? AppLocalizations.of(context)!.add_your_secret_api_key
+                          ? S.current.add_your_secret_api_key
                           : obscureApiKey(LocalStorageService().apiKey),
                       overflow: TextOverflow.ellipsis,
                       textAlign: textAlign,
@@ -223,7 +223,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.group),
-                title: titleText(AppLocalizations.of(context)!.organization),
+                title: titleText(S.current.organization),
                 value: SizedBox(
                     width: sizeBoxWidth,
                     child: Text(
@@ -233,7 +233,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                 onPressed: (context) async {
                   _textFieldController.text = LocalStorageService().organization;
                   var result = await openStringDialog(
-                          context, AppLocalizations.of(context)!.organization, 'Organization ID like org-.......') ??
+                          context, S.current.organization, 'Organization ID like org-.......') ??
                       '';
                   if (result != 'cancel') {
                     LocalStorageService().organization = result;
@@ -245,7 +245,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
               ),
               SettingsTile(
                 leading: const Icon(Icons.flight_takeoff),
-                title: titleText(AppLocalizations.of(context)!.api_host),
+                title: titleText(S.current.api_host),
                 value: SizedBox(
                     width: sizeBoxWidth,
                     child: Text(LocalStorageService().apiHost, overflow: TextOverflow.ellipsis, textAlign: textAlign)),
@@ -258,7 +258,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                     if (value == 'custom') {
                       _textFieldController.text = LocalStorageService().apiHost;
                       var result = await openStringDialog(
-                              context, AppLocalizations.of(context)!.api_host_optional, 'URL like https://api.openai.com') ??
+                              context, S.current.api_host_optional, 'URL like https://api.openai.com') ??
                           '';
                       if (result != 'cancel') {
                         LocalStorageService().apiHost = result;
@@ -279,11 +279,11 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
               !kIsWeb && Platform.isMacOS
                   ? SettingsTile(
                       leading: const Icon(Icons.open_in_new),
-                      title: titleText(AppLocalizations.of(context)!.manage_api_keys),
+                      title: titleText(S.current.manage_api_keys),
                       value: Text(shortValue(Urls.openaiKeysUrl)))
                   : SettingsTile.navigation(
                       leading: const Icon(Icons.open_in_new),
-                      title: titleText(AppLocalizations.of(context)!.manage_api_keys),
+                      title: titleText(S.current.manage_api_keys),
                       value: SizedBox(
                           width: sizeBoxWidth,
                           child: Text(
@@ -297,10 +297,10 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                     ),
             ],
           ),
-          SettingsSection(title: titleCategoryText(AppLocalizations.of(context)!.chat_parameters), tiles: <SettingsTile>[
+          SettingsSection(title: titleCategoryText(S.current.chat_parameters), tiles: <SettingsTile>[
             SettingsTile(
               leading: const Icon(Icons.view_in_ar),
-              title: titleText(AppLocalizations.of(context)!.model),
+              title: titleText(S.current.model),
               value: Text(LocalStorageService().model),
               trailing: PopupMenuButton(
                 icon: const Icon(Icons.more_vert),
@@ -318,7 +318,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
             ),
             SettingsTile(
               leading: const Icon(Icons.history),
-              title: titleText(AppLocalizations.of(context)!.history_limit),
+              title: titleText(S.current.history_limit),
               value: Text(LocalStorageService().historyCount.toString()),
               trailing: PopupMenuButton(
                 icon: const Icon(Icons.more_vert),
@@ -366,10 +366,10 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
               ),
             ),
           ]),
-          SettingsSection(title: titleCategoryText(AppLocalizations.of(context)!.appearance), tiles: <SettingsTile>[
+          SettingsSection(title: titleCategoryText(S.current.appearance), tiles: <SettingsTile>[
             SettingsTile(
               leading: const Icon(Icons.text_format),
-              title: titleText(AppLocalizations.of(context)!.render_mode),
+              title: titleText(S.current.render_mode),
               value: Text(getRenderModeDescription(LocalStorageService().renderMode)),
               trailing: PopupMenuButton(
                 icon: const Icon(Icons.more_vert),
@@ -396,10 +396,10 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
               ),
             ),
           ]),
-          SettingsSection(title: titleCategoryText(AppLocalizations.of(context)!.about), tiles: <SettingsTile>[
+          SettingsSection(title: titleCategoryText(S.current.about), tiles: <SettingsTile>[
             SettingsTile.navigation(
               leading: const Icon(Icons.privacy_tip_outlined),
-              title: titleText(AppLocalizations.of(context)!.privacy),
+              title: titleText(S.current.privacy),
               value: SizedBox(
                   child: Text(
                 shortValue(Urls.privacyUrl),
@@ -412,7 +412,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
             ),
             SettingsTile(
               leading: const Icon(Icons.info_outline),
-              title: titleText(AppLocalizations.of(context)!.version),
+              title: titleText(S.current.version),
               value: FutureBuilder<PackageInfo>(
                   future: PackageInfo.fromPlatform(),
                   builder: (context, packageInfo) {
@@ -420,10 +420,10 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   }),
             ),
           ]),
-          SettingsSection(title: titleCategoryText(AppLocalizations.of(context)!.other), tiles: <SettingsTile>[
+          SettingsSection(title: titleCategoryText(S.current.other), tiles: <SettingsTile>[
             SettingsTile(
               leading: const Icon(Icons.refresh_rounded, color: Colors.deepOrange),
-              title: titleText(AppLocalizations.of(context)!.reset_api_key),
+              title: titleText(S.current.reset_api_key),
               onPressed: (context) async {
                 var result = await showResetConfirmDialog(context);
                 if (result == true) {

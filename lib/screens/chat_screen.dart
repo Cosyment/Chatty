@@ -16,6 +16,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
+import '../generated/l10n.dart';
 import '../bloc/blocs.dart';
 import '../models/models.dart';
 import '../services/chat_service.dart';
@@ -84,7 +85,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
   void handleSend(BuildContext context, Conversation conversation) {
     if (LocalStorageService().apiKey == '') {
       scaffoldMessengerKey.currentState
-          ?.showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.please_add_your_api_key)));
+          ?.showSnackBar(SnackBar(content: Text(S.current.please_add_your_api_key)));
       return;
     }
 
@@ -139,7 +140,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
   void handleRefresh(BuildContext context, Conversation conversation) {
     if (LocalStorageService().apiKey == '') {
       scaffoldMessengerKey.currentState
-          ?.showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.please_add_your_api_key)));
+          ?.showSnackBar(SnackBar(content: Text(S.current.please_add_your_api_key)));
       return;
     }
 
@@ -175,7 +176,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
           SnackBar(
             content: Text(conversation.error),
             action: SnackBarAction(
-              label: AppLocalizations.of(context)!.resend,
+              label: S.current.resend,
               onPressed: () {
                 BlocProvider.of<ChatBloc>(context).add(ChatSubmitted(conversation));
               },
@@ -359,7 +360,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
                           Expanded(
                             child: TextField(
                               decoration: InputDecoration(
-                                  hintText: AppLocalizations.of(context)!.send_a_message, border: InputBorder.none),
+                                  hintText: S.current.send_a_message, border: InputBorder.none),
                               controller: _textEditingController,
                               focusNode: _focusNode,
                               minLines: 1,

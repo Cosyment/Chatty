@@ -9,12 +9,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+
 import '../bloc/conversations_bloc.dart';
 import '../bloc/conversations_event.dart';
 import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../widgets/widgets.dart';
+import '../generated/l10n.dart';
 import 'screens.dart';
 
 class ConversationScreen extends StatefulWidget {
@@ -42,8 +44,8 @@ class _ConversationScreen extends State<ConversationScreen> {
         context: context,
         builder: (BuildContext context) {
           return ConfirmDialog(
-            title: AppLocalizations.of(context)!.clean_conversation,
-            content: AppLocalizations.of(context)!.clean_conversation_tips,
+            title: S.current.clean_conversation,
+            content: S.current.clean_conversation_tips,
           );
         },
       );
@@ -73,7 +75,7 @@ class _ConversationScreen extends State<ConversationScreen> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(AppLocalizations.of(context)!.conversations),
+              Text(S.current.conversations),
               currentConversation != null
                   ? IconButton(
                       onPressed: () async {
@@ -117,7 +119,7 @@ class _ConversationScreen extends State<ConversationScreen> {
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      textButton(AppLocalizations.of(context)!.new_conversation, Icons.add_box_outlined, () async {
+                      textButton(S.current.new_conversation, Icons.add_box_outlined, () async {
                         var newConversation = await showConversationDialog(context, false, Conversation.create());
                         if (newConversation != null) {
                           LocalStorageService().currentConversationId = newConversation.id;
@@ -134,14 +136,14 @@ class _ConversationScreen extends State<ConversationScreen> {
                       const SizedBox(
                         height: 6,
                       ),
-                      textButton(AppLocalizations.of(context)!.prompt, Icons.tips_and_updates_outlined, () {
+                      textButton(S.current.prompt, Icons.tips_and_updates_outlined, () {
                         closeDrawer();
                         Navigation.navigator(context, const PromptScreen());
                       }),
                       const SizedBox(
                         height: 6,
                       ),
-                      textButton(AppLocalizations.of(context)!.settings, Icons.settings_outlined, () {
+                      textButton(S.current.settings, Icons.settings_outlined, () {
                         closeDrawer();
                         Navigation.navigator(context, const SettingsScreenPage());
                       }),
@@ -151,7 +153,7 @@ class _ConversationScreen extends State<ConversationScreen> {
                       FutureBuilder<PackageInfo>(
                           future: PackageInfo.fromPlatform(),
                           builder: (context, packageInfo) {
-                            return textButton("${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}",
+                            return textButton("${S.current.version}: v${packageInfo.data?.version}",
                                 Icons.info_outline, () {});
                           })
                     ]))),

@@ -1,6 +1,7 @@
 import 'package:chatty/widgets/popup_box_constraints.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../generated/l10n.dart';
 
 class ConfirmDialog extends StatelessWidget {
   final String title;
@@ -12,16 +13,14 @@ class ConfirmDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(title),
-      content: Container(
-          constraints: PopupBoxConstraints.custom(height: 45.0),
-          child: Text(content)),
+      content: Container(constraints: PopupBoxConstraints.custom(height: 45.0), child: Text(content)),
       actions: [
         TextButton(
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(S.current.cancel),
           onPressed: () => Navigator.pop(context, false),
         ),
         ElevatedButton(
-          child: Text(AppLocalizations.of(context)!.ok),
+          child: Text(S.current.ok),
           onPressed: () => Navigator.pop(context, true),
         ),
       ],

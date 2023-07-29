@@ -28,8 +28,8 @@ class CommonAppBar extends StatefulWidget implements PreferredSizeWidget {
         context: context,
         builder: (BuildContext context) {
           return ConfirmDialog(
-            title: AppLocalizations.of(context)!.clear_conversation,
-            content: AppLocalizations.of(context)!.clear_conversation_tips,
+            title: S.current.clear_conversation,
+            content: S.current.clear_conversation_tips,
           );
         },
       );
@@ -69,11 +69,11 @@ class _ChatScreenAppbar extends State<CommonAppBar> {
                     return [
                       PopupMenuItem(
                         value: 'edit',
-                        child: Text(AppLocalizations.of(context)!.edit),
+                        child: Text(S.current.edit),
                       ),
                       PopupMenuItem(
                         value: 'clear',
-                        child: Text(AppLocalizations.of(context)!.clear_conversation),
+                        child: Text(S.current.clear_conversation),
                       ),
                     ];
                   },

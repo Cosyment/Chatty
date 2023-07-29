@@ -57,7 +57,7 @@ class _PromptState extends State<PromptScreen> {
   Widget build(BuildContext context) {
     ChatService chatService = context.read<ChatService>();
     return Scaffold(
-        appBar: CommonAppBar(AppLocalizations.of(context)!.prompt),
+        appBar: CommonAppBar(S.current.prompt),
         body: Stack(
           children: [
             MasonryGridView.count(

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/conversations_bloc.dart';
 import '../bloc/conversations_event.dart';
+import '../generated/l10n.dart';
 import '../models/conversation.dart';
 import '../screens/chat_screen.dart';
 import '../services/chat_service.dart';
@@ -10,18 +11,15 @@ import '../services/local_storage_service.dart';
 import '../util/android_back_desktop.dart';
 import '../util/navigation.dart';
 import 'conversation_edit_dialog.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmptyChatWidget extends StatelessWidget {
   const EmptyChatWidget({super.key});
 
-  Future<Conversation?> showConversationDialog(
-          BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(
-                conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
           });
 
   Future<bool> _onBackPressed() async {
@@ -46,8 +44,7 @@ class EmptyChatWidget extends StatelessWidget {
                     Icons.chat,
                     size: 100,
                   ),
-                  Text(AppLocalizations.of(context)!
-                      .create_conversation_to_start),
+                  Text(S.current.create_conversation_to_start),
                   const SizedBox(
                     height: 150,
                   )
@@ -57,19 +54,13 @@ class EmptyChatWidget extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
-              var newConversation = await showConversationDialog(
-                  context, false, Conversation.create());
+              var newConversation = await showConversationDialog(context, false, Conversation.create());
               if (newConversation != null) {
                 await chatService.updateConversation(newConversation);
-                var savedConversation =
-                    chatService.getConversationById(newConversation.id)!;
+                var savedConversation = chatService.getConversationById(newConversation.id)!;
                 if (context.mounted) {
-                  LocalStorageService().currentConversationId =
-                      newConversation.id;
-                  Navigation.navigator(
-                      context,
-                      ChatScreenPage(
-                          currentConversation: newConversation));
+                  LocalStorageService().currentConversationId = newConversation.id;
+                  Navigation.navigator(context, ChatScreenPage(currentConversation: newConversation));
                 }
                 bloc.add(const ConversationsRequested());
               }

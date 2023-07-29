@@ -470,10 +470,10 @@ class S {
     );
   }
 
-  /// `Prompt`
+  /// `Prompts`
   String get prompt {
     return Intl.message(
-      'Prompt',
+      'Prompts',
       name: 'prompt',
       desc: '',
       args: [],

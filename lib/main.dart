@@ -24,6 +24,7 @@ import 'screens/screens.dart';
 import 'services/chat_service.dart';
 import 'services/local_storage_service.dart';
 import 'util/extend_http_client.dart';
+import '../generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,6 +62,8 @@ void main() async {
   // );
 
   registerNetWorkListening();
+
+  S();
 }
 
 class App extends StatefulWidget {
@@ -96,18 +99,12 @@ class _AppState extends State<App> {
                 )..add(const ConversationsRequested()),
             child: MaterialApp(
               localizationsDelegates: const [
-                AppLocalizations.delegate,
+                S.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate
               ],
-              supportedLocales: const [
-                Locale('en'),
-                Locale.fromSubtags(languageCode: 'zh'),
-                Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
-                Locale('ja'),
-                Locale('ko')
-              ],
+              supportedLocales: S.delegate.supportedLocales,
               theme: ThemeData(
                   useMaterial3: true,
                   brightness: Brightness.dark,

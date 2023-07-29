@@ -89,9 +89,9 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
                     margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: Column(
                       children: [
-                        Text(AppLocalizations.of(context)!.create_conversation_to_start,
+                        Text(S.current.create_conversation_to_start,
                             style: const TextStyle(color: Colors.white70, fontSize: 18), textAlign: TextAlign.center),
-                        Text(AppLocalizations.of(context)!.create_conversation_tip,
+                        Text(S.current.create_conversation_tip,
                             style: const TextStyle(color: Colors.white54, fontSize: 14), textAlign: TextAlign.center)
                       ],
                     )),
