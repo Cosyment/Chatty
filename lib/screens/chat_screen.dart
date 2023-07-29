@@ -33,40 +33,6 @@ class ChatScreenPage extends CommonStatefulWidget {
     }
   }
 
-  static navigator(BuildContext context, Conversation conversation) {
-    // if (Navigator.of(context).canPop()) {
-    //   Navigator.of(context).pushReplacement(ChatScreenPage._route(conversation));
-    // } else {
-    //   Navigator.of(context).push(ChatScreenPage._route(conversation));
-    // }
-    // Navigation.navigator(context, const ChatScreenPage());
-  }
-
-  // static Route<void> _route(Conversation initialConversation) {
-  //   return PageRouteBuilder(
-  //     pageBuilder: (context, animation, secondaryAnimation) =>
-  //         BlocProvider(
-  //           create: (context) =>
-  //               ChatBloc(
-  //                 chatService: context.read<ChatService>(),
-  //                 initialConversation: initialConversation,
-  //               ),
-  //           child: TabletScreenPage(
-  //               sidebar: ConversationScreen(selectedConversation: initialConversation), body: const ChatScreen()),
-  //         ),
-  //     transitionDuration: Duration.zero,
-  //   );
-  // }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return BlocListener<ChatBloc, ChatState>(
-  //     listenWhen: (previous, current) => previous.status != current.status && current.status == ChatStatus.success,
-  //     listener: (context, state) => Navigator.of(context).pop(),
-  //     child: const ChatScreen(),
-  //   );
-  // }
-
   @override
   State<StatefulWidget> createState() => _ChatScreenState();
 }

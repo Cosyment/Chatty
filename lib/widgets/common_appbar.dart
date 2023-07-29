@@ -56,8 +56,9 @@ class _ChatScreenAppbar extends State<CommonAppBar> {
   Widget appBar(BuildContext context) {
     var chatService = context.read<ChatService>();
     var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
+    String? title = widget.currentConversation != null ? widget.currentConversation?.title : widget.title;
     return AppBar(
-        title: Text(widget.title ?? S().appName, style: const TextStyle(overflow: TextOverflow.ellipsis)),
+        title: Text(title ?? S().appName, style: const TextStyle(overflow: TextOverflow.ellipsis)),
         automaticallyImplyLeading: PlatformUtil.isMobile,
         actions: widget.currentConversation == null
             ? []
@@ -83,6 +84,7 @@ class _ChatScreenAppbar extends State<CommonAppBar> {
                         if (newConversation != null) {
                           widget.currentConversation?.lastUpdated = DateTime.now();
                           setState(() {
+                            // widget.title = newConversation.title;
                             widget.currentConversation?.title = newConversation.title;
                           });
 

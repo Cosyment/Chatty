@@ -85,8 +85,8 @@ android {
 
     signingConfigs {
         config {//签名配置
-            storeFile file("../chatbotty.jks")
-            keyAlias "chatbotty"
+            storeFile file("../chatty.jks")
+            keyAlias "chatty"
             storePassword "1q2w3e4r5t~Q"
             keyPassword "1q2w3e4r5t~Q"
         }

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/util/navigation.dart';
@@ -33,17 +31,14 @@ class ConversationScreen extends StatefulWidget {
 class _ConversationScreen extends State<ConversationScreen> {
   late Conversation? currentConversation = widget.selectedConversation;
 
-  Future<Conversation?> showConversationDialog(
-          BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(
-                conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
           });
 
-  Future<bool?> showCleanConfirmDialog(BuildContext context) =>
-      showDialog<bool>(
+  Future<bool?> showCleanConfirmDialog(BuildContext context) => showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
           return ConfirmDialog(
@@ -84,20 +79,17 @@ class _ConversationScreen extends State<ConversationScreen> {
                       onPressed: () async {
                         var result = await showCleanConfirmDialog(context);
                         if (result == true) {
-                          List<ConversationIndex> list =
-                              chatService.getConversationList();
+                          List<ConversationIndex> list = chatService.getConversationList();
                           for (var element in list) {
                             chatService.removeConversationById(element.id);
-                            LocalStorageService()
-                                .removeConversationJsonById(element.id);
+                            LocalStorageService().removeConversationJsonById(element.id);
                           }
 
                           setState(() {
                             list.clear();
                             currentConversation = null;
                             Future.delayed(Duration.zero, () {
-                              Navigation.navigator(
-                                  context, const EmptyChatScreen());
+                              Navigation.navigator(context, const EmptyChatScreen());
                             });
                           });
                         }
@@ -112,77 +104,57 @@ class _ConversationScreen extends State<ConversationScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             currentConversation != null
-                ? ConversationListWidget(
-                    selectedConversation: currentConversation)
+                ? ConversationListWidget(selectedConversation: currentConversation)
                 : Flexible(
                     flex: 1,
                     fit: FlexFit.tight,
-                    child: Center(
-                        child: SizedBox(
-                            width: 100,
-                            height: 100,
-                            child: Lottie.asset('assets/empty.json',
-                                repeat: true)))),
+                    child:
+                        Center(child: SizedBox(width: 100, height: 100, child: Lottie.asset('assets/empty.json', repeat: true)))),
             const Divider(thickness: .5),
             Container(
                 color: CupertinoColors.darkBackgroundGray,
                 width: PlatformUtil.isMobile ? 300 : 250,
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textButton(
-                              AppLocalizations.of(context)!.new_conversation,
-                              Icons.add_box_outlined, () async {
-                            var newConversation = await showConversationDialog(
-                                context, false, Conversation.create());
-                            if (newConversation != null) {
-                              LocalStorageService().currentConversationId =
-                                  newConversation.id;
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      textButton(AppLocalizations.of(context)!.new_conversation, Icons.add_box_outlined, () async {
+                        var newConversation = await showConversationDialog(context, false, Conversation.create());
+                        if (newConversation != null) {
+                          LocalStorageService().currentConversationId = newConversation.id;
 
-                              await chatService
-                                  .updateConversation(newConversation);
-                              var savedConversation = chatService
-                                  .getConversationById(newConversation.id)!;
-                              conversationsBloc
-                                  .add(const ConversationsRequested());
-                              if (context.mounted) {
-                                closeDrawer();
-                                ChatScreenPage.navigator(
-                                    context, savedConversation);
-                              }
-                            }
-                          }),
-                          const SizedBox(
-                            height: 6,
-                          ),
-                          textButton(AppLocalizations.of(context)!.prompt,
-                              Icons.tips_and_updates_outlined, () {
+                          await chatService.updateConversation(newConversation);
+                          var savedConversation = chatService.getConversationById(newConversation.id)!;
+                          conversationsBloc.add(const ConversationsRequested());
+                          if (context.mounted) {
                             closeDrawer();
-                            Navigation.navigator(context, const PromptScreen());
-                          }),
-                          const SizedBox(
-                            height: 6,
-                          ),
-                          textButton(AppLocalizations.of(context)!.settings,
-                              Icons.settings_outlined, () {
-                            closeDrawer();
-                            Navigation.navigator(
-                                context, const SettingsScreenPage());
-                          }),
-                          const SizedBox(
-                            height: 6,
-                          ),
-                          FutureBuilder<PackageInfo>(
-                              future: PackageInfo.fromPlatform(),
-                              builder: (context, packageInfo) {
-                                return textButton(
-                                    "${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}",
-                                    Icons.info_outline,
-                                    () {});
-                              })
-                        ]))),
+                            Navigation.navigator(context, ChatScreenPage(currentConversation: newConversation));
+                          }
+                        }
+                      }),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      textButton(AppLocalizations.of(context)!.prompt, Icons.tips_and_updates_outlined, () {
+                        closeDrawer();
+                        Navigation.navigator(context, const PromptScreen());
+                      }),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      textButton(AppLocalizations.of(context)!.settings, Icons.settings_outlined, () {
+                        closeDrawer();
+                        Navigation.navigator(context, const SettingsScreenPage());
+                      }),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      FutureBuilder<PackageInfo>(
+                          future: PackageInfo.fromPlatform(),
+                          builder: (context, packageInfo) {
+                            return textButton("${AppLocalizations.of(context)!.version}: v${packageInfo.data?.version}",
+                                Icons.info_outline, () {});
+                          })
+                    ]))),
           ],
         ),
       ),
@@ -191,8 +163,7 @@ class _ConversationScreen extends State<ConversationScreen> {
 
   void closeDrawer() {
     if (PlatformUtil.isMobile) {
-      EventBus.getDefault()
-          .post(EventMessage<EventType>(EventType.CLOSE_DRAWER));
+      EventBus.getDefault().post(EventMessage<EventType>(EventType.CLOSE_DRAWER));
     }
   }
 

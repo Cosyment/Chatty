@@ -8,6 +8,7 @@ import '../screens/chat_screen.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../util/android_back_desktop.dart';
+import '../util/navigation.dart';
 import 'conversation_edit_dialog.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -65,7 +66,10 @@ class EmptyChatWidget extends StatelessWidget {
                 if (context.mounted) {
                   LocalStorageService().currentConversationId =
                       newConversation.id;
-                  ChatScreenPage.navigator(context, savedConversation);
+                  Navigation.navigator(
+                      context,
+                      ChatScreenPage(
+                          currentConversation: newConversation));
                 }
                 bloc.add(const ConversationsRequested());
               }
