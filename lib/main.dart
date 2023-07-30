@@ -6,11 +6,11 @@ import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:chatty/widgets/theme_color.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:umeng_common_sdk/umeng_common_sdk.dart';
@@ -80,7 +80,7 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(systemNavigationBarColor: Colors.black, statusBarColor: Colors.transparent));
+        const SystemUiOverlayStyle(systemNavigationBarColor: CupertinoColors.darkBackgroundGray, statusBarColor: Colors.transparent));
 
     if (PlatformUtil.isMobile) {
       //友盟初始化
