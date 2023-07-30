@@ -65,6 +65,22 @@ android {
             applicationId "com.waiting.smart.airobot"
         }
 
+        huawei {
+            applicationId "com.waiting.smart.airobot"
+        }
+
+        xiaomi {
+            applicationId "com.waiting.smart.airobot"
+        }
+
+        amazon {
+            applicationId "com.waiting.smart.airobot"
+        }
+
+        samsung {
+            applicationId "com.waiting.smart.airobot"
+        }
+
         google {
             applicationId "com.waiting.smart.airobot.assistant"
         }

@@ -1,14 +1,44 @@
 # Chatty
 
+### Simple description
+#### Based on GPT3 and GPT4 language models, provides writing help,knowledge quizzes, translation, film music game and more, answers any puzzles,even virtual girlfriend.
+
 ### Description
-#### AI Chat App: Natural Conversations, Personalized Assistance. Powered by GPT technology, it's your ultimate digital assistant.
-##### Our intelligent chat software combines the cutting-edge GPT technology to bring you a conversational experience that is as smooth and natural as interacting with a human. Our chatbot, trained using GPT technology, understands the meaning of language and provides accurate and comprehensive information through its vast knowledge base.Whether you're seeking companionship, assistance, or simply looking for engaging conversations, our software is the perfect choice. Our AI chatbot, powered by GPT technology, possesses remarkable language generation capabilities, enabling deep, engaging, and inspiring conversations.Engage with our AI chat software and experience the unique charm brought by GPT technology. Our chatbot can think from multiple perspectives, infer context, and provide sensible responses. Whether you're exploring complex topics, seeking creative inspiration, or acquiring knowledge in specialized fields, our chatbot will deliver insightful and comprehensive replies.In addition to offering personalized customization options, allowing you to interact with a personality that truly resonates with you, we prioritize the protection of your privacy and security. Your conversation content is strictly safeguarded, as we are committed to providing a safe and reliable chat environment.Come and experience our GPT-powered AI chat software, and let our chatbot become your intelligent companion!
+Chat with the most advanced Chatty!
+Ask Chatty any question and get instant answers.
+Here are some ideas you can ask Chatty to write for you:
 
-build apk for channel command
-flutter build apk --dart-define=APP_CHANNEL=xxx-channel --dart-define=OTHER_VAR=Dart(optional) --target-platform android-arm,android-arm64,android-x64 --split-per-abi
-flutter build apk --dart-define=APP_CHANNEL=xiaomi --target-platform android-arm64 --split-per-abi//小米
-flutter build apk --dart-define=APP_CHANNEL=huawei --target-platform android-arm64 --split-per-abi//华为
-flutter build apk --dart-define=APP_CHANNEL=amazon --target-platform android-arm64 --split-per-abi//亚马逊
-flutter build apk --dart-define=APP_CHANNEL=google --target-platform android-arm64 --split-per-abi//谷歌
+·Stories, poems, song lyrics, movie scripts, graduation papers
+·Language practice and text translation
+·Information about anything
+·Cooking recipes
+·Jokes of all kinds
+·One-week travel plans to Paris, London, etc.
+·Recommendations for movies, music, games to watch or play
+`Entrepreneurial ideas
+`Novel business models
+·Code snippets, math equations, and more!
 
+【Get instant answers】
+·Thanks to Chatty's powerful AI capabilities and vast knowledge base, you can get instant answers to any question. From historical events and scientific facts to movies, music, games, and obscure trivia, Chatty has almost all the knowledge you need.
+·Need help with writing? Chatty's AI-powered writing assistant can help you generate ideas, write outlines, and even compose entire paragraphs.
+·Tackle any writing task with ease.
+·Unleash your creativity with Chatty. Write a poem, rap song lyrics or a story.
+·Write a rap song in the style of Hip Hop.
+·Rewrite the lyrics of Justin Bieber's "As Long as You Love Me."
+·Write a love poem and compose music for it.
+
+【Practice any language】
+Chatty's multilingual capabilities mean that you can chat in any language you want. Translate text, learn and practice your language. Let Chatty act as your teacher!
+
+【Chat about any topic】
+Chatty is your go-to source for chatting about any topic you want. Whether it's movies, music, sports, politics, science or anything else that interests you,
+Chatty is always ready for a conversation.
+Experience the power of AI with Chatty - your ultimate companion for instant answers,
+creative writing assistance,
+language practice,
+and engaging conversations on any topic!
+
+### Key words
+chatg,openai,gpt,Claude,chatbot,gpr,threads,gpt4,biubiu,titok,chatai,AI,ask,jtp,autogpt,yutub,quora
 
