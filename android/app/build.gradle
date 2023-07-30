@@ -82,7 +82,7 @@ android {
         }
 
         google {
-            applicationId "com.waiting.smart.airobot.assistant"
+            applicationId "com.waiting.smart.airobot"
         }
     }
 
