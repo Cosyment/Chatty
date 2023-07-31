@@ -62,8 +62,6 @@ void main() async {
   // );
 
   registerNetWorkListening();
-
-  S();
 }
 
 class App extends StatefulWidget {
