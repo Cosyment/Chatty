@@ -8,7 +8,7 @@
 PRODUCT_NAME = Chatty
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.waiting.smart.airobot
+PRODUCT_BUNDLE_IDENTIFIER = com.waiting.ai.chatbot
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.waiting.smart.airobot. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 Waiting Apps. All rights reserved.

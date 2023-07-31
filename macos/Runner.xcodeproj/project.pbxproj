@@ -489,7 +489,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.smart.airobot.RunnerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.ai.chatbot.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chatty.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Chatty";
@@ -504,7 +504,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.smart.airobot.RunnerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.ai.chatbot.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chatty.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Chatty";
@@ -519,7 +519,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.smart.airobot.assistant.RunnerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.ai.chatbot.assistant.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chatty.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Chatty";
@@ -593,7 +593,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.smart.airobot;
+				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.ai.chatbot;
 				PRODUCT_NAME = Chatty;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -730,7 +730,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.smart.airobot;
+				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.ai.chatbot;
 				PRODUCT_NAME = Chatty;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -757,7 +757,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.smart.airobot;
+				PRODUCT_BUNDLE_IDENTIFIER = com.waiting.ai.chatbot;
 				PRODUCT_NAME = Chatty;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

@@ -1,4 +1,4 @@
-package com.waiting.smart.airobot
+package com.waiting.ai.chatbot
 
 import android.app.Application
 import com.umeng.commonsdk.UMConfigure

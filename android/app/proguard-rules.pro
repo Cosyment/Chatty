@@ -28,7 +28,7 @@
 -keep class io.flutter.**  { *; }
 -keep class io.flutter.plugins.**  { *; }
 
--keep public class com.waiting.smart.airobot.R$*{
+-keep public class com.waiting.ai.chatbot.R$*{
     public static final int *;
 }
 
