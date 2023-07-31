@@ -257,10 +257,10 @@ packages:
     dependency: "direct main"
     description:
       name: lottie
-      sha256: "893da7a0022ec2fcaa616f34529a081f617e86cc501105b856e5a3184c58c7c2"
+      sha256: "0793a5866062e5cc8a8b24892fa94c3095953ea914a7fdf790f550dd7537fe60"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.4.3"
+    version: "2.5.0"
   markdown:
     dependency: transitive
     description:
