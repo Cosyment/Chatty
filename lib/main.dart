@@ -16,6 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../generated/l10n.dart';
 import 'api/openai_api.dart';
 import 'bloc/blocs.dart';
 import 'models/domain.dart';
@@ -24,7 +25,6 @@ import 'screens/screens.dart';
 import 'services/chat_service.dart';
 import 'services/local_storage_service.dart';
 import 'util/extend_http_client.dart';
-import '../generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,12 +77,15 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(systemNavigationBarColor: CupertinoColors.darkBackgroundGray, statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        systemNavigationBarColor: CupertinoColors.darkBackgroundGray,
+        statusBarColor: Colors.transparent));
 
     if (PlatformUtil.isMobile) {
       //友盟初始化
-      UmengCommonSdk.initCommon('64979b89a1a164591b38ceda' /*Android AppKey*/, '6496a96887568a379b5ce593' /*ios AppKey*/,
+      UmengCommonSdk.initCommon(
+          '64979b89a1a164591b38ceda' /*Android AppKey*/,
+          '6496a96887568a379b5ce593' /*ios AppKey*/,
           EnvironmentConfig.APP_CHANNEL);
     }
   }
@@ -109,16 +112,23 @@ class _AppState extends State<App> {
                   cardColor: ThemeColor.primaryColor,
                   dialogBackgroundColor: ThemeColor.backgroundColor,
                   scaffoldBackgroundColor: ThemeColor.backgroundColor,
-                  dialogTheme: DialogTheme(backgroundColor: ThemeColor.backgroundColor),
+                  dialogTheme:
+                      DialogTheme(backgroundColor: ThemeColor.backgroundColor),
                   hoverColor: Colors.black12,
                   textButtonTheme: const TextButtonThemeData(
-                      style: ButtonStyle(foregroundColor: MaterialStatePropertyAll<Color>(Colors.white54))),
+                      style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStatePropertyAll<Color>(Colors.white54))),
                   elevatedButtonTheme: const ElevatedButtonThemeData(
                       style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(Colors.black38),
-                          foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
-                          textStyle: MaterialStatePropertyAll<TextStyle>(TextStyle(color: Colors.white)))),
-                  appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor),
+                          backgroundColor:
+                              MaterialStatePropertyAll<Color>(Colors.black38),
+                          foregroundColor:
+                              MaterialStatePropertyAll<Color>(Colors.white),
+                          textStyle: MaterialStatePropertyAll<TextStyle>(
+                              TextStyle(color: Colors.white)))),
+                  appBarTheme: AppBarTheme(
+                      backgroundColor: ThemeColor.appBarBackgroundColor),
                   listTileTheme: const ListTileThemeData(
                       // tileColor: Colors.black12,
                       // selectedTileColor: Colors.blue,
@@ -134,7 +144,8 @@ class _AppState extends State<App> {
 void registerNetWorkListening() {
   if (!kIsWeb && Platform.isIOS) {
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if (result == ConnectivityResult.wifi || result == ConnectivityResult.mobile) {
+      if (result == ConnectivityResult.wifi ||
+          result == ConnectivityResult.mobile) {
         initialConfiguration();
       }
     });
@@ -145,7 +156,8 @@ void registerNetWorkListening() {
 
 void initialConfiguration() async {
   if (!LocalStorageService().isCustomApiKey) {
-    var secretKey = await HttpRequest.request<SecretKey>(Urls.querySecretKey, (jsonData) => SecretKey.fromJson(jsonData));
+    var secretKey = await HttpRequest.request<SecretKey>(
+        Urls.querySecretKey, (jsonData) => SecretKey.fromJson(jsonData));
     LocalStorageService().apiKey = secretKey.apiKey;
   }
 
@@ -159,14 +171,20 @@ void getCurrentCountry() async {
 }
 
 void getDomain() async {
-  var domains =
-      await HttpRequest.request<Domain>(Urls.queryDomain, params: {'type': '0'}, (jsonData) => Domain.fromJson(jsonData));
+  var domains = await HttpRequest.request<Domain>(
+      Urls.queryDomain,
+      params: {'type': '0'},
+      (jsonData) => Domain.fromJson(jsonData));
   List<Domain> domainList = domains;
-  if (LocalStorageService().apiHost == '' && domainList != null && domainList.isNotEmpty) {
+  if (LocalStorageService().apiHost == '' &&
+      domainList != null &&
+      domainList.isNotEmpty) {
     if (LocalStorageService().isChina) {
-      LocalStorageService().apiHost = domainList.where((element) => element.type != 0).first.hostname;
+      LocalStorageService().apiHost =
+          domainList.where((element) => element.type != 0).first.hostname;
     } else {
-      LocalStorageService().apiHost = domainList.where((element) => element.type == 0).first.hostname;
+      LocalStorageService().apiHost =
+          domainList.where((element) => element.type == 0).first.hostname;
     }
   }
 }
