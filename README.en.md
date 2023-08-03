@@ -1,4 +1,4 @@
-# Chatty
+# Chatty - AI Chat Assistant
 
 ### Simple description
 #### Based on GPT3 and GPT4 language models, provides writing help,knowledge quizzes, translation, film music game and more, answers any puzzles,even virtual girlfriend.
@@ -15,8 +15,8 @@ Here are some ideas you can ask Chatty to write for you:
 ·Jokes of all kinds
 ·One-week travel plans to Paris, London, etc.
 ·Recommendations for movies, music, games to watch or play
-`Entrepreneurial ideas
-`Novel business models
+·Entrepreneurial ideas
+·Novel business models
 ·Code snippets, math equations, and more!
 
 【Get instant answers】
