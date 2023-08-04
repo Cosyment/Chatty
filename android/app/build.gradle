@@ -55,36 +55,36 @@ android {
         versionCode 2
         versionName flutterVersionName
 
-        flavorDimensions "channel"
+//        flavorDimensions "channel"
 
         consumerProguardFiles 'proguard-rules.pro'
     }
 
-    productFlavors {
-        official {
-            applicationId "com.waiting.ai.chatbot"
-        }
-
-        huawei {
-            applicationId "com.waiting.ai.chatbot"
-        }
-
-        xiaomi {
-            applicationId "com.waiting.ai.chatbot"
-        }
-
-        amazon {
-            applicationId "com.waiting.ai.chatbot"
-        }
-
-        samsung {
-            applicationId "com.waiting.ai.chatbot"
-        }
-
-        google {
-            applicationId "com.waiting.ai.chatbot"
-        }
-    }
+//    productFlavors {
+//        official {
+//            applicationId "com.waiting.ai.chatbot"
+//        }
+//
+//        huawei {
+//            applicationId "com.waiting.ai.chatbot"
+//        }
+//
+//        xiaomi {
+//            applicationId "com.waiting.ai.chatbot"
+//        }
+//
+//        amazon {
+//            applicationId "com.waiting.ai.chatbot"
+//        }
+//
+//        samsung {
+//            applicationId "com.waiting.ai.chatbot"
+//        }
+//
+//        google {
+//            applicationId "com.waiting.ai.chatbot"
+//        }
+//    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
