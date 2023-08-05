@@ -51,8 +51,11 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
   ];
   List<PopupMenuItem> modelPopupMenuItems = [];
 
+  List<PopupMenuItem> languageMenuItems = [];
+
   @override
   void initState() {
+    initialLanguages();
     fetchDomainList();
     fetchModelList();
     super.initState();
@@ -116,6 +119,38 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
       return " ${value.substring(0, 19)}...";
     }
     return value;
+  }
+
+  void initialLanguages() {
+    languageMenuItems.clear();
+    for (var element in S.delegate.supportedLocales) {
+      languageMenuItems.add(CheckedPopupMenuItem(
+        value: element.toLanguageTag(),
+        checked: LocalStorageService().currentLanguageCode == element.toLanguageTag(),
+        child: Text(parseLanguage(element.toLanguageTag())),
+      ));
+    }
+  }
+
+  String parseLanguage(String? languageCode) {
+    if (languageCode == 'zh' && !languageCode!.contains('-') == true) {
+      return '简体中文';
+    } else if (languageCode == 'zh-Hant' || languageCode == 'zh-TW') {
+      return '繁體中文';
+    } else if (languageCode == 'fr') {
+      return 'Français';
+    } else if (languageCode == 'ja') {
+      return '日本語';
+    } else if (languageCode == 'ko') {
+      return '한국어';
+    } else if (languageCode == 'ru') {
+      return 'Русский язык';
+    } else if (languageCode == 'de') {
+      return 'Deutsch';
+    } else if (languageCode == 'it') {
+      return 'Italiano';
+    }
+    return 'English';
   }
 
   String getRenderModeDescription(String renderMode) {
@@ -196,6 +231,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
             ? Size.infinite.width
             : 350.0;
     TextAlign textAlign = kIsWeb || Platform.isAndroid ? TextAlign.start : TextAlign.end;
+
     return Scaffold(
       appBar: CommonAppBar(S.current.settings),
       body: SettingsList(
@@ -372,6 +408,24 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
             ),
           ]),
           SettingsSection(title: titleCategoryText(S.current.appearance), tiles: <SettingsTile>[
+            SettingsTile(
+              leading: const Icon(Icons.language_outlined),
+              title: titleText(S.current.language),
+              value: Text(parseLanguage(LocalStorageService().currentLanguageCode)),
+              trailing: PopupMenuButton(
+                icon: const Icon(Icons.more_vert),
+                itemBuilder: (context) {
+                  return languageMenuItems;
+                },
+                onSelected: (value) async {
+                  setState(() {
+                    S.delegate.load(Locale(value));
+                    LocalStorageService().languageCode = value;
+                  });
+                  initialLanguages();
+                },
+              ),
+            ),
             SettingsTile(
               leading: const Icon(Icons.text_format),
               title: titleText(S.current.render_mode),

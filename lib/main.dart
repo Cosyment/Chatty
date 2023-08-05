@@ -165,12 +165,17 @@ void initialConfiguration() async {
     LocalStorageService().apiKey = secretKey.apiKey;
   }
 
+  if (LocalStorageService().currentLanguageCode != null) {
+    S.delegate.load(Locale(LocalStorageService().currentLanguageCode ?? 'en'));
+  }
+
   getCurrentCountry();
 }
 
 void getCurrentCountry() async {
   dynamic result = await HttpRequest.requestJson(Urls.queryCountry);
   LocalStorageService().currentCountryCode = result['countryCode'];
+
   getDomain();
 }
 

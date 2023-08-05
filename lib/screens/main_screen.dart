@@ -9,6 +9,7 @@ import '../bloc/chat_bloc.dart';
 import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
+import '../util/ads_manager.dart';
 import 'chat_screen.dart';
 import 'conversation_screen.dart';
 import 'empty_chat_screen.dart';
@@ -27,6 +28,7 @@ class _MainScreen extends State<MainScreen> {
 
   @override
   void initState() {
+    AdsManager.loadAd();
     EventBus.getDefault().register<EventMessage<CommonStatefulWidget>>(this, (event) {
       setState(() {
         body = event.data;

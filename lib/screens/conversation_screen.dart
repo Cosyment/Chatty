@@ -1,6 +1,5 @@
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
-import 'package:chatty/util/ads_manager.dart';
 import 'package:chatty/util/navigation.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,14 +8,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-
 import '../bloc/conversations_bloc.dart';
 import '../bloc/conversations_event.dart';
+import '../generated/l10n.dart';
 import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../widgets/widgets.dart';
-import '../generated/l10n.dart';
 import 'screens.dart';
 
 class ConversationScreen extends StatefulWidget {
@@ -52,7 +50,6 @@ class _ConversationScreen extends State<ConversationScreen> {
 
   @override
   void initState() {
-    AdsManager.loadAd();
     EventBus.getDefault().register<EventMessage<Conversation>>(this, (event) {
       setState(() {
         currentConversation = event.data;
@@ -154,8 +151,7 @@ class _ConversationScreen extends State<ConversationScreen> {
                       FutureBuilder<PackageInfo>(
                           future: PackageInfo.fromPlatform(),
                           builder: (context, packageInfo) {
-                            return textButton("${S.current.version}: v${packageInfo.data?.version}",
-                                Icons.info_outline, () {});
+                            return textButton("${S.current.version}: v${packageInfo.data?.version}", Icons.info_outline, () {});
                           })
                     ]))),
           ],

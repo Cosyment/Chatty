@@ -15,7 +15,7 @@ class AdsManager {
   static bool _isShowingAd = false;
   static bool _isShowingRewardAd = false;
 
-  static void init() {
+  static init() {
     MobileAds.instance.initialize();
   }
 

@@ -59,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("대화 제목 입력"),
         "history_limit": MessageLookupByLibrary.simpleMessage("기록 제한"),
         "invalid_api_key": MessageLookupByLibrary.simpleMessage("잘못된 API Key"),
+        "language": MessageLookupByLibrary.simpleMessage("언어"),
+        "language_code": MessageLookupByLibrary.simpleMessage("한국어"),
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("찾아내다 Keys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage("도움말 설정 비헤이비어 메시지"),

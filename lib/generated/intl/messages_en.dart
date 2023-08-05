@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "history_limit": MessageLookupByLibrary.simpleMessage("History Limit"),
         "invalid_api_key":
             MessageLookupByLibrary.simpleMessage("Invalid API Key"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "language_code": MessageLookupByLibrary.simpleMessage("English"),
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("Find Keys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage(

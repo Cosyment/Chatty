@@ -63,7 +63,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
           );
         } else {
           // return mainView == TabletMainView.body ? body : sidebar;
-          String title = S().appName;
+          String title = S.current.appName;
           if (widget.body is CommonStatefulWidget) {
             title = (widget.body as CommonStatefulWidget).title();
             conversation = null;

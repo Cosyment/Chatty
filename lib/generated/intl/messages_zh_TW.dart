@@ -58,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("輸入對話標題"),
         "history_limit": MessageLookupByLibrary.simpleMessage("記錄限制"),
         "invalid_api_key": MessageLookupByLibrary.simpleMessage("無效的API Key"),
+        "language": MessageLookupByLibrary.simpleMessage("語言"),
+        "language_code": MessageLookupByLibrary.simpleMessage("繁體中文"),
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("尋找 Keys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage(
