@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 import 'dart:developer';
+
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,9 +25,7 @@ class OpenAiApi {
       throw Exception('API Host ${LocalStorageService().apiHost} is not valid');
     }
 
-    var headers = {
-      'Content-Type': 'application/json'
-    };
+    var headers = {'Content-Type': 'application/json'};
     if (LocalStorageService().apiKey != '') {
       headers['Authorization'] = 'Bearer ${LocalStorageService().apiKey}';
     }
@@ -51,7 +50,6 @@ class OpenAiApi {
       errorMessage = 'Connection failed, please check if your network or API Key is valid';
       throw Exception(errorMessage);
     }
-
     var chatResponse = ChatResponse.fromJson(json.decode(utf8.decode(response.bodyBytes)));
     return chatResponse;
   }
@@ -72,9 +70,7 @@ class OpenAiApi {
       throw Exception('API Host ${LocalStorageService().apiHost} is not valid');
     }
 
-    var headers = {
-      'Content-Type': 'application/json'
-    };
+    var headers = {'Content-Type': 'application/json'};
     if (LocalStorageService().apiKey != '') {
       headers['Authorization'] = 'Bearer ${LocalStorageService().apiKey}';
     }
@@ -93,10 +89,7 @@ class OpenAiApi {
       response.stream.listen((value) {
         final String data = utf8.decode(value);
         // one response can contain multiple data line
-        final List<String> dataLines = data
-          .split('\n')
-          .where((element) => element.isNotEmpty)
-          .toList();
+        final List<String> dataLines = data.split('\n').where((element) => element.isNotEmpty).toList();
 
         for (String line in dataLines) {
           if (line.startsWith('data: ')) {
@@ -123,15 +116,12 @@ class OpenAiApi {
             return;
           }
         }
-      },
-      onDone: () {
+      }, onDone: () {
         controller.close();
-      },
-      onError: (error, stackTrace) {
+      }, onError: (error, stackTrace) {
         controller.addError(error, stackTrace);
       }); // response.stream.listen
-    },
-    onError: (error, stackTrace) {
+    }, onError: (error, stackTrace) {
       controller.addError(error, stackTrace);
     }); // httpClient.send(request).then
 

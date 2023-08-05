@@ -7,17 +7,18 @@ import 'package:chatty/api/http_request.dart';
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/models/prompt.dart';
+import 'package:chatty/util/ads_manager.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
-import '../generated/l10n.dart';
 import '../bloc/blocs.dart';
+import '../generated/l10n.dart';
 import '../models/models.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
@@ -49,6 +50,23 @@ class _ChatScreenState extends State<ChatScreenPage> {
   late List<Prompt> _promptList = [];
   bool _isPromptMessage = false;
   final GlobalKey _inputGlobalKey = GlobalKey();
+
+  Future<bool?> showRewardConfirmDialog(BuildContext context) => showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmDialog(
+            title: S.current.reminder,
+            content: S.current.conversation_chat_reached_limit,
+          );
+        },
+      );
+
+  Future<void> showLoadingDialog(BuildContext context) => showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Center(child: Lottie.asset('assets/reward_loading.json', repeat: true));
+      });
 
   @override
   void initState() {
@@ -82,10 +100,12 @@ class _ChatScreenState extends State<ChatScreenPage> {
     }
   }
 
-  void handleSend(BuildContext context, Conversation conversation) {
+  void handleSend(BuildContext context, Conversation conversation) async {
+    var hasReachedLimit = await _hasConversationLimit(context);
+    if (hasReachedLimit) return;
+
     if (LocalStorageService().apiKey == '') {
-      scaffoldMessengerKey.currentState
-          ?.showSnackBar(SnackBar(content: Text(S.current.please_add_your_api_key)));
+      scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(content: Text(S.current.please_add_your_api_key)));
       return;
     }
 
@@ -120,6 +140,23 @@ class _ChatScreenState extends State<ChatScreenPage> {
     }
   }
 
+  Future<bool> _hasConversationLimit(BuildContext context) async {
+    var conversationReachedLimit = LocalStorageService().conversationLimit;
+    if (conversationReachedLimit >= Constants.DAILY_CONVERSATION_LIMIT) {
+      var result = await showRewardConfirmDialog(context);
+      if (result == true) {
+        setState(() {
+          showLoadingDialog(context);
+        });
+        AdsManager.loadRewardAd(callback: () {
+          Navigator.pop(context);
+        });
+      }
+      return true;
+    }
+    return false;
+  }
+
   void report(ConversationMessage message) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     var reportMap = {
@@ -137,10 +174,12 @@ class _ChatScreenState extends State<ChatScreenPage> {
     UmengCommonSdk.onEvent("Chat Message", reportMap);
   }
 
-  void handleRefresh(BuildContext context, Conversation conversation) {
+  void handleRefresh(BuildContext context, Conversation conversation) async {
+    var hasReachedLimit = await _hasConversationLimit(context);
+    if (hasReachedLimit) return;
+
     if (LocalStorageService().apiKey == '') {
-      scaffoldMessengerKey.currentState
-          ?.showSnackBar(SnackBar(content: Text(S.current.please_add_your_api_key)));
+      scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(content: Text(S.current.please_add_your_api_key)));
       return;
     }
 
@@ -167,7 +206,6 @@ class _ChatScreenState extends State<ChatScreenPage> {
     var isMarkdown = LocalStorageService().renderMode == 'markdown';
     double? inputBoxWidth = 10.0;
 
-    var chatService = context.read<ChatService>();
     var conversation = widget.currentConversation ?? state.initialConversation;
 
     if (state.status == ChatStatus.failure) {
@@ -184,6 +222,10 @@ class _ChatScreenState extends State<ChatScreenPage> {
           ),
         );
       });
+    }
+
+    if (state.status == ChatStatus.success) {
+      LocalStorageService().conversationLimit += 1;
     }
 
     if (conversationState.status == ConversationsStatus.clear) {
@@ -268,17 +310,17 @@ class _ChatScreenState extends State<ChatScreenPage> {
                                         size: 16,
                                         color: Colors.white70,
                                       ),
-                                      const SizedBox(width: 3),
+                                      const SizedBox(width: 2),
                                       Text(
                                           'Limit：${min(TokenService.getEffectiveMessages(conversation, value.text).length, LocalStorageService().historyCount)}/${LocalStorageService().historyCount}',
                                           style: const TextStyle(fontSize: 12))
                                     ],
                                   ),
-                                  const SizedBox(width: 5),
+                                  const SizedBox(width: 4),
                                   Row(
                                     children: [
                                       const Icon(Icons.translate, size: 16, color: Colors.white70),
-                                      const SizedBox(width: 3),
+                                      const SizedBox(width: 2),
                                       Text('System: ${TokenService.getToken(conversation.systemMessage)}',
                                           style: TextStyle(
                                               fontSize: 12,
@@ -286,9 +328,9 @@ class _ChatScreenState extends State<ChatScreenPage> {
                                                       TokenService.getTokenLimit()
                                                   ? Theme.of(context).colorScheme.error
                                                   : null)),
-                                      const SizedBox(width: 5),
+                                      const SizedBox(width: 4),
                                       const Icon(Icons.input_outlined, size: 16, color: Colors.white70),
-                                      const SizedBox(width: 3),
+                                      const SizedBox(width: 2),
                                       Text('Input: ${TokenService.getToken(value.text)}',
                                           style: TextStyle(
                                               fontSize: 12,
@@ -297,9 +339,9 @@ class _ChatScreenState extends State<ChatScreenPage> {
                                                       TokenService.getTokenLimit()
                                                   ? Theme.of(context).colorScheme.error
                                                   : null)),
-                                      const SizedBox(width: 5),
+                                      const SizedBox(width: 4),
                                       const Icon(Icons.history, size: 16, color: Colors.white70),
-                                      const SizedBox(width: 3),
+                                      const SizedBox(width: 2),
                                       Text('History: ${TokenService.getEffectiveMessagesToken(conversation, value.text)}',
                                           style: const TextStyle(fontSize: 12)),
                                     ],
@@ -359,8 +401,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
                         children: [
                           Expanded(
                             child: TextField(
-                              decoration: InputDecoration(
-                                  hintText: S.current.send_a_message, border: InputBorder.none),
+                              decoration: InputDecoration(hintText: S.current.send_a_message, border: InputBorder.none),
                               controller: _textEditingController,
                               focusNode: _focusNode,
                               minLines: 1,
@@ -399,7 +440,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
                           ? null
                           : () => handleRefresh(context, conversation))
                 ],
-              ))
+              )),
         ])),
       ),
     );

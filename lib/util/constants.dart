@@ -1,4 +1,6 @@
 class Constants {
+  static const int DAILY_CONVERSATION_LIMIT = 10; //每日免费会话次数
+  static const int REWARD_CONVERSATION_COUNT = 5; //广告奖励次数
 }
 
 class Urls {

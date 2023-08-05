@@ -43,6 +43,7 @@
   "reset_api_key": "APIキーをリセット",
   "reset_api_key_tips": "API キーをリセットしてもよろしいですか? リセット後、新しい API キーを追加するか、アプリを再起動する必要がありますか",
   "prompt":"プロンプト",
-  "clean_conversation": "暖かいヒント",
-  "clean_conversation_tips": "すべてのセッションをクリアすることを確認しますか？"
+  "reminder": "暖かいヒント",
+  "clean_conversation_tips": "すべてのセッションをクリアすることを確認しますか？",
+  "conversation_chat_reached_limit": "今日はチャットの頻度が限界に達しました。広告を見てロックを解除してください"
 }
