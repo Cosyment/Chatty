@@ -14,6 +14,7 @@ import '../generated/l10n.dart';
 import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
+import '../widgets/theme_color.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
 
@@ -112,7 +113,7 @@ class _ConversationScreen extends State<ConversationScreen> {
                         Center(child: SizedBox(width: 100, height: 100, child: Lottie.asset('assets/empty.json', repeat: true)))),
             const Divider(thickness: .5),
             Container(
-                color: CupertinoColors.darkBackgroundGray,
+                color: ThemeColor.backgroundColor,
                 width: PlatformUtil.isMobile ? 300 : 250,
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),

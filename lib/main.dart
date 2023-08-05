@@ -122,7 +122,9 @@ class _AppState extends State<App> {
               theme: ThemeData(
                   useMaterial3: true,
                   brightness: Brightness.dark,
+                  canvasColor: ThemeColor.backgroundColor,
                   cardColor: ThemeColor.primaryColor,
+                  popupMenuTheme: PopupMenuThemeData(color: ThemeColor.backgroundColor),
                   dialogBackgroundColor: ThemeColor.backgroundColor,
                   scaffoldBackgroundColor: ThemeColor.backgroundColor,
                   dialogTheme: DialogTheme(backgroundColor: ThemeColor.backgroundColor),

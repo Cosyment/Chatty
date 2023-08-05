@@ -24,6 +24,7 @@ import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../services/token_service.dart';
 import '../widgets/common_stateful_widget.dart';
+import '../widgets/theme_color.dart';
 import '../widgets/widgets.dart';
 
 class ChatScreenPage extends CommonStatefulWidget {
@@ -389,7 +390,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.1),
+                        color: Color.lerp(ThemeColor.backgroundColor, Colors.white, 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       padding: const EdgeInsets.only(left: 8),

@@ -5,6 +5,7 @@ import 'package:chatty/models/domain.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/widgets/popup_box_constraints.dart';
+import 'package:chatty/widgets/theme_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -235,6 +236,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     return Scaffold(
       appBar: CommonAppBar(S.current.settings),
       body: SettingsList(
+        darkTheme: (SettingsThemeData(settingsListBackground: ThemeColor.backgroundColor)),
         sections: [
           SettingsSection(
             title: titleCategoryText(S.current.authentication),
