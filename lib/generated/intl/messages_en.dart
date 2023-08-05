@@ -37,13 +37,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "chat_parameters":
             MessageLookupByLibrary.simpleMessage("Chat Parameters"),
-        "clean_conversation": MessageLookupByLibrary.simpleMessage("Tips"),
         "clean_conversation_tips": MessageLookupByLibrary.simpleMessage(
             "Are you sure to clear all conversations？"),
         "clear_conversation":
             MessageLookupByLibrary.simpleMessage("Clear conversation"),
         "clear_conversation_tips": MessageLookupByLibrary.simpleMessage(
             "Would you like to clear conversation history?"),
+        "conversation_chat_reached_limit": MessageLookupByLibrary.simpleMessage(
+            "The chat frequency has reached the limit today. Please check the advertisement to unlock more times"),
         "conversations": MessageLookupByLibrary.simpleMessage("Conversations"),
         "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
             "tips: Entering \'/\' can trigger more surprises"),
@@ -78,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please add your api key first"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy"),
         "prompt": MessageLookupByLibrary.simpleMessage("Prompts"),
+        "reminder": MessageLookupByLibrary.simpleMessage("Tips"),
         "render_mode": MessageLookupByLibrary.simpleMessage("Render Mode"),
         "resend": MessageLookupByLibrary.simpleMessage("Resend"),
         "reset_api_key": MessageLookupByLibrary.simpleMessage("Reset API Key"),

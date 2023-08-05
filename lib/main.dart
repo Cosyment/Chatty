@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chatty/api/http_request.dart';
+import 'package:chatty/util/ads_manager.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/util/platform_util.dart';
@@ -34,7 +35,7 @@ void main() async {
   final openAiApi = OpenAiApi(SafeHttpClient(http.Client()));
   final chatService = ChatService(apiServer: openAiApi);
 
-  if (kIsWeb || Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
+  if (kIsWeb || Platform.isMacOS || Platform.isWindows || Platform.isLinux || Platform.isFuchsia) {
     if (!kIsWeb) {
       await windowManager.ensureInitialized();
     }
@@ -51,7 +52,22 @@ void main() async {
       await windowManager.show();
       await windowManager.focus();
     });
+  } else {
+    AdsManager.init();
   }
+
+  var lastAppLaunchTime = LocalStorageService().appLaunchTime;
+  if (lastAppLaunchTime?.isNotEmpty == true) {
+    DateTime launchTime = DateTime.parse(lastAppLaunchTime!);
+    DateTime currentDate = DateTime.now();
+    if ((launchTime.day < currentDate.day) || launchTime.month < currentDate.month || launchTime.year < currentDate.year) {
+      LocalStorageService().conversationLimit = 0;
+    }
+  } else {
+    LocalStorageService().conversationLimit = 0;
+  }
+
+  LocalStorageService().updateAppLaunchTime = DateTime.now();
 
   runApp(App(chatService: chatService));
 
@@ -78,14 +94,11 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        systemNavigationBarColor: CupertinoColors.darkBackgroundGray,
-        statusBarColor: Colors.transparent));
+        systemNavigationBarColor: CupertinoColors.darkBackgroundGray, statusBarColor: Colors.transparent));
 
     if (PlatformUtil.isMobile) {
       //友盟初始化
-      UmengCommonSdk.initCommon(
-          '64979b89a1a164591b38ceda' /*Android AppKey*/,
-          '6496a96887568a379b5ce593' /*ios AppKey*/,
+      UmengCommonSdk.initCommon('64979b89a1a164591b38ceda' /*Android AppKey*/, '6496a96887568a379b5ce593' /*ios AppKey*/,
           EnvironmentConfig.APP_CHANNEL);
     }
   }
@@ -112,26 +125,19 @@ class _AppState extends State<App> {
                   cardColor: ThemeColor.primaryColor,
                   dialogBackgroundColor: ThemeColor.backgroundColor,
                   scaffoldBackgroundColor: ThemeColor.backgroundColor,
-                  dialogTheme:
-                      DialogTheme(backgroundColor: ThemeColor.backgroundColor),
+                  dialogTheme: DialogTheme(backgroundColor: ThemeColor.backgroundColor),
                   hoverColor: Colors.black12,
                   textButtonTheme: const TextButtonThemeData(
-                      style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStatePropertyAll<Color>(Colors.white54))),
+                      style: ButtonStyle(foregroundColor: MaterialStatePropertyAll<Color>(Colors.white54))),
                   elevatedButtonTheme: const ElevatedButtonThemeData(
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll<Color>(Colors.black38),
-                          foregroundColor:
-                              MaterialStatePropertyAll<Color>(Colors.white),
-                          textStyle: MaterialStatePropertyAll<TextStyle>(
-                              TextStyle(color: Colors.white)))),
-                  appBarTheme: AppBarTheme(
-                      backgroundColor: ThemeColor.appBarBackgroundColor),
+                          backgroundColor: MaterialStatePropertyAll<Color>(Colors.black38),
+                          foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+                          textStyle: MaterialStatePropertyAll<TextStyle>(TextStyle(color: Colors.white)))),
+                  appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor),
                   listTileTheme: const ListTileThemeData(
-                      // tileColor: Colors.black12,
-                      // selectedTileColor: Colors.blue,
+// tileColor: Colors.black12,
+// selectedTileColor: Colors.blue,
                       textColor: Colors.white70,
                       selectedColor: Colors.white),
                   primaryColor: ThemeColor.backgroundColor),
@@ -144,8 +150,7 @@ class _AppState extends State<App> {
 void registerNetWorkListening() {
   if (!kIsWeb && Platform.isIOS) {
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if (result == ConnectivityResult.wifi ||
-          result == ConnectivityResult.mobile) {
+      if (result == ConnectivityResult.wifi || result == ConnectivityResult.mobile) {
         initialConfiguration();
       }
     });
@@ -156,8 +161,7 @@ void registerNetWorkListening() {
 
 void initialConfiguration() async {
   if (!LocalStorageService().isCustomApiKey) {
-    var secretKey = await HttpRequest.request<SecretKey>(
-        Urls.querySecretKey, (jsonData) => SecretKey.fromJson(jsonData));
+    var secretKey = await HttpRequest.request<SecretKey>(Urls.querySecretKey, (jsonData) => SecretKey.fromJson(jsonData));
     LocalStorageService().apiKey = secretKey.apiKey;
   }
 
@@ -171,20 +175,14 @@ void getCurrentCountry() async {
 }
 
 void getDomain() async {
-  var domains = await HttpRequest.request<Domain>(
-      Urls.queryDomain,
-      params: {'type': '0'},
-      (jsonData) => Domain.fromJson(jsonData));
+  var domains =
+      await HttpRequest.request<Domain>(Urls.queryDomain, params: {'type': '0'}, (jsonData) => Domain.fromJson(jsonData));
   List<Domain> domainList = domains;
-  if (LocalStorageService().apiHost == '' &&
-      domainList != null &&
-      domainList.isNotEmpty) {
+  if (LocalStorageService().apiHost == '' && domainList != null && domainList.isNotEmpty) {
     if (LocalStorageService().isChina) {
-      LocalStorageService().apiHost =
-          domainList.where((element) => element.type != 0).first.hostname;
+      LocalStorageService().apiHost = domainList.where((element) => element.type != 0).first.hostname;
     } else {
-      LocalStorageService().apiHost =
-          domainList.where((element) => element.type == 0).first.hostname;
+      LocalStorageService().apiHost = domainList.where((element) => element.type == 0).first.hostname;
     }
   }
 }

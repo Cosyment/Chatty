@@ -14,7 +14,7 @@
   "ok": "그래",
   "invalid_api_key": "잘못된 API Key",
   "authentication": "인증",
-  "api_key":"API Key",
+  "api_key": "API Key",
   "add_your_secret_api_key": "추가 API key",
   "please_add_your_api_key": "먼저 API Key 추가하세요.",
   "organization": "조직",
@@ -39,10 +39,11 @@
   "delete": "삭제",
   "create_conversation_to_start": "세션을 만들거나 선택합니다",
   "create_conversation_tip": "tips:'/'를 입력하면 더 많은 이벤트가 발생합니다.",
-  "other":"다른",
+  "other": "다른",
   "reset_api_key": "API 키 재설정",
   "reset_api_key_tips": "API 키를 재설정하시겠습니까? 재설정 후 새 API 키를 추가하거나 앱을 다시 시작해야 하나요",
-  "prompt":"프롬프트",
-  "clean_conversation": "따뜻한 힌트",
-  "clean_conversation_tips": "모든 세션을 비우시겠습니까?"
+  "prompt": "프롬프트",
+  "reminder": "따뜻한 힌트",
+  "clean_conversation_tips": "모든 세션을 비우시겠습니까?",
+  "conversation_chat_reached_limit": "오늘 채팅 빈도가 이미 한계에 도달했다.광고를 보고 여러 번 잠금을 해제하십시오."
 }

@@ -35,12 +35,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "chat": MessageLookupByLibrary.simpleMessage("閒聊"),
         "chat_parameters": MessageLookupByLibrary.simpleMessage("聊天參數"),
-        "clean_conversation": MessageLookupByLibrary.simpleMessage("溫馨提示"),
         "clean_conversation_tips":
             MessageLookupByLibrary.simpleMessage("確認清空所有會話嗎？"),
         "clear_conversation": MessageLookupByLibrary.simpleMessage("清空會話"),
         "clear_conversation_tips":
             MessageLookupByLibrary.simpleMessage("你想清除對話歷史記錄嗎?"),
+        "conversation_chat_reached_limit":
+            MessageLookupByLibrary.simpleMessage("今日聊天次數已經用完啦，看廣告可以獲取更多聊天次數哦！"),
         "conversations": MessageLookupByLibrary.simpleMessage("對話"),
         "create_conversation_tip":
             MessageLookupByLibrary.simpleMessage("tips:輸入\'/\'能觸發更多驚喜哦"),
@@ -70,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("請先添加您的API Key"),
         "privacy": MessageLookupByLibrary.simpleMessage("隱私"),
         "prompt": MessageLookupByLibrary.simpleMessage("提示語"),
+        "reminder": MessageLookupByLibrary.simpleMessage("温馨提示"),
         "render_mode": MessageLookupByLibrary.simpleMessage("渲染模式"),
         "resend": MessageLookupByLibrary.simpleMessage("重新發送"),
         "reset_api_key": MessageLookupByLibrary.simpleMessage("重置API Key"),

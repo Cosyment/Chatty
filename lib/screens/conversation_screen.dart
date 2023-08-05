@@ -1,5 +1,6 @@
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
+import 'package:chatty/util/ads_manager.dart';
 import 'package:chatty/util/navigation.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,7 +44,7 @@ class _ConversationScreen extends State<ConversationScreen> {
         context: context,
         builder: (BuildContext context) {
           return ConfirmDialog(
-            title: S.current.clean_conversation,
+            title: S.current.reminder,
             content: S.current.clean_conversation_tips,
           );
         },
@@ -51,6 +52,7 @@ class _ConversationScreen extends State<ConversationScreen> {
 
   @override
   void initState() {
+    AdsManager.loadAd();
     EventBus.getDefault().register<EventMessage<Conversation>>(this, (event) {
       setState(() {
         currentConversation = event.data;

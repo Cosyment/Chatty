@@ -481,10 +481,10 @@ class S {
   }
 
   /// `Tips`
-  String get clean_conversation {
+  String get reminder {
     return Intl.message(
       'Tips',
-      name: 'clean_conversation',
+      name: 'reminder',
       desc: '',
       args: [],
     );
@@ -495,6 +495,16 @@ class S {
     return Intl.message(
       'Are you sure to clear all conversations？',
       name: 'clean_conversation_tips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The chat frequency has reached the limit today. Please check the advertisement to unlock more times`
+  String get conversation_chat_reached_limit {
+    return Intl.message(
+      'The chat frequency has reached the limit today. Please check the advertisement to unlock more times',
+      name: 'conversation_chat_reached_limit',
       desc: '',
       args: [],
     );
