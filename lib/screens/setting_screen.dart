@@ -134,7 +134,11 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
 
   String shortValue(String value) {
     if (!kIsWeb && Platform.isIOS && value.length >= 20) {
-      return " ${value.substring(0, 19)}...";
+      if (LocalStorageService().isPad) {
+        return " ${value.substring(0, value.length - 1)}...";
+      } else {
+        return " ${value.substring(0, 19)}...";
+      }
     }
     return value;
   }
@@ -244,7 +248,9 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
   @override
   Widget build(BuildContext context) {
     double sizeBoxWidth = !kIsWeb && Platform.isIOS
-        ? 160.0
+        ? LocalStorageService().isPad
+            ? 310
+            : 155
         : !kIsWeb && Platform.isAndroid
             ? Size.infinite.width
             : 350.0;
@@ -481,11 +487,12 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
               leading: const Icon(Icons.privacy_tip_outlined),
               title: titleText(S.current.privacy),
               value: SizedBox(
+                  width: sizeBoxWidth,
                   child: Text(
-                shortValue(Urls.privacyUrl),
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-              )),
+                    shortValue(Urls.privacyUrl),
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.ellipsis,
+                  )),
               onPressed: (context) async {
                 await launchUrl(Uri.parse(Urls.privacyUrl), mode: LaunchMode.inAppWebView);
               },

@@ -54,6 +54,9 @@ void main() async {
       await windowManager.focus();
     });
   } else {
+    if (Platform.isIOS) {
+      LocalStorageService().isPad = await PlatformUtil.isPad;
+    }
     AdsManager.init();
   }
 

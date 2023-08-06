@@ -5,17 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 class PlatformUtil {
+  static bool get isMobile => !kIsWeb && (Platform.isAndroid || Platform.isIOS);
 
-  static bool get isMobile =>!kIsWeb&&(Platform.isAndroid || Platform.isIOS);
-
-  static bool isPortrait(BuildContext context) {
+  static bool isLandscape(BuildContext context) {
     late Size size = MediaQuery.of(context).size;
-    return size.width < size.height;
+    return MediaQuery.of(context).orientation == Orientation.landscape;
   }
 
-  static Future<bool> get isiPad async {
+  static Future<bool> get isPad async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    return false;
+    return iosInfo.utsname.machine.toLowerCase().contains("ipad");
   }
 }
