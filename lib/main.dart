@@ -88,7 +88,7 @@ class App extends StatefulWidget {
   State<StatefulWidget> createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
@@ -135,7 +135,6 @@ class _AppState extends State<App> {
                         foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
                         textStyle: MaterialStatePropertyAll<TextStyle>(TextStyle(color: Colors.white)))),
                 listTileTheme: const ListTileThemeData(textColor: Colors.white70, selectedColor: Colors.white),
-                // primaryColor: ThemeColor.primaryColor
               ),
               debugShowCheckedModeBanner: false,
               home: const MainScreen(),

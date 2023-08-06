@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:chatty/api/http_request.dart';
+import 'package:chatty/event/event_bus.dart';
+import 'package:chatty/event/event_message.dart';
 import 'package:chatty/models/domain.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
@@ -29,7 +31,7 @@ class SettingsScreenPage extends CommonStatefulWidget {
   State<SettingsScreenPage> createState() => _SettingsScreenPageState();
 }
 
-class _SettingsScreenPageState extends State<SettingsScreenPage> {
+class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBindingObserver {
   String apiKey = LocalStorageService().apiKey;
   String organization = LocalStorageService().organization;
   String apiHost = LocalStorageService().apiHost;
@@ -60,6 +62,21 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
     fetchDomainList();
     fetchModelList();
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeLocales(List<Locale>? locales) {
+    // 在这里可以触发语言切换的回调
+    // 可以调用回调函数、发送事件等来通知应用程序更新语言
+    setState(() {});
+    super.didChangeLocales(locales);
   }
 
   final _textFieldController = TextEditingController();
@@ -423,8 +440,10 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
                   setState(() {
                     S.delegate.load(Locale(value));
                     LocalStorageService().languageCode = value;
+                    initialDomains();
+                    initialLanguages();
+                    EventBus.getDefault().post(EventMessage<EventType>(EventType.CHANGE_LANGUAGE));
                   });
-                  initialLanguages();
                 },
               ),
             ),

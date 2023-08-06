@@ -30,6 +30,8 @@ class _TableScreenPage extends State<TabletScreenPage> {
     EventBus.getDefault().register<EventMessage<EventType>>(this, (event) {
       if (event.data == EventType.CLOSE_DRAWER) {
         scaffoldKey.currentState?.closeDrawer();
+      } else if (event.data == EventType.CHANGE_LANGUAGE) {
+        setState(() {});
       }
     });
 

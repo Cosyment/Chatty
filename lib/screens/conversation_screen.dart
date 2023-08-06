@@ -2,7 +2,6 @@ import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/util/navigation.dart';
 import 'package:chatty/util/platform_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -29,7 +28,7 @@ class ConversationScreen extends StatefulWidget {
   }
 }
 
-class _ConversationScreen extends State<ConversationScreen> {
+class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingObserver {
   late Conversation? currentConversation = widget.selectedConversation;
 
   Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
@@ -56,7 +55,16 @@ class _ConversationScreen extends State<ConversationScreen> {
         currentConversation = event.data;
       });
     });
+    EventBus.getDefault().register<EventMessage<EventType>>(this, (event) {
+      setState(() {});
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    EventBus.getDefault().unregister(this);
+    super.dispose();
   }
 
   @override
@@ -165,12 +173,6 @@ class _ConversationScreen extends State<ConversationScreen> {
     if (PlatformUtil.isMobile) {
       EventBus.getDefault().post(EventMessage<EventType>(EventType.CLOSE_DRAWER));
     }
-  }
-
-  @override
-  void dispose() {
-    EventBus.getDefault().unregister(this);
-    super.dispose();
   }
 
   Widget textButton(String value, IconData iconData, VoidCallback? onPressed) {
