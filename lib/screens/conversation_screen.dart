@@ -1,22 +1,20 @@
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
-import 'package:chatty/util/ads_manager.dart';
 import 'package:chatty/util/navigation.dart';
 import 'package:chatty/util/platform_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-
 import '../bloc/conversations_bloc.dart';
 import '../bloc/conversations_event.dart';
+import '../generated/l10n.dart';
 import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
+import '../widgets/theme_color.dart';
 import '../widgets/widgets.dart';
-import '../generated/l10n.dart';
 import 'screens.dart';
 
 class ConversationScreen extends StatefulWidget {
@@ -30,7 +28,7 @@ class ConversationScreen extends StatefulWidget {
   }
 }
 
-class _ConversationScreen extends State<ConversationScreen> {
+class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingObserver {
   late Conversation? currentConversation = widget.selectedConversation;
 
   Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
@@ -52,13 +50,21 @@ class _ConversationScreen extends State<ConversationScreen> {
 
   @override
   void initState() {
-    AdsManager.loadAd();
     EventBus.getDefault().register<EventMessage<Conversation>>(this, (event) {
       setState(() {
         currentConversation = event.data;
       });
     });
+    EventBus.getDefault().register<EventMessage<EventType>>(this, (event) {
+      setState(() {});
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    EventBus.getDefault().unregister(this);
+    super.dispose();
   }
 
   @override
@@ -113,9 +119,9 @@ class _ConversationScreen extends State<ConversationScreen> {
                     fit: FlexFit.tight,
                     child:
                         Center(child: SizedBox(width: 100, height: 100, child: Lottie.asset('assets/empty.json', repeat: true)))),
-            const Divider(thickness: .5),
+            const Divider(thickness: .2),
             Container(
-                color: CupertinoColors.darkBackgroundGray,
+                color: ThemeColor.backgroundColor,
                 width: PlatformUtil.isMobile ? 300 : 250,
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
@@ -154,8 +160,7 @@ class _ConversationScreen extends State<ConversationScreen> {
                       FutureBuilder<PackageInfo>(
                           future: PackageInfo.fromPlatform(),
                           builder: (context, packageInfo) {
-                            return textButton("${S.current.version}: v${packageInfo.data?.version}",
-                                Icons.info_outline, () {});
+                            return textButton("${S.current.version}: v${packageInfo.data?.version}", Icons.info_outline, () {});
                           })
                     ]))),
           ],
@@ -168,12 +173,6 @@ class _ConversationScreen extends State<ConversationScreen> {
     if (PlatformUtil.isMobile) {
       EventBus.getDefault().post(EventMessage<EventType>(EventType.CLOSE_DRAWER));
     }
-  }
-
-  @override
-  void dispose() {
-    EventBus.getDefault().unregister(this);
-    super.dispose();
   }
 
   Widget textButton(String value, IconData iconData, VoidCallback? onPressed) {

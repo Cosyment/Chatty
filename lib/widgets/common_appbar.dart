@@ -58,7 +58,7 @@ class _ChatScreenAppbar extends State<CommonAppBar> {
     var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
     String? title = widget.currentConversation != null ? widget.currentConversation?.title : widget.title;
     return AppBar(
-        title: Text(title ?? S().appName, style: const TextStyle(overflow: TextOverflow.ellipsis)),
+        title: Text(title ?? S.current.appName, style: const TextStyle(overflow: TextOverflow.ellipsis)),
         automaticallyImplyLeading: PlatformUtil.isMobile,
         actions: widget.currentConversation == null
             ? []

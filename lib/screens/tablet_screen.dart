@@ -30,6 +30,8 @@ class _TableScreenPage extends State<TabletScreenPage> {
     EventBus.getDefault().register<EventMessage<EventType>>(this, (event) {
       if (event.data == EventType.CLOSE_DRAWER) {
         scaffoldKey.currentState?.closeDrawer();
+      } else if (event.data == EventType.CHANGE_LANGUAGE) {
+        setState(() {});
       }
     });
 
@@ -54,7 +56,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
                 width: PlatformUtil.isMobile ? 300 : 250,
                 child: widget.sidebar,
               ),
-              const VerticalDivider(thickness: .7, width: 1),
+              const VerticalDivider(thickness: .3, width: 1),
               Expanded(
                 flex: 1,
                 child: widget.body,
@@ -63,7 +65,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
           );
         } else {
           // return mainView == TabletMainView.body ? body : sidebar;
-          String title = S().appName;
+          String title = S.current.appName;
           if (widget.body is CommonStatefulWidget) {
             title = (widget.body as CommonStatefulWidget).title();
             conversation = null;

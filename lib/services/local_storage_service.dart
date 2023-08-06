@@ -25,6 +25,7 @@ class LocalStorageService {
   static const prefCountry = 'pref_country';
   static const prefConversationLimit = 'pref_conversation_limit';
   static const prefAppLaunchTime = 'pref_app_launch_time';
+  static const prefLanguageCode = 'pref_language_code';
 
   static const storeConversationList = 'store_conversations';
   static const storeConversationPrefix = 'store_conversation_';
@@ -144,4 +145,8 @@ class LocalStorageService {
   set conversationLimit(int count) => _prefs.setInt(prefConversationLimit, count);
 
   int get conversationLimit => _prefs.getInt(prefConversationLimit) ?? 0;
+
+  set languageCode(String value) => _prefs.setString(prefLanguageCode, value);
+
+  String? get currentLanguageCode => _prefs.getString(prefLanguageCode);
 }

@@ -78,7 +78,7 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
         onWillPop: _onBackPressed,
         child: SafeArea(
           child: Scaffold(
-            appBar: CommonAppBar(S().appName),
+            appBar: CommonAppBar(S.current.appName),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

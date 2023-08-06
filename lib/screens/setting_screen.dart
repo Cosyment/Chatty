@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:chatty/api/http_request.dart';
+import 'package:chatty/event/event_bus.dart';
+import 'package:chatty/event/event_message.dart';
 import 'package:chatty/models/domain.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/widgets/popup_box_constraints.dart';
+import 'package:chatty/widgets/theme_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -28,7 +31,7 @@ class SettingsScreenPage extends CommonStatefulWidget {
   State<SettingsScreenPage> createState() => _SettingsScreenPageState();
 }
 
-class _SettingsScreenPageState extends State<SettingsScreenPage> {
+class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBindingObserver {
   String apiKey = LocalStorageService().apiKey;
   String organization = LocalStorageService().organization;
   String apiHost = LocalStorageService().apiHost;
@@ -51,11 +54,29 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
   ];
   List<PopupMenuItem> modelPopupMenuItems = [];
 
+  List<PopupMenuItem> languageMenuItems = [];
+
   @override
   void initState() {
+    initialLanguages();
     fetchDomainList();
     fetchModelList();
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeLocales(List<Locale>? locales) {
+    // 在这里可以触发语言切换的回调
+    // 可以调用回调函数、发送事件等来通知应用程序更新语言
+    setState(() {});
+    super.didChangeLocales(locales);
   }
 
   final _textFieldController = TextEditingController();
@@ -116,6 +137,38 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
       return " ${value.substring(0, 19)}...";
     }
     return value;
+  }
+
+  void initialLanguages() {
+    languageMenuItems.clear();
+    for (var element in S.delegate.supportedLocales) {
+      languageMenuItems.add(CheckedPopupMenuItem(
+        value: element.toLanguageTag(),
+        checked: LocalStorageService().currentLanguageCode == element.toLanguageTag(),
+        child: Text(parseLanguage(element.toLanguageTag())),
+      ));
+    }
+  }
+
+  String parseLanguage(String? languageCode) {
+    if (languageCode == 'zh' || languageCode == 'zh-CN') {
+      return '简体中文';
+    } else if (languageCode == 'zh-Hant' || languageCode == 'zh-TW') {
+      return '繁體中文';
+    } else if (languageCode == 'fr') {
+      return 'Français';
+    } else if (languageCode == 'ja') {
+      return '日本語';
+    } else if (languageCode == 'ko') {
+      return '한국어';
+    } else if (languageCode == 'ru') {
+      return 'Русский язык';
+    } else if (languageCode == 'de') {
+      return 'Deutsch';
+    } else if (languageCode == 'it') {
+      return 'Italiano';
+    }
+    return 'English';
   }
 
   String getRenderModeDescription(String renderMode) {
@@ -196,9 +249,11 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
             ? Size.infinite.width
             : 350.0;
     TextAlign textAlign = kIsWeb || Platform.isAndroid ? TextAlign.start : TextAlign.end;
+
     return Scaffold(
       appBar: CommonAppBar(S.current.settings),
       body: SettingsList(
+        darkTheme: (SettingsThemeData(settingsListBackground: ThemeColor.backgroundColor)),
         sections: [
           SettingsSection(
             title: titleCategoryText(S.current.authentication),
@@ -372,6 +427,26 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
             ),
           ]),
           SettingsSection(title: titleCategoryText(S.current.appearance), tiles: <SettingsTile>[
+            SettingsTile(
+              leading: const Icon(Icons.language_outlined),
+              title: titleText(S.current.language),
+              value: Text(parseLanguage(LocalStorageService().currentLanguageCode)),
+              trailing: PopupMenuButton(
+                icon: const Icon(Icons.more_vert),
+                itemBuilder: (context) {
+                  return languageMenuItems;
+                },
+                onSelected: (value) async {
+                  setState(() {
+                    S.delegate.load(Locale(value));
+                    LocalStorageService().languageCode = value;
+                    initialDomains();
+                    initialLanguages();
+                    EventBus.getDefault().post(EventMessage<EventType>(EventType.CHANGE_LANGUAGE));
+                  });
+                },
+              ),
+            ),
             SettingsTile(
               leading: const Icon(Icons.text_format),
               title: titleText(S.current.render_mode),

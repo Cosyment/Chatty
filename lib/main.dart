@@ -7,7 +7,6 @@ import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:chatty/widgets/theme_color.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -89,12 +88,12 @@ class App extends StatefulWidget {
   State<StatefulWidget> createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        systemNavigationBarColor: CupertinoColors.darkBackgroundGray, statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(systemNavigationBarColor: ThemeColor.backgroundColor, statusBarColor: Colors.transparent));
 
     if (PlatformUtil.isMobile) {
       //友盟初始化
@@ -120,27 +119,23 @@ class _AppState extends State<App> {
               ],
               supportedLocales: S.delegate.supportedLocales,
               theme: ThemeData(
-                  useMaterial3: true,
-                  brightness: Brightness.dark,
-                  cardColor: ThemeColor.primaryColor,
-                  dialogBackgroundColor: ThemeColor.backgroundColor,
-                  scaffoldBackgroundColor: ThemeColor.backgroundColor,
-                  dialogTheme: DialogTheme(backgroundColor: ThemeColor.backgroundColor),
-                  hoverColor: Colors.black12,
-                  textButtonTheme: const TextButtonThemeData(
-                      style: ButtonStyle(foregroundColor: MaterialStatePropertyAll<Color>(Colors.white54))),
-                  elevatedButtonTheme: const ElevatedButtonThemeData(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(Colors.black38),
-                          foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
-                          textStyle: MaterialStatePropertyAll<TextStyle>(TextStyle(color: Colors.white)))),
-                  appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor),
-                  listTileTheme: const ListTileThemeData(
-// tileColor: Colors.black12,
-// selectedTileColor: Colors.blue,
-                      textColor: Colors.white70,
-                      selectedColor: Colors.white),
-                  primaryColor: ThemeColor.backgroundColor),
+                useMaterial3: true,
+                colorScheme: ColorScheme.dark(brightness: Brightness.dark, primary: ThemeColor.primaryColor),
+                appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor),
+                scaffoldBackgroundColor: ThemeColor.backgroundColor,
+                popupMenuTheme: PopupMenuThemeData(color: ThemeColor.dialogBackground),
+                dialogBackgroundColor: ThemeColor.dialogBackground,
+                hoverColor: Colors.black12,
+                textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.white70),
+                textButtonTheme: const TextButtonThemeData(
+                    style: ButtonStyle(foregroundColor: MaterialStatePropertyAll<Color>(Colors.white54))),
+                elevatedButtonTheme: const ElevatedButtonThemeData(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll<Color>(Colors.black38),
+                        foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+                        textStyle: MaterialStatePropertyAll<TextStyle>(TextStyle(color: Colors.white)))),
+                listTileTheme: const ListTileThemeData(textColor: Colors.white70, selectedColor: Colors.white),
+              ),
               debugShowCheckedModeBanner: false,
               home: const MainScreen(),
             )));
@@ -165,12 +160,19 @@ void initialConfiguration() async {
     LocalStorageService().apiKey = secretKey.apiKey;
   }
 
+  if (LocalStorageService().currentLanguageCode != null) {
+    S.delegate.load(Locale(LocalStorageService().currentLanguageCode ?? 'en'));
+  } else {
+    LocalStorageService().languageCode = PlatformDispatcher.instance.locale.languageCode;
+  }
+
   getCurrentCountry();
 }
 
 void getCurrentCountry() async {
   dynamic result = await HttpRequest.requestJson(Urls.queryCountry);
   LocalStorageService().currentCountryCode = result['countryCode'];
+
   getDomain();
 }
 

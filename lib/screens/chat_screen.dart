@@ -24,6 +24,7 @@ import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../services/token_service.dart';
 import '../widgets/common_stateful_widget.dart';
+import '../widgets/theme_color.dart';
 import '../widgets/widgets.dart';
 
 class ChatScreenPage extends CommonStatefulWidget {
@@ -74,7 +75,6 @@ class _ChatScreenState extends State<ChatScreenPage> {
     _textEditingController = TextEditingController();
     _focusNode = FocusNode();
     initialPrompts();
-
     super.initState();
   }
 
@@ -101,8 +101,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
   }
 
   void handleSend(BuildContext context, Conversation conversation) async {
-    var hasReachedLimit = await _hasConversationLimit(context);
-    if (hasReachedLimit) return;
+    if (await _hasConversationLimit(context)) return;
 
     if (LocalStorageService().apiKey == '') {
       scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(content: Text(S.current.please_add_your_api_key)));
@@ -175,8 +174,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
   }
 
   void handleRefresh(BuildContext context, Conversation conversation) async {
-    var hasReachedLimit = await _hasConversationLimit(context);
-    if (hasReachedLimit) return;
+    if (await _hasConversationLimit(context)) return;
 
     if (LocalStorageService().apiKey == '') {
       scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(content: Text(S.current.please_add_your_api_key)));
@@ -392,7 +390,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.1),
+                        color: Color.lerp(ThemeColor.backgroundColor, Colors.white, 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       padding: const EdgeInsets.only(left: 8),

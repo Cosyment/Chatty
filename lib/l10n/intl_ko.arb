@@ -45,5 +45,7 @@
   "prompt": "프롬프트",
   "reminder": "따뜻한 힌트",
   "clean_conversation_tips": "모든 세션을 비우시겠습니까?",
-  "conversation_chat_reached_limit": "오늘 채팅 빈도가 이미 한계에 도달했다.광고를 보고 여러 번 잠금을 해제하십시오."
+  "conversation_chat_reached_limit": "오늘 채팅 빈도가 이미 한계에 도달했다.광고를 보고 여러 번 잠금을 해제하십시오.",
+  "language": "언어",
+  "language_code": "한국어"
 }

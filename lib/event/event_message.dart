@@ -5,5 +5,6 @@ class EventMessage<T> {
 }
 
 enum EventType {
-  CLOSE_DRAWER
+  CLOSE_DRAWER,
+  CHANGE_LANGUAGE
 }
