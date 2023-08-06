@@ -134,7 +134,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> {
   }
 
   String parseLanguage(String? languageCode) {
-    if (languageCode == 'zh' && !languageCode!.contains('-') == true) {
+    if (languageCode == 'zh' || languageCode == 'zh-CN') {
       return '简体中文';
     } else if (languageCode == 'zh-Hant' || languageCode == 'zh-TW') {
       return '繁體中文';

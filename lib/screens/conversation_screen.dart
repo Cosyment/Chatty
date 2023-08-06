@@ -111,7 +111,7 @@ class _ConversationScreen extends State<ConversationScreen> {
                     fit: FlexFit.tight,
                     child:
                         Center(child: SizedBox(width: 100, height: 100, child: Lottie.asset('assets/empty.json', repeat: true)))),
-            const Divider(thickness: .5),
+            const Divider(thickness: .2),
             Container(
                 color: ThemeColor.backgroundColor,
                 width: PlatformUtil.isMobile ? 300 : 250,

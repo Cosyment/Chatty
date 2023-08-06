@@ -54,7 +54,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
                 width: PlatformUtil.isMobile ? 300 : 250,
                 child: widget.sidebar,
               ),
-              const VerticalDivider(thickness: .7, width: 1),
+              const VerticalDivider(thickness: .3, width: 1),
               Expanded(
                 flex: 1,
                 child: widget.body,
