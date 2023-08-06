@@ -1,7 +1,6 @@
 import 'package:chatty/bloc/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../generated/l10n.dart';
 import '../models/conversation.dart';
@@ -36,19 +35,19 @@ class CommonAppBar extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _ChatScreenAppbar();
+    return _CommonAppBar();
   }
 
   @override
   Size get preferredSize => const Size.fromHeight(56.0);
 }
 
-class _ChatScreenAppbar extends State<CommonAppBar> {
+class _CommonAppBar extends State<CommonAppBar> {
   @override
   Widget build(BuildContext context) {
     return widget.hasAppBar == true
         ? appBar(context)
-        : (PlatformUtil.isMobile)
+        : (PlatformUtil.isMobile && !PlatformUtil.isLandscape(context))
             ? const SizedBox()
             : appBar(context);
   }

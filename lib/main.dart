@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:chatty/api/http_request.dart';
+import 'package:chatty/event/event_bus.dart';
+import 'package:chatty/event/event_message.dart';
 import 'package:chatty/util/ads_manager.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
@@ -52,6 +54,9 @@ void main() async {
       await windowManager.focus();
     });
   } else {
+    if (Platform.isIOS) {
+      LocalStorageService().isPad = await PlatformUtil.isPad;
+    }
     AdsManager.init();
   }
 
@@ -162,6 +167,7 @@ void initialConfiguration() async {
 
   if (LocalStorageService().currentLanguageCode != null) {
     S.delegate.load(Locale(LocalStorageService().currentLanguageCode ?? 'en'));
+    EventBus.getDefault().post(EventMessage<EventType>(EventType.CHANGE_LANGUAGE));
   } else {
     LocalStorageService().languageCode = PlatformDispatcher.instance.locale.languageCode;
   }

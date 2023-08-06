@@ -1,5 +1,4 @@
 import 'package:chatty/event/event_bus.dart';
-import 'package:chatty/screens/conversation_screen.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:chatty/widgets/common_stateful_widget.dart';
 import 'package:flutter/material.dart';

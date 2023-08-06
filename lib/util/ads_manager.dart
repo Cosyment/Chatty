@@ -24,6 +24,7 @@ class AdsManager {
       "db6d97fbbf93e6cb24cda596b1546ebf",
       "d1494e297478756e6d210ac3cf443bd4",
       "33DB042BB30F53894E04020C0ADB3785"
+      "a1d54f1dec3987aebc62373a4c95fa2e"
     ];
     var configuration = RequestConfiguration(testDeviceIds: testDeviceIds);
     MobileAds.instance.updateRequestConfiguration(configuration);

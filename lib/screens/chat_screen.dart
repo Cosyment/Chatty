@@ -75,6 +75,11 @@ class _ChatScreenState extends State<ChatScreenPage> {
     _textEditingController = TextEditingController();
     _focusNode = FocusNode();
     initialPrompts();
+    EventBus.getDefault().register<EventMessage<EventType>>(this, (event) {
+      if (event.data == EventType.CHANGE_LANGUAGE) {
+        setState(() {});
+      }
+    });
     super.initState();
   }
 
@@ -83,6 +88,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
     _scrollController.dispose();
     _textEditingController.dispose();
     _focusNode.dispose();
+    EventBus.getDefault().unregister(this);
     super.dispose();
   }
 

@@ -63,6 +63,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon.png" width="409.60000610351562" height="409.60000610351562"/>
+        <image name="icon.png" width="512" height="512"/>
     </resources>
 </document>

@@ -49,11 +49,11 @@ class _TableScreenPage extends State<TabletScreenPage> {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        if (!PlatformUtil.isMobile) {
+        if (!PlatformUtil.isMobile || PlatformUtil.isLandscape(context)) {
           return Row(
             children: [
               SizedBox(
-                width: PlatformUtil.isMobile ? 300 : 250,
+                width: 250,
                 child: widget.sidebar,
               ),
               const VerticalDivider(thickness: .3, width: 1),
@@ -83,7 +83,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
                 key: scaffoldKey,
                 drawer: Drawer(
                   //New added
-                  width: 250.toDouble(),
+                  width: LocalStorageService().isPad ? 280 : 230,
                   child: widget.sidebar, //New added
                 ),
                 //New added
