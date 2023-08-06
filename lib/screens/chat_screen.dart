@@ -146,18 +146,21 @@ class _ChatScreenState extends State<ChatScreenPage> {
   }
 
   Future<bool> _hasConversationLimit(BuildContext context) async {
-    var conversationReachedLimit = LocalStorageService().conversationLimit;
-    if (conversationReachedLimit >= Constants.DAILY_CONVERSATION_LIMIT) {
-      var result = await showRewardConfirmDialog(context);
-      if (result == true) {
-        setState(() {
-          showLoadingDialog(context);
-        });
-        AdsManager.loadRewardAd(callback: () {
-          Navigator.pop(context);
-        });
+    if (PlatformUtil.isMobile) {
+      var conversationReachedLimit = LocalStorageService().conversationLimit;
+      if (conversationReachedLimit >= Constants.DAILY_CONVERSATION_LIMIT) {
+        var result = await showRewardConfirmDialog(context);
+        if (result == true) {
+          setState(() {
+            showLoadingDialog(context);
+          });
+          AdsManager.loadRewardAd(callback: () {
+            Navigator.pop(context);
+          });
+        }
+        return true;
       }
-      return true;
+      return false;
     }
     return false;
   }

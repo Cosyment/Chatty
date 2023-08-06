@@ -62,21 +62,11 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
     fetchDomainList();
     fetchModelList();
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  @override
-  void didChangeLocales(List<Locale>? locales) {
-    // 在这里可以触发语言切换的回调
-    // 可以调用回调函数、发送事件等来通知应用程序更新语言
-    setState(() {});
-    super.didChangeLocales(locales);
   }
 
   final _textFieldController = TextEditingController();
@@ -346,7 +336,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
                   ? SettingsTile(
                       leading: const Icon(Icons.open_in_new),
                       title: titleText(S.current.manage_api_keys),
-                      value: Text(shortValue(Urls.openaiKeysUrl)))
+                      value: Text(shortValue(Urls.openaiKeysUrl), style: const TextStyle(color: Color(0xFF98989F))))
                   : SettingsTile.navigation(
                       leading: const Icon(Icons.open_in_new),
                       title: titleText(S.current.manage_api_keys),
@@ -490,7 +480,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
                   width: sizeBoxWidth,
                   child: Text(
                     shortValue(Urls.privacyUrl),
-                    textAlign: TextAlign.start,
+                    textAlign: textAlign,
                     overflow: TextOverflow.ellipsis,
                   )),
               onPressed: (context) async {
