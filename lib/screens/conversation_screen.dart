@@ -168,6 +168,15 @@ class _ConversationScreen extends State<ConversationScreen>
                             height: 6,
                           ),
                           textButton(
+                              "Premium", Icons.plus_one,
+                                  () {
+                                closeDrawer();
+                                Navigation.navigator(context, PremiumScreen());
+                              }),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          textButton(
                               S.current.prompt, Icons.tips_and_updates_outlined,
                               () {
                             closeDrawer();
@@ -191,7 +200,8 @@ class _ConversationScreen extends State<ConversationScreen>
                                 return textButton(
                                     "${S.current.version}: v${packageInfo.data?.version}",
                                     Icons.info_outline,
-                                    () {});
+                                    () {
+                                    });
                               })
                         ]))),
           ],
