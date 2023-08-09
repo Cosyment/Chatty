@@ -35,12 +35,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
         "chat": MessageLookupByLibrary.simpleMessage("おしゃべり"),
         "chat_parameters": MessageLookupByLibrary.simpleMessage("チャットパラメータ"),
-        "clean_conversation": MessageLookupByLibrary.simpleMessage("暖かいヒント"),
         "clean_conversation_tips":
             MessageLookupByLibrary.simpleMessage("すべてのセッションをクリアすることを確認しますか？"),
         "clear_conversation": MessageLookupByLibrary.simpleMessage("はっきりした会話"),
         "clear_conversation_tips":
             MessageLookupByLibrary.simpleMessage("会話履歴をクリアしたいですか?"),
+        "conversation_chat_reached_limit": MessageLookupByLibrary.simpleMessage(
+            "今日はチャットの頻度が限界に達しました。広告を見てロックを解除してください"),
         "conversations": MessageLookupByLibrary.simpleMessage("ダイアログ"),
         "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
             "tips：\'/\'を入力すると、より多くの驚きをトリガーできますよ"),
@@ -58,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ダイアログのタイトルを入力"),
         "history_limit": MessageLookupByLibrary.simpleMessage("履歴の制限"),
         "invalid_api_key": MessageLookupByLibrary.simpleMessage("無効な API Key"),
+        "language": MessageLookupByLibrary.simpleMessage("言語"),
+        "language_code": MessageLookupByLibrary.simpleMessage("日本語"),
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("見付けるKeys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage("設定した動作を支援するメッセージ"),
@@ -70,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("最初に API キーを追加してください"),
         "privacy": MessageLookupByLibrary.simpleMessage("プライバシー"),
         "prompt": MessageLookupByLibrary.simpleMessage("プロンプト"),
+        "reminder": MessageLookupByLibrary.simpleMessage("暖かいヒント"),
         "render_mode": MessageLookupByLibrary.simpleMessage("レンダリングモード"),
         "resend": MessageLookupByLibrary.simpleMessage("再送信"),
         "reset_api_key": MessageLookupByLibrary.simpleMessage("APIキーをリセット"),

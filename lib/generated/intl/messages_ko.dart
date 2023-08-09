@@ -35,12 +35,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("취소"),
         "chat": MessageLookupByLibrary.simpleMessage("잡담"),
         "chat_parameters": MessageLookupByLibrary.simpleMessage("채팅 매개 변수"),
-        "clean_conversation": MessageLookupByLibrary.simpleMessage("따뜻한 힌트"),
         "clean_conversation_tips":
             MessageLookupByLibrary.simpleMessage("모든 세션을 비우시겠습니까?"),
         "clear_conversation": MessageLookupByLibrary.simpleMessage("명료한 대화"),
         "clear_conversation_tips":
             MessageLookupByLibrary.simpleMessage("대화 기록을 지우시겠습니까?"),
+        "conversation_chat_reached_limit": MessageLookupByLibrary.simpleMessage(
+            "오늘 채팅 빈도가 이미 한계에 도달했다.광고를 보고 여러 번 잠금을 해제하십시오."),
         "conversations": MessageLookupByLibrary.simpleMessage("대화"),
         "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
             "tips:\'/\'를 입력하면 더 많은 이벤트가 발생합니다."),
@@ -58,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("대화 제목 입력"),
         "history_limit": MessageLookupByLibrary.simpleMessage("기록 제한"),
         "invalid_api_key": MessageLookupByLibrary.simpleMessage("잘못된 API Key"),
+        "language": MessageLookupByLibrary.simpleMessage("언어"),
+        "language_code": MessageLookupByLibrary.simpleMessage("한국어"),
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("찾아내다 Keys"),
         "message_to_help_set_the_behavior_of_the":
             MessageLookupByLibrary.simpleMessage("도움말 설정 비헤이비어 메시지"),
@@ -70,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("먼저 API Key 추가하세요."),
         "privacy": MessageLookupByLibrary.simpleMessage("프라이버시"),
         "prompt": MessageLookupByLibrary.simpleMessage("프롬프트"),
+        "reminder": MessageLookupByLibrary.simpleMessage("따뜻한 힌트"),
         "render_mode": MessageLookupByLibrary.simpleMessage("렌더링 모드"),
         "resend": MessageLookupByLibrary.simpleMessage("다시 보내기"),
         "reset_api_key": MessageLookupByLibrary.simpleMessage("API 키 재설정"),

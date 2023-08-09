@@ -23,11 +23,21 @@ class LocalStorageService {
   static const prefRenderMode = 'pref_renderMode';
   static const prefCustomApiKey = 'pref_customApiKey';
   static const prefCountry = 'pref_country';
+  static const prefConversationLimit = 'pref_conversation_limit';
+  static const prefAppLaunchTime = 'pref_app_launch_time';
+  static const prefLanguageCode = 'pref_language_code';
+  static const prefPad = 'pref_pad';
 
   static const storeConversationList = 'store_conversations';
   static const storeConversationPrefix = 'store_conversation_';
   static const storeCurrentConversation = 'store_current_conversation';
   static const storePromptList = 'store_prompts';
+
+  String? get appLaunchTime => _prefs.getString(prefAppLaunchTime);
+
+  set updateAppLaunchTime(DateTime time) {
+    _prefs.setString(prefAppLaunchTime, time.toString());
+  }
 
   String get apiKey => _prefs.getString(prefApiKey) ?? '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';
 
@@ -86,8 +96,7 @@ class LocalStorageService {
 
   // storage
 
-  String get conversationListJson =>
-      _prefs.getString(storeConversationList) ?? '[]';
+  String get conversationListJson => _prefs.getString(storeConversationList) ?? '[]';
 
   set conversationListJson(String value) {
     (() async {
@@ -95,8 +104,7 @@ class LocalStorageService {
     })();
   }
 
-  String getConversationJsonById(String id) =>
-      _prefs.getString(storeConversationPrefix + id) ?? '';
+  String getConversationJsonById(String id) => _prefs.getString(storeConversationPrefix + id) ?? '';
 
   Future setConversationJsonById(String id, String value) async {
     await _prefs.setString(storeConversationPrefix + id, value);
@@ -110,11 +118,9 @@ class LocalStorageService {
     await _prefs.remove(storeConversationPrefix);
   }
 
-  String get currentConversationId =>
-      _prefs.getString(storeCurrentConversation) ?? '';
+  String get currentConversationId => _prefs.getString(storeCurrentConversation) ?? '';
 
-  set currentConversationId(String id) =>
-      _prefs.setString(storeCurrentConversation, id);
+  set currentConversationId(String id) => _prefs.setString(storeCurrentConversation, id);
 
   bool get isChina =>
       _prefs.getString(prefCountry)?.toLowerCase() == 'cn' ||
@@ -136,4 +142,16 @@ class LocalStorageService {
       await _prefs.setString(storePromptList, value);
     })();
   }
+
+  set conversationLimit(int count) => _prefs.setInt(prefConversationLimit, count);
+
+  int get conversationLimit => _prefs.getInt(prefConversationLimit) ?? 0;
+
+  set languageCode(String value) => _prefs.setString(prefLanguageCode, value);
+
+  String? get currentLanguageCode => _prefs.getString(prefLanguageCode);
+
+  set isPad(bool value) => _prefs.setBool(prefPad, value);
+
+  bool get isPad => _prefs.getBool(prefPad) ?? false;
 }

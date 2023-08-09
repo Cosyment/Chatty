@@ -43,6 +43,9 @@
   "reset_api_key": "Reset API Key",
   "reset_api_key_tips": "Are you sure you want to reset the api key? After the reset, you need to add a new api key or restart the app",
   "prompt":"Prompts",
-  "clean_conversation": "Tips",
-  "clean_conversation_tips": "Are you sure to clear all conversations？"
+  "reminder": "Tips",
+  "clean_conversation_tips": "Are you sure to clear all conversations？",
+  "conversation_chat_reached_limit": "The chat frequency has reached the limit today. Please check the advertisement to unlock more times",
+  "language": "Language",
+  "language_code": "English"
 }

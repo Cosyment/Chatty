@@ -19,6 +19,10 @@
 		<string>zh_TW</string>
 		<string>ja</string>
 		<string>ko</string>
+		<string>fr</string>
+		<string>de</string>
+		<string>it</string>
+		<string>ru</string>
 	</array>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>

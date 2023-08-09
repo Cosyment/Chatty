@@ -481,10 +481,10 @@ class S {
   }
 
   /// `Tips`
-  String get clean_conversation {
+  String get reminder {
     return Intl.message(
       'Tips',
-      name: 'clean_conversation',
+      name: 'reminder',
       desc: '',
       args: [],
     );
@@ -499,6 +499,36 @@ class S {
       args: [],
     );
   }
+
+  /// `The chat frequency has reached the limit today. Please check the advertisement to unlock more times`
+  String get conversation_chat_reached_limit {
+    return Intl.message(
+      'The chat frequency has reached the limit today. Please check the advertisement to unlock more times',
+      name: 'conversation_chat_reached_limit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get language_code {
+    return Intl.message(
+      'English',
+      name: 'language_code',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -507,8 +537,12 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'de'),
+      Locale.fromSubtags(languageCode: 'fr'),
+      Locale.fromSubtags(languageCode: 'it'),
       Locale.fromSubtags(languageCode: 'ja'),
       Locale.fromSubtags(languageCode: 'ko'),
+      Locale.fromSubtags(languageCode: 'ru'),
       Locale.fromSubtags(languageCode: 'zh'),
       Locale.fromSubtags(languageCode: 'zh', countryCode: 'TW'),
     ];

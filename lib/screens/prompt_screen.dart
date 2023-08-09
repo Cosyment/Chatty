@@ -28,7 +28,7 @@ class PromptScreen extends CommonStatefulWidget {
   }
 
   @override
-  String title() => S().prompt;
+  String title() => S.current.prompt;
 }
 
 class _PromptState extends State<PromptScreen> {

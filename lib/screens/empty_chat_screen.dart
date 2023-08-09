@@ -74,77 +74,71 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
     var chatService = context.read<ChatService>();
     var bloc = BlocProvider.of<ConversationsBloc>(context);
 
-    return WillPopScope(
-        onWillPop: _onBackPressed,
-        child: SafeArea(
-          child: Scaffold(
-            appBar: CommonAppBar(S().appName),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 150, width: 150, child: Lottie.asset('assets/thinking.json', repeat: true)),
-                PlatformUtil.isMobile ? const SizedBox.shrink() : const SizedBox(height: 20),
-                Container(
-                    margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    child: Column(
-                      children: [
-                        Text(S.current.create_conversation_to_start,
-                            style: const TextStyle(color: Colors.white70, fontSize: 18), textAlign: TextAlign.center),
-                        Text(S.current.create_conversation_tip,
-                            style: const TextStyle(color: Colors.white54, fontSize: 14), textAlign: TextAlign.center)
-                      ],
-                    )),
-                Container(
-                    height: PlatformUtil.isMobile ? 445 : 275,
-                    width: PlatformDispatcher.instance.implicitView?.physicalSize.width,
-                    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                    child: Stack(
-                      children: [
-                        GridView.builder(
-                            scrollDirection: Axis.horizontal,
-                            controller: ScrollController(),
-                            itemCount: promptList.length,
-                            // 允终邀动
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return promptItem(
-                                  context,
-                                  Prompt(title: promptList[index].title, promptContent: promptList[index].promptContent),
-                                  chatService);
-                            },
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: PlatformUtil.isMobile ? 3 : 2,
-                                mainAxisExtent: PlatformUtil.isMobile ? 185 : 200,
-                                // 设置项宽度
-                                crossAxisSpacing: 5,
-                                // 水平间距
-                                mainAxisSpacing: 5)),
-                        if (promptList.isEmpty) const Center(child: CircularProgressIndicator(color: Colors.white30))
-                      ],
-                    ))
-              ],
-            ),
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: CupertinoColors.secondaryLabel,
-              foregroundColor: Colors.white70,
-              shape: const CircleBorder(),
-              onPressed: () async {
-                var newConversation = await showConversationDialog(context, false, Conversation.create());
-                if (newConversation != null) {
-                  await chatService.updateConversation(newConversation);
-                  var savedConversation = chatService.getConversationById(newConversation.id)!;
-                  if (context.mounted) {
-                    LocalStorageService().currentConversationId = newConversation.id;
-                    // ChatScreenPage.navigator(context, savedConversation);
-                    EventBus.getDefault().post(EventMessage<Conversation>(savedConversation));
-                  }
-                  bloc.add(const ConversationsRequested());
-                }
-              },
-              child: const Icon(Icons.add),
-            ),
-          ),
-        ));
+    return Scaffold(
+      appBar: CommonAppBar(S.current.appName),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(height: 150, width: 150, child: Lottie.asset('assets/thinking.json', repeat: true)),
+          PlatformUtil.isMobile ? const SizedBox.shrink() : const SizedBox(height: 20),
+          Container(
+              margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              child: Column(
+                children: [
+                  Text(S.current.create_conversation_to_start,
+                      style: const TextStyle(color: Colors.white70, fontSize: 18), textAlign: TextAlign.center),
+                  Text(S.current.create_conversation_tip,
+                      style: const TextStyle(color: Colors.white54, fontSize: 14), textAlign: TextAlign.center)
+                ],
+              )),
+          Container(
+              height: PlatformUtil.isMobile ? 445 : 275,
+              width: PlatformDispatcher.instance.implicitView?.physicalSize.width,
+              margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+              child: Stack(
+                children: [
+                  GridView.builder(
+                      scrollDirection: Axis.horizontal,
+                      controller: ScrollController(),
+                      itemCount: promptList.length,
+                      // 允终邀动
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return promptItem(context,
+                            Prompt(title: promptList[index].title, promptContent: promptList[index].promptContent), chatService);
+                      },
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: PlatformUtil.isMobile ? 3 : 2,
+                          mainAxisExtent: PlatformUtil.isMobile ? 185 : 200,
+                          // 设置项宽度
+                          crossAxisSpacing: 5,
+                          // 水平间距
+                          mainAxisSpacing: 5)),
+                  if (promptList.isEmpty) const Center(child: CircularProgressIndicator(color: Colors.white30))
+                ],
+              ))
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: CupertinoColors.secondaryLabel,
+        foregroundColor: Colors.white70,
+        shape: const CircleBorder(),
+        onPressed: () async {
+          var newConversation = await showConversationDialog(context, false, Conversation.create());
+          if (newConversation != null) {
+            await chatService.updateConversation(newConversation);
+            var savedConversation = chatService.getConversationById(newConversation.id)!;
+            if (context.mounted) {
+              LocalStorageService().currentConversationId = newConversation.id;
+              // ChatScreenPage.navigator(context, savedConversation);
+              EventBus.getDefault().post(EventMessage<Conversation>(savedConversation));
+            }
+            bloc.add(const ConversationsRequested());
+          }
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 
   Widget promptItem(BuildContext context, Prompt prompt, ChatService chatService) {
