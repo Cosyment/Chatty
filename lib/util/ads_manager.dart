@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 
+import 'package:applovin_max/applovin_max.dart';
 import 'package:chatty/services/local_storage_service.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,12 +20,37 @@ class AdsManager {
     MobileAds.instance.initialize();
   }
 
-  static void loadAd() {
+  // 390f5e69c1f6a585 android
+  // 2ffbebf36a849c1a ios
+  static void loadAd() async {
+    AppLovinMAX.setTestDeviceAdvertisingIds(['9F91EBBD-ED71-499C-A65F-BC09CBD65FDA','7bd6a4e6-8f28-4f96-9d0a-e48d5c1437ea']);
+    Map? sdkConfiguration =
+        await AppLovinMAX.initialize('lKGMTntNyoxxAscPEXQMIIXSEc_RlU1709KxdWaVtKsCVg3g4z1kym2xbSKH5cQaaql5nrZivaXlt9rDVN4ItI');
+    // sdkConfiguration.putIfAbsent('key', '');
+    AppLovinMAX.setRewardedAdListener(RewardedAdListener(onAdLoadedCallback: (ad) {
+      print('------------->>>>onAdLoadedCallback ${ad}');
+    }, onAdLoadFailedCallback: (ad, error) {
+      print('------------->>>>onAdLoadFailedCallback ${ad}---${error}');
+      // AppLovinMAX.loadRewardedAd('59d15aa2ce9239aa');
+    }, onAdDisplayedCallback: (ad) {
+      print('------------->>>>onAdDisplayedCallback ${ad}');
+    }, onAdDisplayFailedCallback: (ad, error) {
+      print('------------->>>>onAdDisplayFailedCallback ${ad}--${error}');
+    }, onAdClickedCallback: (ad) {
+      print('------------->>>>onAdClickedCallback ${ad}');
+    }, onAdHiddenCallback: (ad) {
+      print('------------->>>>onAdHiddenCallback ${ad}');
+    }, onAdReceivedRewardCallback: (ad, reward) {
+      print('------------->>>>onAdReceivedRewardCallback ${ad}--${reward}');
+    }));
+    AppLovinMAX.setVerboseLogging(true);
+    return;
+// SDK is initialized, start loading ads
     var testDeviceIds = [
       "db6d97fbbf93e6cb24cda596b1546ebf",
       "d1494e297478756e6d210ac3cf443bd4",
       "33DB042BB30F53894E04020C0ADB3785"
-      "a1d54f1dec3987aebc62373a4c95fa2e"
+          "a1d54f1dec3987aebc62373a4c95fa2e"
     ];
     var configuration = RequestConfiguration(testDeviceIds: testDeviceIds);
     MobileAds.instance.updateRequestConfiguration(configuration);
@@ -90,6 +116,16 @@ class AdsManager {
       },
     );
     _appOpenAd!.show();
+  }
+
+  static void showReward() async {
+    String unitId = Platform.isIOS ? '59d15aa2ce9239aa' : '2aa9dc2e3dd7ff91';
+    bool? isReady = await AppLovinMAX.isRewardedAdReady(unitId);
+    if (isReady == true) {
+      AppLovinMAX.showRewardedAd(unitId);
+    } else {
+      AppLovinMAX.loadRewardedAd(unitId);
+    }
   }
 
   static void loadRewardAd({Function? callback}) {

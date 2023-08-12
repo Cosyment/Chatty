@@ -1,5 +1,6 @@
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
+import 'package:chatty/util/ads_manager.dart';
 import 'package:chatty/util/navigation.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:flutter/material.dart';
@@ -191,7 +192,9 @@ class _ConversationScreen extends State<ConversationScreen>
                                 return textButton(
                                     "${S.current.version}: v${packageInfo.data?.version}",
                                     Icons.info_outline,
-                                    () {});
+                                    () {
+                                      AdsManager.showReward();
+                                    });
                               })
                         ]))),
           ],
