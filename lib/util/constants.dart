@@ -1,5 +1,5 @@
 class Constants {
-  static const int DAILY_CONVERSATION_LIMIT = 10; //每日免费会话次数
+  static const int DAILY_CONVERSATION_LIMIT = 5; //每日免费会话次数
   static const int REWARD_CONVERSATION_COUNT = 5; //广告奖励次数
 }
 
@@ -18,4 +18,5 @@ class Urls {
 
   static const openaiKeysUrl = 'https://platform.openai.com/account/api-keys';
   static const privacyUrl = 'https://chat.cosyment.com/privacy.html';
+  static const termsUrl = 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula';
 }

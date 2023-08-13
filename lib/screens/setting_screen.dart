@@ -55,6 +55,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
   List<PopupMenuItem> modelPopupMenuItems = [];
 
   List<PopupMenuItem> languageMenuItems = [];
+  final isMembershipUser = LocalStorageService().getCurrentMembershipProductId().isNotEmpty;
 
   @override
   void initState() {
@@ -229,7 +230,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
       domainPopupItems.add(CheckedPopupMenuItem(
         value: 'custom',
         checked: domainList.where((element) => element.hostname == LocalStorageService().apiHost).isEmpty,
-        child: Text(S.current.custom_api_host),
+        child: Text("${S.current.custom_api_host} Plus"),
       ));
       setState(() {});
     }
@@ -454,7 +455,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
                     CheckedPopupMenuItem(
                       value: 'markdown',
                       checked: LocalStorageService().renderMode == 'markdown',
-                      child: const Text('Markdown'),
+                      child: const Text('Markdown Plus'),
                     ),
                     CheckedPopupMenuItem(
                       value: 'text',

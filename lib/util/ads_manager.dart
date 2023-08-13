@@ -1,7 +1,6 @@
 import 'dart:io' show Platform;
 
 import 'package:chatty/services/local_storage_service.dart';
-import 'package:chatty/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -24,7 +23,7 @@ class AdsManager {
       "db6d97fbbf93e6cb24cda596b1546ebf",
       "d1494e297478756e6d210ac3cf443bd4",
       "33DB042BB30F53894E04020C0ADB3785"
-      "a1d54f1dec3987aebc62373a4c95fa2e"
+          "a1d54f1dec3987aebc62373a4c95fa2e"
     ];
     var configuration = RequestConfiguration(testDeviceIds: testDeviceIds);
     MobileAds.instance.updateRequestConfiguration(configuration);
@@ -136,7 +135,8 @@ class AdsManager {
       debugPrint('_showRewardAd onAdDismissedFullScreenContent ${ad}');
     });
     _rewardedAd?.show(onUserEarnedReward: (_, rewardItem) {
-      LocalStorageService().conversationLimit = Constants.REWARD_CONVERSATION_COUNT;
+      //看完广告重置当日会话次数
+      LocalStorageService().conversationLimit = 0;
       debugPrint('_showRewardAd show ${rewardItem.amount}---${rewardItem.type}');
     });
   }

@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -70,6 +71,8 @@ void main() async {
   } else {
     LocalStorageService().conversationLimit = 0;
   }
+
+  fetchStoreInfo();
 
   LocalStorageService().updateAppLaunchTime = DateTime.now();
 
@@ -145,6 +148,24 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               home: const MainScreen(),
             )));
   }
+}
+
+void fetchStoreInfo() async {
+  final InAppPurchase _inAppPurchase = InAppPurchase.instance;
+  if (!await _inAppPurchase.isAvailable()) return;
+  _inAppPurchase.restorePurchases();
+  _inAppPurchase.purchaseStream.listen((List<PurchaseDetails> purchaseDetailsList) {
+    for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
+      if (purchaseDetails.status == PurchaseStatus.restored) {
+        // 已开通会员
+        LocalStorageService().currentMembershipProductId = purchaseDetails.productID;
+      }
+    }
+  }, onDone: () {
+    debugPrint('purchase done');
+  }, onError: (Object error) {
+    debugPrint('purchase error $error');
+  });
 }
 
 void registerNetWorkListening() {
