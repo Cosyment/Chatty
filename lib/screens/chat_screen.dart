@@ -408,7 +408,15 @@ class _ChatScreenState extends State<ChatScreenPage> {
                         children: [
                           Expanded(
                             child: TextField(
-                              decoration: InputDecoration(hintText: S.current.send_a_message, border: InputBorder.none),
+                              decoration: InputDecoration(
+                                  hintText: S.current.send_a_message,
+                                  focusedBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.transparent),
+                                  ),
+                                  enabledBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.transparent),
+                                  ),
+                                  border: InputBorder.none),
                               controller: _textEditingController,
                               focusNode: _focusNode,
                               minLines: 1,

@@ -1,6 +1,4 @@
 import 'package:chatty/widgets/popup_box_constraints.dart';
-import 'package:chatty/widgets/theme_color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';

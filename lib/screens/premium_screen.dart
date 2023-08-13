@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:chatty/services/local_storage_service.dart';
+import 'package:chatty/util/platform_util.dart';
 import 'package:chatty/widgets/common_appbar.dart';
 import 'package:chatty/widgets/common_stateful_widget.dart';
 import 'package:flutter/material.dart';
@@ -197,8 +197,8 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                 height: 20,
               ),
               SizedBox(
-                width: 180,
-                height: 180,
+                width: PlatformUtil.isMobile ? 180 : 110,
+                height: PlatformUtil.isMobile ? 180 : 110,
                 child: Lottie.asset('assets/animation_ll82pe8f.json', repeat: true),
               ),
               const SizedBox(height: 10),
@@ -210,38 +210,18 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                 ),
               ),
               const SizedBox(height: 8),
-              Container(
-                  height: 140,
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.only(left: 45),
-                  child: ListView.builder(
-                      itemCount: _premiumFeatures.length,
-                      itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            const Icon(
-                              Icons.task_alt_outlined,
-                              color: Colors.green,
-                              size: 16,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              _premiumFeatures[index],
-                              textAlign: TextAlign.start,
-                              style: const TextStyle(fontSize: 15, color: Colors.grey, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        );
-                      })),
-              const SizedBox(height: 10),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: _generateFeatureItems(),
+              ),
+              SizedBox(height: PlatformUtil.isMobile ? 20 : 10),
               if (_products.isEmpty)
                 Shimmer.fromColors(
                   baseColor: ThemeColor.backgroundColor,
                   highlightColor: Colors.white12,
                   enabled: true,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _membershipPlaceholder(),
                       _membershipPlaceholder(),
@@ -250,16 +230,14 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                   ),
                 ),
               if (_products.isNotEmpty)
-                SizedBox(
-                    height: 130,
-                    width: PlatformDispatcher.instance.implicitView?.physicalSize.width,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        controller: ScrollController(),
-                        itemCount: _products.length,
-                        itemBuilder: (context, index) {
-                          return _membershipOptionWidget(index, _products[index]);
-                        })),
+                SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: SizedBox(
+                        height: PlatformUtil.isMobile ? 130 : 115,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: _membershipOptions(),
+                        ))),
               const SizedBox(height: 24),
               Container(
                   width: 250,
@@ -323,74 +301,102 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
         ));
   }
 
+  List<Widget> _generateFeatureItems() {
+    List<Widget> widgets = <Widget>[];
+    for (var element in _premiumFeatures) {
+      widgets.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        const Icon(
+          Icons.task_alt_outlined,
+          color: Colors.green,
+          size: 16,
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Text(
+          element,
+          textAlign: TextAlign.start,
+          style: const TextStyle(fontSize: 15, color: Colors.grey, fontWeight: FontWeight.bold),
+        )
+      ]));
+    }
+    return widgets;
+  }
+
   Widget _membershipPlaceholder() {
     return const Card(margin: EdgeInsets.all(10), child: SizedBox(width: 100, height: 110));
   }
 
-  Widget _membershipOptionWidget(int index, ProductDetails productDetails) {
-    return GestureDetector(
-      child: Card(
-        elevation: 5,
-        shadowColor: index == _checkedIndex ? gradientColor.colors[0] : ThemeColor.backgroundColor,
-        margin: const EdgeInsets.all(10),
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-          decoration: BoxDecoration(
-              gradient: _checkedIndex == index ? gradientColor : null,
-              borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  Text(
-                    productDetails.title,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w600,
-                      color: _checkedIndex == index ? Colors.grey[200] : Colors.grey[500],
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    productDetails.price,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: _checkedIndex == index ? Colors.grey[100] : Colors.grey[400],
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    productDetails.description,
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: _checkedIndex == index ? Colors.grey[400] : Colors.grey[600],
-                    ),
-                  ),
-                  if (productDetails.id == LocalStorageService().getCurrentMembershipProductId())
-                    const Text(
-                      '当前会员等级',
+  List<Widget> _membershipOptions() {
+    List<Widget> widgets = <Widget>[];
+    for (var index = 0; index < _products.length; index++) {
+      ProductDetails productDetails = _products[index];
+      widgets.add(GestureDetector(
+        child: Card(
+          elevation: 5,
+          shadowColor: index == _checkedIndex ? gradientColor.colors[0] : ThemeColor.backgroundColor,
+          margin: const EdgeInsets.all(10),
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            alignment: AlignmentDirectional.center,
+            decoration: BoxDecoration(
+                gradient: _checkedIndex == index ? gradientColor : null,
+                borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      productDetails.title,
                       style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.white70,
+                        fontSize: 18,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w600,
+                        color: _checkedIndex == index ? Colors.grey[200] : Colors.grey[500],
                       ),
                     ),
-                ],
-              ),
-              const Spacer(),
-            ],
+                    const SizedBox(height: 5),
+                    Text(
+                      productDetails.price,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: _checkedIndex == index ? Colors.grey[100] : Colors.grey[400],
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      productDetails.description,
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: _checkedIndex == index ? Colors.grey[400] : Colors.grey[600],
+                      ),
+                    ),
+                    if (productDetails.id == LocalStorageService().getCurrentMembershipProductId())
+                      const Text(
+                        '当前会员等级',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white70,
+                        ),
+                      ),
+                  ],
+                ),
+                const Spacer(),
+              ],
+            ),
           ),
         ),
-      ),
-      onTap: () {
-        HapticFeedback.mediumImpact();
-        setState(() {
-          _checkedIndex = index;
-        });
-      },
-    );
+        onTap: () {
+          HapticFeedback.mediumImpact();
+          setState(() {
+            _checkedIndex = index;
+          });
+        },
+      ));
+    }
+    return widgets;
   }
 
   Widget _agreementWidget(String title, Function pressed) {
