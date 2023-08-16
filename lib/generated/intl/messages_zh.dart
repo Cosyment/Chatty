@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("tips: 输入\'/\'能触发更多惊喜哦"),
         "create_conversation_to_start":
             MessageLookupByLibrary.simpleMessage("创建或选择会话"),
+        "current_level": MessageLookupByLibrary.simpleMessage("当前会员等级"),
         "custom_api_host": MessageLookupByLibrary.simpleMessage("自定义域名"),
         "delete": MessageLookupByLibrary.simpleMessage("删除"),
         "delete_conversation": MessageLookupByLibrary.simpleMessage("删除会话"),
@@ -70,18 +71,39 @@ class MessageLookup extends MessageLookupByLibrary {
         "other": MessageLookupByLibrary.simpleMessage("其他"),
         "please_add_your_api_key":
             MessageLookupByLibrary.simpleMessage("请先添加您的API Key"),
+        "premium": MessageLookupByLibrary.simpleMessage("会员订阅"),
+        "premium_features1": MessageLookupByLibrary.simpleMessage("聊天无限制"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("支持GPT4"),
+        "premium_features3":
+            MessageLookupByLibrary.simpleMessage("支持Markdown渲染"),
+        "premium_features4": MessageLookupByLibrary.simpleMessage("更高的字数上限"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage("支持自定义域名"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("纯净无广告"),
+        "premium_plus_explain":
+            MessageLookupByLibrary.simpleMessage("Plus 高级会员权益"),
         "privacy": MessageLookupByLibrary.simpleMessage("隐私政策"),
+        "privacy_policy": MessageLookupByLibrary.simpleMessage("隐私政策"),
         "prompt": MessageLookupByLibrary.simpleMessage("提示词"),
+        "purchase_cancel": MessageLookupByLibrary.simpleMessage("支付已取消"),
+        "purchase_error": MessageLookupByLibrary.simpleMessage("支付出错，请稍后再试"),
+        "purchase_failure": MessageLookupByLibrary.simpleMessage("支付失败，请稍后再试"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage("恭喜会员开通成功"),
+        "refuse": MessageLookupByLibrary.simpleMessage("残忍拒绝"),
         "reminder": MessageLookupByLibrary.simpleMessage("温馨提示"),
         "render_mode": MessageLookupByLibrary.simpleMessage("渲染模式"),
         "resend": MessageLookupByLibrary.simpleMessage("重试"),
         "reset_api_key": MessageLookupByLibrary.simpleMessage("重置API Key"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
             "确定重置API Key吗？重置后您需要添加新的API Key或重启APP"),
+        "restore": MessageLookupByLibrary.simpleMessage("恢复"),
         "send_a_message": MessageLookupByLibrary.simpleMessage("发送消息..."),
         "settings": MessageLookupByLibrary.simpleMessage("设置"),
+        "subscribe": MessageLookupByLibrary.simpleMessage("立即订阅"),
+        "terms_use": MessageLookupByLibrary.simpleMessage("使用条款"),
         "title_should_not_be_empty":
             MessageLookupByLibrary.simpleMessage("标题不能为空"),
-        "version": MessageLookupByLibrary.simpleMessage("版本")
+        "version": MessageLookupByLibrary.simpleMessage("版本"),
+        "your_are_not_membership":
+            MessageLookupByLibrary.simpleMessage("很抱歉，您还没有订阅会员服务哦，该功能仅对会员用户开放！")
       };
 }

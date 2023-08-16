@@ -50,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "tips: Entering \'/\' can trigger more surprises"),
         "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
             "Create or select a conversation"),
+        "current_level": MessageLookupByLibrary.simpleMessage("Current"),
         "custom_api_host":
             MessageLookupByLibrary.simpleMessage("Customization API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
@@ -79,19 +80,49 @@ class MessageLookup extends MessageLookupByLibrary {
         "other": MessageLookupByLibrary.simpleMessage("Other"),
         "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
             "Please add your api key first"),
+        "premium": MessageLookupByLibrary.simpleMessage("Premium"),
+        "premium_features1":
+            MessageLookupByLibrary.simpleMessage("Send Unlimited"),
+        "premium_features2":
+            MessageLookupByLibrary.simpleMessage("Support GPT4"),
+        "premium_features3":
+            MessageLookupByLibrary.simpleMessage("Support Markdown Render"),
+        "premium_features4":
+            MessageLookupByLibrary.simpleMessage("Higher word limit"),
+        "premium_features5":
+            MessageLookupByLibrary.simpleMessage("Custom API Host"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("No Ad"),
+        "premium_plus_explain":
+            MessageLookupByLibrary.simpleMessage("Plus Premium Features"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy"),
+        "privacy_policy":
+            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "prompt": MessageLookupByLibrary.simpleMessage("Prompts"),
+        "purchase_cancel":
+            MessageLookupByLibrary.simpleMessage("Purchase Cancel"),
+        "purchase_error":
+            MessageLookupByLibrary.simpleMessage("Purchase Unknown Error"),
+        "purchase_failure":
+            MessageLookupByLibrary.simpleMessage("Purchase Failure"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage(
+            "Congratulations Subscribe Success!"),
+        "refuse": MessageLookupByLibrary.simpleMessage("Not now"),
         "reminder": MessageLookupByLibrary.simpleMessage("Tips"),
         "render_mode": MessageLookupByLibrary.simpleMessage("Render Mode"),
         "resend": MessageLookupByLibrary.simpleMessage("Resend"),
         "reset_api_key": MessageLookupByLibrary.simpleMessage("Reset API Key"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to reset the api key? After the reset, you need to add a new api key or restart the app"),
+        "restore": MessageLookupByLibrary.simpleMessage("Restore"),
         "send_a_message":
             MessageLookupByLibrary.simpleMessage("Send a message..."),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
+        "terms_use": MessageLookupByLibrary.simpleMessage("Terms Use"),
         "title_should_not_be_empty":
             MessageLookupByLibrary.simpleMessage("Title should not be empty"),
-        "version": MessageLookupByLibrary.simpleMessage("Version")
+        "version": MessageLookupByLibrary.simpleMessage("Version"),
+        "your_are_not_membership": MessageLookupByLibrary.simpleMessage(
+            "You have not subscribed to the membership service yet")
       };
 }

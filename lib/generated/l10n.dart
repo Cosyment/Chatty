@@ -529,6 +529,196 @@ class S {
       args: [],
     );
   }
+
+  /// `Premium`
+  String get premium {
+    return Intl.message(
+      'Premium',
+      name: 'premium',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Plus Premium Features`
+  String get premium_plus_explain {
+    return Intl.message(
+      'Plus Premium Features',
+      name: 'premium_plus_explain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send Unlimited`
+  String get premium_features1 {
+    return Intl.message(
+      'Send Unlimited',
+      name: 'premium_features1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support GPT4`
+  String get premium_features2 {
+    return Intl.message(
+      'Support GPT4',
+      name: 'premium_features2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support Markdown Render`
+  String get premium_features3 {
+    return Intl.message(
+      'Support Markdown Render',
+      name: 'premium_features3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Higher word limit`
+  String get premium_features4 {
+    return Intl.message(
+      'Higher word limit',
+      name: 'premium_features4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Custom API Host`
+  String get premium_features5 {
+    return Intl.message(
+      'Custom API Host',
+      name: 'premium_features5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Ad`
+  String get premium_features6 {
+    return Intl.message(
+      'No Ad',
+      name: 'premium_features6',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscribe`
+  String get subscribe {
+    return Intl.message(
+      'Subscribe',
+      name: 'subscribe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purchase Failure`
+  String get purchase_failure {
+    return Intl.message(
+      'Purchase Failure',
+      name: 'purchase_failure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Congratulations Subscribe Success!`
+  String get purchase_success {
+    return Intl.message(
+      'Congratulations Subscribe Success!',
+      name: 'purchase_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purchase Cancel`
+  String get purchase_cancel {
+    return Intl.message(
+      'Purchase Cancel',
+      name: 'purchase_cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purchase Unknown Error`
+  String get purchase_error {
+    return Intl.message(
+      'Purchase Unknown Error',
+      name: 'purchase_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms Use`
+  String get terms_use {
+    return Intl.message(
+      'Terms Use',
+      name: 'terms_use',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Policy`
+  String get privacy_policy {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'privacy_policy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Restore`
+  String get restore {
+    return Intl.message(
+      'Restore',
+      name: 'restore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current`
+  String get current_level {
+    return Intl.message(
+      'Current',
+      name: 'current_level',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have not subscribed to the membership service yet`
+  String get your_are_not_membership {
+    return Intl.message(
+      'You have not subscribed to the membership service yet',
+      name: 'your_are_not_membership',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not now`
+  String get refuse {
+    return Intl.message(
+      'Not now',
+      name: 'refuse',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

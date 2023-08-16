@@ -20,6 +20,7 @@ import '../services/local_storage_service.dart';
 import '../widgets/common_appbar.dart';
 import '../widgets/common_stateful_widget.dart';
 import '../widgets/confirm_dialog.dart';
+import '../widgets/subscribe_dialog.dart';
 
 class SettingsScreenPage extends CommonStatefulWidget {
   const SettingsScreenPage({super.key});
@@ -50,12 +51,14 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
     LanguageModel(modelName: 'gpt-3.5-turbo'),
     LanguageModel(modelName: 'gpt-3.5-turbo-0613'),
     LanguageModel(modelName: 'gpt-3.5-turbo-16k'),
-    LanguageModel(modelName: 'gpt-4')
+    LanguageModel(modelName: 'gpt-4 Plus')
   ];
   List<PopupMenuItem> modelPopupMenuItems = [];
 
   List<PopupMenuItem> languageMenuItems = [];
-  final isMembershipUser = LocalStorageService().getCurrentMembershipProductId().isNotEmpty;
+
+  // final isMembershipUser = LocalStorageService().getCurrentMembershipProductId().isNotEmpty;
+  final isMembershipUser = false;
 
   @override
   void initState() {
@@ -108,6 +111,9 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
           );
         },
       );
+
+  Future<void> showSubscribeDialog(BuildContext context) =>
+      showDialog(context: context, builder: (BuildContext context) => const SubscribeDialog());
 
   String obscureApiKey(String apiKey) {
     if (apiKey.length < 15) {
@@ -198,7 +204,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
         modelPopupMenuItems.add(CheckedPopupMenuItem(
           value: element.modelName,
           checked: LocalStorageService().model == element.modelName,
-          child: Text(element.modelName),
+          child: Text(element.modelName.contains('gpt-4') ? "${element.modelName} Plus" : element.modelName),
         ));
       }
     }
@@ -315,14 +321,18 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
                   },
                   onSelected: (value) async {
                     if (value == 'custom') {
-                      _textFieldController.text = LocalStorageService().apiHost;
-                      var result =
-                          await openStringDialog(context, S.current.api_host_optional, 'URL like https://api.openai.com') ?? '';
-                      if (result != 'cancel') {
-                        LocalStorageService().apiHost = result;
-                        setState(() {
-                          apiHost = result;
-                        });
+                      if (!isMembershipUser) {
+                        showSubscribeDialog(context);
+                      } else {
+                        _textFieldController.text = LocalStorageService().apiHost;
+                        var result =
+                            await openStringDialog(context, S.current.api_host_optional, 'URL like https://api.openai.com') ?? '';
+                        if (result != 'cancel') {
+                          LocalStorageService().apiHost = result;
+                          setState(() {
+                            apiHost = result;
+                          });
+                        }
                       }
                     } else {
                       LocalStorageService().apiHost = value;
@@ -366,11 +376,15 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
                   return modelPopupMenuItems;
                 },
                 onSelected: (value) async {
-                  LocalStorageService().model = value;
-                  initialModels();
-                  setState(() {
-                    model = value;
-                  });
+                  if (!isMembershipUser && value.toString().contains('gpt-4')) {
+                    showSubscribeDialog(context);
+                  } else {
+                    LocalStorageService().model = value;
+                    initialModels();
+                    setState(() {
+                      model = value;
+                    });
+                  }
                 },
               ),
             ),
@@ -466,10 +480,14 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
                   ];
                 },
                 onSelected: (value) async {
-                  LocalStorageService().renderMode = value;
-                  setState(() {
-                    renderMode = value;
-                  });
+                  if (!isMembershipUser && value == 'markdown') {
+                    showSubscribeDialog(context);
+                  } else {
+                    LocalStorageService().renderMode = value;
+                    setState(() {
+                      renderMode = value;
+                    });
+                  }
                 },
               ),
             ),

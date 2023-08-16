@@ -34,12 +34,19 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
       begin: Alignment.bottomLeft,
       end: Alignment.topRight);
 
-  final List<String> _premiumFeatures = ['聊天无限制', '支持GPT4', '支持Markdown渲染', '更高的字数上限', '支持自定义域名', '纯净无广告'];
+  final List<String> _premiumFeatures = [
+    S.current.premium_features1,
+    S.current.premium_features2,
+    S.current.premium_features3,
+    S.current.premium_features4,
+    S.current.premium_features5,
+    S.current.premium_features6
+  ];
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
   late bool isAvailable = false;
   late StreamSubscription<List<PurchaseDetails>> _subscription;
-  List<String> _identifiers = ['membership_weekly', 'membership_monthly', 'membership_quarterly', 'membership_yearly'];
+  final List<String> _identifiers = ['membership_weekly', 'membership_monthly', 'membership_quarterly', 'membership_yearly'];
   List<ProductDetails> _products = <ProductDetails>[];
   var _checkedIndex = 0;
 
@@ -107,7 +114,7 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
 
         if (purchaseDetails.status == PurchaseStatus.error) {
           debugPrint('purchase error ${purchaseDetails.status}');
-          showToast('支付失败，请稍后再试');
+          showToast(S.current.purchase_failure);
           finishTransaction();
         } else if (purchaseDetails.status == PurchaseStatus.purchased || purchaseDetails.status == PurchaseStatus.restored) {
           debugPrint(
@@ -120,7 +127,7 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                 if (Navigator.canPop(context)) {
                   Navigator.pop(context);
                 }
-                showToast('恭喜会员开通成功');
+                showToast(S.current.purchase_success);
               });
               setState(() {
                 LocalStorageService().currentMembershipProductId = purchaseDetails.productID;
@@ -137,7 +144,7 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
           await _inAppPurchase.completePurchase(purchaseDetails);
           finishTransaction();
           if (purchaseDetails.status == PurchaseStatus.canceled) {
-            showToast("支付已取消");
+            showToast(S.current.purchase_cancel);
           }
         }
       }
@@ -189,7 +196,7 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
     return ScaffoldMessenger(
         key: scaffoldMessengerKey,
         child: Scaffold(
-          appBar: const CommonAppBar('Premium'),
+          appBar: CommonAppBar(S.current.premium),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -203,7 +210,7 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
               ),
               const SizedBox(height: 10),
               Text(
-                '${S.current.appName} Plus 高级会员权益',
+                '${S.current.appName} ${S.current.premium_plus_explain}',
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -253,7 +260,7 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                           // clearCache();
                           _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
                         } else {
-                          showToast('purchase error');
+                          showToast(S.current.purchase_error);
                         }
                       },
                       style: ButtonStyle(
@@ -261,11 +268,11 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
                         elevation: MaterialStateProperty.all(5.0),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 4),
+                      child:  Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
                         child: Text(
-                          'Subscribe',
-                          style: TextStyle(
+                          S.current.subscribe,
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -278,19 +285,19 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _agreementWidget('使用条款', () async {
+                  _agreementWidget(S.current.terms_use, () async {
                     await launchUrl(Uri.parse(Urls.termsUrl), mode: LaunchMode.inAppWebView);
                   }),
                   const SizedBox(
                     width: 10,
                   ),
-                  _agreementWidget('隐私政策', () async {
+                  _agreementWidget(S.current.privacy_policy, () async {
                     await launchUrl(Uri.parse(Urls.privacyUrl), mode: LaunchMode.inAppWebView);
                   }),
                   const SizedBox(
                     width: 10,
                   ),
-                  _agreementWidget('恢复', () {
+                  _agreementWidget(S.current.restore, () {
                     showLottieDialog(context, 'assets/loading.json');
                     _inAppPurchase.restorePurchases();
                   })
@@ -374,9 +381,9 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                       ),
                     ),
                     if (productDetails.id == LocalStorageService().getCurrentMembershipProductId())
-                      const Text(
-                        '当前会员等级',
-                        style: TextStyle(
+                       Text(
+                        S.current.current_level,
+                        style: const TextStyle(
                           fontSize: 12,
                           color: Colors.white70,
                         ),
