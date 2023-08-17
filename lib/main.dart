@@ -72,7 +72,7 @@ void main() async {
     LocalStorageService().conversationLimit = 0;
   }
 
-  fetchStoreInfo();
+  checkMembershipInfo();
 
   LocalStorageService().updateAppLaunchTime = DateTime.now();
 
@@ -131,7 +131,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                 colorScheme: ColorScheme.dark(brightness: Brightness.dark, primary: ThemeColor.primaryColor),
                 appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor),
                 scaffoldBackgroundColor: ThemeColor.backgroundColor,
-                popupMenuTheme: PopupMenuThemeData(color: ThemeColor.popupBackground,elevation: 10),
+                popupMenuTheme: PopupMenuThemeData(color: ThemeColor.popupBackground, elevation: 10),
                 dialogBackgroundColor: ThemeColor.dialogBackground,
                 textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.white70),
                 inputDecorationTheme: InputDecorationTheme(
@@ -157,11 +157,16 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   }
 }
 
-void fetchStoreInfo() async {
-  final InAppPurchase _inAppPurchase = InAppPurchase.instance;
-  if (!await _inAppPurchase.isAvailable()) return;
-  _inAppPurchase.restorePurchases();
-  _inAppPurchase.purchaseStream.listen((List<PurchaseDetails> purchaseDetailsList) {
+void checkMembershipInfo() async {
+  final InAppPurchase inAppPurchase = InAppPurchase.instance;
+  if (!await inAppPurchase.isAvailable()) return;
+  inAppPurchase.restorePurchases();
+  inAppPurchase.purchaseStream.listen((List<PurchaseDetails> purchaseDetailsList) {
+    if (purchaseDetailsList.isEmpty) {
+      LocalStorageService().currentMembershipProductId = '';
+      LocalStorageService().remove(LocalStorageService.prefMembershipProductId);
+    }
+
     for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
       if (purchaseDetails.status == PurchaseStatus.restored) {
         // 已开通会员

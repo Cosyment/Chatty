@@ -22,7 +22,7 @@ class PremiumScreen extends CommonStatefulWidget {
   const PremiumScreen({super.key});
 
   @override
-  String title() => "Premium";
+  String title() => S.current.premium;
 
   @override
   State<StatefulWidget> createState() => _PremiumScreen();
@@ -103,6 +103,16 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
   }
 
   Future<void> listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) async {
+    debugPrint('listenToPurchaseUpdated purchaseDetailsList.length ${purchaseDetailsList.length}');
+
+    //未订阅过
+    if (purchaseDetailsList.isEmpty) {
+      if (context.mounted && Navigator.canPop(context)) {
+        showToast(S.current.nothing_to_restore);
+        Navigator.pop(context);
+        return;
+      }
+    }
     for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
       if (purchaseDetails.status == PurchaseStatus.pending) {
         debugPrint('purchase pending... productId: ${purchaseDetails.productID}, purchaseId: ${purchaseDetails.purchaseID}');
@@ -268,7 +278,7 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
                         elevation: MaterialStateProperty.all(5.0),
                       ),
-                      child:  Padding(
+                      child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
                         child: Text(
                           S.current.subscribe,
@@ -381,7 +391,7 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                       ),
                     ),
                     if (productDetails.id == LocalStorageService().getCurrentMembershipProductId())
-                       Text(
+                      Text(
                         S.current.current_level,
                         style: const TextStyle(
                           fontSize: 12,

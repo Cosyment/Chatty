@@ -67,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("設定した動作を支援するメッセージ"),
         "model": MessageLookupByLibrary.simpleMessage("モデルとなって着る"),
         "new_conversation": MessageLookupByLibrary.simpleMessage("新しい会話"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("您还没有订阅过哦"),
         "ok": MessageLookupByLibrary.simpleMessage("わかった"),
         "organization": MessageLookupByLibrary.simpleMessage("組織"),
         "other": MessageLookupByLibrary.simpleMessage("他の"),

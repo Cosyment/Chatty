@@ -149,6 +149,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
     if (PlatformUtil.isMobile) {
       var conversationReachedLimit = LocalStorageService().conversationLimit;
       if (conversationReachedLimit >= Constants.DAILY_CONVERSATION_LIMIT) {
+      // if (conversationReachedLimit >= 2) {
         var result = await showRewardConfirmDialog(context);
         if (result == true) {
           setState(() {

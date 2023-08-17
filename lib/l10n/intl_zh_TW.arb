@@ -66,5 +66,6 @@
   "restore": "恢复",
   "current_level": "当前会员等级",
   "your_are_not_membership": "很抱歉，您还没有订阅会员服务哦，该功能仅对会员用户开放！",
-  "refuse": "残忍拒绝"
+  "refuse": "残忍拒绝",
+  "nothing_to_restore": "您还没有订阅过哦"
 }

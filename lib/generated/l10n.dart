@@ -719,6 +719,16 @@ class S {
       args: [],
     );
   }
+
+  /// `您还没有订阅过哦`
+  String get nothing_to_restore {
+    return Intl.message(
+      '您还没有订阅过哦',
+      name: 'nothing_to_restore',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

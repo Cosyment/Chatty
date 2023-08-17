@@ -75,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "model": MessageLookupByLibrary.simpleMessage("Model"),
         "new_conversation":
             MessageLookupByLibrary.simpleMessage("New conversation"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("您还没有订阅过哦"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organization"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),

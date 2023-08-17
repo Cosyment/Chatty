@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "您可以输入AI角色及身份信息，帮助AI更好理解您的问题，给出更加专业的回复"),
         "model": MessageLookupByLibrary.simpleMessage("模型"),
         "new_conversation": MessageLookupByLibrary.simpleMessage("创建会话"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("您还没有订阅过哦"),
         "ok": MessageLookupByLibrary.simpleMessage("确认"),
         "organization": MessageLookupByLibrary.simpleMessage("组织"),
         "other": MessageLookupByLibrary.simpleMessage("其他"),

@@ -57,8 +57,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
 
   List<PopupMenuItem> languageMenuItems = [];
 
-  // final isMembershipUser = LocalStorageService().getCurrentMembershipProductId().isNotEmpty;
-  final isMembershipUser = false;
+  // final isMembershipUser =  LocalStorageService().isMembershipUser();
+  final isMembershipUser = LocalStorageService().isMembershipUser();
 
   @override
   void initState() {

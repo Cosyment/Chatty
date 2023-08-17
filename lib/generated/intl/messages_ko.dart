@@ -67,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("도움말 설정 비헤이비어 메시지"),
         "model": MessageLookupByLibrary.simpleMessage("모델"),
         "new_conversation": MessageLookupByLibrary.simpleMessage("새 대화"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("您还没有订阅过哦"),
         "ok": MessageLookupByLibrary.simpleMessage("그래"),
         "organization": MessageLookupByLibrary.simpleMessage("조직"),
         "other": MessageLookupByLibrary.simpleMessage("다른"),

@@ -34,6 +34,10 @@ class LocalStorageService {
   static const storeCurrentConversation = 'store_current_conversation';
   static const storePromptList = 'store_prompts';
 
+  remove(String key) {
+    _prefs.remove(key);
+  }
+
   String? get appLaunchTime => _prefs.getString(prefAppLaunchTime);
 
   set updateAppLaunchTime(DateTime time) {
@@ -157,5 +161,8 @@ class LocalStorageService {
   bool get isPad => _prefs.getBool(prefPad) ?? false;
 
   set currentMembershipProductId(String productId) => _prefs.setString(prefMembershipProductId, productId);
-  String getCurrentMembershipProductId() =>_prefs.getString(prefMembershipProductId)??'';
+
+  String getCurrentMembershipProductId() => _prefs.getString(prefMembershipProductId) ?? '';
+
+  bool isMembershipUser() => getCurrentMembershipProductId().isNotEmpty;
 }
