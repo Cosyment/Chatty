@@ -57,7 +57,7 @@ void main() async {
     if (Platform.isIOS) {
       LocalStorageService().isPad = await PlatformUtil.isPad;
     }
-    AdsManager.init();
+    AdsManager().initial();
   }
 
   var lastAppLaunchTime = LocalStorageService().appLaunchTime;

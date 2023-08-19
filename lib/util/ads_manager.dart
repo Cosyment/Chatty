@@ -1,179 +1,27 @@
-import 'dart:io' show Platform;
-
-import 'package:applovin_max/applovin_max.dart';
-import 'package:chatty/services/local_storage_service.dart';
-import 'package:chatty/util/constants.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:chatty/advert/admob_impl.dart';
+import 'package:chatty/advert/advert_factory.dart';
+import 'package:chatty/advert/applovin_impl.dart';
 
 class AdsManager {
-  static DateTime? _appOpenLoadTime;
-  static AppOpenAd? _appOpenAd;
-  static final Duration maxCacheDuration = const Duration(hours: 4);
-  static RewardedAd? _rewardedAd;
-  static int _numRewardedLoadAttempts = 0;
-  static int maxFailedLoadAttempts = 5;
-  static bool _isShowingAd = false;
-  static bool _isShowingRewardAd = false;
+  static AdsManager? _instance;
+  AbstractAdvertFactory? advertFactory;
 
-  static init() {
-    MobileAds.instance.initialize();
+  AdsManager._internal() {
+    _instance = this;
+    advertFactory = ApplovinImpl();
   }
 
-  // 390f5e69c1f6a585 android
-  // 2ffbebf36a849c1a ios
-  static void loadAd() async {
-    AppLovinMAX.setTestDeviceAdvertisingIds(['9F91EBBD-ED71-499C-A65F-BC09CBD65FDA','7bd6a4e6-8f28-4f96-9d0a-e48d5c1437ea']);
-    Map? sdkConfiguration =
-        await AppLovinMAX.initialize('lKGMTntNyoxxAscPEXQMIIXSEc_RlU1709KxdWaVtKsCVg3g4z1kym2xbSKH5cQaaql5nrZivaXlt9rDVN4ItI');
-    // sdkConfiguration.putIfAbsent('key', '');
-    AppLovinMAX.setRewardedAdListener(RewardedAdListener(onAdLoadedCallback: (ad) {
-      print('------------->>>>onAdLoadedCallback ${ad}');
-    }, onAdLoadFailedCallback: (ad, error) {
-      print('------------->>>>onAdLoadFailedCallback ${ad}---${error}');
-      // AppLovinMAX.loadRewardedAd('59d15aa2ce9239aa');
-    }, onAdDisplayedCallback: (ad) {
-      print('------------->>>>onAdDisplayedCallback ${ad}');
-    }, onAdDisplayFailedCallback: (ad, error) {
-      print('------------->>>>onAdDisplayFailedCallback ${ad}--${error}');
-    }, onAdClickedCallback: (ad) {
-      print('------------->>>>onAdClickedCallback ${ad}');
-    }, onAdHiddenCallback: (ad) {
-      print('------------->>>>onAdHiddenCallback ${ad}');
-    }, onAdReceivedRewardCallback: (ad, reward) {
-      print('------------->>>>onAdReceivedRewardCallback ${ad}--${reward}');
-    }));
-    AppLovinMAX.setVerboseLogging(true);
-    return;
-// SDK is initialized, start loading ads
-    var testDeviceIds = [
-      "db6d97fbbf93e6cb24cda596b1546ebf",
-      "d1494e297478756e6d210ac3cf443bd4",
-      "33DB042BB30F53894E04020C0ADB3785"
-          "a1d54f1dec3987aebc62373a4c95fa2e"
-    ];
-    var configuration = RequestConfiguration(testDeviceIds: testDeviceIds);
-    MobileAds.instance.updateRequestConfiguration(configuration);
+  factory AdsManager() => _instance ?? AdsManager._internal();
 
-    AppOpenAd.load(
-      adUnitId: Platform.isAndroid ? 'ca-app-pub-6237326926737313/8348034044' : 'ca-app-pub-6237326926737313/3671827400',
-      orientation: AppOpenAd.orientationPortrait,
-      request: const AdRequest(),
-      adLoadCallback: AppOpenAdLoadCallback(
-        onAdLoaded: (ad) {
-          print('$ad loaded');
-          _appOpenLoadTime = DateTime.now();
-          _appOpenAd = ad;
-          _showAd();
-        },
-        onAdFailedToLoad: (error) {
-          print('AppOpenAd failed to load: $error');
-        },
-      ),
-    );
-
-    // RewardedAd.load(Platform.isAndroid ? 'ca-app-pub-6237326926737313/9902726663' : 'ca-app-pub-6237326926737313/3865330721', request: request, rewardedAdLoadCallback: rewardedAdLoadCallback)
+  void initial() {
+    advertFactory?.initial();
   }
 
-  static bool get isAdAvailable {
-    return _appOpenAd != null;
+  void showSplash() {
+    advertFactory?.showSplash();
   }
 
-  static void _showAd() {
-    if (!isAdAvailable) {
-      print('Tried to show ad before available.');
-      loadAd();
-      return;
-    }
-    if (_isShowingAd) {
-      print('Tried to show ad while already showing an ad.');
-      return;
-    }
-    // if (DateTime.now().subtract(maxCacheDuration).isAfter(_appOpenLoadTime!)) {
-    //   print('Maximum cache duration exceeded. Loading another ad.');
-    //   _appOpenAd!.dispose();
-    //   _appOpenAd = null;
-    //   loadAd();
-    //   return;
-    // }
-    _appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (ad) {
-        _isShowingAd = true;
-        print('$ad onAdShowedFullScreenContent');
-      },
-      onAdFailedToShowFullScreenContent: (ad, error) {
-        print('$ad onAdFailedToShowFullScreenContent: $error');
-        _isShowingAd = false;
-        ad.dispose();
-        _appOpenAd = null;
-      },
-      onAdDismissedFullScreenContent: (ad) {
-        print('$ad onAdDismissedFullScreenContent');
-        _isShowingAd = false;
-        ad.dispose();
-        _appOpenAd = null;
-        // loadAd();
-      },
-    );
-    _appOpenAd!.show();
-  }
-
-  static void showReward() async {
-    String unitId = Platform.isIOS ? '59d15aa2ce9239aa' : '2aa9dc2e3dd7ff91';
-    bool? isReady = await AppLovinMAX.isRewardedAdReady(unitId);
-    if (isReady == true) {
-      AppLovinMAX.showRewardedAd(unitId);
-    } else {
-      AppLovinMAX.loadRewardedAd(unitId);
-    }
-  }
-
-  static void loadRewardAd({Function? callback}) {
-    RewardedAd.load(
-        adUnitId: Platform.isAndroid ? 'ca-app-pub-6237326926737313/9902726663' : 'ca-app-pub-6237326926737313/3865330721',
-        request: const AdRequest(),
-        rewardedAdLoadCallback: RewardedAdLoadCallback(
-          onAdLoaded: (RewardedAd ad) {
-            print('$ad loaded.');
-            _rewardedAd = ad;
-            _numRewardedLoadAttempts = 0;
-            _showRewardAd(callback: callback);
-          },
-          onAdFailedToLoad: (LoadAdError error) {
-            print('RewardedAd failed to load: $error');
-            _rewardedAd = null;
-            _numRewardedLoadAttempts += 1;
-            if (_numRewardedLoadAttempts < maxFailedLoadAttempts) {
-              loadRewardAd(callback: callback);
-            } else {
-              callback?.call();
-            }
-          },
-        ));
-  }
-
-  static void _showRewardAd({Function? callback}) {
-    callback?.call();
-    if (_rewardedAd == null) return;
-
-    _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(onAdShowedFullScreenContent: (ad) {
-      debugPrint('_showRewardAd onAdShowedFullScreenContent ${ad}');
-    }, onAdClicked: (ad) {
-      debugPrint('_showRewardAd onAdClicked ${ad}');
-    }, onAdImpression: (ad) {
-      debugPrint('_showRewardAd onAdImpression ${ad}');
-    }, onAdWillDismissFullScreenContent: (ad) {
-      debugPrint('_showRewardAd onAdWillDismissFullScreenContent ${ad}');
-    }, onAdFailedToShowFullScreenContent: (ad, error) {
-      _rewardedAd == null;
-      debugPrint('_showRewardAd onAdFailedToShowFullScreenContent ${ad}');
-    }, onAdDismissedFullScreenContent: (ad) {
-      _rewardedAd = null;
-      debugPrint('_showRewardAd onAdDismissedFullScreenContent ${ad}');
-    });
-    _rewardedAd?.show(onUserEarnedReward: (_, rewardItem) {
-      LocalStorageService().conversationLimit = Constants.REWARD_CONVERSATION_COUNT;
-      debugPrint('_showRewardAd show ${rewardItem.amount}---${rewardItem.type}');
-    });
+  void showReward(Function callback) {
+    advertFactory?.showReward(callback);
   }
 }

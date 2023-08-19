@@ -28,7 +28,7 @@ class _MainScreen extends State<MainScreen> {
 
   @override
   void initState() {
-    AdsManager.loadAd();
+    AdsManager().showSplash();
     EventBus.getDefault().register<EventMessage<CommonStatefulWidget>>(this, (event) {
       setState(() {
         body = event.data;
