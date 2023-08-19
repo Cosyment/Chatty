@@ -80,6 +80,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
               constraints: PopupBoxConstraints.custom(),
               child: TextField(
                 controller: _textFieldController,
+                autofocus: true,
                 decoration: InputDecoration(hintText: hintText),
               )),
           actions: <Widget>[

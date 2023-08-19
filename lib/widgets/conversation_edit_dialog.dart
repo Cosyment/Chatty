@@ -51,6 +51,7 @@ class _ConversationEditDialogState extends State<ConversationEditDialog> {
                 children: [
                   TextFormField(
                     controller: _titleEditingController,
+                    autofocus: true,
                     validator: (value) {
                       return value != null && value.isEmpty ? S.current.title_should_not_be_empty : null;
                     },
