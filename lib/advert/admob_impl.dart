@@ -4,6 +4,7 @@ import 'package:chatty/advert/advert_factory.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../generated/l10n.dart';
 import '../services/local_storage_service.dart';
 import '../util/constants.dart';
 
@@ -21,8 +22,8 @@ class AdmobImpl implements AbstractAdvertFactory {
     var testDeviceIds = [
       "db6d97fbbf93e6cb24cda596b1546ebf",
       "d1494e297478756e6d210ac3cf443bd4",
-      "33DB042BB30F53894E04020C0ADB3785"
-          "a1d54f1dec3987aebc62373a4c95fa2e"
+      "33DB042BB30F53894E04020C0ADB3785",
+      "a1d54f1dec3987aebc62373a4c95fa2e"
     ];
     var configuration = RequestConfiguration(testDeviceIds: testDeviceIds);
     MobileAds.instance.updateRequestConfiguration(configuration);
@@ -75,7 +76,7 @@ class AdmobImpl implements AbstractAdvertFactory {
   }
 
   @override
-  void showReward(Function callback) {
+  void showReward(Function(String? msg) callback) {
     RewardedAd.load(
         adUnitId: Platform.isAndroid ? 'ca-app-pub-6237326926737313/9902726663' : 'ca-app-pub-6237326926737313/3865330721',
         request: const AdRequest(),
@@ -91,16 +92,16 @@ class AdmobImpl implements AbstractAdvertFactory {
             _rewardedAd = null;
             _numRewardedLoadAttempts += 1;
             if (_numRewardedLoadAttempts < maxFailedLoadAttempts) {
-              _showRewardAd(callback);
+              showReward(callback);
             } else {
-              callback.call();
+              callback.call(S.current.ad_load_failure);
             }
           },
         ));
   }
 
-  void _showRewardAd(Function? callback) {
-    callback?.call();
+  void _showRewardAd(Function(String?)? callback) {
+    callback?.call(null);
     if (_rewardedAd == null) return;
 
     _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(onAdShowedFullScreenContent: (ad) {
@@ -122,5 +123,10 @@ class AdmobImpl implements AbstractAdvertFactory {
       LocalStorageService().conversationLimit = Constants.REWARD_CONVERSATION_COUNT;
       debugPrint('_showRewardAd show ${rewardItem.amount}---${rewardItem.type}');
     });
+  }
+
+  @override
+  void showInterstitial(Function(String? msg) callback) {
+    // TODO: implement showInterstitial
   }
 }

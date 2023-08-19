@@ -23,6 +23,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("О приложении"),
+        "ad_load_failure": MessageLookupByLibrary.simpleMessage(
+            "Ошибка загрузки рекламы, пожалуйста, попробуйте еще раз!"),
         "add_your_secret_api_key":
             MessageLookupByLibrary.simpleMessage("Добавьте ваш API ключ"),
         "api_host": MessageLookupByLibrary.simpleMessage("API хост"),

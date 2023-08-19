@@ -47,5 +47,6 @@
   "clean_conversation_tips": "Voulez-vous vraiment supprimer toutes les conversations ?",
   "conversation_chat_reached_limit": "La limite de chat d'aujourd'hui a été atteinte. Veuillez regarder la publicité pour débloquer plus",
   "language": "Langue",
-  "language_code": "Français"
+  "language_code": "Français",
+  "ad_load_failure": "Errore nel caricamento della pubblicità, per favore riprova!"
 }

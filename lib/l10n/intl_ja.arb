@@ -47,5 +47,6 @@
   "clean_conversation_tips": "すべてのセッションをクリアすることを確認しますか？",
   "conversation_chat_reached_limit": "今日はチャットの頻度が限界に達しました。広告を見てロックを解除してください",
   "language": "言語",
-  "language_code": "日本語"
+  "language_code": "日本語",
+  "ad_load_failure": "広告の読み込みに失敗しました。再度お試しください"
 }

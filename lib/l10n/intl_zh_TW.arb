@@ -47,5 +47,6 @@
   "clean_conversation_tips": "確認清空所有會話嗎？",
   "conversation_chat_reached_limit": "今日聊天次數已經用完啦，看廣告可以獲取更多聊天次數哦！",
   "language": "語言",
-  "language_code": "繁體中文"
+  "language_code": "繁體中文",
+  "ad_load_failure": "廣告載入失敗,請重試!"
 }

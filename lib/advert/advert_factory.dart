@@ -3,5 +3,7 @@ abstract class AbstractAdvertFactory {
 
   void showSplash();
 
-  void showReward(Function callback);
+  void showReward(Function(String? msg) callback);
+
+  void showInterstitial(Function(String? msg) callback);
 }

@@ -15,6 +15,7 @@ class PlatformUtil {
   static Future<bool> get isPad async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    debugPrint('device identifier ${iosInfo.identifierForVendor}');
     return iosInfo.utsname.machine.toLowerCase().contains("ipad");
   }
 }

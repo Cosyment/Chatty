@@ -529,6 +529,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Ad load failure,Please try again!`
+  String get ad_load_failure {
+    return Intl.message(
+      'Ad load failure,Please try again!',
+      name: 'ad_load_failure',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
