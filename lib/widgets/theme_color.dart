@@ -22,6 +22,7 @@ class ThemeColor {
   static Color appBarBackgroundColor = primaryColor.shade900;
   static Color backgroundColor = primaryColor.shade800;
   static Color dialogBackground = primaryColor.shade800;
+  static Color popupBackground = CupertinoColors.darkBackgroundGray;
 
   static Color textColor = primaryColor.shade600;
   static Color selectColor = primaryColor.shade300;
