@@ -6,7 +6,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../generated/l10n.dart';
 import '../services/local_storage_service.dart';
-import '../util/constants.dart';
+import 'advert_manager.dart';
 
 class AdmobImpl implements AbstractAdvertFactory {
   static AppOpenAd? _appOpenAd;
@@ -120,7 +120,7 @@ class AdmobImpl implements AbstractAdvertFactory {
       debugPrint('_showRewardAd onAdDismissedFullScreenContent ${ad}');
     });
     _rewardedAd?.show(onUserEarnedReward: (_, rewardItem) {
-      LocalStorageService().conversationLimit = Constants.REWARD_CONVERSATION_COUNT;
+      LocalStorageService().conversationLimit = AdvertManager.REWARD_CONVERSATION_COUNT;
       debugPrint('_showRewardAd show ${rewardItem.amount}---${rewardItem.type}');
     });
   }

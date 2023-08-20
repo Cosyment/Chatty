@@ -1,9 +1,11 @@
-import 'package:chatty/advert/admob_impl.dart';
 import 'package:chatty/advert/advert_factory.dart';
 import 'package:chatty/advert/applovin_impl.dart';
 import 'package:chatty/util/platform_util.dart';
 
 class AdvertManager {
+  static const int DAILY_CONVERSATION_LIMIT = 6; //每日免费会话次数
+  static const int REWARD_CONVERSATION_COUNT = 3; //广告奖励次数
+
   static AdvertManager? _instance;
   AbstractAdvertFactory? advertFactory;
 
@@ -33,7 +35,7 @@ class AdvertManager {
     }
   }
 
-  void showInterstitial(Function(String?) callback){
+  void showInterstitial(Function(String?) callback) {
     if (PlatformUtil.isMobile) {
       advertFactory?.showInterstitial(callback);
     }

@@ -36,5 +36,5 @@
 Ощутите мощь ИИ с Чатти – вашим универсальным помощником для мгновенных ответов, творческой письменной помощи, практики языка и увлекательного общения на любые темы!
 
 ### Key words
-chatg, openai, gpt, Клод, чат-бот, gpr, threads, gpt4, biubiu, titok, chatai, ИИ, спросить, jtp, autogpt, yutub, quora
+chatgp,openai,gpt,Онлайн-чат,Claude,chatbot,gpr,threads,gpt4,biubiu,chatai,AI,ask,jtp,Видеочат,quora
 

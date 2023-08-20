@@ -31,5 +31,5 @@ Chatty ist Ihre Anlaufstelle für Gespräche über jedes Thema, das Sie interess
 Erleben Sie die Kraft der KI mit Chatty - Ihrem ultimativen Begleiter für Sofortantworten, kreative Schreibunterstützung, Sprachpraxis und fesselnde Gespräche über jedes Thema!
 
 ### Key words
-chatg, openai, gpt, Claude, chatbot, gpr, fäden, gpt4, biubiu, titok, chatai, AI, fragen, jtp, autogpt, yutub, quora
+chatgp,Echtzeit,openai,gpt,Claude,chatbot,threads,gpt4,biubiu,chatai,AI,ask,jtp, Kostenloser,quora
 

@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:applovin_max/applovin_max.dart';
 import 'package:chatty/advert/advert_factory.dart';
+import 'package:chatty/advert/advert_manager.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../generated/l10n.dart';
 import '../services/local_storage_service.dart';
-import '../util/constants.dart';
 
 class ApplovinImpl implements AbstractAdvertFactory {
   @override
@@ -18,7 +18,9 @@ class ApplovinImpl implements AbstractAdvertFactory {
       'B230F599-D17E-4091-A2E5-0632B530E3E3',
       '7bd6a4e6-8f28-4f96-9d0a-e48d5c1437ea'
     ]);
-    AppLovinMAX.setVerboseLogging(true);
+    // AppLovinMAX.setVerboseLogging(true);
+    // AppLovinMAX.setCreativeDebuggerEnabled(true);
+    // AppLovinMAX.showMediationDebugger();
 
     // Map? sdkConfiguration =
     AppLovinMAX.initialize('lKGMTntNyoxxAscPEXQMIIXSEc_RlU1709KxdWaVtKsCVg3g4z1kym2xbSKH5cQaaql5nrZivaXlt9rDVN4ItI');
@@ -29,9 +31,11 @@ class ApplovinImpl implements AbstractAdvertFactory {
   void showSplash() {
     String unitId = Platform.isIOS ? '2ffbebf36a849c1a' : '390f5e69c1f6a585';
     AppLovinMAX.loadAppOpenAd(unitId);
-    AppLovinMAX.setAppOpenAdListener(AppOpenAdListener(onAdLoadedCallback: (ad) {
+    AppLovinMAX.setAppOpenAdListener(AppOpenAdListener(onAdLoadedCallback: (ad) async {
       debugPrint('showSplash onAdLoadedCallback $ad');
-      AppLovinMAX.showAppOpenAd(unitId);
+      if (await AppLovinMAX.isAppOpenAdReady(unitId) == true) {
+        AppLovinMAX.showAppOpenAd(unitId);
+      }
     }, onAdLoadFailedCallback: (ad, error) {
       debugPrint('showSplash onAdLoadFailedCallback $ad---$error');
     }, onAdDisplayedCallback: (ad) {
@@ -68,7 +72,7 @@ class ApplovinImpl implements AbstractAdvertFactory {
       }
     }, onAdDisplayedCallback: (ad) {
       debugPrint('showReward onAdDisplayedCallback $ad');
-      LocalStorageService().conversationLimit = Constants.REWARD_CONVERSATION_COUNT;
+      LocalStorageService().conversationLimit = AdvertManager.REWARD_CONVERSATION_COUNT;
     }, onAdDisplayFailedCallback: (ad, error) {
       debugPrint('showReward onAdDisplayFailedCallback $ad--$error');
       callback.call(S.current.ad_load_failure);
@@ -104,7 +108,7 @@ class ApplovinImpl implements AbstractAdvertFactory {
       }
     }, onAdDisplayedCallback: (ad) {
       debugPrint('showInterstitial onAdDisplayedCallback $ad');
-      LocalStorageService().conversationLimit = Constants.REWARD_CONVERSATION_COUNT;
+      LocalStorageService().conversationLimit = AdvertManager.REWARD_CONVERSATION_COUNT;
     }, onAdDisplayFailedCallback: (ad, error) {
       debugPrint('showInterstitial onAdDisplayFailedCallback $ad--$error');
       callback.call(S.current.ad_load_failure);

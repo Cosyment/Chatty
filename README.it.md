@@ -37,5 +37,5 @@ Chatty è la tua fonte di riferimento per chattare su qualsiasi argomento tu vog
 Prova il potere dell'IA con Chatty - il tuo compagno definitivo per risposte istantanee, assistenza creativa alla scrittura, pratica linguistica e coinvolgenti conversazioni su qualsiasi argomento!
 
 ### Key words
-chatg,openai,gpt,Claude,chatbot,gpr,threads,gpt4,biubiu,titok,chatai,IA,chiedi,jtp,autogpt,yutub,quora
+chatgp,openai,gratuita,gpt,Claude,anonima,chatbot,gpr,threads,gpt4,biubiu,chatai,AI,ask,jtp,quora
 

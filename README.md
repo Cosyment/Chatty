@@ -39,7 +39,7 @@ Chatty是您聊天的首选。无论您对影视、音乐、体育、政治、�
 通过与Chatty的互动，体验AI的力量！无论是即时答案、创意写作帮助、语言练习还是有趣的对话，Chatty都是您最佳的伙伴！
 
 ### 关键字
-chatgpt,gpt,gpt4,gpr,jpt,gpt中文,chat,裸聊,聊天软件,写作助手,美女聊天,Claude,threads,openai,autogpt,googl,tlak,duyin
+chatgpt,gpt,gpt4,实时聊天,gpr,openai,jpt,免费聊天,gpt中文,chat,聊天软件,写作助手,Claude,threads,匿名聊天,autogpt,聊天应用,talk
 
 ### 武汉小浣熊网络科技有限公司
 ### Wuhan Raccoon Network Technology Co., Ltd
