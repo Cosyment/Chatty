@@ -43,5 +43,5 @@ Chattyの多言語機能は、あなたが望むどんな言語でもコミュ�
 チャットボッティとの対話でAIの力を体験してください! 即答、クリエイティブライティングヘルプ、言語練習、楽しい会話など、Chattyはあなたの最高のパートナーです!
 
 ### Key words
-chatgpt,Claude,chat,threads,meta,chatai,autogpt,gpt4,talk,tikto,writeアシスタント人,aiチャット,チャットロボット,バーチャル彼女
+chatgpt,Claude,chat,threads,chatai,autogpt,gpt4,talk,チャットアプリ,アシスタント人,aiチャット,チャットロボット,バーチャル彼女,無料チャット
 

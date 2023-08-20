@@ -1,123 +1,107 @@
-import 'dart:io' show Platform;
+import 'dart:io';
 
-import 'package:chatty/services/local_storage_service.dart';
-import 'package:chatty/util/constants.dart';
+import 'package:chatty/advert/advert_factory.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class AdsManager {
-  static DateTime? _appOpenLoadTime;
+import '../generated/l10n.dart';
+import '../services/local_storage_service.dart';
+import 'advert_manager.dart';
+
+class AdmobImpl implements AbstractAdvertFactory {
   static AppOpenAd? _appOpenAd;
-  static final Duration maxCacheDuration = const Duration(hours: 4);
+  static const Duration maxCacheDuration = Duration(hours: 4);
   static RewardedAd? _rewardedAd;
   static int _numRewardedLoadAttempts = 0;
   static int maxFailedLoadAttempts = 5;
   static bool _isShowingAd = false;
-  static bool _isShowingRewardAd = false;
 
-  static init() {
+  @override
+  void initial() {
     MobileAds.instance.initialize();
-  }
-
-  static void loadAd() {
     var testDeviceIds = [
       "db6d97fbbf93e6cb24cda596b1546ebf",
       "d1494e297478756e6d210ac3cf443bd4",
-      "33DB042BB30F53894E04020C0ADB3785"
+      "33DB042BB30F53894E04020C0ADB3785",
       "a1d54f1dec3987aebc62373a4c95fa2e"
     ];
     var configuration = RequestConfiguration(testDeviceIds: testDeviceIds);
     MobileAds.instance.updateRequestConfiguration(configuration);
+  }
 
+  @override
+  void showSplash() {
     AppOpenAd.load(
       adUnitId: Platform.isAndroid ? 'ca-app-pub-6237326926737313/8348034044' : 'ca-app-pub-6237326926737313/3671827400',
       orientation: AppOpenAd.orientationPortrait,
       request: const AdRequest(),
       adLoadCallback: AppOpenAdLoadCallback(
         onAdLoaded: (ad) {
-          print('$ad loaded');
-          _appOpenLoadTime = DateTime.now();
+          debugPrint('$ad loaded');
           _appOpenAd = ad;
-          _showAd();
+          _showSplashAd();
         },
         onAdFailedToLoad: (error) {
-          print('AppOpenAd failed to load: $error');
+          debugPrint('AppOpenAd failed to load: $error');
         },
       ),
     );
-
-    // RewardedAd.load(Platform.isAndroid ? 'ca-app-pub-6237326926737313/9902726663' : 'ca-app-pub-6237326926737313/3865330721', request: request, rewardedAdLoadCallback: rewardedAdLoadCallback)
   }
 
-  static bool get isAdAvailable {
-    return _appOpenAd != null;
-  }
-
-  static void _showAd() {
-    if (!isAdAvailable) {
-      print('Tried to show ad before available.');
-      loadAd();
-      return;
-    }
+  void _showSplashAd() {
     if (_isShowingAd) {
-      print('Tried to show ad while already showing an ad.');
+      debugPrint('Tried to show ad while already showing an ad.');
       return;
     }
-    // if (DateTime.now().subtract(maxCacheDuration).isAfter(_appOpenLoadTime!)) {
-    //   print('Maximum cache duration exceeded. Loading another ad.');
-    //   _appOpenAd!.dispose();
-    //   _appOpenAd = null;
-    //   loadAd();
-    //   return;
-    // }
-    _appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
+
+    _appOpenAd?.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (ad) {
         _isShowingAd = true;
-        print('$ad onAdShowedFullScreenContent');
+        debugPrint('$ad onAdShowedFullScreenContent');
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
-        print('$ad onAdFailedToShowFullScreenContent: $error');
+        debugPrint('$ad onAdFailedToShowFullScreenContent: $error');
         _isShowingAd = false;
         ad.dispose();
         _appOpenAd = null;
       },
       onAdDismissedFullScreenContent: (ad) {
-        print('$ad onAdDismissedFullScreenContent');
+        debugPrint('$ad onAdDismissedFullScreenContent');
         _isShowingAd = false;
         ad.dispose();
         _appOpenAd = null;
-        // loadAd();
       },
     );
     _appOpenAd!.show();
   }
 
-  static void loadRewardAd({Function? callback}) {
+  @override
+  void showReward(Function(String? msg) callback) {
     RewardedAd.load(
         adUnitId: Platform.isAndroid ? 'ca-app-pub-6237326926737313/9902726663' : 'ca-app-pub-6237326926737313/3865330721',
         request: const AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
           onAdLoaded: (RewardedAd ad) {
-            print('$ad loaded.');
+            debugPrint('$ad loaded.');
             _rewardedAd = ad;
             _numRewardedLoadAttempts = 0;
-            _showRewardAd(callback: callback);
+            _showRewardAd(callback);
           },
           onAdFailedToLoad: (LoadAdError error) {
-            print('RewardedAd failed to load: $error');
+            debugPrint('RewardedAd failed to load: $error');
             _rewardedAd = null;
             _numRewardedLoadAttempts += 1;
             if (_numRewardedLoadAttempts < maxFailedLoadAttempts) {
-              loadRewardAd(callback: callback);
+              showReward(callback);
             } else {
-              callback?.call();
+              callback.call(S.current.ad_load_failure);
             }
           },
         ));
   }
 
-  static void _showRewardAd({Function? callback}) {
-    callback?.call();
+  void _showRewardAd(Function(String?)? callback) {
+    callback?.call(null);
     if (_rewardedAd == null) return;
 
     _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(onAdShowedFullScreenContent: (ad) {
@@ -136,8 +120,13 @@ class AdsManager {
       debugPrint('_showRewardAd onAdDismissedFullScreenContent ${ad}');
     });
     _rewardedAd?.show(onUserEarnedReward: (_, rewardItem) {
-      LocalStorageService().conversationLimit = Constants.REWARD_CONVERSATION_COUNT;
+      LocalStorageService().conversationLimit = AdvertManager.REWARD_CONVERSATION_COUNT;
       debugPrint('_showRewardAd show ${rewardItem.amount}---${rewardItem.type}');
     });
+  }
+
+  @override
+  void showInterstitial(Function(String? msg) callback) {
+    // TODO: implement showInterstitial
   }
 }

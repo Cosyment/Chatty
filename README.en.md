@@ -1,5 +1,8 @@
 # Chatty - AI Chat Assistant
 
+# Subtitle 
+### Ask ai anything and get answer
+
 ### Simple description
 #### Based on GPT3 and GPT4 language models, provides writing help,knowledge quizzes, translation, film music game and more, answers any puzzles,even virtual girlfriend.
 
@@ -40,5 +43,5 @@ language practice,
 and engaging conversations on any topic!
 
 ### Key words
-chatg,openai,gpt,Claude,chatbot,gpr,threads,gpt4,biubiu,titok,chatai,AI,ask,jtp,autogpt,yutub,quora
+chatgp,openai,gpt,Claude,Free,autogpt,gpr,Online,threads,gpt4,biubiu,chatai,ask,jtp,Anonymous,chatbo
 

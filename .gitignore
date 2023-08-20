@@ -393,3 +393,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /ios/Podfile.lock
+/pubspec.lock

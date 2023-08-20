@@ -55,6 +55,7 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
 
+        multiDexEnabled true
 //        flavorDimensions "channel"
 
         consumerProguardFiles 'proguard-rules.pro'
@@ -153,4 +154,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.umeng.umsdk:common:9.6.1'// 必选
     implementation 'com.umeng.umsdk:asms:1.8.0'// 必选
+    implementation 'com.android.support:multidex:1.0.3'
 }

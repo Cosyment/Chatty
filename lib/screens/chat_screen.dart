@@ -3,11 +3,11 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:chatty/advert/advert_manager.dart';
 import 'package:chatty/api/http_request.dart';
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/models/prompt.dart';
-import 'package:chatty/util/ads_manager.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/util/platform_util.dart';
@@ -148,14 +148,20 @@ class _ChatScreenState extends State<ChatScreenPage> {
   Future<bool> _hasConversationLimit(BuildContext context) async {
     if (PlatformUtil.isMobile) {
       var conversationReachedLimit = LocalStorageService().conversationLimit;
-      if (conversationReachedLimit >= Constants.DAILY_CONVERSATION_LIMIT) {
+      // if (conversationReachedLimit >= AdvertManager.DAILY_CONVERSATION_LIMIT) {
+      if (conversationReachedLimit >= 2) {
         var result = await showRewardConfirmDialog(context);
         if (result == true) {
-          setState(() {
+          if (context.mounted) {
             showLoadingDialog(context);
-          });
-          AdsManager.loadRewardAd(callback: () {
-            Navigator.pop(context);
+          }
+          AdvertManager().showInterstitial((msg) {
+            if (context.mounted && Navigator.canPop(context)) {
+              Navigator.pop(context);
+            }
+            if (msg?.isNotEmpty == true) {
+              scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(content: Text(msg!)));
+            }
           });
         }
         return true;

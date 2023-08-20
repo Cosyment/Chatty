@@ -38,4 +38,4 @@ Chatty是您聊天的首選。 無論您對影視、音樂、體育、政治、�
 通過與Chatty的互動，體驗AI的力量！ 無論是即時答案、創意寫作幫助、語言練習還是有趣的對話，Chatty都是您最佳的夥伴！
 
 ### 关键字
-chatgpt,Claude,threads,ai,chatbot,autogpt,gpt4,chat,googl,tlak,duyin,toutia,mom,biubiu,meta,vrchat
+chatgpt,openai,gpt,免費聊天,Claude,在線,實時,匿名,chatbot,gpr,threads,gpt4,biubiu,chatai,AI,ask,jtp,quora,語音聊天
