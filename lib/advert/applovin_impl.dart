@@ -68,7 +68,8 @@ class ApplovinImpl implements AbstractAdvertFactory {
           retryAttempt += 1;
         });
       } else {
-        callback.call(S.current.ad_load_failure);
+        // callback.call(S.current.ad_load_failure);
+        showInterstitial(callback);
       }
     }, onAdDisplayedCallback: (ad) {
       debugPrint('showReward onAdDisplayedCallback $ad');
@@ -105,6 +106,7 @@ class ApplovinImpl implements AbstractAdvertFactory {
         });
       } else {
         callback.call(S.current.ad_load_failure);
+        LocalStorageService().conversationLimit = AdvertManager.REWARD_CONVERSATION_COUNT;
       }
     }, onAdDisplayedCallback: (ad) {
       debugPrint('showInterstitial onAdDisplayedCallback $ad');

@@ -95,6 +95,8 @@ class AdmobImpl implements AbstractAdvertFactory {
               showReward(callback);
             } else {
               callback.call(S.current.ad_load_failure);
+              // LocalStorageService().conversationLimit = AdvertManager.REWARD_CONVERSATION_COUNT;
+              showInterstitial(callback);
             }
           },
         ));
@@ -127,6 +129,6 @@ class AdmobImpl implements AbstractAdvertFactory {
 
   @override
   void showInterstitial(Function(String? msg) callback) {
-    // TODO: implement showInterstitial
+    callback.call(null);
   }
 }
