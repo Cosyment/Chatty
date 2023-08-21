@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "consejo: ingresar \'/\' puede desencadenar más sorpresas"),
         "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
             "Crear o seleccionar una conversación"),
+        "current_level": MessageLookupByLibrary.simpleMessage("Current"),
         "custom_api_host":
             MessageLookupByLibrary.simpleMessage("Personalización host API"),
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
@@ -77,13 +78,39 @@ class MessageLookup extends MessageLookupByLibrary {
         "model": MessageLookupByLibrary.simpleMessage("Modelo"),
         "new_conversation":
             MessageLookupByLibrary.simpleMessage("Nueva conversación"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("您还没有订阅过哦"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organización"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
         "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
             "Por favor, agregue primero su clave api"),
+        "premium": MessageLookupByLibrary.simpleMessage("Premium"),
+        "premium_features1":
+            MessageLookupByLibrary.simpleMessage("Send Unlimited"),
+        "premium_features2":
+            MessageLookupByLibrary.simpleMessage("Support GPT4"),
+        "premium_features3":
+            MessageLookupByLibrary.simpleMessage("Support Markdown Render"),
+        "premium_features4":
+            MessageLookupByLibrary.simpleMessage("Higher word limit"),
+        "premium_features5":
+            MessageLookupByLibrary.simpleMessage("Custom API Host"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("No Ad"),
+        "premium_plus_explain":
+            MessageLookupByLibrary.simpleMessage("Plus Premium Features"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacidad"),
+        "privacy_policy":
+            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "prompt": MessageLookupByLibrary.simpleMessage("Sugerencias"),
+        "purchase_cancel":
+            MessageLookupByLibrary.simpleMessage("Purchase Cancel"),
+        "purchase_error":
+            MessageLookupByLibrary.simpleMessage("Purchase Unknown Error"),
+        "purchase_failure":
+            MessageLookupByLibrary.simpleMessage("Purchase Failure"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage(
+            "Congratulations Subscribe Success!"),
+        "refuse": MessageLookupByLibrary.simpleMessage("Not now"),
         "reminder": MessageLookupByLibrary.simpleMessage("Consejos"),
         "render_mode":
             MessageLookupByLibrary.simpleMessage("Modo de renderizado"),
@@ -92,11 +119,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Restablecer clave API"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
             "¿Está seguro de que desea restablecer la clave api? Después del restablecimiento, debe agregar una nueva clave api o reiniciar la aplicación"),
+        "restore": MessageLookupByLibrary.simpleMessage("Restore"),
         "send_a_message":
             MessageLookupByLibrary.simpleMessage("Enviar un mensaje..."),
         "settings": MessageLookupByLibrary.simpleMessage("Configuración"),
+        "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
+        "terms_use": MessageLookupByLibrary.simpleMessage("Terms Use"),
         "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage(
             "El título no debe estar vacío"),
-        "version": MessageLookupByLibrary.simpleMessage("Versión")
+        "version": MessageLookupByLibrary.simpleMessage("Versión"),
+        "your_are_not_membership": MessageLookupByLibrary.simpleMessage(
+            "You have not subscribed to the membership service yet")
       };
 }
