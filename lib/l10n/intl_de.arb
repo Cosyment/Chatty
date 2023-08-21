@@ -47,5 +47,6 @@
   "clean_conversation_tips": "Möchten Sie wirklich alle Unterhaltungen löschen?",
   "conversation_chat_reached_limit": "Das Chat-Limit für heute wurde erreicht. Bitte Anzeige ansehen, um mehr freizuschalten",
   "language": "Sprache",
-  "language_code": "Deutsch"
+  "language_code": "Deutsch",
+  "ad_load_failure": "Fehler beim Laden der Werbung, bitte versuchen Sie es erneut!"
 }

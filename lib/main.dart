@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:chatty/advert/advert_manager.dart';
 import 'package:chatty/api/http_request.dart';
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
-import 'package:chatty/util/ads_manager.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/util/platform_util.dart';
@@ -57,7 +57,7 @@ void main() async {
     if (Platform.isIOS) {
       LocalStorageService().isPad = await PlatformUtil.isPad;
     }
-    AdsManager.init();
+    AdvertManager().initial();
   }
 
   var lastAppLaunchTime = LocalStorageService().appLaunchTime;
@@ -128,10 +128,17 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                 colorScheme: ColorScheme.dark(brightness: Brightness.dark, primary: ThemeColor.primaryColor),
                 appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor),
                 scaffoldBackgroundColor: ThemeColor.backgroundColor,
-                popupMenuTheme: PopupMenuThemeData(color: ThemeColor.dialogBackground),
+                popupMenuTheme: PopupMenuThemeData(color: ThemeColor.popupBackground, elevation: 10),
                 dialogBackgroundColor: ThemeColor.dialogBackground,
-                hoverColor: Colors.black12,
                 textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.white70),
+                inputDecorationTheme: InputDecorationTheme(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: ThemeColor.selectColor),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: ThemeColor.textColor),
+                  ),
+                ),
                 textButtonTheme: const TextButtonThemeData(
                     style: ButtonStyle(foregroundColor: MaterialStatePropertyAll<Color>(Colors.white54))),
                 elevatedButtonTheme: const ElevatedButtonThemeData(
@@ -177,6 +184,7 @@ void initialConfiguration() async {
 
 void getCurrentCountry() async {
   dynamic result = await HttpRequest.requestJson(Urls.queryCountry);
+  debugPrint('current country: $result');
   LocalStorageService().currentCountryCode = result['countryCode'];
 
   getDomain();

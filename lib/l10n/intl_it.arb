@@ -47,5 +47,6 @@
   "clean_conversation_tips": "Sei sicuro di voler cancellare tutte le conversazioni?",
   "conversation_chat_reached_limit": "Il limite di chat di oggi è stato raggiunto. Guarda l'annuncio per sbloccarne altre",
   "language": "Linguaggio",
-  "language_code": "Italiano"
+  "language_code": "Italiano",
+  "ad_load_failure": "Errore nel caricamento della pubblicità, per favore riprova!"
 }

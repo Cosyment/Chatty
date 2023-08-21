@@ -14,7 +14,7 @@
   "ok": "OK",
   "invalid_api_key": "Invalid API Key",
   "authentication": "Authentication",
-  "api_key":"API Key",
+  "api_key": "API Key",
   "add_your_secret_api_key": "Add your api key",
   "please_add_your_api_key": "Please add your api key first",
   "organization": "Organization",
@@ -39,13 +39,14 @@
   "delete": "Delete",
   "create_conversation_to_start": "Create or select a conversation",
   "create_conversation_tip": "tips: Entering '/' can trigger more surprises",
-  "other":"Other",
+  "other": "Other",
   "reset_api_key": "Reset API Key",
   "reset_api_key_tips": "Are you sure you want to reset the api key? After the reset, you need to add a new api key or restart the app",
-  "prompt":"Prompts",
+  "prompt": "Prompts",
   "reminder": "Tips",
   "clean_conversation_tips": "Are you sure to clear all conversations？",
   "conversation_chat_reached_limit": "The chat frequency has reached the limit today. Please check the advertisement to unlock more times",
   "language": "Language",
-  "language_code": "English"
+  "language_code": "English",
+  "ad_load_failure": "Ad load failure,Please try again!"
 }
