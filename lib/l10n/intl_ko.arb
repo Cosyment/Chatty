@@ -48,6 +48,7 @@
   "conversation_chat_reached_limit": "오늘 채팅 빈도가 이미 한계에 도달했다.광고를 보고 여러 번 잠금을 해제하십시오.",
   "language": "언어",
   "language_code": "한국어",
+  "ad_load_failure": "광고 로드 실패, 다시 시도해 주세요!",
   "premium": "会员订阅",
   "premium_plus_explain": "Plus 高级会员权益",
   "premium_features1": "聊天无限制",

@@ -1,3 +1,4 @@
+import 'package:chatty/advert/advert_manager.dart';
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/util/navigation.dart';

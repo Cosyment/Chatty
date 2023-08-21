@@ -38,5 +38,5 @@ Chatty는 채팅을 할 수 있는 곳입니다. 영화, 음악, 스포츠, 정�
 Chatty와 상호 작용하여 AI의 힘을 경험하십시오! 즉각적인 답변, 창의적인 글쓰기 지원, 언어 연습 또는 재미있는 대화 등 Chatty는 최고의 파트너입니다!
 
 ### Key words
-chatgpt,Claude,meta,threads,chatai,chatbot,autogpt,gpt4,googl,googltlak,duyin,보조,ai 회사,챗봇,가상 여자친구
+chatgpt,채팅앱,Claude,무료채팅,threads,온라인채팅,chatai,chatbot,실시간채팅,autogpt,gpt4,googtlak,보조,ai 회사,챗봇,가상 여자친구
 

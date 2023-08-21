@@ -48,6 +48,7 @@
   "conversation_chat_reached_limit": "Лимит чатов для сегодня исчерпан. Посмотрите рекламу, чтобы разблокировать еще",
   "language": "Язык",
   "language_code": "Русский язык",
+  "ad_load_failure": "Ошибка загрузки рекламы, пожалуйста, попробуйте еще раз!",
   "premium": "会员订阅",
   "premium_plus_explain": "Plus 高级会员权益",
   "premium_features1": "聊天无限制",

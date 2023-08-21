@@ -48,6 +48,7 @@
   "conversation_chat_reached_limit": "今日聊天次數已經用完啦，看廣告可以獲取更多聊天次數哦！",
   "language": "語言",
   "language_code": "繁體中文",
+  "ad_load_failure": "廣告載入失敗,請重試!",
   "premium": "会员订阅",
   "premium_plus_explain": "Plus 高级会员权益",
   "premium_features1": "聊天无限制",

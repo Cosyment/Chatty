@@ -1,25 +1,24 @@
-import 'dart:io' show Platform;
+import 'dart:io';
 
-import 'package:chatty/services/local_storage_service.dart';
-import 'package:chatty/util/constants.dart';
+import 'package:chatty/advert/advert_factory.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class AdsManager {
-  static DateTime? _appOpenLoadTime;
+import '../generated/l10n.dart';
+import '../services/local_storage_service.dart';
+import 'advert_manager.dart';
+
+class AdmobImpl implements AbstractAdvertFactory {
   static AppOpenAd? _appOpenAd;
   static const Duration maxCacheDuration = Duration(hours: 4);
   static RewardedAd? _rewardedAd;
   static int _numRewardedLoadAttempts = 0;
   static int maxFailedLoadAttempts = 5;
   static bool _isShowingAd = false;
-  static bool _isShowingRewardAd = false;
-  final isMembershipUser = LocalStorageService().getCurrentMembershipProductId().isNotEmpty;
 
-  static init() {
-    debugPrint('ad initialize');
+  @override
+  void initial() {
     MobileAds.instance.initialize();
-
     var testDeviceIds = [
       "db6d97fbbf93e6cb24cda596b1546ebf",
       "d1494e297478756e6d210ac3cf443bd4",
@@ -30,9 +29,8 @@ class AdsManager {
     MobileAds.instance.updateRequestConfiguration(configuration);
   }
 
-  static void loadAd() {
-    if (LocalStorageService().isMembershipUser()) return;
-
+  @override
+  void showSplash() {
     AppOpenAd.load(
       adUnitId: Platform.isAndroid ? 'ca-app-pub-6237326926737313/8348034044' : 'ca-app-pub-6237326926737313/3671827400',
       orientation: AppOpenAd.orientationPortrait,
@@ -40,9 +38,8 @@ class AdsManager {
       adLoadCallback: AppOpenAdLoadCallback(
         onAdLoaded: (ad) {
           debugPrint('$ad loaded');
-          _appOpenLoadTime = DateTime.now();
           _appOpenAd = ad;
-          _showAd();
+          _showSplashAd();
         },
         onAdFailedToLoad: (error) {
           debugPrint('AppOpenAd failed to load: $error');
@@ -51,22 +48,13 @@ class AdsManager {
     );
   }
 
-  static bool get isAdAvailable {
-    return _appOpenAd != null;
-  }
-
-  static void _showAd() {
-    if (!isAdAvailable) {
-      debugPrint('Tried to show ad before available.');
-      loadAd();
-      return;
-    }
+  void _showSplashAd() {
     if (_isShowingAd) {
       debugPrint('Tried to show ad while already showing an ad.');
       return;
     }
 
-    _appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
+    _appOpenAd?.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (ad) {
         _isShowingAd = true;
         debugPrint('$ad onAdShowedFullScreenContent');
@@ -82,22 +70,13 @@ class AdsManager {
         _isShowingAd = false;
         ad.dispose();
         _appOpenAd = null;
-        // loadAd();
       },
     );
     _appOpenAd!.show();
   }
 
-  static void loadRewardAd({Function? callback}) {
-    if (LocalStorageService().isMembershipUser()) return;
-
-    debugPrint('loadRewardAd _rewardedAd ${_rewardedAd}');
-
-    if (_rewardedAd != null) {
-      _showRewardAd(callback: callback);
-      return;
-    }
-
+  @override
+  void showReward(Function(String? msg) callback) {
     RewardedAd.load(
         adUnitId: Platform.isAndroid ? 'ca-app-pub-6237326926737313/9902726663' : 'ca-app-pub-6237326926737313/3865330721',
         request: const AdRequest(),
@@ -106,23 +85,25 @@ class AdsManager {
             debugPrint('$ad loaded.');
             _rewardedAd = ad;
             _numRewardedLoadAttempts = 0;
-            _showRewardAd(callback: callback);
+            _showRewardAd(callback);
           },
           onAdFailedToLoad: (LoadAdError error) {
             debugPrint('RewardedAd failed to load: $error');
             _rewardedAd = null;
             _numRewardedLoadAttempts += 1;
             if (_numRewardedLoadAttempts < maxFailedLoadAttempts) {
-              loadRewardAd(callback: callback);
+              showReward(callback);
             } else {
-              callback?.call();
+              callback.call(S.current.ad_load_failure);
+              // LocalStorageService().conversationLimit = AdvertManager.REWARD_CONVERSATION_COUNT;
+              showInterstitial(callback);
             }
           },
         ));
   }
 
-  static void _showRewardAd({Function? callback}) {
-    callback?.call();
+  void _showRewardAd(Function(String?)? callback) {
+    callback?.call(null);
     if (_rewardedAd == null) return;
 
     _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(onAdShowedFullScreenContent: (ad) {
@@ -141,10 +122,13 @@ class AdsManager {
       debugPrint('_showRewardAd onAdDismissedFullScreenContent ${ad}');
     });
     _rewardedAd?.show(onUserEarnedReward: (_, rewardItem) {
-      //看完广告重置当日会话次数
-      LocalStorageService().conversationLimit = 0;
-      Constants.CURREN_WATCH_AD_COUNT += 1;
+      LocalStorageService().conversationLimit = AdvertManager.REWARD_CONVERSATION_COUNT;
       debugPrint('_showRewardAd show ${rewardItem.amount}---${rewardItem.type}');
     });
+  }
+
+  @override
+  void showInterstitial(Function(String? msg) callback) {
+    callback.call(null);
   }
 }

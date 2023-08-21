@@ -155,7 +155,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
   String parseLanguage(String? languageCode) {
     if (languageCode == 'zh' || languageCode == 'zh-CN') {
       return '简体中文';
-    } else if (languageCode == 'zh-Hant' || languageCode == 'zh-TW') {
+    } else if (languageCode == 'zh-Hant' || languageCode == 'zh-TW' || languageCode == 'zh-HK') {
       return '繁體中文';
     } else if (languageCode == 'fr') {
       return 'Français';
@@ -169,6 +169,8 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
       return 'Deutsch';
     } else if (languageCode == 'it') {
       return 'Italiano';
+    } else if (languageCode == 'es') {
+      return 'Español';
     }
     return 'English';
   }

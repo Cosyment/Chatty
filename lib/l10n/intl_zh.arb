@@ -48,6 +48,7 @@
   "conversation_chat_reached_limit": "今日聊天次数已经用完啦，看广告可以获取更多聊天次数哦！",
   "language": "语言设置",
   "language_code": "简体中文",
+  "ad_load_failure": "广告加载失败，请稍后再试",
   "premium": "会员订阅",
   "premium_plus_explain": "Plus 高级会员权益",
   "premium_features1": "聊天无限制",

@@ -83,7 +83,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
                 key: scaffoldKey,
                 drawer: Drawer(
                   //New added
-                  width: LocalStorageService().isPad ? 280 : 230,
+                  width: LocalStorageService().isPad ? 280 : 245,
                   child: widget.sidebar, //New added
                 ),
                 //New added

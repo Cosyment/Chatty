@@ -48,6 +48,7 @@
   "conversation_chat_reached_limit": "Il limite di chat di oggi è stato raggiunto. Guarda l'annuncio per sbloccarne altre",
   "language": "Linguaggio",
   "language_code": "Italiano",
+  "ad_load_failure": "Errore nel caricamento della pubblicità, per favore riprova!",
   "premium": "会员订阅",
   "premium_plus_explain": "Plus 高级会员权益",
   "premium_features1": "聊天无限制",

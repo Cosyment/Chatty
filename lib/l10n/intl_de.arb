@@ -48,6 +48,8 @@
   "conversation_chat_reached_limit": "Das Chat-Limit für heute wurde erreicht. Bitte Anzeige ansehen, um mehr freizuschalten",
   "language": "Sprache",
   "language_code": "Deutsch",
+  "ad_load_failure": "Fehler beim Laden der Werbung, bitte versuchen Sie es erneut!"
+  "language_code": "Deutsch",
   "premium": "会员订阅",
   "premium_plus_explain": "Plus 高级会员权益",
   "premium_features1": "聊天无限制",

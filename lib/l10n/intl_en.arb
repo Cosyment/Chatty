@@ -48,6 +48,7 @@
   "conversation_chat_reached_limit": "The chat frequency has reached the limit today. Please check the advertisement to unlock more times",
   "language": "Language",
   "language_code": "English",
+  "ad_load_failure": "Ad load failure,Please try again!"
   "premium": "Premium",
   "premium_plus_explain": "Plus Premium Features",
   "premium_features1": "Send Unlimited",

@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:chatty/advert/advert_manager.dart';
 import 'package:chatty/api/http_request.dart';
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
-import 'package:chatty/util/ads_manager.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/util/platform_util.dart';
@@ -58,7 +58,7 @@ void main() async {
     if (Platform.isIOS) {
       LocalStorageService().isPad = await PlatformUtil.isPad;
     }
-    AdsManager.init();
+    AdvertManager().initial();
   }
 
   var lastAppLaunchTime = LocalStorageService().appLaunchTime;
@@ -210,6 +210,7 @@ void initialConfiguration() async {
 
 void getCurrentCountry() async {
   dynamic result = await HttpRequest.requestJson(Urls.queryCountry);
+  debugPrint('current country: $result');
   LocalStorageService().currentCountryCode = result['countryCode'];
 
   getDomain();
