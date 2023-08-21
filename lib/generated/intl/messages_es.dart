@@ -70,25 +70,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Clave API inválida"),
         "language": MessageLookupByLibrary.simpleMessage("Idioma"),
         "language_code": MessageLookupByLibrary.simpleMessage("Inglés"),
-        "manage_api_keys":
-            MessageLookupByLibrary.simpleMessage("Encontrar claves"),
+        "manage_api_keys": MessageLookupByLibrary.simpleMessage("Encontrar claves"),
         "message_to_help_set_the_behavior_of_the":
-            MessageLookupByLibrary.simpleMessage(
-                "Mensaje para ayudar a configurar el comportamiento de"),
+            MessageLookupByLibrary.simpleMessage("Mensaje para ayudar a configurar el comportamiento de"),
         "model": MessageLookupByLibrary.simpleMessage("Modelo"),
-        "new_conversation":
-            MessageLookupByLibrary.simpleMessage("Nueva conversación"),
-        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("您还没有订阅过哦"),
+        "new_conversation": MessageLookupByLibrary.simpleMessage("Nueva conversación"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("Nothing to Restore"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organización"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
-            "Por favor, agregue primero su clave api"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Por favor, agregue primero su clave api"),
         "premium": MessageLookupByLibrary.simpleMessage("Premium"),
-        "premium_features1":
-            MessageLookupByLibrary.simpleMessage("Send Unlimited"),
-        "premium_features2":
-            MessageLookupByLibrary.simpleMessage("Support GPT4"),
+        "premium_features1": MessageLookupByLibrary.simpleMessage("Send Unlimited"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("Support GPT4"),
         "premium_features3":
             MessageLookupByLibrary.simpleMessage("Support Markdown Render"),
         "premium_features4":

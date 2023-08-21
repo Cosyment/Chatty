@@ -131,4 +131,7 @@ class AdmobImpl implements AbstractAdvertFactory {
   void showInterstitial(Function(String? msg) callback) {
     callback.call(null);
   }
+
+  @override
+  void showBanner() {}
 }

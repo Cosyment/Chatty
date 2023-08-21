@@ -6,4 +6,6 @@ abstract class AbstractAdvertFactory {
   void showReward(Function(String? msg) callback);
 
   void showInterstitial(Function(String? msg) callback);
+
+  void showBanner();
 }

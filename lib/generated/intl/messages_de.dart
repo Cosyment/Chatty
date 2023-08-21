@@ -41,28 +41,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Chat-Parameter"),
         "clean_conversation_tips": MessageLookupByLibrary.simpleMessage(
             "Möchten Sie wirklich alle Unterhaltungen löschen?"),
-        "clear_conversation":
-            MessageLookupByLibrary.simpleMessage("Unterhaltung löschen"),
-        "clear_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "Möchten Sie den Chatverlauf wirklich löschen?"),
+        "clear_conversation": MessageLookupByLibrary.simpleMessage("Unterhaltung löschen"),
+        "clear_conversation_tips": MessageLookupByLibrary.simpleMessage("Möchten Sie den Chatverlauf wirklich löschen?"),
         "conversation_chat_reached_limit": MessageLookupByLibrary.simpleMessage(
             "Das Chat-Limit für heute wurde erreicht. Bitte Anzeige ansehen, um mehr freizuschalten"),
         "conversations": MessageLookupByLibrary.simpleMessage("Gespräche"),
-        "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
-            "Tipp: Mit \'/\' können Sie mehr Überraschungen auslösen"),
-        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
-            "Erstellen oder auswählen Sie eine Unterhaltung"),
-        "current_level": MessageLookupByLibrary.simpleMessage("当前会员等级"),
-        "custom_api_host": MessageLookupByLibrary.simpleMessage(
-            "Benutzerdefinierter API-Host"),
+        "create_conversation_tip":
+            MessageLookupByLibrary.simpleMessage("Tipp: Mit \'/\' können Sie mehr Überraschungen auslösen"),
+        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage("Erstellen oder auswählen Sie eine Unterhaltung"),
+        "current_level": MessageLookupByLibrary.simpleMessage("Current"),
+        "custom_api_host": MessageLookupByLibrary.simpleMessage("Benutzerdefinierter API-Host"),
         "delete": MessageLookupByLibrary.simpleMessage("Löschen"),
-        "delete_conversation":
-            MessageLookupByLibrary.simpleMessage("Unterhaltung löschen"),
-        "delete_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "Möchten Sie die Unterhaltung wirklich löschen?"),
+        "delete_conversation": MessageLookupByLibrary.simpleMessage("Unterhaltung löschen"),
+        "delete_conversation_tips": MessageLookupByLibrary.simpleMessage("Möchten Sie die Unterhaltung wirklich löschen?"),
         "edit": MessageLookupByLibrary.simpleMessage("Bearbeiten"),
-        "edit_conversation":
-            MessageLookupByLibrary.simpleMessage("Unterhaltung bearbeiten"),
+        "edit_conversation": MessageLookupByLibrary.simpleMessage("Unterhaltung bearbeiten"),
         "enter_a_conversation_title": MessageLookupByLibrary.simpleMessage(
             "Geben Sie einen Gesprächstitel ein"),
         "history_limit": MessageLookupByLibrary.simpleMessage("Verlaufsgrenze"),
@@ -70,56 +63,44 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ungültiger API-Schlüssel"),
         "language": MessageLookupByLibrary.simpleMessage("Sprache"),
         "language_code": MessageLookupByLibrary.simpleMessage("Deutsch"),
-        "manage_api_keys":
-            MessageLookupByLibrary.simpleMessage("Schlüssel finden"),
-        "message_to_help_set_the_behavior_of_the":
-            MessageLookupByLibrary.simpleMessage(
-                "Nachricht zur Verhaltenssteuerung"),
+        "manage_api_keys": MessageLookupByLibrary.simpleMessage("Schlüssel finden"),
+        "message_to_help_set_the_behavior_of_the": MessageLookupByLibrary.simpleMessage("Nachricht zur Verhaltenssteuerung"),
         "model": MessageLookupByLibrary.simpleMessage("Modell"),
-        "new_conversation":
-            MessageLookupByLibrary.simpleMessage("Neue Unterhaltung"),
-        "nothing_to_restore":
-            MessageLookupByLibrary.simpleMessage("Nothing to restore"),
+        "new_conversation": MessageLookupByLibrary.simpleMessage("Neue Unterhaltung"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("Nothing to Restore"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organisation"),
         "other": MessageLookupByLibrary.simpleMessage("Andere"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
-            "Bitte fügen Sie zuerst Ihren API-Schlüssel hinzu"),
-        "premium": MessageLookupByLibrary.simpleMessage("会员订阅"),
-        "premium_features1": MessageLookupByLibrary.simpleMessage("聊天无限制"),
-        "premium_features2": MessageLookupByLibrary.simpleMessage("支持GPT4"),
-        "premium_features3":
-            MessageLookupByLibrary.simpleMessage("支持Markdown渲染"),
-        "premium_features4": MessageLookupByLibrary.simpleMessage("更高的字数上限"),
-        "premium_features5": MessageLookupByLibrary.simpleMessage("支持自定义域名"),
-        "premium_features6": MessageLookupByLibrary.simpleMessage("纯净无广告"),
-        "premium_plus_explain":
-            MessageLookupByLibrary.simpleMessage("Plus 高级会员权益"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Bitte fügen Sie zuerst Ihren API-Schlüssel hinzu"),
+        "premium": MessageLookupByLibrary.simpleMessage("Premium"),
+        "premium_features1": MessageLookupByLibrary.simpleMessage("Send Unlimited"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("Support GPT4"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage("Support Markdown Render"),
+        "premium_features4": MessageLookupByLibrary.simpleMessage("Higher word limit"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage("Custom API Host"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("No Ad"),
+        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Plus Premium Features"),
         "privacy": MessageLookupByLibrary.simpleMessage("Datenschutz"),
-        "privacy_policy": MessageLookupByLibrary.simpleMessage("隐私政策"),
+        "privacy_policy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "prompt": MessageLookupByLibrary.simpleMessage("Aufforderungen"),
-        "purchase_cancel": MessageLookupByLibrary.simpleMessage("支付已取消"),
-        "purchase_error": MessageLookupByLibrary.simpleMessage("支付出错，请稍后再试"),
-        "purchase_failure": MessageLookupByLibrary.simpleMessage("支付失败，请稍后再试"),
-        "purchase_success": MessageLookupByLibrary.simpleMessage("恭喜会员开通成功"),
-        "refuse": MessageLookupByLibrary.simpleMessage("Ruthless refusal"),
+        "purchase_cancel": MessageLookupByLibrary.simpleMessage("Purchase Cancel"),
+        "purchase_error": MessageLookupByLibrary.simpleMessage("Purchase Unknown Error"),
+        "purchase_failure": MessageLookupByLibrary.simpleMessage("Purchase Failure"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage("Congratulations Subscribe Success!"),
+        "refuse": MessageLookupByLibrary.simpleMessage("Not now"),
         "reminder": MessageLookupByLibrary.simpleMessage("Tipp"),
         "render_mode": MessageLookupByLibrary.simpleMessage("Rendermodus"),
         "resend": MessageLookupByLibrary.simpleMessage("Erneut senden"),
-        "reset_api_key":
-            MessageLookupByLibrary.simpleMessage("API-Schlüssel zurücksetzen"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("API-Schlüssel zurücksetzen"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
             "Möchten Sie den API-Schlüssel wirklich zurücksetzen? Danach müssen Sie einen neuen API-Schlüssel hinzufügen oder die App neu starten"),
-        "restore": MessageLookupByLibrary.simpleMessage("恢复"),
-        "send_a_message":
-            MessageLookupByLibrary.simpleMessage("Nachricht senden..."),
+        "restore": MessageLookupByLibrary.simpleMessage("Restore"),
+        "send_a_message": MessageLookupByLibrary.simpleMessage("Nachricht senden..."),
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
-        "subscribe": MessageLookupByLibrary.simpleMessage("订阅"),
-        "terms_use": MessageLookupByLibrary.simpleMessage("使用条款"),
-        "title_should_not_be_empty":
-            MessageLookupByLibrary.simpleMessage("Titel darf nicht leer sein"),
+        "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
+        "terms_use": MessageLookupByLibrary.simpleMessage("Terms Use"),
+        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("Titel darf nicht leer sein"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
-        "your_are_not_membership": MessageLookupByLibrary.simpleMessage(
-            "You have not subscribed to the membership service yet, this feature is only available to subscription users!")
+        "your_are_not_membership": MessageLookupByLibrary.simpleMessage("You have not subscribed to the membership service yet")
       };
 }

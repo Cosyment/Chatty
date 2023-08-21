@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:applovin_max/applovin_max.dart';
 import 'package:chatty/advert/advert_manager.dart';
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
@@ -40,14 +43,14 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
           });
 
   Future<bool?> showCleanConfirmDialog(BuildContext context) => showDialog<bool>(
-        context: context,
-        builder: (BuildContext context) {
-          return ConfirmDialog(
-            title: S.current.reminder,
-            content: S.current.clean_conversation_tips,
-          );
-        },
+    context: context,
+    builder: (BuildContext context) {
+      return ConfirmDialog(
+        title: S.current.reminder,
+        content: S.current.clean_conversation_tips,
       );
+    },
+  );
 
   @override
   void initState() {
@@ -87,25 +90,25 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
               Text(S.current.conversations),
               currentConversation != null
                   ? IconButton(
-                      onPressed: () async {
-                        var result = await showCleanConfirmDialog(context);
-                        if (result == true) {
-                          List<ConversationIndex> list = chatService.getConversationList();
-                          for (var element in list) {
-                            chatService.removeConversationById(element.id);
-                            LocalStorageService().removeConversationJsonById(element.id);
-                          }
+                  onPressed: () async {
+                    var result = await showCleanConfirmDialog(context);
+                    if (result == true) {
+                      List<ConversationIndex> list = chatService.getConversationList();
+                      for (var element in list) {
+                        chatService.removeConversationById(element.id);
+                        LocalStorageService().removeConversationJsonById(element.id);
+                      }
 
-                          setState(() {
-                            list.clear();
-                            currentConversation = null;
-                            Future.delayed(Duration.zero, () {
-                              Navigation.navigator(context, const EmptyChatScreen());
-                            });
-                          });
-                        }
-                      },
-                      icon: const Icon(Icons.cleaning_services_outlined))
+                      setState(() {
+                        list.clear();
+                        currentConversation = null;
+                        Future.delayed(Duration.zero, () {
+                          Navigation.navigator(context, const EmptyChatScreen());
+                        });
+                      });
+                    }
+                  },
+                  icon: const Icon(Icons.cleaning_services_outlined))
                   : const SizedBox()
             ],
           ),
@@ -121,20 +124,34 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
                     fit: FlexFit.tight,
                     child:
                         Center(child: SizedBox(width: 100, height: 100, child: Lottie.asset('assets/empty.json', repeat: true)))),
+            if (PlatformUtil.isMobile)
+              MaxAdView(
+                adUnitId: Platform.isIOS ? '9f972dbea4fce16c' : '3e59dece9a59c908',
+                adFormat: AdFormat.banner,
+                listener: AdViewAdListener(onAdLoadedCallback: (ad) {
+                  debugPrint('banner onAdLoadedCallback ad $ad');
+                }, onAdLoadFailedCallback: (adUnitId, error) {
+                  debugPrint('banner onAdLoadFailedCallback ad $adUnitId,$error');
+                }, onAdClickedCallback: (ad) {
+                  debugPrint('banner onAdClickedCallback ad $ad');
+                }, onAdExpandedCallback: (ad) {
+                  debugPrint('banner onAdExpandedCallback ad $ad');
+                }, onAdCollapsedCallback: (ad) {
+                  debugPrint('banner onAdCollapsedCallback ad $ad');
+                }),
+              ),
             const Divider(thickness: .2),
             Container(
                 color: ThemeColor.backgroundColor,
                 width: PlatformUtil.isMobile ? 300 : 250,
                 child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, PlatformUtil.isMobile ? 0 : 15),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       textButton(S.current.new_conversation, Icons.add_box_outlined, () async {
                         var newConversation = await showConversationDialog(context, false, Conversation.create());
                         if (newConversation != null) {
                           LocalStorageService().currentConversationId = newConversation.id;
-
                           await chatService.updateConversation(newConversation);
-                          var savedConversation = chatService.getConversationById(newConversation.id)!;
                           conversationsBloc.add(const ConversationsRequested());
                           if (context.mounted) {
                             closeDrawer();
@@ -142,34 +159,28 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
                           }
                         }
                       }),
-                      const SizedBox(
-                        height: 6,
-                      ),
+                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
                       textButton(S.current.premium, Icons.wallet_membership_outlined, () {
                         closeDrawer();
                         Navigation.navigator(context, const PremiumScreen());
                       }),
-                      const SizedBox(
-                        height: 6,
-                      ),
+                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
                       textButton(S.current.prompt, Icons.tips_and_updates_outlined, () {
                         closeDrawer();
                         Navigation.navigator(context, const PromptScreen());
                       }),
-                      const SizedBox(
-                        height: 6,
-                      ),
+                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
                       textButton(S.current.settings, Icons.settings_outlined, () {
                         closeDrawer();
                         Navigation.navigator(context, const SettingsScreenPage());
                       }),
-                      const SizedBox(
-                        height: 6,
-                      ),
+                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
                       FutureBuilder<PackageInfo>(
                           future: PackageInfo.fromPlatform(),
                           builder: (context, packageInfo) {
-                            return textButton("${S.current.version}: v${packageInfo.data?.version}", Icons.info_outline, () {});
+                            return textButton("${S.current.version}: v${packageInfo.data?.version}", Icons.info_outline, () {
+                              AdvertManager().showBanner();
+                            });
                           })
                     ]))),
           ],

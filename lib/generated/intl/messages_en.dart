@@ -66,28 +66,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "enter_a_conversation_title":
             MessageLookupByLibrary.simpleMessage("Enter a conversation title"),
         "history_limit": MessageLookupByLibrary.simpleMessage("History Limit"),
-        "invalid_api_key":
-            MessageLookupByLibrary.simpleMessage("Invalid API Key"),
+        "invalid_api_key": MessageLookupByLibrary.simpleMessage("Invalid API Key"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "language_code": MessageLookupByLibrary.simpleMessage("English"),
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("Find Keys"),
         "message_to_help_set_the_behavior_of_the":
-            MessageLookupByLibrary.simpleMessage(
-                "Message to help set the behavior of the"),
+            MessageLookupByLibrary.simpleMessage("Message to help set the behavior of the"),
         "model": MessageLookupByLibrary.simpleMessage("Model"),
-        "new_conversation":
-            MessageLookupByLibrary.simpleMessage("New conversation"),
-        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("您还没有订阅过哦"),
+        "new_conversation": MessageLookupByLibrary.simpleMessage("New conversation"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("Nothing to Restore"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organization"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
-            "Please add your api key first"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Please add your api key first"),
         "premium": MessageLookupByLibrary.simpleMessage("Premium"),
-        "premium_features1":
-            MessageLookupByLibrary.simpleMessage("Send Unlimited"),
-        "premium_features2":
-            MessageLookupByLibrary.simpleMessage("Support GPT4"),
+        "premium_features1": MessageLookupByLibrary.simpleMessage("Send Unlimited"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("Support GPT4"),
         "premium_features3":
             MessageLookupByLibrary.simpleMessage("Support Markdown Render"),
         "premium_features4":
