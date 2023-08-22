@@ -23,51 +23,36 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Acerca de"),
-        "ad_load_failure": MessageLookupByLibrary.simpleMessage(
-            "Error de carga de anuncios, intente nuevamente"),
-        "add_your_secret_api_key":
-            MessageLookupByLibrary.simpleMessage("Agregue su clave api"),
-        "api_host": MessageLookupByLibrary.simpleMessage("Host API"),
-        "api_host_optional":
-            MessageLookupByLibrary.simpleMessage("Host API opcional"),
+        "ad_load_failure": MessageLookupByLibrary.simpleMessage("Error de carga de anuncios, intente nuevamente"),
+        "add_your_secret_api_key": MessageLookupByLibrary.simpleMessage("Agregue su clave API secreta"),
+        "api_host": MessageLookupByLibrary.simpleMessage("Host de la API"),
+        "api_host_optional": MessageLookupByLibrary.simpleMessage("Host de API opcional"),
         "api_key": MessageLookupByLibrary.simpleMessage("Clave API"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("Apariencia"),
         "authentication": MessageLookupByLibrary.simpleMessage("Autenticación"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
-        "chat_parameters":
-            MessageLookupByLibrary.simpleMessage("Parámetros de chat"),
-        "clean_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "¿Está seguro de borrar todas las conversaciones?"),
-        "clear_conversation":
-            MessageLookupByLibrary.simpleMessage("Borrar conversación"),
-        "clear_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "¿Desea borrar el historial de conversación?"),
+        "chat_parameters": MessageLookupByLibrary.simpleMessage("Parámetros de chat"),
+        "clean_conversation_tips": MessageLookupByLibrary.simpleMessage("¿Está seguro de borrar todas las conversaciones?"),
+        "clear_conversation": MessageLookupByLibrary.simpleMessage("Borrar conversación"),
+        "clear_conversation_tips": MessageLookupByLibrary.simpleMessage("¿Desea borrar el historial de conversación?"),
         "conversation_chat_reached_limit": MessageLookupByLibrary.simpleMessage(
             "La frecuencia de chat ha alcanzado el límite de hoy. Revise los anuncios para desbloquear más veces"),
         "conversations": MessageLookupByLibrary.simpleMessage("Conversaciones"),
-        "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
-            "consejo: ingresar \'/\' puede desencadenar más sorpresas"),
-        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
-            "Crear o seleccionar una conversación"),
-        "current_level": MessageLookupByLibrary.simpleMessage("Current"),
-        "custom_api_host":
-            MessageLookupByLibrary.simpleMessage("Personalización host API"),
+        "create_conversation_tip":
+            MessageLookupByLibrary.simpleMessage("Consejo: Ingresar \'/\' puede desencadenar más sorpresas"),
+        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage("Crear o seleccionar una conversación"),
+        "current_level": MessageLookupByLibrary.simpleMessage("Actual"),
+        "custom_api_host": MessageLookupByLibrary.simpleMessage("Host de API personalizado"),
         "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
-        "delete_conversation":
-            MessageLookupByLibrary.simpleMessage("Eliminar conversación"),
-        "delete_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "¿Desea eliminar la conversación?"),
+        "delete_conversation": MessageLookupByLibrary.simpleMessage("Eliminar conversación"),
+        "delete_conversation_tips": MessageLookupByLibrary.simpleMessage("¿Desea eliminar la conversación?"),
         "edit": MessageLookupByLibrary.simpleMessage("Editar"),
-        "edit_conversation":
-            MessageLookupByLibrary.simpleMessage("Editar conversación"),
-        "enter_a_conversation_title": MessageLookupByLibrary.simpleMessage(
-            "Ingrese un título de conversación"),
-        "history_limit":
-            MessageLookupByLibrary.simpleMessage("Límite de historial"),
-        "invalid_api_key":
-            MessageLookupByLibrary.simpleMessage("Clave API inválida"),
+        "edit_conversation": MessageLookupByLibrary.simpleMessage("Editar conversación"),
+        "enter_a_conversation_title": MessageLookupByLibrary.simpleMessage("Ingrese un título de conversación"),
+        "history_limit": MessageLookupByLibrary.simpleMessage("Límite de historial"),
+        "invalid_api_key": MessageLookupByLibrary.simpleMessage("Clave API inválida"),
         "language": MessageLookupByLibrary.simpleMessage("Idioma"),
         "language_code": MessageLookupByLibrary.simpleMessage("Inglés"),
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("Encontrar claves"),
@@ -75,54 +60,40 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mensaje para ayudar a configurar el comportamiento de"),
         "model": MessageLookupByLibrary.simpleMessage("Modelo"),
         "new_conversation": MessageLookupByLibrary.simpleMessage("Nueva conversación"),
-        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("Nothing to Restore"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("Nada que restaurar"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organización"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Por favor, agregue primero su clave api"),
-        "premium": MessageLookupByLibrary.simpleMessage("Premium"),
-        "premium_features1": MessageLookupByLibrary.simpleMessage("Send Unlimited"),
-        "premium_features2": MessageLookupByLibrary.simpleMessage("Support GPT4"),
-        "premium_features3":
-            MessageLookupByLibrary.simpleMessage("Support Markdown Render"),
-        "premium_features4":
-            MessageLookupByLibrary.simpleMessage("Higher word limit"),
-        "premium_features5":
-            MessageLookupByLibrary.simpleMessage("Custom API Host"),
-        "premium_features6": MessageLookupByLibrary.simpleMessage("No Ad"),
-        "premium_plus_explain":
-            MessageLookupByLibrary.simpleMessage("Plus Premium Features"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Por favor, agregue su clave API primero"),
+        "premium": MessageLookupByLibrary.simpleMessage("Primas de seguro"),
+        "premium_features1": MessageLookupByLibrary.simpleMessage("Enviar ilimitadamente"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("Soporte para GPT4"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage("Soporte para renderizado de Markdown"),
+        "premium_features4": MessageLookupByLibrary.simpleMessage("Límite de palabras más alto"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage("Host de API personalizado"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("Sin anuncios"),
+        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Características Primas plus"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacidad"),
-        "privacy_policy":
-            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "privacy_policy": MessageLookupByLibrary.simpleMessage("Política de privacidad"),
         "prompt": MessageLookupByLibrary.simpleMessage("Sugerencias"),
-        "purchase_cancel":
-            MessageLookupByLibrary.simpleMessage("Purchase Cancel"),
-        "purchase_error":
-            MessageLookupByLibrary.simpleMessage("Purchase Unknown Error"),
-        "purchase_failure":
-            MessageLookupByLibrary.simpleMessage("Purchase Failure"),
-        "purchase_success": MessageLookupByLibrary.simpleMessage(
-            "Congratulations Subscribe Success!"),
-        "refuse": MessageLookupByLibrary.simpleMessage("Not now"),
+        "purchase_cancel": MessageLookupByLibrary.simpleMessage("Cancelar compra"),
+        "purchase_error": MessageLookupByLibrary.simpleMessage("Error de compra desconocido"),
+        "purchase_failure": MessageLookupByLibrary.simpleMessage("Error de compra"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage("¡Felicitaciones! ¡Suscripción exitosa!"),
+        "refuse": MessageLookupByLibrary.simpleMessage("Ahora no"),
         "reminder": MessageLookupByLibrary.simpleMessage("Consejos"),
-        "render_mode":
-            MessageLookupByLibrary.simpleMessage("Modo de renderizado"),
+        "render_mode": MessageLookupByLibrary.simpleMessage("Modo de renderizado"),
         "resend": MessageLookupByLibrary.simpleMessage("Reenviar"),
-        "reset_api_key":
-            MessageLookupByLibrary.simpleMessage("Restablecer clave API"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("Restablecer clave API"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
-            "¿Está seguro de que desea restablecer la clave api? Después del restablecimiento, debe agregar una nueva clave api o reiniciar la aplicación"),
-        "restore": MessageLookupByLibrary.simpleMessage("Restore"),
-        "send_a_message":
-            MessageLookupByLibrary.simpleMessage("Enviar un mensaje..."),
+            "¿Está seguro de que desea restablecer la clave API? Después del restablecimiento, debe agregar una nueva clave API o reiniciar la aplicación"),
+        "restore": MessageLookupByLibrary.simpleMessage("Restaurar"),
+        "send_a_message": MessageLookupByLibrary.simpleMessage("Enviar un mensaje..."),
         "settings": MessageLookupByLibrary.simpleMessage("Configuración"),
-        "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
-        "terms_use": MessageLookupByLibrary.simpleMessage("Terms Use"),
-        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage(
-            "El título no debe estar vacío"),
+        "subscribe": MessageLookupByLibrary.simpleMessage("Suscribirse"),
+        "terms_use": MessageLookupByLibrary.simpleMessage("Términos de uso"),
+        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("El título no debe estar vacío"),
         "version": MessageLookupByLibrary.simpleMessage("Versión"),
-        "your_are_not_membership": MessageLookupByLibrary.simpleMessage(
-            "You have not subscribed to the membership service yet")
+        "your_are_not_membership": MessageLookupByLibrary.simpleMessage("Todavía no se ha suscrito al servicio de membresía")
       };
 }
