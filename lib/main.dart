@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
+import 'package:in_app_review/in_app_review.dart';
 import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -82,6 +83,10 @@ void main() async {
   // );
 
   registerNetWorkListening();
+
+  Future.delayed(const Duration(seconds: 20), () {
+    showAppReview();
+  });
 }
 
 class App extends StatefulWidget {
@@ -199,6 +204,16 @@ void getDomain() async {
       LocalStorageService().apiHost = domainList.where((element) => element.type != 0).first.hostname;
     } else {
       LocalStorageService().apiHost = domainList.where((element) => element.type == 0).first.hostname;
+    }
+  }
+}
+
+void showAppReview() async {
+  if (!LocalStorageService().getShownAppReviewFlag() && (PlatformUtil.isMobile || Platform.isMacOS)) {
+    if (await InAppReview.instance.isAvailable()) {
+      InAppReview.instance.requestReview();
+      LocalStorageService().shownAppReview = true;
+      // InAppReview.instance.openStoreListing(appStoreId: '6455787500');
     }
   }
 }
