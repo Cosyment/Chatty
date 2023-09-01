@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:applovin_max/applovin_max.dart';
+import 'package:chatty/advert/advert_manager.dart';
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/util/navigation.dart';
@@ -42,14 +43,14 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
           });
 
   Future<bool?> showCleanConfirmDialog(BuildContext context) => showDialog<bool>(
-        context: context,
-        builder: (BuildContext context) {
-          return ConfirmDialog(
-            title: S.current.reminder,
-            content: S.current.clean_conversation_tips,
-          );
-        },
+    context: context,
+    builder: (BuildContext context) {
+      return ConfirmDialog(
+        title: S.current.reminder,
+        content: S.current.clean_conversation_tips,
       );
+    },
+  );
 
   @override
   void initState() {
@@ -89,25 +90,25 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
               Text(S.current.conversations),
               currentConversation != null
                   ? IconButton(
-                      onPressed: () async {
-                        var result = await showCleanConfirmDialog(context);
-                        if (result == true) {
-                          List<ConversationIndex> list = chatService.getConversationList();
-                          for (var element in list) {
-                            chatService.removeConversationById(element.id);
-                            LocalStorageService().removeConversationJsonById(element.id);
-                          }
+                  onPressed: () async {
+                    var result = await showCleanConfirmDialog(context);
+                    if (result == true) {
+                      List<ConversationIndex> list = chatService.getConversationList();
+                      for (var element in list) {
+                        chatService.removeConversationById(element.id);
+                        LocalStorageService().removeConversationJsonById(element.id);
+                      }
 
-                          setState(() {
-                            list.clear();
-                            currentConversation = null;
-                            Future.delayed(Duration.zero, () {
-                              Navigation.navigator(context, const EmptyChatScreen());
-                            });
-                          });
-                        }
-                      },
-                      icon: const Icon(Icons.cleaning_services_outlined))
+                      setState(() {
+                        list.clear();
+                        currentConversation = null;
+                        Future.delayed(Duration.zero, () {
+                          Navigation.navigator(context, const EmptyChatScreen());
+                        });
+                      });
+                    }
+                  },
+                  icon: const Icon(Icons.cleaning_services_outlined))
                   : const SizedBox()
             ],
           ),

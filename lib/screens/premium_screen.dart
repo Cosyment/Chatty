@@ -341,7 +341,7 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
   }
 
   Widget _membershipPlaceholder() {
-    return const Card(margin: EdgeInsets.all(10), child: SizedBox(width: 100, height: 110));
+    return Card(margin: const EdgeInsets.all(10), child: SizedBox(width: 100, height: Platform.isMacOS ? 95 : 110));
   }
 
   List<Widget> _membershipOptions() {

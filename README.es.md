@@ -1,7 +1,7 @@
 # Chatty - Asistente de chat de IA
 
 ### Simple description
-#### Basado en los modelos de lenguaje GPT3 y GPT4, ofrece ayuda para escribir, cuestionarios de conocimiento, traducción, películas, música, juegos y más, responde cualquier acertijo, incluso novia virtual.
+#### Basado en los modelos de lenguaje GPT3 y GPT4, ofrece ayuda para escribir, cuestionarios de conocimiento, traducción, películas, música, juegos y más.
 
 ### Description
 ¡Chatea con el avanzado Chatty!

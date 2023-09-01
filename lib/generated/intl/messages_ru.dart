@@ -33,92 +33,68 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_key": MessageLookupByLibrary.simpleMessage("API ключ"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("Внешний вид"),
-        "authentication":
-            MessageLookupByLibrary.simpleMessage("Аутентификация"),
+        "authentication": MessageLookupByLibrary.simpleMessage("Аутентификация"),
         "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
         "chat": MessageLookupByLibrary.simpleMessage("Чат"),
-        "chat_parameters":
-            MessageLookupByLibrary.simpleMessage("Параметры чата"),
-        "clean_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "Вы уверены, что хотите очистить все диалоги?"),
-        "clear_conversation":
-            MessageLookupByLibrary.simpleMessage("Очистить диалог"),
-        "clear_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "Вы действительно хотите очистить историю диалога?"),
+        "chat_parameters": MessageLookupByLibrary.simpleMessage("Параметры чата"),
+        "clean_conversation_tips": MessageLookupByLibrary.simpleMessage("Вы уверены, что хотите очистить все диалоги?"),
+        "clear_conversation": MessageLookupByLibrary.simpleMessage("Очистить диалог"),
+        "clear_conversation_tips": MessageLookupByLibrary.simpleMessage("Вы действительно хотите очистить историю диалога?"),
         "conversation_chat_reached_limit": MessageLookupByLibrary.simpleMessage(
             "Лимит чатов для сегодня исчерпан. Посмотрите рекламу, чтобы разблокировать еще"),
         "conversations": MessageLookupByLibrary.simpleMessage("Диалоги"),
-        "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
-            "совет: ввод \'/\' может вызвать еще сюрпризы"),
-        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
-            "Создайте или выберите диалог"),
-        "current_level": MessageLookupByLibrary.simpleMessage("当前会员等级"),
-        "custom_api_host":
-            MessageLookupByLibrary.simpleMessage("Пользовательский API хост"),
+        "create_conversation_tip": MessageLookupByLibrary.simpleMessage("совет: ввод \'/\' может вызвать еще сюрпризы"),
+        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage("Создайте или выберите диалог"),
+        "current_level": MessageLookupByLibrary.simpleMessage("Текущий уровень"),
+        "custom_api_host": MessageLookupByLibrary.simpleMessage("Пользовательский API хост"),
         "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
-        "delete_conversation":
-            MessageLookupByLibrary.simpleMessage("Удалить диалог"),
-        "delete_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "Вы действительно хотите удалить этот диалог?"),
+        "delete_conversation": MessageLookupByLibrary.simpleMessage("Удалить диалог"),
+        "delete_conversation_tips": MessageLookupByLibrary.simpleMessage("Вы действительно хотите удалить этот диалог?"),
         "edit": MessageLookupByLibrary.simpleMessage("Редактировать"),
-        "edit_conversation":
-            MessageLookupByLibrary.simpleMessage("Редактировать диалог"),
-        "enter_a_conversation_title":
-            MessageLookupByLibrary.simpleMessage("Введите заголовок диалога"),
+        "edit_conversation": MessageLookupByLibrary.simpleMessage("Редактировать диалог"),
+        "enter_a_conversation_title": MessageLookupByLibrary.simpleMessage("Введите заголовок диалога"),
         "history_limit": MessageLookupByLibrary.simpleMessage("Лимит истории"),
-        "invalid_api_key":
-            MessageLookupByLibrary.simpleMessage("Неверный API ключ"),
+        "invalid_api_key": MessageLookupByLibrary.simpleMessage("Неверный API ключ"),
         "language": MessageLookupByLibrary.simpleMessage("Язык"),
         "language_code": MessageLookupByLibrary.simpleMessage("Русский язык"),
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("Найти ключи"),
-        "message_to_help_set_the_behavior_of_the":
-            MessageLookupByLibrary.simpleMessage(
-                "Сообщение для настройки поведения"),
+        "message_to_help_set_the_behavior_of_the": MessageLookupByLibrary.simpleMessage("Сообщение для настройки поведения"),
         "model": MessageLookupByLibrary.simpleMessage("Модель"),
-        "new_conversation":
-            MessageLookupByLibrary.simpleMessage("Новый диалог"),
-        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("您还没有订阅过哦"),
+        "new_conversation": MessageLookupByLibrary.simpleMessage("Новый диалог"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("Нечего восстанавливать"),
         "ok": MessageLookupByLibrary.simpleMessage("ОК"),
         "organization": MessageLookupByLibrary.simpleMessage("Организация"),
         "other": MessageLookupByLibrary.simpleMessage("Другое"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
-            "Пожалуйста, сначала добавьте API ключ"),
-        "premium": MessageLookupByLibrary.simpleMessage("会员订阅"),
-        "premium_features1": MessageLookupByLibrary.simpleMessage("聊天无限制"),
-        "premium_features2": MessageLookupByLibrary.simpleMessage("支持GPT4"),
-        "premium_features3":
-            MessageLookupByLibrary.simpleMessage("支持Markdown渲染"),
-        "premium_features4": MessageLookupByLibrary.simpleMessage("更高的字数上限"),
-        "premium_features5": MessageLookupByLibrary.simpleMessage("支持自定义域名"),
-        "premium_features6": MessageLookupByLibrary.simpleMessage("纯净无广告"),
-        "premium_plus_explain":
-            MessageLookupByLibrary.simpleMessage("Plus 高级会员权益"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Пожалуйста, сначала добавьте API ключ"),
+        "premium": MessageLookupByLibrary.simpleMessage("Премиум"),
+        "premium_features1": MessageLookupByLibrary.simpleMessage("Неограниченная отправка"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("Поддержка GPT4"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage("Поддержка разметки Markdown"),
+        "premium_features4": MessageLookupByLibrary.simpleMessage("Более высокий лимит слов"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage("Пользовательский API-хост"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("Без рекламы"),
+        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Премиум-плюс функции"),
         "privacy": MessageLookupByLibrary.simpleMessage("Конфиденциальность"),
-        "privacy_policy": MessageLookupByLibrary.simpleMessage("隐私政策"),
+        "privacy_policy": MessageLookupByLibrary.simpleMessage("Политика конфиденциальности"),
         "prompt": MessageLookupByLibrary.simpleMessage("Подсказки"),
-        "purchase_cancel": MessageLookupByLibrary.simpleMessage("支付已取消"),
-        "purchase_error": MessageLookupByLibrary.simpleMessage("支付出错，请稍后再试"),
-        "purchase_failure": MessageLookupByLibrary.simpleMessage("支付失败，请稍后再试"),
-        "purchase_success": MessageLookupByLibrary.simpleMessage("恭喜会员开通成功"),
-        "refuse": MessageLookupByLibrary.simpleMessage("残忍拒绝"),
+        "purchase_cancel": MessageLookupByLibrary.simpleMessage("Отменить покупку"),
+        "purchase_error": MessageLookupByLibrary.simpleMessage("Неизвестная ошибка при покупке"),
+        "purchase_failure": MessageLookupByLibrary.simpleMessage("Ошибка при покупке"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage("Поздравляем! Подписка успешно оформлена!"),
+        "refuse": MessageLookupByLibrary.simpleMessage("Не сейчас"),
         "reminder": MessageLookupByLibrary.simpleMessage("Совет"),
-        "render_mode":
-            MessageLookupByLibrary.simpleMessage("Режим отображения"),
+        "render_mode": MessageLookupByLibrary.simpleMessage("Режим отображения"),
         "resend": MessageLookupByLibrary.simpleMessage("Отправить повторно"),
-        "reset_api_key":
-            MessageLookupByLibrary.simpleMessage("Сброс API ключа"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("Сброс API ключа"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
             "Вы уверены, что хотите сбросить API ключ? После сброса вам нужно будет добавить новый API ключ или перезапустить приложение"),
-        "restore": MessageLookupByLibrary.simpleMessage("恢复"),
-        "send_a_message":
-            MessageLookupByLibrary.simpleMessage("Отправить сообщение..."),
+        "restore": MessageLookupByLibrary.simpleMessage("Восстановить"),
+        "send_a_message": MessageLookupByLibrary.simpleMessage("Отправить сообщение..."),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
-        "subscribe": MessageLookupByLibrary.simpleMessage("订阅"),
-        "terms_use": MessageLookupByLibrary.simpleMessage("使用条款"),
-        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage(
-            "Заголовок не должен быть пустым"),
+        "subscribe": MessageLookupByLibrary.simpleMessage("Подписаться"),
+        "terms_use": MessageLookupByLibrary.simpleMessage("Условия использования"),
+        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("Заголовок не должен быть пустым"),
         "version": MessageLookupByLibrary.simpleMessage("Версия"),
-        "your_are_not_membership":
-            MessageLookupByLibrary.simpleMessage("很抱歉，您还没有订阅会员服务哦，该功能仅对会员用户开放！")
+        "your_are_not_membership": MessageLookupByLibrary.simpleMessage("Вы еще не подписались на услуги членства")
       };
 }
