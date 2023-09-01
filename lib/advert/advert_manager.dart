@@ -40,4 +40,10 @@ class AdvertManager {
       advertFactory?.showInterstitial(callback);
     }
   }
+
+  void showBanner() {
+    if (PlatformUtil.isMobile) {
+      advertFactory?.showBanner();
+    }
+  }
 }

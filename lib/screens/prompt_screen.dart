@@ -66,7 +66,7 @@ class _PromptState extends State<PromptScreen> {
               padding: const EdgeInsets.all(10),
               itemCount: promptList.length,
               itemBuilder: (context, index) {
-                return promptItem(context, promptList[index], chatService);
+                return promptItem(context, index, promptList[index], chatService);
               },
             ),
             if (promptList.isEmpty) const Center(child: CircularProgressIndicator(color: Colors.white30))
@@ -74,18 +74,19 @@ class _PromptState extends State<PromptScreen> {
         ));
   }
 
-  Widget promptItem(BuildContext context, Prompt prompt, ChatService chatService) {
+  Widget promptItem(BuildContext context, int index, Prompt prompt, ChatService chatService) {
+    MaterialColor randomColor = Colors.primaries[index % Colors.primaries.length];
     return GestureDetector(
       child: Container(
           margin: const EdgeInsets.fromLTRB(3, 3, 3, 3),
           padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
-          decoration: BoxDecoration(color: Colors.white10, borderRadius: BorderRadius.circular(8)),
+          decoration: BoxDecoration(color: randomColor.shade300, borderRadius: BorderRadius.circular(8)),
           child: Column(
             children: [
-              Text(prompt.title, style: const TextStyle(color: Colors.white70, fontSize: 15, fontWeight: FontWeight.bold)),
+              Text(prompt.title, style: TextStyle(color: randomColor.shade900, fontSize: 15, fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
               Text(prompt.promptContent,
-                  maxLines: 5, style: const TextStyle(color: Colors.white70, fontSize: 13, overflow: TextOverflow.ellipsis))
+                  maxLines: 5, style: TextStyle(color: randomColor.shade800, fontSize: 13, overflow: TextOverflow.ellipsis))
             ],
           )),
       onTap: () async {
@@ -97,17 +98,9 @@ class _PromptState extends State<PromptScreen> {
 
         await chatService.updateConversation(newConversation);
         var savedConversation = chatService.getConversationById(newConversation.id)!;
-        // if (context.mounted) {
-        // if (Navigator.of(context).canPop()) {
-        //   Navigator.of(context).pushReplacement(ChatScreenPage.route(savedConversation));
-        // } else {
-        //   Navigator.of(context).push(ChatScreenPage.route(savedConversation));
-        // }
-        // }
         var conversationsBloc = ConversationsBloc(chatService: chatService);
         conversationsBloc.add(const ConversationsRequested());
 
-        // EventBus.getDefault().post(EventMessage(newConversation));
         if (context.mounted) {
           Navigation.navigator(context, ChatScreenPage(currentConversation: savedConversation));
         }

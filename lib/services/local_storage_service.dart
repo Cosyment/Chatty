@@ -27,6 +27,7 @@ class LocalStorageService {
   static const prefAppLaunchTime = 'pref_app_launch_time';
   static const prefLanguageCode = 'pref_language_code';
   static const prefPad = 'pref_pad';
+  static const preShownAppReview = 'pref_shown_app_review';
   static const prefMembershipProductId = 'pref_membership_productId';
 
   static const storeConversationList = 'store_conversations';
@@ -159,6 +160,10 @@ class LocalStorageService {
   set isPad(bool value) => _prefs.setBool(prefPad, value);
 
   bool get isPad => _prefs.getBool(prefPad) ?? false;
+
+  set shownAppReview(bool value) => _prefs.setBool(preShownAppReview, value);
+
+  bool getShownAppReviewFlag() => _prefs.getBool(preShownAppReview) ?? false;
 
   set currentMembershipProductId(String productId) => _prefs.setString(prefMembershipProductId, productId);
 

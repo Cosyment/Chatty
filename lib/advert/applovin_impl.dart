@@ -120,4 +120,19 @@ class ApplovinImpl implements AbstractAdvertFactory {
       debugPrint('showInterstitial onAdHiddenCallback $ad');
     }));
   }
+
+  @override
+  void showBanner() {
+    String unitId = Platform.isIOS ? '9f972dbea4fce16c' : '3e59dece9a59c908';
+    AppLovinMAX.createBanner(unitId, AdViewPosition.bottomCenter);
+    AppLovinMAX.loadBanner(unitId);
+    AppLovinMAX.setBannerListener(AdViewAdListener(
+        onAdLoadedCallback: (MaxAd ad) {
+          AppLovinMAX.showBanner(unitId);
+        },
+        onAdLoadFailedCallback: (String adUnitId, MaxError error) {},
+        onAdClickedCallback: (MaxAd ad) {},
+        onAdExpandedCallback: (MaxAd ad) {},
+        onAdCollapsedCallback: (MaxAd ad) {}));
+  }
 }

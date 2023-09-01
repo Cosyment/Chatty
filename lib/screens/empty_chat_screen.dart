@@ -104,7 +104,7 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
                       // 允终邀动
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return promptItem(context,
+                        return promptItem(context, index,
                             Prompt(title: promptList[index].title, promptContent: promptList[index].promptContent), chatService);
                       },
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -141,21 +141,22 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
     );
   }
 
-  Widget promptItem(BuildContext context, Prompt prompt, ChatService chatService) {
+  Widget promptItem(BuildContext context, int index, Prompt prompt, ChatService chatService) {
+    MaterialColor randomColor = Colors.primaries[index % Colors.primaries.length];
     return GestureDetector(
       child: Container(
           margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          decoration: BoxDecoration(color: Colors.white10, borderRadius: BorderRadius.circular(8)),
+          decoration: BoxDecoration(color: randomColor.shade300, borderRadius: BorderRadius.circular(8)),
           child: Column(
             children: [
               Text(prompt.title,
                   maxLines: 1,
-                  style: const TextStyle(
-                      color: Colors.white70, fontSize: 15, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis)),
+                  style: TextStyle(
+                      color: randomColor.shade900, fontSize: 15, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis)),
               const SizedBox(height: 5),
               Text(prompt.promptContent,
-                  maxLines: 4, style: const TextStyle(color: Colors.white70, fontSize: 13, overflow: TextOverflow.ellipsis))
+                  maxLines: 4, style: TextStyle(color: randomColor.shade800, fontSize: 13, overflow: TextOverflow.ellipsis))
             ],
           )),
       onTap: () async {
