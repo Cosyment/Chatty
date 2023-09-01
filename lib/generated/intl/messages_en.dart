@@ -56,33 +56,48 @@ class MessageLookup extends MessageLookupByLibrary {
         "custom_api_host":
             MessageLookupByLibrary.simpleMessage("Customization API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
-        "delete_conversation": MessageLookupByLibrary.simpleMessage("Delete conversation"),
-        "delete_conversation_tips": MessageLookupByLibrary.simpleMessage("Would you like to delete the conversation?"),
+        "delete_conversation":
+            MessageLookupByLibrary.simpleMessage("Delete conversation"),
+        "delete_conversation_tips": MessageLookupByLibrary.simpleMessage(
+            "Would you like to delete the conversation?"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
-        "edit_conversation": MessageLookupByLibrary.simpleMessage("Edit conversation"),
-        "enter_a_conversation_title": MessageLookupByLibrary.simpleMessage("Enter a conversation title"),
+        "edit_conversation":
+            MessageLookupByLibrary.simpleMessage("Edit conversation"),
+        "enter_a_conversation_title":
+            MessageLookupByLibrary.simpleMessage("Enter a conversation title"),
         "history_limit": MessageLookupByLibrary.simpleMessage("History Limit"),
-        "invalid_api_key": MessageLookupByLibrary.simpleMessage("Invalid API Key"),
+        "invalid_api_key":
+            MessageLookupByLibrary.simpleMessage("Invalid API Key"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "language_code": MessageLookupByLibrary.simpleMessage("English"),
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("Find Keys"),
         "message_to_help_set_the_behavior_of_the":
-            MessageLookupByLibrary.simpleMessage("Message to help set the behavior of the"),
+            MessageLookupByLibrary.simpleMessage(
+                "Message to help set the behavior of the"),
         "model": MessageLookupByLibrary.simpleMessage("Model"),
-        "new_conversation": MessageLookupByLibrary.simpleMessage("New conversation"),
-        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("Nothing to Restore"),
+        "new_conversation":
+            MessageLookupByLibrary.simpleMessage("New conversation"),
+        "nothing_to_restore":
+            MessageLookupByLibrary.simpleMessage("Nothing to Restore"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organization"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Please add your api key first"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
+            "Please add your api key first"),
         "premium": MessageLookupByLibrary.simpleMessage("Premium"),
-        "premium_features1": MessageLookupByLibrary.simpleMessage("Send Unlimited"),
-        "premium_features2": MessageLookupByLibrary.simpleMessage("Support GPT4"),
-        "premium_features3": MessageLookupByLibrary.simpleMessage("Support Markdown Render"),
-        "premium_features4": MessageLookupByLibrary.simpleMessage("Higher word limit"),
-        "premium_features5": MessageLookupByLibrary.simpleMessage("Custom API Host"),
+        "premium_features1":
+            MessageLookupByLibrary.simpleMessage("Send Unlimited"),
+        "premium_features2":
+            MessageLookupByLibrary.simpleMessage("Support GPT4"),
+        "premium_features3":
+            MessageLookupByLibrary.simpleMessage("Support Markdown Render"),
+        "premium_features4":
+            MessageLookupByLibrary.simpleMessage("Higher word limit"),
+        "premium_features5":
+            MessageLookupByLibrary.simpleMessage("Custom API Host"),
         "premium_features6": MessageLookupByLibrary.simpleMessage("No Ad"),
-        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Plus Premium Features"),
+        "premium_plus_explain":
+            MessageLookupByLibrary.simpleMessage("Plus Premium Features"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy"),
         "privacy_policy":
             MessageLookupByLibrary.simpleMessage("Privacy Policy"),
