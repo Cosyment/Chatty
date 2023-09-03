@@ -146,6 +146,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
   }
 
   Future<bool> _hasConversationLimit(BuildContext context) async {
+    if (LocalStorageService().isMembershipUser()) return false;
     if (PlatformUtil.isMobile) {
       var conversationReachedLimit = LocalStorageService().conversationLimit;
       if (conversationReachedLimit >= AdvertManager.DAILY_CONVERSATION_LIMIT) {

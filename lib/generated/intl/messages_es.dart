@@ -88,28 +88,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "premium": MessageLookupByLibrary.simpleMessage("Primas de seguro"),
         "premium_features1":
             MessageLookupByLibrary.simpleMessage("Enviar ilimitadamente"),
-        "premium_features2":
-            MessageLookupByLibrary.simpleMessage("Soporte para GPT4"),
-        "premium_features3": MessageLookupByLibrary.simpleMessage(
-            "Soporte para renderizado de Markdown"),
-        "premium_features4":
-            MessageLookupByLibrary.simpleMessage("Límite de palabras más alto"),
-        "premium_features5":
-            MessageLookupByLibrary.simpleMessage("Host de API personalizado"),
-        "premium_features6":
-            MessageLookupByLibrary.simpleMessage("Sin anuncios"),
-        "premium_plus_explain":
-            MessageLookupByLibrary.simpleMessage("Características Primas plus"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("Soporte para GPT4"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage("Soporte para renderizado de Markdown"),
+        "premium_features4": MessageLookupByLibrary.simpleMessage("Límite de palabras más alto"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage("Host de API personalizado"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("Sin anuncios"),
+        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Características Primas"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacidad"),
-        "privacy_policy":
-            MessageLookupByLibrary.simpleMessage("Política de privacidad"),
+        "privacy_policy": MessageLookupByLibrary.simpleMessage("Política de privacidad"),
         "prompt": MessageLookupByLibrary.simpleMessage("Sugerencias"),
-        "purchase_cancel":
-            MessageLookupByLibrary.simpleMessage("Cancelar compra"),
-        "purchase_error":
-            MessageLookupByLibrary.simpleMessage("Error de compra desconocido"),
-        "purchase_failure":
-            MessageLookupByLibrary.simpleMessage("Error de compra"),
+        "purchase_cancel": MessageLookupByLibrary.simpleMessage("Cancelar compra"),
+        "purchase_error": MessageLookupByLibrary.simpleMessage("Error de compra desconocido"),
+        "purchase_failure": MessageLookupByLibrary.simpleMessage("Error de compra"),
         "purchase_success": MessageLookupByLibrary.simpleMessage(
             "¡Felicitaciones! ¡Suscripción exitosa!"),
         "refuse": MessageLookupByLibrary.simpleMessage("Ahora no"),

@@ -551,10 +551,10 @@ class S {
     );
   }
 
-  /// `Plus Premium Features`
+  /// `Premium Features`
   String get premium_plus_explain {
     return Intl.message(
-      'Plus Premium Features',
+      'Premium Features',
       name: 'premium_plus_explain',
       desc: '',
       args: [],

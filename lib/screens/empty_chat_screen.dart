@@ -40,7 +40,7 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
   void fetchPromptList() async {
     promptList = await HttpRequest.request<Prompt>(
         Urls.queryPromptByLanguageCode,
-        params: {'language': PlatformDispatcher.instance.locale.languageCode},
+        params: {'language': LocalStorageService().currentLanguageCode},
         (p0) => Prompt.fromJson(p0));
 
     if (promptList.isNotEmpty) {

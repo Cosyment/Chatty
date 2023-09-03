@@ -11,6 +11,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shake_animation_widget/shake_animation_widget.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -49,6 +50,8 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
   final List<String> _identifiers = ['membership_weekly', 'membership_monthly', 'membership_quarterly', 'membership_yearly'];
   List<ProductDetails> _products = <ProductDetails>[];
   var _checkedIndex = 0;
+  var _manualRestore = false;
+  final ShakeAnimationController _shakeAnimationController = ShakeAnimationController();
 
   void initStoreInfo() async {
     isAvailable = await _inAppPurchase.isAvailable();
@@ -107,12 +110,21 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
 
     //未订阅过
     if (purchaseDetailsList.isEmpty) {
-      if (context.mounted && Navigator.canPop(context)) {
+      if (context.mounted && Navigator.canPop(context) && _manualRestore) {
         showToast(S.current.nothing_to_restore);
         Navigator.pop(context);
+        _manualRestore = false;
+        setState(() {
+          LocalStorageService().remove(LocalStorageService.prefMembershipProductId);
+        });
         return;
       }
     }
+
+    //交易日期从远到近排序
+    purchaseDetailsList
+        .sort((a, b) => (int.tryParse(a.transactionDate ?? '') ?? 0).compareTo(int.tryParse(b.transactionDate ?? '') ?? 0));
+
     for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
       if (purchaseDetails.status == PurchaseStatus.pending) {
         debugPrint('purchase pending... productId: ${purchaseDetails.productID}, purchaseId: ${purchaseDetails.purchaseID}');
@@ -183,9 +195,20 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
     );
   }
 
+  void startShake() async {
+    Future.delayed(const Duration(seconds: 1), () async {
+      _shakeAnimationController.start(shakeCount: 1);
+      await Future.delayed(const Duration(milliseconds: 2500));
+      startShake();
+    });
+    // Future.delayed(const Duration(seconds: 3), () => {startShake()});
+  }
+
   @override
   void initState() {
     initStoreInfo();
+    startShake();
+
     super.initState();
   }
 
@@ -198,6 +221,8 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
       finishTransaction();
     }
     _subscription.cancel();
+    _shakeAnimationController.removeListener();
+    _shakeAnimationController.stop();
     super.dispose();
   }
 
@@ -225,6 +250,7 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
               Column(
@@ -255,42 +281,57 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: _membershipOptions(),
                         ))),
-              const SizedBox(height: 24),
-              Container(
-                  width: 250,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      gradient: gradientColor, borderRadius: const BorderRadiusDirectional.all(Radius.circular(50))),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        HapticFeedback.mediumImpact();
-                        if (isAvailable) {
-                          finishTransaction();
-                          final PurchaseParam purchaseParam = PurchaseParam(productDetails: _products[_checkedIndex]);
-                          // clearCache();
-                          _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
-                        } else {
-                          showToast(S.current.purchase_error);
-                        }
-                      },
-                      style: ButtonStyle(
-                        shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                        elevation: MaterialStateProperty.all(5.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
-                        child: Text(
-                          S.current.subscribe,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ))),
+              const SizedBox(height: 25),
+              ShakeAnimationWidget(
+                  //抖动控制器
+                  shakeAnimationController: _shakeAnimationController,
+                  //微旋转的抖动
+                  shakeAnimationType: ShakeAnimationType.RoateShake,
+                  //设置不开启抖动
+                  isForward: false,
+                  //默认为 0 无限执行
+                  shakeCount: 0,
+                  //抖动的幅度 取值范围为[0,1]
+                  shakeRange: 0.03,
+                  //执行抖动动画的子Widget
+                  child: Card(
+                      elevation: 5,
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.all(Radius.circular(50))),
+                      shadowColor: gradientColor.colors[2],
+                      child: Container(
+                          width: 250,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              gradient: gradientColor, borderRadius: const BorderRadiusDirectional.all(Radius.circular(50))),
+                          child: ElevatedButton(
+                              onPressed: () {
+                                HapticFeedback.mediumImpact();
+                                if (isAvailable) {
+                                  finishTransaction();
+                                  final PurchaseParam purchaseParam = PurchaseParam(productDetails: _products[_checkedIndex]);
+                                  _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
+                                } else {
+                                  showToast(S.current.purchase_error);
+                                }
+                              },
+                              style: ButtonStyle(
+                                shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                elevation: MaterialStateProperty.all(10.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
+                                child: Text(
+                                  S.current.subscribe,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ))))),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -298,17 +339,12 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                   _agreementWidget(S.current.terms_use, () async {
                     await launchUrl(Uri.parse(Urls.termsUrl), mode: LaunchMode.inAppWebView);
                   }),
-                  const SizedBox(
-                    width: 10,
-                  ),
                   _agreementWidget(S.current.privacy_policy, () async {
                     await launchUrl(Uri.parse(Urls.privacyUrl), mode: LaunchMode.inAppWebView);
                   }),
-                  const SizedBox(
-                    width: 10,
-                  ),
                   _agreementWidget(S.current.restore, () {
                     showLottieDialog(context, 'assets/loading.json');
+                    _manualRestore = true;
                     _inAppPurchase.restorePurchases();
                   })
                 ],

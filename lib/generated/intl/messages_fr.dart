@@ -89,50 +89,34 @@ class MessageLookup extends MessageLookupByLibrary {
         "premium": MessageLookupByLibrary.simpleMessage("Frais d\'assurance"),
         "premium_features1":
             MessageLookupByLibrary.simpleMessage("Envoyer sans limite"),
-        "premium_features2":
-            MessageLookupByLibrary.simpleMessage("Prise en charge de GPT4"),
-        "premium_features3": MessageLookupByLibrary.simpleMessage(
-            "Prise en charge du rendu Markdown"),
-        "premium_features4":
-            MessageLookupByLibrary.simpleMessage("Limite de mots plus élevée"),
-        "premium_features5":
-            MessageLookupByLibrary.simpleMessage("Hôte d\'API personnalisé"),
-        "premium_features6":
-            MessageLookupByLibrary.simpleMessage("Pas de publicité"),
-        "premium_plus_explain": MessageLookupByLibrary.simpleMessage(
-            "Fonctionnalités frais d\'assurance Plus"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("Prise en charge de GPT4"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage("Prise en charge du rendu Markdown"),
+        "premium_features4": MessageLookupByLibrary.simpleMessage("Limite de mots plus élevée"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage("Hôte d\'API personnalisé"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("Pas de publicité"),
+        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Fonctionnalités frais d\'assurance"),
         "privacy": MessageLookupByLibrary.simpleMessage("Vie privée"),
-        "privacy_policy": MessageLookupByLibrary.simpleMessage(
-            "Politique de confidentialité"),
+        "privacy_policy": MessageLookupByLibrary.simpleMessage("Politique"),
         "prompt": MessageLookupByLibrary.simpleMessage("Invites"),
-        "purchase_cancel":
-            MessageLookupByLibrary.simpleMessage("Annuler l\'achat"),
-        "purchase_error":
-            MessageLookupByLibrary.simpleMessage("Erreur d\'achat inconnue"),
-        "purchase_failure":
-            MessageLookupByLibrary.simpleMessage("Échec de l\'achat"),
-        "purchase_success": MessageLookupByLibrary.simpleMessage(
-            "Félicitations, abonnement réussi !"),
+        "purchase_cancel": MessageLookupByLibrary.simpleMessage("Annuler l\'achat"),
+        "purchase_error": MessageLookupByLibrary.simpleMessage("Erreur d\'achat inconnue"),
+        "purchase_failure": MessageLookupByLibrary.simpleMessage("Échec de l\'achat"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage("Félicitations, abonnement réussi !"),
         "refuse": MessageLookupByLibrary.simpleMessage("Pas maintenant"),
         "reminder": MessageLookupByLibrary.simpleMessage("Astuce"),
         "render_mode":
             MessageLookupByLibrary.simpleMessage("Mode d\'affichage"),
         "resend": MessageLookupByLibrary.simpleMessage("Renvoyer"),
-        "reset_api_key":
-            MessageLookupByLibrary.simpleMessage("Réinitialiser la clé d\'API"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("Réinitialiser la clé d\'API"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
             "Êtes-vous sûr de vouloir réinitialiser la clé d\'API ? Après la réinitialisation, vous devrez ajouter une nouvelle clé d\'API ou redémarrer l\'application"),
         "restore": MessageLookupByLibrary.simpleMessage("Restaurer"),
-        "send_a_message":
-            MessageLookupByLibrary.simpleMessage("Envoyer un message..."),
+        "send_a_message": MessageLookupByLibrary.simpleMessage("Envoyer un message..."),
         "settings": MessageLookupByLibrary.simpleMessage("Paramètres"),
         "subscribe": MessageLookupByLibrary.simpleMessage("S\'abonner"),
-        "terms_use":
-            MessageLookupByLibrary.simpleMessage("Conditions d\'utilisation"),
-        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage(
-            "Le titre ne doit pas être vide"),
+        "terms_use": MessageLookupByLibrary.simpleMessage("Termes"),
+        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("Le titre ne doit pas être vide"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
-        "your_are_not_membership": MessageLookupByLibrary.simpleMessage(
-            "Vous n\'avez pas encore souscrit au service d\'adhésion")
+        "your_are_not_membership": MessageLookupByLibrary.simpleMessage("Vous n\'avez pas encore souscrit au service d\'adhésion")
       };
 }

@@ -15,8 +15,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
-import 'package:in_app_review/in_app_review.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -171,6 +171,10 @@ void checkMembershipInfo() async {
       LocalStorageService().currentMembershipProductId = '';
       LocalStorageService().remove(LocalStorageService.prefMembershipProductId);
     }
+
+    //交易日期从远到近排序
+    purchaseDetailsList
+        .sort((a, b) => (int.tryParse(a.transactionDate ?? '') ?? 0).compareTo(int.tryParse(b.transactionDate ?? '') ?? 0));
 
     for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
       if (purchaseDetails.status == PurchaseStatus.restored) {

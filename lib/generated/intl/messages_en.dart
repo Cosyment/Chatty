@@ -87,27 +87,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "premium": MessageLookupByLibrary.simpleMessage("Premium"),
         "premium_features1":
             MessageLookupByLibrary.simpleMessage("Send Unlimited"),
-        "premium_features2":
-            MessageLookupByLibrary.simpleMessage("Support GPT4"),
-        "premium_features3":
-            MessageLookupByLibrary.simpleMessage("Support Markdown Render"),
-        "premium_features4":
-            MessageLookupByLibrary.simpleMessage("Higher word limit"),
-        "premium_features5":
-            MessageLookupByLibrary.simpleMessage("Custom API Host"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("Support GPT4"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage("Support Markdown Render"),
+        "premium_features4": MessageLookupByLibrary.simpleMessage("Higher word limit"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage("Custom API Host"),
         "premium_features6": MessageLookupByLibrary.simpleMessage("No Ad"),
-        "premium_plus_explain":
-            MessageLookupByLibrary.simpleMessage("Plus Premium Features"),
+        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Premium Features"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy"),
-        "privacy_policy":
-            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "privacy_policy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "prompt": MessageLookupByLibrary.simpleMessage("Prompts"),
-        "purchase_cancel":
-            MessageLookupByLibrary.simpleMessage("Purchase Cancel"),
-        "purchase_error":
-            MessageLookupByLibrary.simpleMessage("Purchase Unknown Error"),
-        "purchase_failure":
-            MessageLookupByLibrary.simpleMessage("Purchase Failure"),
+        "purchase_cancel": MessageLookupByLibrary.simpleMessage("Purchase Cancel"),
+        "purchase_error": MessageLookupByLibrary.simpleMessage("Purchase Unknown Error"),
+        "purchase_failure": MessageLookupByLibrary.simpleMessage("Purchase Failure"),
         "purchase_success": MessageLookupByLibrary.simpleMessage(
             "Congratulations Subscribe Success!"),
         "refuse": MessageLookupByLibrary.simpleMessage("Not now"),

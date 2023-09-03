@@ -1,7 +1,7 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:applovin_max/applovin_max.dart';
-import 'package:chatty/advert/advert_manager.dart';
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/util/navigation.dart';
@@ -43,14 +43,14 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
           });
 
   Future<bool?> showCleanConfirmDialog(BuildContext context) => showDialog<bool>(
-    context: context,
-    builder: (BuildContext context) {
-      return ConfirmDialog(
-        title: S.current.reminder,
-        content: S.current.clean_conversation_tips,
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmDialog(
+            title: S.current.reminder,
+            content: S.current.clean_conversation_tips,
+          );
+        },
       );
-    },
-  );
 
   @override
   void initState() {
@@ -90,25 +90,25 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
               Text(S.current.conversations),
               currentConversation != null
                   ? IconButton(
-                  onPressed: () async {
-                    var result = await showCleanConfirmDialog(context);
-                    if (result == true) {
-                      List<ConversationIndex> list = chatService.getConversationList();
-                      for (var element in list) {
-                        chatService.removeConversationById(element.id);
-                        LocalStorageService().removeConversationJsonById(element.id);
-                      }
+                      onPressed: () async {
+                        var result = await showCleanConfirmDialog(context);
+                        if (result == true) {
+                          List<ConversationIndex> list = chatService.getConversationList();
+                          for (var element in list) {
+                            chatService.removeConversationById(element.id);
+                            LocalStorageService().removeConversationJsonById(element.id);
+                          }
 
-                      setState(() {
-                        list.clear();
-                        currentConversation = null;
-                        Future.delayed(Duration.zero, () {
-                          Navigation.navigator(context, const EmptyChatScreen());
-                        });
-                      });
-                    }
-                  },
-                  icon: const Icon(Icons.cleaning_services_outlined))
+                          setState(() {
+                            list.clear();
+                            currentConversation = null;
+                            Future.delayed(Duration.zero, () {
+                              Navigation.navigator(context, const EmptyChatScreen());
+                            });
+                          });
+                        }
+                      },
+                      icon: const Icon(Icons.cleaning_services_outlined))
                   : const SizedBox()
             ],
           ),
@@ -124,7 +124,7 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
                     fit: FlexFit.tight,
                     child:
                         Center(child: SizedBox(width: 100, height: 100, child: Lottie.asset('assets/empty.json', repeat: true)))),
-            if (PlatformUtil.isMobile)
+            if (PlatformUtil.isMobile && !LocalStorageService().isMembershipUser())
               MaxAdView(
                 adUnitId: Platform.isIOS ? '9f972dbea4fce16c' : '3e59dece9a59c908',
                 adFormat: AdFormat.banner,
@@ -159,11 +159,12 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
                           }
                         }
                       }),
-                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                      textButton(S.current.premium, Icons.wallet_membership_outlined, () {
-                        closeDrawer();
-                        Navigation.navigator(context, const PremiumScreen());
-                      }),
+                      if (Platform.isIOS || Platform.isMacOS) SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
+                      if (Platform.isIOS || Platform.isMacOS)
+                        premiumButton(S.current.premium, Icons.wallet_membership_outlined, () {
+                          closeDrawer();
+                          Navigation.navigator(context, const PremiumScreen());
+                        }),
                       SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
                       textButton(S.current.prompt, Icons.tips_and_updates_outlined, () {
                         closeDrawer();
@@ -200,6 +201,24 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
       onPressed: onPressed,
       label: Text(value, style: const TextStyle(color: Colors.white70)),
       icon: Icon(iconData, color: Colors.white70, size: 20.0),
+    );
+  }
+
+  Widget premiumButton(String value, IconData iconData, VoidCallback? onPressed) {
+    return TextButton.icon(
+      onPressed: onPressed,
+      label: Text(value,
+          style: TextStyle(
+              foreground: Paint()
+                ..shader = ui.Gradient.linear(const Offset(0, 20), const Offset(130, 20), <Color>[
+                  const Color(0xFF2EC0FF),
+                  const Color(0xFFEE56D9),
+                ]))),
+      icon: SizedBox(
+        width: 20,
+        height: 20,
+        child: Lottie.asset('assets/animation_ll82pe8f.json', repeat: true),
+      ),
     );
   }
 }

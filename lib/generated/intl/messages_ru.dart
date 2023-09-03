@@ -92,46 +92,32 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Поддержка GPT4"),
         "premium_features3":
             MessageLookupByLibrary.simpleMessage("Поддержка разметки Markdown"),
-        "premium_features4":
-            MessageLookupByLibrary.simpleMessage("Более высокий лимит слов"),
-        "premium_features5":
-            MessageLookupByLibrary.simpleMessage("Пользовательский API-хост"),
-        "premium_features6":
-            MessageLookupByLibrary.simpleMessage("Без рекламы"),
-        "premium_plus_explain":
-            MessageLookupByLibrary.simpleMessage("Премиум-плюс функции"),
+        "premium_features4": MessageLookupByLibrary.simpleMessage("Более высокий лимит слов"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage("Пользовательский API-хост"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("Без рекламы"),
+        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Премиум-плюс функции"),
         "privacy": MessageLookupByLibrary.simpleMessage("Конфиденциальность"),
-        "privacy_policy":
-            MessageLookupByLibrary.simpleMessage("Политика конфиденциальности"),
+        "privacy_policy": MessageLookupByLibrary.simpleMessage("Kонфиденциальности"),
         "prompt": MessageLookupByLibrary.simpleMessage("Подсказки"),
-        "purchase_cancel":
-            MessageLookupByLibrary.simpleMessage("Отменить покупку"),
-        "purchase_error": MessageLookupByLibrary.simpleMessage(
-            "Неизвестная ошибка при покупке"),
-        "purchase_failure":
-            MessageLookupByLibrary.simpleMessage("Ошибка при покупке"),
-        "purchase_success": MessageLookupByLibrary.simpleMessage(
-            "Поздравляем! Подписка успешно оформлена!"),
+        "purchase_cancel": MessageLookupByLibrary.simpleMessage("Отменить покупку"),
+        "purchase_error": MessageLookupByLibrary.simpleMessage("Неизвестная ошибка при покупке"),
+        "purchase_failure": MessageLookupByLibrary.simpleMessage("Ошибка при покупке"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage("Поздравляем! Подписка успешно оформлена!"),
         "refuse": MessageLookupByLibrary.simpleMessage("Не сейчас"),
         "reminder": MessageLookupByLibrary.simpleMessage("Совет"),
         "render_mode":
             MessageLookupByLibrary.simpleMessage("Режим отображения"),
         "resend": MessageLookupByLibrary.simpleMessage("Отправить повторно"),
-        "reset_api_key":
-            MessageLookupByLibrary.simpleMessage("Сброс API ключа"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("Сброс API ключа"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
             "Вы уверены, что хотите сбросить API ключ? После сброса вам нужно будет добавить новый API ключ или перезапустить приложение"),
         "restore": MessageLookupByLibrary.simpleMessage("Восстановить"),
-        "send_a_message":
-            MessageLookupByLibrary.simpleMessage("Отправить сообщение..."),
+        "send_a_message": MessageLookupByLibrary.simpleMessage("Отправить сообщение..."),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Подписаться"),
-        "terms_use":
-            MessageLookupByLibrary.simpleMessage("Условия использования"),
-        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage(
-            "Заголовок не должен быть пустым"),
+        "terms_use": MessageLookupByLibrary.simpleMessage("Условия"),
+        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("Заголовок не должен быть пустым"),
         "version": MessageLookupByLibrary.simpleMessage("Версия"),
-        "your_are_not_membership": MessageLookupByLibrary.simpleMessage(
-            "Вы еще не подписались на услуги членства")
+        "your_are_not_membership": MessageLookupByLibrary.simpleMessage("Вы еще не подписались на услуги членства")
       };
 }

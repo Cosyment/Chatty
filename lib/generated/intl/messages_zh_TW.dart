@@ -72,18 +72,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "ok": MessageLookupByLibrary.simpleMessage("好"),
         "organization": MessageLookupByLibrary.simpleMessage("組織"),
         "other": MessageLookupByLibrary.simpleMessage("其他"),
-        "please_add_your_api_key":
-            MessageLookupByLibrary.simpleMessage("請先添加您的API Key"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("請先添加您的API Key"),
         "premium": MessageLookupByLibrary.simpleMessage("會員訂閱"),
         "premium_features1": MessageLookupByLibrary.simpleMessage("聊天無限制"),
         "premium_features2": MessageLookupByLibrary.simpleMessage("支援GPT4"),
-        "premium_features3":
-            MessageLookupByLibrary.simpleMessage("支援Markdown渲染"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage("支援Markdown渲染"),
         "premium_features4": MessageLookupByLibrary.simpleMessage("更高的字數上限"),
         "premium_features5": MessageLookupByLibrary.simpleMessage("支援自定義域名"),
         "premium_features6": MessageLookupByLibrary.simpleMessage("純淨無廣告"),
-        "premium_plus_explain":
-            MessageLookupByLibrary.simpleMessage("Plus 高級會員權益"),
+        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("高級會員權益"),
         "privacy": MessageLookupByLibrary.simpleMessage("隱私"),
         "privacy_policy": MessageLookupByLibrary.simpleMessage("隱私政策"),
         "prompt": MessageLookupByLibrary.simpleMessage("提示語"),

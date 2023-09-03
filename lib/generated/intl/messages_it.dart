@@ -89,30 +89,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "premium": MessageLookupByLibrary.simpleMessage("Premio"),
         "premium_features1":
             MessageLookupByLibrary.simpleMessage("Invia senza limiti"),
-        "premium_features2":
-            MessageLookupByLibrary.simpleMessage("Supporto GPT4"),
-        "premium_features3": MessageLookupByLibrary.simpleMessage(
-            "Supporto al rendering Markdown"),
-        "premium_features4":
-            MessageLookupByLibrary.simpleMessage("Limite di parole superiore"),
-        "premium_features5":
-            MessageLookupByLibrary.simpleMessage("Host API personalizzato"),
-        "premium_features6":
-            MessageLookupByLibrary.simpleMessage("Nessuna pubblicità"),
-        "premium_plus_explain":
-            MessageLookupByLibrary.simpleMessage("Funzionalità Premio Plus"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("Supporto GPT4"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage("Supporto al rendering Markdown"),
+        "premium_features4": MessageLookupByLibrary.simpleMessage("Limite di parole superiore"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage("Host API personalizzato"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("Nessuna pubblicità"),
+        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Funzionalità Premio"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy"),
-        "privacy_policy":
-            MessageLookupByLibrary.simpleMessage("Informativa sulla privacy"),
+        "privacy_policy": MessageLookupByLibrary.simpleMessage("Politica"),
         "prompt": MessageLookupByLibrary.simpleMessage("Suggerimenti"),
-        "purchase_cancel":
-            MessageLookupByLibrary.simpleMessage("Annulla acquisto"),
-        "purchase_error": MessageLookupByLibrary.simpleMessage(
-            "Errore di acquisto sconosciuto"),
-        "purchase_failure":
-            MessageLookupByLibrary.simpleMessage("Errore nell\'acquisto"),
-        "purchase_success": MessageLookupByLibrary.simpleMessage(
-            "Congratulazioni, abbonamento riuscito!"),
+        "purchase_cancel": MessageLookupByLibrary.simpleMessage("Annulla acquisto"),
+        "purchase_error": MessageLookupByLibrary.simpleMessage("Errore di acquisto sconosciuto"),
+        "purchase_failure": MessageLookupByLibrary.simpleMessage("Errore nell\'acquisto"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage("Congratulazioni, abbonamento riuscito!"),
         "refuse": MessageLookupByLibrary.simpleMessage("Non ora"),
         "reminder": MessageLookupByLibrary.simpleMessage("Promemoria"),
         "render_mode":

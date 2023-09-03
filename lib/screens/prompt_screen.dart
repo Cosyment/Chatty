@@ -8,7 +8,6 @@ import 'package:chatty/services/chat_service.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/navigation.dart';
 import 'package:chatty/widgets/common_stateful_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -43,7 +42,8 @@ class _PromptState extends State<PromptScreen> {
   void fetchPromptList() async {
     promptList = await HttpRequest.request<Prompt>(
         Urls.queryPromptByLanguageCode,
-        params: {'language': PlatformDispatcher.instance.locale.languageCode},
+        // params: {'language': PlatformDispatcher.instance.locale.languageCode},
+        params: {'language': LocalStorageService().currentLanguageCode},
         (p0) => Prompt.fromJson(p0));
 
     if (context.mounted && promptList.isNotEmpty) {
