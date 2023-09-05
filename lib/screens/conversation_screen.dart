@@ -17,6 +17,7 @@ import '../generated/l10n.dart';
 import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
+import '../util/environment_config.dart';
 import '../widgets/theme_color.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
@@ -32,17 +33,21 @@ class ConversationScreen extends StatefulWidget {
   }
 }
 
-class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingObserver {
+class _ConversationScreen extends State<ConversationScreen>
+    with WidgetsBindingObserver {
   late Conversation? currentConversation = widget.selectedConversation;
 
-  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(
+          BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(
+                conversation: conversation, isEdit: isEdit);
           });
 
-  Future<bool?> showCleanConfirmDialog(BuildContext context) => showDialog<bool>(
+  Future<bool?> showCleanConfirmDialog(BuildContext context) =>
+      showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
           return ConfirmDialog(
@@ -93,17 +98,20 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
                       onPressed: () async {
                         var result = await showCleanConfirmDialog(context);
                         if (result == true) {
-                          List<ConversationIndex> list = chatService.getConversationList();
+                          List<ConversationIndex> list =
+                              chatService.getConversationList();
                           for (var element in list) {
                             chatService.removeConversationById(element.id);
-                            LocalStorageService().removeConversationJsonById(element.id);
+                            LocalStorageService()
+                                .removeConversationJsonById(element.id);
                           }
 
                           setState(() {
                             list.clear();
                             currentConversation = null;
                             Future.delayed(Duration.zero, () {
-                              Navigation.navigator(context, const EmptyChatScreen());
+                              Navigation.navigator(
+                                  context, const EmptyChatScreen());
                             });
                           });
                         }
@@ -118,20 +126,28 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             currentConversation != null
-                ? ConversationListWidget(selectedConversation: currentConversation)
+                ? ConversationListWidget(
+                    selectedConversation: currentConversation)
                 : Flexible(
                     flex: 1,
                     fit: FlexFit.tight,
-                    child:
-                        Center(child: SizedBox(width: 100, height: 100, child: Lottie.asset('assets/empty.json', repeat: true)))),
-            if (PlatformUtil.isMobile && !LocalStorageService().isMembershipUser())
+                    child: Center(
+                        child: SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: Lottie.asset('assets/empty.json',
+                                repeat: true)))),
+            if (PlatformUtil.isMobile &&
+                !LocalStorageService().isMembershipUser())
               MaxAdView(
-                adUnitId: Platform.isIOS ? '9f972dbea4fce16c' : '3e59dece9a59c908',
+                adUnitId:
+                    Platform.isIOS ? '9f972dbea4fce16c' : '3e59dece9a59c908',
                 adFormat: AdFormat.banner,
                 listener: AdViewAdListener(onAdLoadedCallback: (ad) {
                   debugPrint('banner onAdLoadedCallback ad $ad');
                 }, onAdLoadFailedCallback: (adUnitId, error) {
-                  debugPrint('banner onAdLoadFailedCallback ad $adUnitId,$error');
+                  debugPrint(
+                      'banner onAdLoadFailedCallback ad $adUnitId,$error');
                 }, onAdClickedCallback: (ad) {
                   debugPrint('banner onAdClickedCallback ad $ad');
                 }, onAdExpandedCallback: (ad) {
@@ -145,45 +161,70 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
                 color: ThemeColor.backgroundColor,
                 width: PlatformUtil.isMobile ? 300 : 250,
                 child: Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, PlatformUtil.isMobile ? 0 : 15),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      textButton(S.current.new_conversation, Icons.add_box_outlined, () async {
-                        var newConversation = await showConversationDialog(context, false, Conversation.create());
-                        if (newConversation != null) {
-                          LocalStorageService().currentConversationId = newConversation.id;
-                          await chatService.updateConversation(newConversation);
-                          conversationsBloc.add(const ConversationsRequested());
-                          if (context.mounted) {
+                    padding: EdgeInsets.fromLTRB(
+                        10, 0, 10, PlatformUtil.isMobile ? 0 : 15),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textButton(S.current.new_conversation,
+                              Icons.add_box_outlined, () async {
+                            var newConversation = await showConversationDialog(
+                                context, false, Conversation.create());
+                            if (newConversation != null) {
+                              LocalStorageService().currentConversationId =
+                                  newConversation.id;
+                              await chatService
+                                  .updateConversation(newConversation);
+                              conversationsBloc
+                                  .add(const ConversationsRequested());
+                              if (context.mounted) {
+                                closeDrawer();
+                                Navigation.navigator(
+                                    context,
+                                    ChatScreenPage(
+                                        currentConversation: newConversation));
+                              }
+                            }
+                          }),
+                          if (Platform.isIOS ||
+                              Platform.isMacOS ||
+                              EnvironmentConfig.APP_CHANNEL == 'google')
+                            SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
+                          if (Platform.isIOS ||
+                              Platform.isMacOS ||
+                              EnvironmentConfig.APP_CHANNEL == 'google' ||
+                              EnvironmentConfig.APP_CHANNEL == 'official')
+                            premiumButton(S.current.premium,
+                                Icons.wallet_membership_outlined, () {
+                              closeDrawer();
+                              Navigation.navigator(
+                                  context, const PremiumScreen());
+                            }),
+                          SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
+                          textButton(
+                              S.current.prompt, Icons.tips_and_updates_outlined,
+                              () {
                             closeDrawer();
-                            Navigation.navigator(context, ChatScreenPage(currentConversation: newConversation));
-                          }
-                        }
-                      }),
-                      if (Platform.isIOS || Platform.isMacOS) SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                      if (Platform.isIOS || Platform.isMacOS)
-                        premiumButton(S.current.premium, Icons.wallet_membership_outlined, () {
-                          closeDrawer();
-                          Navigation.navigator(context, const PremiumScreen());
-                        }),
-                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                      textButton(S.current.prompt, Icons.tips_and_updates_outlined, () {
-                        closeDrawer();
-                        Navigation.navigator(context, const PromptScreen());
-                      }),
-                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                      textButton(S.current.settings, Icons.settings_outlined, () {
-                        closeDrawer();
-                        Navigation.navigator(context, const SettingsScreenPage());
-                      }),
-                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                      FutureBuilder<PackageInfo>(
-                          future: PackageInfo.fromPlatform(),
-                          builder: (context, packageInfo) {
-                            return textButton("${S.current.version}: v${packageInfo.data?.version}", Icons.info_outline, () {
-                              // AdvertManager().showBanner();
-                            });
-                          })
-                    ]))),
+                            Navigation.navigator(context, const PromptScreen());
+                          }),
+                          SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
+                          textButton(
+                              S.current.settings, Icons.settings_outlined, () {
+                            closeDrawer();
+                            Navigation.navigator(
+                                context, const SettingsScreenPage());
+                          }),
+                          SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
+                          FutureBuilder<PackageInfo>(
+                              future: PackageInfo.fromPlatform(),
+                              builder: (context, packageInfo) {
+                                return textButton(
+                                    "${S.current.version}: v${packageInfo.data?.version}",
+                                    Icons.info_outline, () {
+                                  // AdvertManager().showBanner();
+                                });
+                              })
+                        ]))),
           ],
         ),
       ),
@@ -192,7 +233,8 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
 
   void closeDrawer() {
     if (PlatformUtil.isMobile) {
-      EventBus.getDefault().post(EventMessage<EventType>(EventType.CLOSE_DRAWER));
+      EventBus.getDefault()
+          .post(EventMessage<EventType>(EventType.CLOSE_DRAWER));
     }
   }
 
@@ -204,13 +246,15 @@ class _ConversationScreen extends State<ConversationScreen> with WidgetsBindingO
     );
   }
 
-  Widget premiumButton(String value, IconData iconData, VoidCallback? onPressed) {
+  Widget premiumButton(
+      String value, IconData iconData, VoidCallback? onPressed) {
     return TextButton.icon(
       onPressed: onPressed,
       label: Text(value,
           style: TextStyle(
               foreground: Paint()
-                ..shader = ui.Gradient.linear(const Offset(0, 20), const Offset(130, 20), <Color>[
+                ..shader = ui.Gradient.linear(
+                    const Offset(0, 20), const Offset(130, 20), <Color>[
                   const Color(0xFF2EC0FF),
                   const Color(0xFFEE56D9),
                 ]))),
