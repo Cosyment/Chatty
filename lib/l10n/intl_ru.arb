@@ -68,5 +68,9 @@
   "current_level": "Текущий уровень",
   "your_are_not_membership": "Вы еще не подписались на услуги членства",
   "refuse": "Не сейчас",
-  "nothing_to_restore": "Нечего восстанавливать"
+  "nothing_to_restore": "Нечего восстанавливать",
+  "premium_weekly": "Еженедельный",
+  "premium_monthly": "Ежемесячный",
+  "premium_quarterly": "Ежеквартальный",
+  "premium_yearly": "Ежегодный"
 }

@@ -78,37 +78,35 @@ class MessageLookup extends MessageLookupByLibrary {
         "model": MessageLookupByLibrary.simpleMessage("Modelo"),
         "new_conversation":
             MessageLookupByLibrary.simpleMessage("Nueva conversación"),
-        "nothing_to_restore":
-            MessageLookupByLibrary.simpleMessage("Nada que restaurar"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("Nada que restaurar"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organización"),
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
-            "Por favor, agregue su clave API primero"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Por favor, agregue su clave API primero"),
         "premium": MessageLookupByLibrary.simpleMessage("Primas de seguro"),
-        "premium_features1":
-            MessageLookupByLibrary.simpleMessage("Enviar ilimitadamente"),
+        "premium_features1": MessageLookupByLibrary.simpleMessage("Enviar ilimitadamente"),
         "premium_features2": MessageLookupByLibrary.simpleMessage("Soporte para GPT4"),
         "premium_features3": MessageLookupByLibrary.simpleMessage("Soporte para renderizado de Markdown"),
         "premium_features4": MessageLookupByLibrary.simpleMessage("Límite de palabras más alto"),
         "premium_features5": MessageLookupByLibrary.simpleMessage("Host de API personalizado"),
         "premium_features6": MessageLookupByLibrary.simpleMessage("Sin anuncios"),
+        "premium_monthly": MessageLookupByLibrary.simpleMessage("Mensual"),
         "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Características Primas"),
+        "premium_quarterly": MessageLookupByLibrary.simpleMessage("Trimestral"),
+        "premium_weekly": MessageLookupByLibrary.simpleMessage("Semanal"),
+        "premium_yearly": MessageLookupByLibrary.simpleMessage("Anual"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacidad"),
         "privacy_policy": MessageLookupByLibrary.simpleMessage("Política de privacidad"),
         "prompt": MessageLookupByLibrary.simpleMessage("Sugerencias"),
         "purchase_cancel": MessageLookupByLibrary.simpleMessage("Cancelar compra"),
         "purchase_error": MessageLookupByLibrary.simpleMessage("Error de compra desconocido"),
         "purchase_failure": MessageLookupByLibrary.simpleMessage("Error de compra"),
-        "purchase_success": MessageLookupByLibrary.simpleMessage(
-            "¡Felicitaciones! ¡Suscripción exitosa!"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage("¡Felicitaciones! ¡Suscripción exitosa!"),
         "refuse": MessageLookupByLibrary.simpleMessage("Ahora no"),
         "reminder": MessageLookupByLibrary.simpleMessage("Consejos"),
-        "render_mode":
-            MessageLookupByLibrary.simpleMessage("Modo de renderizado"),
+        "render_mode": MessageLookupByLibrary.simpleMessage("Modo de renderizado"),
         "resend": MessageLookupByLibrary.simpleMessage("Reenviar"),
-        "reset_api_key":
-            MessageLookupByLibrary.simpleMessage("Restablecer clave API"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("Restablecer clave API"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
             "¿Está seguro de que desea restablecer la clave API? Después del restablecimiento, debe agregar una nueva clave API o reiniciar la aplicación"),
         "restore": MessageLookupByLibrary.simpleMessage("Restaurar"),

@@ -68,5 +68,9 @@
   "current_level": "현재 레벨",
   "your_are_not_membership": "아직 멤버십 서비스에 가입하지 않았습니다",
   "refuse": "지금은 아닙니다",
-  "nothing_to_restore": "복원할 내용이 없습니다"
+  "nothing_to_restore": "복원할 내용이 없습니다",
+  "premium_weekly": "매주",
+  "premium_monthly": "매월",
+  "premium_quarterly": "분기별",
+  "premium_yearly": "연간"
 }

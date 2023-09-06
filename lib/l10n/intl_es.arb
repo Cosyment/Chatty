@@ -68,5 +68,9 @@
   "current_level": "Actual",
   "your_are_not_membership": "Todavía no se ha suscrito al servicio de membresía",
   "refuse": "Ahora no",
-  "nothing_to_restore": "Nada que restaurar"
+  "nothing_to_restore": "Nada que restaurar",
+  "premium_weekly": "Semanal",
+  "premium_monthly": "Mensual",
+  "premium_quarterly": "Trimestral",
+  "premium_yearly": "Anual"
 }

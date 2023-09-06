@@ -68,5 +68,9 @@
   "current_level": "Livello attuale",
   "your_are_not_membership": "Non hai ancora sottoscritto il servizio di abbonamento",
   "refuse": "Non ora",
-  "nothing_to_restore": "Niente da ripristinare"
+  "nothing_to_restore": "Niente da ripristinare",
+  "premium_weekly": "Settimanale",
+  "premium_monthly": "Mensile",
+  "premium_quarterly": "Mensile",
+  "premium_yearly": "Annuale"
 }

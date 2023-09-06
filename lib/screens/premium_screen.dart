@@ -8,6 +8,8 @@ import 'package:chatty/widgets/common_stateful_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/billing_client_wrappers.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:lottie/lottie.dart';
@@ -173,6 +175,37 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
     }
   }
 
+  //获取老订单
+  Future<GooglePlayPurchaseDetails?> _getOldSubscription() async {
+    GooglePlayPurchaseDetails? oldSubscription;
+    if (Platform.isAndroid) {
+      final InAppPurchaseAndroidPlatformAddition androidAddition =
+          _inAppPurchase.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+      QueryPurchaseDetailsResponse oldPurchaseDetailsQuery = await androidAddition.queryPastPurchases();
+
+      oldPurchaseDetailsQuery.pastPurchases.forEach((element) {
+        if (element.status == PurchaseStatus.purchased) {
+          oldSubscription = element;
+        }
+      });
+    }
+    return oldSubscription;
+  }
+
+  String convertProductTitle(productId) {
+    switch (productId) {
+      case 'membership_weekly':
+        return S.current.premium_weekly;
+      case 'membership_monthly':
+        return S.current.premium_monthly;
+      case 'membership_quarterly':
+        return S.current.premium_quarterly;
+      case 'membership_yearly':
+        return S.current.premium_yearly;
+    }
+    return '';
+  }
+
   Future<void> showLottieDialog(BuildContext context, String name) => showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -304,11 +337,25 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                           decoration: BoxDecoration(
                               gradient: gradientColor, borderRadius: const BorderRadiusDirectional.all(Radius.circular(50))),
                           child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 HapticFeedback.mediumImpact();
                                 if (isAvailable) {
-                                  finishTransaction();
-                                  final PurchaseParam purchaseParam = PurchaseParam(productDetails: _products[_checkedIndex]);
+                                  final ProductDetails productDetail = _products[_checkedIndex];
+                                  PurchaseParam purchaseParam;
+                                  if (Platform.isAndroid) {
+                                    final GooglePlayPurchaseDetails? oldSubscription = await _getOldSubscription();
+                                    purchaseParam = GooglePlayPurchaseParam(
+                                        productDetails: productDetail,
+                                        changeSubscriptionParam: (oldSubscription != null)
+                                            ? ChangeSubscriptionParam(
+                                                oldPurchaseDetails: oldSubscription,
+                                                prorationMode: ProrationMode.immediateWithTimeProration,
+                                              )
+                                            : null);
+                                  } else {
+                                    finishTransaction();
+                                    purchaseParam = PurchaseParam(productDetails: productDetail);
+                                  }
                                   _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
                                 } else {
                                   showToast(S.current.purchase_error);
@@ -401,7 +448,7 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                 Column(
                   children: [
                     Text(
-                      productDetails.title,
+                      convertProductTitle(productDetails.id),
                       style: TextStyle(
                         fontSize: 18,
                         fontStyle: FontStyle.italic,

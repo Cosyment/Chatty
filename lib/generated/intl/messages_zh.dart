@@ -62,9 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("语言设置"),
         "language_code": MessageLookupByLibrary.simpleMessage("简体中文"),
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("查看Keys"),
-        "message_to_help_set_the_behavior_of_the":
-            MessageLookupByLibrary.simpleMessage(
-                "您可以输入AI角色及身份信息，帮助AI更好理解您的问题，给出更加专业的回复"),
+        "message_to_help_set_the_behavior_of_the": MessageLookupByLibrary.simpleMessage("您可以输入AI角色及身份信息，帮助AI更好理解您的问题，给出更加专业的回复"),
         "model": MessageLookupByLibrary.simpleMessage("模型"),
         "new_conversation": MessageLookupByLibrary.simpleMessage("创建会话"),
         "nothing_to_restore": MessageLookupByLibrary.simpleMessage("您还没有订阅过哦"),
@@ -79,7 +77,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "premium_features4": MessageLookupByLibrary.simpleMessage("更高的字数上限"),
         "premium_features5": MessageLookupByLibrary.simpleMessage("支持自定义域名"),
         "premium_features6": MessageLookupByLibrary.simpleMessage("纯净无广告"),
+        "premium_monthly": MessageLookupByLibrary.simpleMessage("月会员"),
         "premium_plus_explain": MessageLookupByLibrary.simpleMessage("高级会员权益"),
+        "premium_quarterly": MessageLookupByLibrary.simpleMessage("季度会员"),
+        "premium_weekly": MessageLookupByLibrary.simpleMessage("周会员"),
+        "premium_yearly": MessageLookupByLibrary.simpleMessage("年度会员"),
         "privacy": MessageLookupByLibrary.simpleMessage("隐私政策"),
         "privacy_policy": MessageLookupByLibrary.simpleMessage("隐私政策"),
         "prompt": MessageLookupByLibrary.simpleMessage("提示词"),

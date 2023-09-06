@@ -79,22 +79,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "model": MessageLookupByLibrary.simpleMessage("Modèle"),
         "new_conversation":
             MessageLookupByLibrary.simpleMessage("Nouvelle conversation"),
-        "nothing_to_restore":
-            MessageLookupByLibrary.simpleMessage("Rien à restaurer"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("Rien à restaurer"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organisation"),
         "other": MessageLookupByLibrary.simpleMessage("Autre"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
-            "Veuillez d\'abord ajouter votre clé d\'API"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Veuillez d\'abord ajouter votre clé d\'API"),
         "premium": MessageLookupByLibrary.simpleMessage("Frais d\'assurance"),
-        "premium_features1":
-            MessageLookupByLibrary.simpleMessage("Envoyer sans limite"),
+        "premium_features1": MessageLookupByLibrary.simpleMessage("Envoyer sans limite"),
         "premium_features2": MessageLookupByLibrary.simpleMessage("Prise en charge de GPT4"),
         "premium_features3": MessageLookupByLibrary.simpleMessage("Prise en charge du rendu Markdown"),
         "premium_features4": MessageLookupByLibrary.simpleMessage("Limite de mots plus élevée"),
         "premium_features5": MessageLookupByLibrary.simpleMessage("Hôte d\'API personnalisé"),
         "premium_features6": MessageLookupByLibrary.simpleMessage("Pas de publicité"),
+        "premium_monthly": MessageLookupByLibrary.simpleMessage("Mensuel"),
         "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Fonctionnalités frais d\'assurance"),
+        "premium_quarterly": MessageLookupByLibrary.simpleMessage("Trimestriel"),
+        "premium_weekly": MessageLookupByLibrary.simpleMessage("Hebdomadaire"),
+        "premium_yearly": MessageLookupByLibrary.simpleMessage("Annuel"),
         "privacy": MessageLookupByLibrary.simpleMessage("Vie privée"),
         "privacy_policy": MessageLookupByLibrary.simpleMessage("Politique"),
         "prompt": MessageLookupByLibrary.simpleMessage("Invites"),
@@ -104,8 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "purchase_success": MessageLookupByLibrary.simpleMessage("Félicitations, abonnement réussi !"),
         "refuse": MessageLookupByLibrary.simpleMessage("Pas maintenant"),
         "reminder": MessageLookupByLibrary.simpleMessage("Astuce"),
-        "render_mode":
-            MessageLookupByLibrary.simpleMessage("Mode d\'affichage"),
+        "render_mode": MessageLookupByLibrary.simpleMessage("Mode d\'affichage"),
         "resend": MessageLookupByLibrary.simpleMessage("Renvoyer"),
         "reset_api_key": MessageLookupByLibrary.simpleMessage("Réinitialiser la clé d\'API"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(

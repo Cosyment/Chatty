@@ -740,6 +740,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Weekly`
+  String get premium_weekly {
+    return Intl.message(
+      'Weekly',
+      name: 'premium_weekly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Monthly`
+  String get premium_monthly {
+    return Intl.message(
+      'Monthly',
+      name: 'premium_monthly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quarterly`
+  String get premium_quarterly {
+    return Intl.message(
+      'Quarterly',
+      name: 'premium_quarterly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yearly`
+  String get premium_yearly {
+    return Intl.message(
+      'Yearly',
+      name: 'premium_yearly',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

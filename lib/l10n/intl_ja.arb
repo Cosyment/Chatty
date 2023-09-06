@@ -68,5 +68,9 @@
   "current_level": "現在のレベル",
   "your_are_not_membership": "まだメンバーシップサービスに加入していません",
   "refuse": "今はしない",
-  "nothing_to_restore": "復元するものはありません"
+  "nothing_to_restore": "復元するものはありません",
+  "premium_weekly": "週刊",
+  "premium_monthly": "月刊",
+  "premium_quarterly": "四半期",
+  "premium_yearly": "年度"
 }

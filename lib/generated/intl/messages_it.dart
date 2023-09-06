@@ -79,22 +79,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "model": MessageLookupByLibrary.simpleMessage("Modello"),
         "new_conversation":
             MessageLookupByLibrary.simpleMessage("Nuova conversazione"),
-        "nothing_to_restore":
-            MessageLookupByLibrary.simpleMessage("Niente da ripristinare"),
+        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("Niente da ripristinare"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organizzazione"),
         "other": MessageLookupByLibrary.simpleMessage("Altro"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
-            "Per favore, aggiungi prima la tua chiave API"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Per favore, aggiungi prima la tua chiave API"),
         "premium": MessageLookupByLibrary.simpleMessage("Premio"),
-        "premium_features1":
-            MessageLookupByLibrary.simpleMessage("Invia senza limiti"),
+        "premium_features1": MessageLookupByLibrary.simpleMessage("Invia senza limiti"),
         "premium_features2": MessageLookupByLibrary.simpleMessage("Supporto GPT4"),
         "premium_features3": MessageLookupByLibrary.simpleMessage("Supporto al rendering Markdown"),
         "premium_features4": MessageLookupByLibrary.simpleMessage("Limite di parole superiore"),
         "premium_features5": MessageLookupByLibrary.simpleMessage("Host API personalizzato"),
         "premium_features6": MessageLookupByLibrary.simpleMessage("Nessuna pubblicità"),
+        "premium_monthly": MessageLookupByLibrary.simpleMessage("Mensile"),
         "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Funzionalità Premio"),
+        "premium_quarterly": MessageLookupByLibrary.simpleMessage("Mensile"),
+        "premium_weekly": MessageLookupByLibrary.simpleMessage("Settimanale"),
+        "premium_yearly": MessageLookupByLibrary.simpleMessage("Annuale"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy"),
         "privacy_policy": MessageLookupByLibrary.simpleMessage("Politica"),
         "prompt": MessageLookupByLibrary.simpleMessage("Suggerimenti"),
@@ -104,11 +105,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "purchase_success": MessageLookupByLibrary.simpleMessage("Congratulazioni, abbonamento riuscito!"),
         "refuse": MessageLookupByLibrary.simpleMessage("Non ora"),
         "reminder": MessageLookupByLibrary.simpleMessage("Promemoria"),
-        "render_mode":
-            MessageLookupByLibrary.simpleMessage("Modalità di rendering"),
+        "render_mode": MessageLookupByLibrary.simpleMessage("Modalità di rendering"),
         "resend": MessageLookupByLibrary.simpleMessage("Invia di nuovo"),
-        "reset_api_key":
-            MessageLookupByLibrary.simpleMessage("Reimposta chiave API"),
+        "reset_api_key": MessageLookupByLibrary.simpleMessage("Reimposta chiave API"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
             "Sei sicuro di voler reimpostare la chiave API? Dopo il reset, dovrai aggiungere una nuova chiave API o riavviare l\'applicazione"),
         "restore": MessageLookupByLibrary.simpleMessage("Ripristina"),

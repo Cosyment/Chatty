@@ -68,5 +68,9 @@
   "current_level": "Aktuell",
   "your_are_not_membership": "Sie haben den Mitgliederservice noch nicht abonniert",
   "refuse": "Nicht jetzt",
-  "nothing_to_restore": "Nichts wiederherzustellen"
+  "nothing_to_restore": "Nichts wiederherzustellen",
+  "premium_weekly": "Wöchentlich",
+  "premium_monthly": "Monatlich",
+  "premium_quarterly": "Quartalsweise",
+  "premium_yearly": "Jährlich"
 }
