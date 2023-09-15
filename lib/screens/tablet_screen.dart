@@ -1,7 +1,9 @@
+import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:chatty/bloc/blocs.dart';
 import 'package:chatty/event/event_bus.dart';
+import 'package:chatty/screens/screens.dart';
 import 'package:chatty/services/local_storage_service.dart';
-import 'package:chatty/widgets/common_appbar.dart';
+import 'package:chatty/widgets/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +18,11 @@ class TabletScreenPage extends StatefulWidget {
   final Widget body;
   final TabletMainView mainView;
 
-  const TabletScreenPage({super.key, required this.sidebar, required this.body, this.mainView = TabletMainView.body});
+  const TabletScreenPage(
+      {super.key,
+      required this.sidebar,
+      required this.body,
+      this.mainView = TabletMainView.body});
 
   @override
   State<StatefulWidget> createState() => _TableScreenPage();
@@ -24,6 +30,14 @@ class TabletScreenPage extends StatefulWidget {
 
 class _TableScreenPage extends State<TabletScreenPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final _controller = NotchBottomBarController(index: 0);
+  final _pageController = PageController(initialPage: 0);
+  final List<Widget> bottomBarPages = [
+    const ConversationScreen(),
+    const TranslateScreenPage(),
+    const DrawScreenPage(),
+    const SettingsScreenPage()
+  ];
 
   @override
   void initState() {
@@ -35,7 +49,8 @@ class _TableScreenPage extends State<TabletScreenPage> {
       }
     });
 
-    EventBus.getDefault().register<EventMessage<CommonStatefulWidget>>(this, (event) {
+    EventBus.getDefault().register<EventMessage<CommonStatefulWidget>>(this,
+        (event) {
       setState(() {});
     });
 
@@ -45,7 +60,8 @@ class _TableScreenPage extends State<TabletScreenPage> {
   @override
   Widget build(BuildContext context) {
     var chatService = context.read<ChatService>();
-    var conversation = chatService.getConversationById(LocalStorageService().currentConversationId);
+    var conversation = chatService
+        .getConversationById(LocalStorageService().currentConversationId);
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -73,24 +89,58 @@ class _TableScreenPage extends State<TabletScreenPage> {
             title = conversation?.title ?? title;
           }
 
-          return BlocProvider(
-              create: (context) =>
-                  ConversationsBloc(chatService: context.read<ChatService>())..add(const ConversationsRequested()),
-              child:
-                  //手机端增加appbar
-                  Scaffold(
-                appBar: CommonAppBar(title, currentConversation: conversation, hasAppBar: true),
-                key: scaffoldKey,
-                drawer: Drawer(
-                  //New added
-                  width: LocalStorageService().isPad ? 280 : 245,
-                  child: widget.sidebar, //New added
-                ),
-                //New added
-                body: Center(
-                  child: widget.body,
-                ),
-              ));
+          return
+              //手机端增加appbar
+              Scaffold(
+            key: scaffoldKey,
+            // drawer: Drawer(
+            //   //New added
+            //   width: LocalStorageService().isPad ? 280 : 245,
+            //   child: widget.sidebar, //New added
+            // ),
+            extendBody: true,
+            //New added
+            body: PageView(
+                controller: _pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: List.generate(
+                    4,
+                    (index) => index == 0
+                        ? EmptyChatScreenPage()
+                        : bottomBarPages[index])),
+
+            bottomNavigationBar: AnimatedNotchBottomBar(
+              notchBottomBarController: _controller,
+              color: ThemeColor.primaryColor,
+              showLabel: true,
+              showShadow: false,
+              notchColor: ThemeColor.appBarBackgroundColor,
+              removeMargins: false,
+              bottomBarWidth: 450,
+              durationInMilliSeconds: 150,
+              bottomBarItems: const [
+                BottomBarItem(
+                    inActiveItem: Icon(Icons.chat_bubble_outline),
+                    activeItem: Icon(Icons.chat_bubble),
+                    itemLabel: '会话'),
+                BottomBarItem(
+                    inActiveItem: Icon(Icons.abc_outlined),
+                    activeItem: Icon(Icons.abc),
+                    itemLabel: '翻译'),
+                BottomBarItem(
+                    inActiveItem: Icon(Icons.draw_outlined),
+                    activeItem: Icon(Icons.draw),
+                    itemLabel: '绘图'),
+                BottomBarItem(
+                    inActiveItem: Icon(Icons.settings_outlined),
+                    activeItem: Icon(Icons.settings),
+                    itemLabel: '设置')
+              ],
+              onTap: (int value) {
+                _pageController.jumpToPage(value);
+              },
+            ),
+          );
         }
       },
     );

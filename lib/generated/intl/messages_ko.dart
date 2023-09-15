@@ -74,16 +74,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "ok": MessageLookupByLibrary.simpleMessage("그래"),
         "organization": MessageLookupByLibrary.simpleMessage("조직"),
         "other": MessageLookupByLibrary.simpleMessage("다른"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("먼저 API Key 추가하세요."),
+        "please_add_your_api_key":
+            MessageLookupByLibrary.simpleMessage("먼저 API Key 추가하세요."),
         "premium": MessageLookupByLibrary.simpleMessage("프리미엄"),
         "premium_features1": MessageLookupByLibrary.simpleMessage("무제한 전송"),
         "premium_features2": MessageLookupByLibrary.simpleMessage("GPT4 지원"),
-        "premium_features3": MessageLookupByLibrary.simpleMessage("Markdown 렌더링 지원"),
+        "premium_features3":
+            MessageLookupByLibrary.simpleMessage("Markdown 렌더링 지원"),
         "premium_features4": MessageLookupByLibrary.simpleMessage("더 높은 단어 제한"),
-        "premium_features5": MessageLookupByLibrary.simpleMessage("사용자 정의 API 호스트"),
+        "premium_features5":
+            MessageLookupByLibrary.simpleMessage("사용자 정의 API 호스트"),
         "premium_features6": MessageLookupByLibrary.simpleMessage("광고 없음"),
         "premium_monthly": MessageLookupByLibrary.simpleMessage("매월"),
-        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("플러스 프리미엄 기능"),
+        "premium_plus_explain":
+            MessageLookupByLibrary.simpleMessage("플러스 프리미엄 기능"),
         "premium_quarterly": MessageLookupByLibrary.simpleMessage("분기별"),
         "premium_weekly": MessageLookupByLibrary.simpleMessage("매주"),
         "premium_yearly": MessageLookupByLibrary.simpleMessage("연간"),
@@ -93,7 +97,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "purchase_cancel": MessageLookupByLibrary.simpleMessage("구매 취소"),
         "purchase_error": MessageLookupByLibrary.simpleMessage("구매 오류"),
         "purchase_failure": MessageLookupByLibrary.simpleMessage("구매 실패"),
-        "purchase_success": MessageLookupByLibrary.simpleMessage("축하합니다! 구독 성공!"),
+        "purchase_success":
+            MessageLookupByLibrary.simpleMessage("축하합니다! 구독 성공!"),
         "refuse": MessageLookupByLibrary.simpleMessage("지금은 아닙니다"),
         "reminder": MessageLookupByLibrary.simpleMessage("따뜻한 힌트"),
         "render_mode": MessageLookupByLibrary.simpleMessage("렌더링 모드"),

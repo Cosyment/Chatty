@@ -78,44 +78,62 @@ class MessageLookup extends MessageLookupByLibrary {
         "model": MessageLookupByLibrary.simpleMessage("Modell"),
         "new_conversation":
             MessageLookupByLibrary.simpleMessage("Neue Unterhaltung"),
-        "nothing_to_restore": MessageLookupByLibrary.simpleMessage("Nichts wiederherzustellen"),
+        "nothing_to_restore":
+            MessageLookupByLibrary.simpleMessage("Nichts wiederherzustellen"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "organization": MessageLookupByLibrary.simpleMessage("Organisation"),
         "other": MessageLookupByLibrary.simpleMessage("Andere"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Bitte fügen Sie zuerst Ihren API-Schlüssel hinzu"),
+        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage(
+            "Bitte fügen Sie zuerst Ihren API-Schlüssel hinzu"),
         "premium": MessageLookupByLibrary.simpleMessage("Prämie"),
-        "premium_features1": MessageLookupByLibrary.simpleMessage("Unbegrenztes Senden"),
-        "premium_features2": MessageLookupByLibrary.simpleMessage("Unterstützung für GPT4"),
-        "premium_features3": MessageLookupByLibrary.simpleMessage("Unterstützung für Markdown-Render"),
-        "premium_features4": MessageLookupByLibrary.simpleMessage("Höhere Wortgrenze"),
-        "premium_features5": MessageLookupByLibrary.simpleMessage("Benutzerdefinierter API-Host"),
-        "premium_features6": MessageLookupByLibrary.simpleMessage("Keine Werbung"),
+        "premium_features1":
+            MessageLookupByLibrary.simpleMessage("Unbegrenztes Senden"),
+        "premium_features2":
+            MessageLookupByLibrary.simpleMessage("Unterstützung für GPT4"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage(
+            "Unterstützung für Markdown-Render"),
+        "premium_features4":
+            MessageLookupByLibrary.simpleMessage("Höhere Wortgrenze"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage(
+            "Benutzerdefinierter API-Host"),
+        "premium_features6":
+            MessageLookupByLibrary.simpleMessage("Keine Werbung"),
         "premium_monthly": MessageLookupByLibrary.simpleMessage("Monatlich"),
-        "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Prämie Funktionen"),
-        "premium_quarterly": MessageLookupByLibrary.simpleMessage("Quartalsweise"),
+        "premium_plus_explain":
+            MessageLookupByLibrary.simpleMessage("Prämie Funktionen"),
+        "premium_quarterly":
+            MessageLookupByLibrary.simpleMessage("Quartalsweise"),
         "premium_weekly": MessageLookupByLibrary.simpleMessage("Wöchentlich"),
         "premium_yearly": MessageLookupByLibrary.simpleMessage("Jährlich"),
         "privacy": MessageLookupByLibrary.simpleMessage("Datenschutz"),
         "privacy_policy": MessageLookupByLibrary.simpleMessage("Politik"),
         "prompt": MessageLookupByLibrary.simpleMessage("Aufforderungen"),
-        "purchase_cancel": MessageLookupByLibrary.simpleMessage("Kauf abgebrochen"),
-        "purchase_error": MessageLookupByLibrary.simpleMessage("Unbekannter Kauffehler"),
-        "purchase_failure": MessageLookupByLibrary.simpleMessage("Kauf fehlgeschlagen"),
-        "purchase_success": MessageLookupByLibrary.simpleMessage("Herzlichen Glückwunsch! Abonnement erfolgreich abgeschlossen!"),
+        "purchase_cancel":
+            MessageLookupByLibrary.simpleMessage("Kauf abgebrochen"),
+        "purchase_error":
+            MessageLookupByLibrary.simpleMessage("Unbekannter Kauffehler"),
+        "purchase_failure":
+            MessageLookupByLibrary.simpleMessage("Kauf fehlgeschlagen"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage(
+            "Herzlichen Glückwunsch! Abonnement erfolgreich abgeschlossen!"),
         "refuse": MessageLookupByLibrary.simpleMessage("Nicht jetzt"),
         "reminder": MessageLookupByLibrary.simpleMessage("Erinnerung"),
         "render_mode": MessageLookupByLibrary.simpleMessage("Rendermodus"),
         "resend": MessageLookupByLibrary.simpleMessage("Erneut senden"),
-        "reset_api_key": MessageLookupByLibrary.simpleMessage("API-Schlüssel zurücksetzen"),
+        "reset_api_key":
+            MessageLookupByLibrary.simpleMessage("API-Schlüssel zurücksetzen"),
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
             "Möchten Sie den API-Schlüssel wirklich zurücksetzen? Danach müssen Sie einen neuen API-Schlüssel hinzufügen oder die App neu starten"),
         "restore": MessageLookupByLibrary.simpleMessage("Wiederherstellen"),
-        "send_a_message": MessageLookupByLibrary.simpleMessage("Nachricht senden..."),
+        "send_a_message":
+            MessageLookupByLibrary.simpleMessage("Nachricht senden..."),
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Abonnieren"),
         "terms_use": MessageLookupByLibrary.simpleMessage("Klausel"),
-        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("Titel darf nicht leer sein"),
+        "title_should_not_be_empty":
+            MessageLookupByLibrary.simpleMessage("Titel darf nicht leer sein"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
-        "your_are_not_membership": MessageLookupByLibrary.simpleMessage("Sie haben den Mitgliederservice noch nicht abonniert")
+        "your_are_not_membership": MessageLookupByLibrary.simpleMessage(
+            "Sie haben den Mitgliederservice noch nicht abonniert")
       };
 }

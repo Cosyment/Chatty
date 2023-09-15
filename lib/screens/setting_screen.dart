@@ -257,9 +257,13 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
     TextAlign textAlign = kIsWeb || Platform.isAndroid ? TextAlign.start : TextAlign.end;
 
     return Scaffold(
-      appBar: CommonAppBar(S.current.settings),
+      appBar: CommonAppBar(
+        S.current.settings,
+        hasAppBar: true,
+      ),
       body: SettingsList(
-        darkTheme: (SettingsThemeData(settingsListBackground: ThemeColor.backgroundColor)),
+        darkTheme: (SettingsThemeData(
+            settingsListBackground: ThemeColor.backgroundColor)),
         sections: [
           SettingsSection(
             title: titleCategoryText(S.current.authentication),

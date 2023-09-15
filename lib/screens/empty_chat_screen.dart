@@ -25,8 +25,8 @@ import '../util/navigation.dart';
 import '../widgets/common_appbar.dart';
 import '../widgets/conversation_edit_dialog.dart';
 
-class EmptyChatScreen extends CommonStatefulWidget {
-  const EmptyChatScreen({super.key});
+class EmptyChatScreenPage extends CommonStatefulWidget {
+  const EmptyChatScreenPage({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -34,7 +34,7 @@ class EmptyChatScreen extends CommonStatefulWidget {
   }
 }
 
-class _EmptyChatScreen extends State<EmptyChatScreen> {
+class _EmptyChatScreen extends State<EmptyChatScreenPage> {
   late List<Prompt> promptList = [];
 
   void fetchPromptList() async {
@@ -57,11 +57,13 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
     super.initState();
   }
 
-  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(
+          BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(
+                conversation: conversation, isEdit: isEdit);
           });
 
   Future<bool> _onBackPressed() async {
@@ -75,25 +77,35 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
     var bloc = BlocProvider.of<ConversationsBloc>(context);
 
     return Scaffold(
-      appBar: CommonAppBar(S.current.appName),
+      appBar: CommonAppBar(S.current.appName, hasAppBar: true),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 150, width: 150, child: Lottie.asset('assets/thinking.json', repeat: true)),
-          PlatformUtil.isMobile ? const SizedBox.shrink() : const SizedBox(height: 20),
+          SizedBox(
+              height: 150,
+              width: 150,
+              child: Lottie.asset('assets/thinking.json', repeat: true)),
+          PlatformUtil.isMobile
+              ? const SizedBox.shrink()
+              : const SizedBox(height: 20),
           Container(
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Column(
                 children: [
                   Text(S.current.create_conversation_to_start,
-                      style: const TextStyle(color: Colors.white70, fontSize: 18), textAlign: TextAlign.center),
+                      style:
+                          const TextStyle(color: Colors.white70, fontSize: 18),
+                      textAlign: TextAlign.center),
                   Text(S.current.create_conversation_tip,
-                      style: const TextStyle(color: Colors.white54, fontSize: 14), textAlign: TextAlign.center)
+                      style:
+                          const TextStyle(color: Colors.white54, fontSize: 14),
+                      textAlign: TextAlign.center)
                 ],
               )),
           Container(
               height: PlatformUtil.isMobile ? 445 : 275,
-              width: PlatformDispatcher.instance.implicitView?.physicalSize.width,
+              width:
+                  PlatformDispatcher.instance.implicitView?.physicalSize.width,
               margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
               child: Stack(
                 children: [
@@ -104,8 +116,13 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
                       // 允终邀动
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return promptItem(context, index,
-                            Prompt(title: promptList[index].title, promptContent: promptList[index].promptContent), chatService);
+                        return promptItem(
+                            context,
+                            index,
+                            Prompt(
+                                title: promptList[index].title,
+                                promptContent: promptList[index].promptContent),
+                            chatService);
                       },
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: PlatformUtil.isMobile ? 3 : 2,
@@ -114,7 +131,9 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
                           crossAxisSpacing: 5,
                           // 水平间距
                           mainAxisSpacing: 5)),
-                  if (promptList.isEmpty) const Center(child: CircularProgressIndicator(color: Colors.white30))
+                  if (promptList.isEmpty)
+                    const Center(
+                        child: CircularProgressIndicator(color: Colors.white30))
                 ],
               ))
         ],
@@ -124,14 +143,17 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
         foregroundColor: Colors.white70,
         shape: const CircleBorder(),
         onPressed: () async {
-          var newConversation = await showConversationDialog(context, false, Conversation.create());
+          var newConversation = await showConversationDialog(
+              context, false, Conversation.create());
           if (newConversation != null) {
             await chatService.updateConversation(newConversation);
-            var savedConversation = chatService.getConversationById(newConversation.id)!;
+            var savedConversation =
+                chatService.getConversationById(newConversation.id)!;
             if (context.mounted) {
               LocalStorageService().currentConversationId = newConversation.id;
               // ChatScreenPage.navigator(context, savedConversation);
-              EventBus.getDefault().post(EventMessage<Conversation>(savedConversation));
+              EventBus.getDefault()
+                  .post(EventMessage<Conversation>(savedConversation));
             }
             bloc.add(const ConversationsRequested());
           }
@@ -141,22 +163,33 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
     );
   }
 
-  Widget promptItem(BuildContext context, int index, Prompt prompt, ChatService chatService) {
-    MaterialColor randomColor = Colors.primaries[index % Colors.primaries.length];
+  Widget promptItem(
+      BuildContext context, int index, Prompt prompt, ChatService chatService) {
+    MaterialColor randomColor =
+        Colors.primaries[index % Colors.primaries.length];
     return GestureDetector(
       child: Container(
           margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          decoration: BoxDecoration(color: randomColor.shade300, borderRadius: BorderRadius.circular(8)),
+          decoration: BoxDecoration(
+              color: randomColor.shade300,
+              borderRadius: BorderRadius.circular(8)),
           child: Column(
             children: [
               Text(prompt.title,
                   maxLines: 1,
                   style: TextStyle(
-                      color: randomColor.shade900, fontSize: 15, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis)),
+                      color: randomColor.shade900,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis)),
               const SizedBox(height: 5),
               Text(prompt.promptContent,
-                  maxLines: 4, style: TextStyle(color: randomColor.shade800, fontSize: 13, overflow: TextOverflow.ellipsis))
+                  maxLines: 4,
+                  style: TextStyle(
+                      color: randomColor.shade800,
+                      fontSize: 13,
+                      overflow: TextOverflow.ellipsis))
             ],
           )),
       onTap: () async {
@@ -167,10 +200,12 @@ class _EmptyChatScreen extends State<EmptyChatScreen> {
         LocalStorageService().currentConversationId = newConversation.id;
 
         await chatService.updateConversation(newConversation);
-        var savedConversation = chatService.getConversationById(newConversation.id)!;
+        var savedConversation =
+            chatService.getConversationById(newConversation.id)!;
         if (context.mounted) {
           // ChatScreenPage.navigator(context, savedConversation);
-          Navigation.navigator(context, ChatScreenPage(currentConversation: savedConversation));
+          Navigation.navigator(
+              context, ChatScreenPage(currentConversation: savedConversation));
         }
         var conversationsBloc = ConversationsBloc(chatService: chatService);
         conversationsBloc.add(const ConversationsRequested());

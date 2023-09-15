@@ -5,11 +5,12 @@ import 'package:chatty/widgets/common_stateful_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../advert/advert_manager.dart';
 import '../bloc/chat_bloc.dart';
 import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
-import '../advert/advert_manager.dart';
+import '../util/environment_config.dart';
 import 'chat_screen.dart';
 import 'conversation_screen.dart';
 import 'empty_chat_screen.dart';
@@ -24,12 +25,16 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreen extends State<MainScreen> {
-  late Widget body = const EmptyChatScreen();
+  late Widget body = const EmptyChatScreenPage();
 
   @override
   void initState() {
-    AdvertManager().showSplash();
-    EventBus.getDefault().register<EventMessage<CommonStatefulWidget>>(this, (event) {
+    if (EnvironmentConfig.APP_CHANNEL != 'samsung') {
+      AdvertManager().showSplash();
+    }
+
+    EventBus.getDefault().register<EventMessage<CommonStatefulWidget>>(this,
+        (event) {
       setState(() {
         body = event.data;
       });
@@ -44,15 +49,18 @@ class _MainScreen extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     var chatService = context.read<ChatService>();
-    Conversation? conversation = chatService.getConversationById(LocalStorageService().currentConversationId);
+    Conversation? conversation = chatService
+        .getConversationById(LocalStorageService().currentConversationId);
 
     if (body is ChatScreenPage) {
       setState(() {
         if (conversation != null) {
           body = BlocProvider(
-              create: (context) => ChatBloc(chatService: chatService, initialConversation: conversation), child: body);
+              create: (context) => ChatBloc(
+                  chatService: chatService, initialConversation: conversation),
+              child: body);
         } else {
-          body = const EmptyChatScreen();
+          body = const EmptyChatScreenPage();
         }
       });
     }

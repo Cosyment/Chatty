@@ -63,18 +63,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("語言"),
         "language_code": MessageLookupByLibrary.simpleMessage("繁體中文"),
         "manage_api_keys": MessageLookupByLibrary.simpleMessage("尋找 Keys"),
-        "message_to_help_set_the_behavior_of_the": MessageLookupByLibrary.simpleMessage("你可以輸入AI角色及身份資訊，幫助AI更好理解您的問題，給出更加專業的回復"),
+        "message_to_help_set_the_behavior_of_the":
+            MessageLookupByLibrary.simpleMessage(
+                "你可以輸入AI角色及身份資訊，幫助AI更好理解您的問題，給出更加專業的回復"),
         "model": MessageLookupByLibrary.simpleMessage("模型"),
         "new_conversation": MessageLookupByLibrary.simpleMessage("新對話"),
         "nothing_to_restore": MessageLookupByLibrary.simpleMessage("您還沒有訂閱過哦"),
         "ok": MessageLookupByLibrary.simpleMessage("好"),
         "organization": MessageLookupByLibrary.simpleMessage("組織"),
         "other": MessageLookupByLibrary.simpleMessage("其他"),
-        "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("請先添加您的API Key"),
+        "please_add_your_api_key":
+            MessageLookupByLibrary.simpleMessage("請先添加您的API Key"),
         "premium": MessageLookupByLibrary.simpleMessage("會員訂閱"),
         "premium_features1": MessageLookupByLibrary.simpleMessage("聊天無限制"),
         "premium_features2": MessageLookupByLibrary.simpleMessage("支援GPT4"),
-        "premium_features3": MessageLookupByLibrary.simpleMessage("支援Markdown渲染"),
+        "premium_features3":
+            MessageLookupByLibrary.simpleMessage("支援Markdown渲染"),
         "premium_features4": MessageLookupByLibrary.simpleMessage("更高的字數上限"),
         "premium_features5": MessageLookupByLibrary.simpleMessage("支援自定義域名"),
         "premium_features6": MessageLookupByLibrary.simpleMessage("純淨無廣告"),

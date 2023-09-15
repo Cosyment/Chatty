@@ -38,7 +38,10 @@ class SubscribeDialog extends StatelessWidget {
         ),
         ElevatedButton(
           child: Text(S.current.subscribe),
-          onPressed: () => {Navigator.pop(context), Navigation.navigator(context, const PremiumScreen())},
+          onPressed: () => {
+            Navigator.pop(context),
+            Navigation.navigator(context, const PremiumScreenPage())
+          },
         ),
       ],
     );

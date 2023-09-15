@@ -111,7 +111,7 @@ class _ConversationScreen extends State<ConversationScreen>
                             currentConversation = null;
                             Future.delayed(Duration.zero, () {
                               Navigation.navigator(
-                                  context, const EmptyChatScreen());
+                                  context, const EmptyChatScreenPage());
                             });
                           });
                         }
@@ -196,16 +196,17 @@ class _ConversationScreen extends State<ConversationScreen>
                               EnvironmentConfig.APP_CHANNEL == 'official')
                             premiumButton(S.current.premium,
                                 Icons.wallet_membership_outlined, () {
-                              closeDrawer();
+                                  closeDrawer();
                               Navigation.navigator(
-                                  context, const PremiumScreen());
+                                  context, const PremiumScreenPage());
                             }),
                           SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
                           textButton(
                               S.current.prompt, Icons.tips_and_updates_outlined,
                               () {
-                            closeDrawer();
-                            Navigation.navigator(context, const PromptScreen());
+                                closeDrawer();
+                            Navigation.navigator(
+                                context, const PromptScreenPage());
                           }),
                           SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
                           textButton(

@@ -18,8 +18,8 @@ import '../models/prompt.dart';
 import '../services/local_storage_service.dart';
 import '../widgets/common_appbar.dart';
 
-class PromptScreen extends CommonStatefulWidget {
-  const PromptScreen({super.key});
+class PromptScreenPage extends CommonStatefulWidget {
+  const PromptScreenPage({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -30,7 +30,7 @@ class PromptScreen extends CommonStatefulWidget {
   String title() => S.current.prompt;
 }
 
-class _PromptState extends State<PromptScreen> {
+class _PromptState extends State<PromptScreenPage> {
   late List<Prompt> promptList = [];
 
   @override

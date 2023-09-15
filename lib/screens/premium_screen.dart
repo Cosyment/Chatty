@@ -21,8 +21,8 @@ import '../generated/l10n.dart';
 import '../util/constants.dart';
 import '../widgets/theme_color.dart';
 
-class PremiumScreen extends CommonStatefulWidget {
-  const PremiumScreen({super.key});
+class PremiumScreenPage extends CommonStatefulWidget {
+  const PremiumScreenPage({super.key});
 
   @override
   String title() => S.current.premium;

@@ -1,8 +1,10 @@
-export 'tablet_screen.dart';
-export 'main_screen.dart';
-export 'conversation_screen.dart';
 export 'chat_screen.dart';
-export 'prompt_screen.dart';
+export 'conversation_screen.dart';
+export 'draw_screen.dart';
 export 'empty_chat_screen.dart';
-export 'setting_screen.dart';
+export 'main_screen.dart';
 export 'premium_screen.dart';
+export 'prompt_screen.dart';
+export 'setting_screen.dart';
+export 'tablet_screen.dart';
+export 'translate_screen.dart';
