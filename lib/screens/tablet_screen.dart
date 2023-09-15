@@ -106,7 +106,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
                 children: List.generate(
                     4,
                     (index) => index == 0
-                        ? EmptyChatScreenPage()
+                        ? const EmptyChatScreenPage()
                         : bottomBarPages[index])),
 
             bottomNavigationBar: AnimatedNotchBottomBar(
@@ -137,7 +137,9 @@ class _TableScreenPage extends State<TabletScreenPage> {
                     itemLabel: '设置')
               ],
               onTap: (int value) {
-                _pageController.jumpToPage(value);
+                _pageController.animateToPage(value,
+                    duration: const Duration(milliseconds: 100),
+                    curve: Curves.easeOutQuad);
               },
             ),
           );
