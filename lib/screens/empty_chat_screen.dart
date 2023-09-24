@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:chatty/api/http_request.dart';
+import 'package:chatty/screens/screens.dart';
+import 'package:chatty/util/navigation.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:chatty/widgets/common_stateful_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,9 +22,7 @@ import '../models/prompt.dart';
 import '../screens/chat_screen.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
-import '../util/android_back_desktop.dart';
 import '../util/constants.dart';
-import '../util/navigation.dart';
 import '../widgets/common_appbar.dart';
 import '../widgets/conversation_edit_dialog.dart';
 
@@ -57,18 +58,24 @@ class _EmptyChatScreen extends State<EmptyChatScreenPage> {
     super.initState();
   }
 
-  Future<Conversation?> showConversationDialog(
-          BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(
-                conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
           });
 
-  Future<bool> _onBackPressed() async {
-    AndroidBackTop.backDeskTop(); //设置为返回不退出app
-    return false;
+  Future<void> createConversation(ChatService chatService, ConversationsBloc bloc) async {
+    var newConversation = await showConversationDialog(context, false, Conversation.create());
+    if (newConversation != null) {
+      await chatService.updateConversation(newConversation);
+      var savedConversation = chatService.getConversationById(newConversation.id)!;
+      if (context.mounted) {
+        LocalStorageService().currentConversationId = newConversation.id;
+        EventBus.getDefault().post(EventMessage<Conversation>(savedConversation));
+      }
+      bloc.add(const ConversationsRequested());
+    }
   }
 
   @override
@@ -77,35 +84,37 @@ class _EmptyChatScreen extends State<EmptyChatScreenPage> {
     var bloc = BlocProvider.of<ConversationsBloc>(context);
 
     return Scaffold(
-      appBar: CommonAppBar(S.current.appName, hasAppBar: true),
+      appBar: CommonAppBar(
+        S.current.appName,
+        hasAppBar: true,
+        actionWidgets: PlatformUtil.isMobile
+            ? [
+                IconButton(
+                    onPressed: () {
+                      createConversation(chatService, bloc);
+                    },
+                    icon: const Icon(Icons.add_comment_rounded))
+              ]
+            : [],
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-              height: 150,
-              width: 150,
-              child: Lottie.asset('assets/thinking.json', repeat: true)),
-          PlatformUtil.isMobile
-              ? const SizedBox.shrink()
-              : const SizedBox(height: 20),
+          SizedBox(height: 120, width: 120, child: Lottie.asset('assets/thinking.json', repeat: true)),
+          PlatformUtil.isMobile ? const SizedBox.shrink() : const SizedBox(height: 20),
           Container(
-              margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
               child: Column(
                 children: [
                   Text(S.current.create_conversation_to_start,
-                      style:
-                          const TextStyle(color: Colors.white70, fontSize: 18),
-                      textAlign: TextAlign.center),
+                      style: const TextStyle(color: Colors.white70, fontSize: 18), textAlign: TextAlign.center),
                   Text(S.current.create_conversation_tip,
-                      style:
-                          const TextStyle(color: Colors.white54, fontSize: 14),
-                      textAlign: TextAlign.center)
+                      style: const TextStyle(color: Colors.white54, fontSize: 14), textAlign: TextAlign.center)
                 ],
               )),
           Container(
-              height: PlatformUtil.isMobile ? 445 : 275,
-              width:
-                  PlatformDispatcher.instance.implicitView?.physicalSize.width,
+              height: PlatformUtil.isMobile ? 400 : 275,
+              width: PlatformDispatcher.instance.implicitView?.physicalSize.width,
               margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
               child: Stack(
                 children: [
@@ -116,13 +125,8 @@ class _EmptyChatScreen extends State<EmptyChatScreenPage> {
                       // 允终邀动
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return promptItem(
-                            context,
-                            index,
-                            Prompt(
-                                title: promptList[index].title,
-                                promptContent: promptList[index].promptContent),
-                            chatService);
+                        return promptItem(context, index,
+                            Prompt(title: promptList[index].title, promptContent: promptList[index].promptContent), chatService);
                       },
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: PlatformUtil.isMobile ? 3 : 2,
@@ -131,65 +135,40 @@ class _EmptyChatScreen extends State<EmptyChatScreenPage> {
                           crossAxisSpacing: 5,
                           // 水平间距
                           mainAxisSpacing: 5)),
-                  if (promptList.isEmpty)
-                    const Center(
-                        child: CircularProgressIndicator(color: Colors.white30))
+                  if (promptList.isEmpty) const Center(child: CircularProgressIndicator(color: Colors.white30))
                 ],
-              ))
+              )),
+          if (PlatformUtil.isMobile) const SizedBox(height: 20)
         ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: CupertinoColors.secondaryLabel,
         foregroundColor: Colors.white70,
         shape: const CircleBorder(),
-        onPressed: () async {
-          var newConversation = await showConversationDialog(
-              context, false, Conversation.create());
-          if (newConversation != null) {
-            await chatService.updateConversation(newConversation);
-            var savedConversation =
-                chatService.getConversationById(newConversation.id)!;
-            if (context.mounted) {
-              LocalStorageService().currentConversationId = newConversation.id;
-              // ChatScreenPage.navigator(context, savedConversation);
-              EventBus.getDefault()
-                  .post(EventMessage<Conversation>(savedConversation));
-            }
-            bloc.add(const ConversationsRequested());
-          }
+        onPressed: () {
+          createConversation(chatService, bloc);
         },
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  Widget promptItem(
-      BuildContext context, int index, Prompt prompt, ChatService chatService) {
-    MaterialColor randomColor =
-        Colors.primaries[index % Colors.primaries.length];
+  Widget promptItem(BuildContext context, int index, Prompt prompt, ChatService chatService) {
+    MaterialColor randomColor = Colors.primaries[index % Colors.primaries.length];
     return GestureDetector(
       child: Container(
-          margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          decoration: BoxDecoration(
-              color: randomColor.shade300,
-              borderRadius: BorderRadius.circular(8)),
+          margin: const EdgeInsets.all(2),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+          decoration: BoxDecoration(color: randomColor.shade300, borderRadius: BorderRadius.circular(8)),
           child: Column(
             children: [
               Text(prompt.title,
                   maxLines: 1,
                   style: TextStyle(
-                      color: randomColor.shade900,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.ellipsis)),
+                      color: randomColor.shade900, fontSize: 15, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis)),
               const SizedBox(height: 5),
               Text(prompt.promptContent,
-                  maxLines: 4,
-                  style: TextStyle(
-                      color: randomColor.shade800,
-                      fontSize: 13,
-                      overflow: TextOverflow.ellipsis))
+                  maxLines: 4, style: TextStyle(color: randomColor.shade800, fontSize: 13, overflow: TextOverflow.ellipsis))
             ],
           )),
       onTap: () async {
@@ -200,12 +179,14 @@ class _EmptyChatScreen extends State<EmptyChatScreenPage> {
         LocalStorageService().currentConversationId = newConversation.id;
 
         await chatService.updateConversation(newConversation);
-        var savedConversation =
-            chatService.getConversationById(newConversation.id)!;
+        var savedConversation = chatService.getConversationById(newConversation.id)!;
+
         if (context.mounted) {
-          // ChatScreenPage.navigator(context, savedConversation);
-          Navigation.navigator(
-              context, ChatScreenPage(currentConversation: savedConversation));
+          if (Platform.isAndroid || Platform.isIOS) {
+            Navigation.navigatorChat(context, chatService, savedConversation);
+          } else {
+            Navigation.navigator(context, ChatScreenPage(currentConversation: savedConversation));
+          }
         }
         var conversationsBloc = ConversationsBloc(chatService: chatService);
         conversationsBloc.add(const ConversationsRequested());

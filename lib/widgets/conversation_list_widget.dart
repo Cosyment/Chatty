@@ -1,7 +1,6 @@
-import 'package:chatty/event/event_bus.dart';
-import 'package:chatty/event/event_message.dart';
+import 'dart:io';
+
 import 'package:chatty/services/local_storage_service.dart';
-import 'package:chatty/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -87,11 +86,12 @@ class _ConversationListWidgetState extends State<ConversationListWidget> {
               selectedConversation = conversation;
               if (context.mounted) {
                 setState(() {
-                  if (PlatformUtil.isMobile) {
-                    EventBus.getDefault().post(EventMessage<EventType>(EventType.CLOSE_DRAWER));
-                  }
                   LocalStorageService().currentConversationId = id;
-                  Navigation.navigator(context, ChatScreenPage(currentConversation: selectedConversation));
+                  if (Platform.isAndroid || Platform.isIOS) {
+                    Navigation.navigatorChat(context, chatService, selectedConversation!);
+                  } else {
+                    Navigation.navigator(context, ChatScreenPage(currentConversation: selectedConversation));
+                  }
                 });
               }
             }

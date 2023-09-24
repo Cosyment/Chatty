@@ -39,7 +39,7 @@ if (project.hasProperty('dart-defines')) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.huawei.agconnect'
+//apply plugin: 'com.huawei.agconnect'
 
 android {
     namespace 'com.waiting.ai.chatbot'
@@ -156,5 +156,5 @@ dependencies {
     implementation 'com.umeng.umsdk:common:9.6.1'// 必选
     implementation 'com.umeng.umsdk:asms:1.8.0'// 必选
     implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
+//    implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
 }

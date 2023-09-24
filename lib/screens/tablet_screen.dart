@@ -18,11 +18,7 @@ class TabletScreenPage extends StatefulWidget {
   final Widget body;
   final TabletMainView mainView;
 
-  const TabletScreenPage(
-      {super.key,
-      required this.sidebar,
-      required this.body,
-      this.mainView = TabletMainView.body});
+  const TabletScreenPage({super.key, required this.sidebar, required this.body, this.mainView = TabletMainView.body});
 
   @override
   State<StatefulWidget> createState() => _TableScreenPage();
@@ -33,10 +29,11 @@ class _TableScreenPage extends State<TabletScreenPage> {
   final _controller = NotchBottomBarController(index: 0);
   final _pageController = PageController(initialPage: 0);
   final List<Widget> bottomBarPages = [
-    const ConversationScreen(),
-    const TranslateScreenPage(),
-    const DrawScreenPage(),
-    const SettingsScreenPage()
+    const HomeScreenPage(),
+    // const TranslateScreenPage(),
+    // const DrawScreenPage(),
+    const PromptScreenPage(),
+    const MoreScreenPage()
   ];
 
   @override
@@ -49,8 +46,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
       }
     });
 
-    EventBus.getDefault().register<EventMessage<CommonStatefulWidget>>(this,
-        (event) {
+    EventBus.getDefault().register<EventMessage<CommonStatefulWidget>>(this, (event) {
       setState(() {});
     });
 
@@ -58,10 +54,15 @@ class _TableScreenPage extends State<TabletScreenPage> {
   }
 
   @override
+  void dispose() {
+    // _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var chatService = context.read<ChatService>();
-    var conversation = chatService
-        .getConversationById(LocalStorageService().currentConversationId);
+    var conversation = chatService.getConversationById(LocalStorageService().currentConversationId);
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -92,22 +93,13 @@ class _TableScreenPage extends State<TabletScreenPage> {
           return
               //手机端增加appbar
               Scaffold(
-            key: scaffoldKey,
-            // drawer: Drawer(
-            //   //New added
-            //   width: LocalStorageService().isPad ? 280 : 245,
-            //   child: widget.sidebar, //New added
-            // ),
+                key: scaffoldKey,
             extendBody: true,
             //New added
             body: PageView(
                 controller: _pageController,
                 physics: const NeverScrollableScrollPhysics(),
-                children: List.generate(
-                    4,
-                    (index) => index == 0
-                        ? const EmptyChatScreenPage()
-                        : bottomBarPages[index])),
+                children: List.generate(bottomBarPages.length, (index) => bottomBarPages[index])),
 
             bottomNavigationBar: AnimatedNotchBottomBar(
               notchBottomBarController: _controller,
@@ -119,27 +111,14 @@ class _TableScreenPage extends State<TabletScreenPage> {
               bottomBarWidth: 450,
               durationInMilliSeconds: 150,
               bottomBarItems: const [
-                BottomBarItem(
-                    inActiveItem: Icon(Icons.chat_bubble_outline),
-                    activeItem: Icon(Icons.chat_bubble),
-                    itemLabel: '会话'),
-                BottomBarItem(
-                    inActiveItem: Icon(Icons.abc_outlined),
-                    activeItem: Icon(Icons.abc),
-                    itemLabel: '翻译'),
-                BottomBarItem(
-                    inActiveItem: Icon(Icons.draw_outlined),
-                    activeItem: Icon(Icons.draw),
-                    itemLabel: '绘图'),
-                BottomBarItem(
-                    inActiveItem: Icon(Icons.settings_outlined),
-                    activeItem: Icon(Icons.settings),
-                    itemLabel: '设置')
+                BottomBarItem(inActiveItem: Icon(Icons.home_outlined), activeItem: Icon(Icons.home), itemLabel: '首页'),
+                BottomBarItem(inActiveItem: Icon(Icons.explore_outlined), activeItem: Icon(Icons.explore), itemLabel: '发现'),
+                // BottomBarItem(inActiveItem: Icon(Icons.abc_outlined), activeItem: Icon(Icons.abc), itemLabel: '翻译'),
+                // BottomBarItem(inActiveItem: Icon(Icons.draw_outlined), activeItem: Icon(Icons.draw), itemLabel: '绘图'),
+                BottomBarItem(inActiveItem: Icon(Icons.menu_outlined), activeItem: Icon(Icons.menu_rounded), itemLabel: '更多')
               ],
               onTap: (int value) {
-                _pageController.animateToPage(value,
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.easeOutQuad);
+                _pageController.animateToPage(value, duration: const Duration(milliseconds: 100), curve: Curves.easeOutQuad);
               },
             ),
           );

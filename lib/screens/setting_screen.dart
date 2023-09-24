@@ -32,7 +32,7 @@ class SettingsScreenPage extends CommonStatefulWidget {
   State<SettingsScreenPage> createState() => _SettingsScreenPageState();
 }
 
-class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBindingObserver {
+class _SettingsScreenPageState extends State<SettingsScreenPage> {
   String apiKey = LocalStorageService().apiKey;
   String organization = LocalStorageService().organization;
   String apiHost = LocalStorageService().apiHost;
@@ -262,8 +262,7 @@ class _SettingsScreenPageState extends State<SettingsScreenPage> with WidgetsBin
         hasAppBar: true,
       ),
       body: SettingsList(
-        darkTheme: (SettingsThemeData(
-            settingsListBackground: ThemeColor.backgroundColor)),
+        darkTheme: (SettingsThemeData(settingsListBackground: ThemeColor.backgroundColor)),
         sections: [
           SettingsSection(
             title: titleCategoryText(S.current.authentication),

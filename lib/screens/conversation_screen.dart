@@ -18,11 +18,12 @@ import '../models/conversation.dart';
 import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../util/environment_config.dart';
+import '../widgets/common_stateful_widget.dart';
 import '../widgets/theme_color.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
 
-class ConversationScreen extends StatefulWidget {
+class ConversationScreen extends CommonStatefulWidget {
   final Conversation? selectedConversation;
 
   const ConversationScreen({super.key, this.selectedConversation});
@@ -33,21 +34,17 @@ class ConversationScreen extends StatefulWidget {
   }
 }
 
-class _ConversationScreen extends State<ConversationScreen>
-    with WidgetsBindingObserver {
+class _ConversationScreen extends State<ConversationScreen> {
   late Conversation? currentConversation = widget.selectedConversation;
 
-  Future<Conversation?> showConversationDialog(
-          BuildContext context, bool isEdit, Conversation conversation) =>
+  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
       showDialog<Conversation?>(
           context: context,
           builder: (context) {
-            return ConversationEditDialog(
-                conversation: conversation, isEdit: isEdit);
+            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
           });
 
-  Future<bool?> showCleanConfirmDialog(BuildContext context) =>
-      showDialog<bool>(
+  Future<bool?> showCleanConfirmDialog(BuildContext context) => showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
           return ConfirmDialog(
@@ -88,154 +85,116 @@ class _ConversationScreen extends State<ConversationScreen>
 
     return Scaffold(
       resizeToAvoidBottomInset: false, //解决平板模式显示键盘时，内容被顶上去问题
-      appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(S.current.conversations),
-              currentConversation != null
-                  ? IconButton(
-                      onPressed: () async {
-                        var result = await showCleanConfirmDialog(context);
-                        if (result == true) {
-                          List<ConversationIndex> list =
-                              chatService.getConversationList();
-                          for (var element in list) {
-                            chatService.removeConversationById(element.id);
-                            LocalStorageService()
-                                .removeConversationJsonById(element.id);
-                          }
-
-                          setState(() {
-                            list.clear();
-                            currentConversation = null;
-                            Future.delayed(Duration.zero, () {
-                              Navigation.navigator(
-                                  context, const EmptyChatScreenPage());
-                            });
-                          });
+      appBar: CommonAppBar(
+        S.current.conversations,
+        actionWidgets: currentConversation != null
+            ? [
+                IconButton(
+                    onPressed: () async {
+                      var result = await showCleanConfirmDialog(context);
+                      if (result == true) {
+                        List<ConversationIndex> list = chatService.getConversationList();
+                        for (var element in list) {
+                          chatService.removeConversationById(element.id);
+                          LocalStorageService().removeConversationJsonById(element.id);
                         }
-                      },
-                      icon: const Icon(Icons.cleaning_services_outlined))
-                  : const SizedBox()
-            ],
-          ),
-          automaticallyImplyLeading: false),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            currentConversation != null
-                ? ConversationListWidget(
-                    selectedConversation: currentConversation)
-                : Flexible(
-                    flex: 1,
-                    fit: FlexFit.tight,
-                    child: Center(
-                        child: SizedBox(
-                            width: 100,
-                            height: 100,
-                            child: Lottie.asset('assets/empty.json',
-                                repeat: true)))),
-            if (PlatformUtil.isMobile &&
-                !LocalStorageService().isMembershipUser())
-              MaxAdView(
-                adUnitId:
-                    Platform.isIOS ? '9f972dbea4fce16c' : '3e59dece9a59c908',
-                adFormat: AdFormat.banner,
-                listener: AdViewAdListener(onAdLoadedCallback: (ad) {
-                  debugPrint('banner onAdLoadedCallback ad $ad');
-                }, onAdLoadFailedCallback: (adUnitId, error) {
-                  debugPrint(
-                      'banner onAdLoadFailedCallback ad $adUnitId,$error');
-                }, onAdClickedCallback: (ad) {
-                  debugPrint('banner onAdClickedCallback ad $ad');
-                }, onAdExpandedCallback: (ad) {
-                  debugPrint('banner onAdExpandedCallback ad $ad');
-                }, onAdCollapsedCallback: (ad) {
-                  debugPrint('banner onAdCollapsedCallback ad $ad');
-                }),
-              ),
-            const Divider(thickness: .2),
+
+                        setState(() {
+                          list.clear();
+                          currentConversation = null;
+                          Future.delayed(Duration.zero, () {
+                            Navigation.navigator(context, const EmptyChatScreenPage());
+                          });
+                        });
+                      }
+                    },
+                    icon: const Icon(Icons.cleaning_services_outlined))
+              ]
+            : [],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          currentConversation != null
+              ? ConversationListWidget(selectedConversation: currentConversation)
+              : Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child:
+                      Center(child: SizedBox(width: 100, height: 100, child: Lottie.asset('assets/empty.json', repeat: true)))),
+          if (PlatformUtil.isMobile && !LocalStorageService().isMembershipUser())
+            MaxAdView(
+              adUnitId: Platform.isIOS ? '9f972dbea4fce16c' : '3e59dece9a59c908',
+              adFormat: AdFormat.banner,
+              listener: AdViewAdListener(onAdLoadedCallback: (ad) {
+                debugPrint('banner onAdLoadedCallback ad $ad');
+              }, onAdLoadFailedCallback: (adUnitId, error) {
+                debugPrint('banner onAdLoadFailedCallback ad $adUnitId,$error');
+              }, onAdClickedCallback: (ad) {
+                debugPrint('banner onAdClickedCallback ad $ad');
+              }, onAdExpandedCallback: (ad) {
+                debugPrint('banner onAdExpandedCallback ad $ad');
+              }, onAdCollapsedCallback: (ad) {
+                debugPrint('banner onAdCollapsedCallback ad $ad');
+              }),
+            ),
+          if (PlatformUtil.isLandscape(context) || Platform.isMacOS || Platform.isWindows)
             Container(
                 color: ThemeColor.backgroundColor,
                 width: PlatformUtil.isMobile ? 300 : 250,
                 child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        10, 0, 10, PlatformUtil.isMobile ? 0 : 15),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textButton(S.current.new_conversation,
-                              Icons.add_box_outlined, () async {
-                            var newConversation = await showConversationDialog(
-                                context, false, Conversation.create());
-                            if (newConversation != null) {
-                              LocalStorageService().currentConversationId =
-                                  newConversation.id;
-                              await chatService
-                                  .updateConversation(newConversation);
-                              conversationsBloc
-                                  .add(const ConversationsRequested());
-                              if (context.mounted) {
-                                closeDrawer();
-                                Navigation.navigator(
-                                    context,
-                                    ChatScreenPage(
-                                        currentConversation: newConversation));
-                              }
-                            }
-                          }),
-                          if (Platform.isIOS ||
-                              Platform.isMacOS ||
-                              EnvironmentConfig.APP_CHANNEL == 'google')
-                            SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                          if (Platform.isIOS ||
-                              Platform.isMacOS ||
-                              EnvironmentConfig.APP_CHANNEL == 'google' ||
-                              EnvironmentConfig.APP_CHANNEL == 'official')
-                            premiumButton(S.current.premium,
-                                Icons.wallet_membership_outlined, () {
-                                  closeDrawer();
-                              Navigation.navigator(
-                                  context, const PremiumScreenPage());
-                            }),
-                          SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                          textButton(
-                              S.current.prompt, Icons.tips_and_updates_outlined,
-                              () {
-                                closeDrawer();
-                            Navigation.navigator(
-                                context, const PromptScreenPage());
-                          }),
-                          SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                          textButton(
-                              S.current.settings, Icons.settings_outlined, () {
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, PlatformUtil.isMobile ? 0 : 15),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      const Divider(thickness: .2),
+                      textButton(S.current.new_conversation, Icons.add_box_outlined, () async {
+                        var newConversation = await showConversationDialog(context, false, Conversation.create());
+                        if (newConversation != null) {
+                          LocalStorageService().currentConversationId = newConversation.id;
+                          await chatService.updateConversation(newConversation);
+                          conversationsBloc.add(const ConversationsRequested());
+                          if (context.mounted) {
                             closeDrawer();
-                            Navigation.navigator(
-                                context, const SettingsScreenPage());
-                          }),
-                          SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                          FutureBuilder<PackageInfo>(
-                              future: PackageInfo.fromPlatform(),
-                              builder: (context, packageInfo) {
-                                return textButton(
-                                    "${S.current.version}: v${packageInfo.data?.version}",
-                                    Icons.info_outline, () {
-                                  // AdvertManager().showBanner();
-                                });
-                              })
-                        ]))),
-          ],
-        ),
+                            Navigation.navigator(context, ChatScreenPage(currentConversation: newConversation));
+                          }
+                        }
+                      }),
+                      if (Platform.isIOS || Platform.isMacOS || EnvironmentConfig.APP_CHANNEL == 'google')
+                        SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
+                      if (Platform.isIOS ||
+                          Platform.isMacOS ||
+                          EnvironmentConfig.APP_CHANNEL == 'google' ||
+                          EnvironmentConfig.APP_CHANNEL == 'official')
+                        premiumButton(S.current.premium, Icons.wallet_membership_outlined, () {
+                          closeDrawer();
+                          Navigation.navigator(context, const PremiumScreenPage());
+                        }),
+                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
+                      textButton(S.current.prompt, Icons.tips_and_updates_outlined, () {
+                        closeDrawer();
+                        Navigation.navigator(context, const PromptScreenPage());
+                      }),
+                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
+                      textButton(S.current.settings, Icons.settings_outlined, () {
+                        closeDrawer();
+                        Navigation.navigator(context, const SettingsScreenPage());
+                      }),
+                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
+                      FutureBuilder<PackageInfo>(
+                          future: PackageInfo.fromPlatform(),
+                          builder: (context, packageInfo) {
+                            return textButton("${S.current.version}: v${packageInfo.data?.version}", Icons.info_outline, () {
+                              // AdvertManager().showBanner();
+                            });
+                          })
+                    ]))),
+        ],
       ),
     );
   }
 
   void closeDrawer() {
     if (PlatformUtil.isMobile) {
-      EventBus.getDefault()
-          .post(EventMessage<EventType>(EventType.CLOSE_DRAWER));
+      EventBus.getDefault().post(EventMessage<EventType>(EventType.CLOSE_DRAWER));
     }
   }
 
@@ -247,15 +206,13 @@ class _ConversationScreen extends State<ConversationScreen>
     );
   }
 
-  Widget premiumButton(
-      String value, IconData iconData, VoidCallback? onPressed) {
+  Widget premiumButton(String value, IconData iconData, VoidCallback? onPressed) {
     return TextButton.icon(
       onPressed: onPressed,
       label: Text(value,
           style: TextStyle(
               foreground: Paint()
-                ..shader = ui.Gradient.linear(
-                    const Offset(0, 20), const Offset(130, 20), <Color>[
+                ..shader = ui.Gradient.linear(const Offset(0, 20), const Offset(130, 20), <Color>[
                   const Color(0xFF2EC0FF),
                   const Color(0xFFEE56D9),
                 ]))),

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:chatty/advert/advert_manager.dart';
@@ -8,8 +7,10 @@ import 'package:chatty/api/http_request.dart';
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/models/prompt.dart';
+import 'package:chatty/screens/premium_screen.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
+import 'package:chatty/util/navigation.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -212,6 +213,23 @@ class _ChatScreenState extends State<ChatScreenPage> {
     });
   }
 
+  Future<Conversation?> showConversationDialog(BuildContext context, bool isEdit, Conversation conversation) =>
+      showDialog<Conversation?>(
+          context: context,
+          builder: (context) {
+            return ConversationEditDialog(conversation: conversation, isEdit: isEdit);
+          });
+
+  Future<bool?> showClearConfirmDialog(BuildContext context) => showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmDialog(
+            title: S.current.clear_conversation,
+            content: S.current.clear_conversation_tips,
+          );
+        },
+      );
+
   @override
   Widget build(BuildContext context) {
     final state = context.watch<ChatBloc>().state;
@@ -266,7 +284,66 @@ class _ChatScreenState extends State<ChatScreenPage> {
     return ScaffoldMessenger(
       key: scaffoldMessengerKey,
       child: Scaffold(
-        appBar: CommonAppBar(conversation.title, currentConversation: conversation),
+        appBar: CommonAppBar(
+          conversation.title,
+          currentConversation: conversation,
+          actionWidgets: [
+            PopupMenuButton(
+              icon: const Icon(Icons.more_vert),
+              itemBuilder: (context) {
+                return [
+                  PopupMenuItem(
+                    value: 'edit',
+                    child: Text(S.current.edit),
+                  ),
+                  PopupMenuItem(
+                    value: 'clear',
+                    child: Text(S.current.clear_conversation),
+                  ),
+                ];
+              },
+              onSelected: (value) async {
+                var chatService = context.read<ChatService>();
+                var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
+                switch (value) {
+                  case 'edit':
+                    var newConversation = await showConversationDialog(context, true, widget.currentConversation!);
+                    if (newConversation != null) {
+                      widget.currentConversation?.lastUpdated = DateTime.now();
+                      setState(() {
+                        // widget.title = newConversation.title;
+                        widget.currentConversation?.title = newConversation.title;
+                      });
+
+                      await chatService.updateConversation(newConversation);
+
+                      var chatBloc = ChatBloc(chatService: chatService, initialConversation: newConversation);
+
+                      chatBloc.add(ChatLastUpdatedChanged(newConversation, newConversation.lastUpdated));
+                      conversationsBloc.add(const ConversationsRequested());
+                    }
+                    break;
+                  case 'clear':
+                    var result = await showClearConfirmDialog(context);
+                    if (result == true) {
+                      widget.currentConversation?.messages = [];
+                      widget.currentConversation?.lastUpdated = DateTime.now();
+
+                      await chatService.updateConversation(widget.currentConversation!);
+
+                      var chatBloc = ChatBloc(chatService: chatService, initialConversation: widget.currentConversation!);
+
+                      chatBloc.add(ChatLastUpdatedChanged(widget.currentConversation!, widget.currentConversation!.lastUpdated));
+                      conversationsBloc.add(const ConversationsCleared());
+                    }
+                    break;
+                  default:
+                    break;
+                }
+              },
+            ),
+          ],
+        ),
         body: SafeArea(
             child: Column(children: [
           // system message
@@ -311,54 +388,21 @@ class _ChatScreenState extends State<ChatScreenPage> {
                           duration: const Duration(milliseconds: 200),
                           curve: Curves.linear,
                           child: SizedBox(
-                            height: _showPromptPopup ? 210 : 24,
+                            height: _showPromptPopup ? 210 : 30,
                             child: Container(
-                              alignment: Alignment.bottomCenter,
+                              alignment: Alignment.bottomLeft,
                               padding: const EdgeInsets.only(left: 16),
                               child: Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.integration_instructions_outlined,
-                                        size: 16,
-                                        color: Colors.white70,
-                                      ),
-                                      const SizedBox(width: 2),
-                                      Text(
-                                          'Limit：${min(TokenService.getEffectiveMessages(conversation, value.text).length, LocalStorageService().historyCount)}/${LocalStorageService().historyCount}',
-                                          style: const TextStyle(fontSize: 12))
-                                    ],
+                                  const Text(
+                                    '今日聊天次数仅剩5次,订阅会员即可享受无限聊天次数',
+                                    style: TextStyle(color: Colors.white30, fontSize: 10),
                                   ),
-                                  const SizedBox(width: 4),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.translate, size: 16, color: Colors.white70),
-                                      const SizedBox(width: 2),
-                                      Text('System: ${TokenService.getToken(conversation.systemMessage)}',
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: TokenService.getToken(conversation.systemMessage) >=
-                                                      TokenService.getTokenLimit()
-                                                  ? Theme.of(context).colorScheme.error
-                                                  : null)),
-                                      const SizedBox(width: 4),
-                                      const Icon(Icons.input_outlined, size: 16, color: Colors.white70),
-                                      const SizedBox(width: 2),
-                                      Text('Input: ${TokenService.getToken(value.text)}',
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: TokenService.getToken(conversation.systemMessage) +
-                                                          TokenService.getToken(value.text) >=
-                                                      TokenService.getTokenLimit()
-                                                  ? Theme.of(context).colorScheme.error
-                                                  : null)),
-                                      const SizedBox(width: 4),
-                                      const Icon(Icons.history, size: 16, color: Colors.white70),
-                                      const SizedBox(width: 2),
-                                      Text('History: ${TokenService.getEffectiveMessagesToken(conversation, value.text)}',
-                                          style: const TextStyle(fontSize: 12)),
-                                    ],
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigation.navigator(context, const PremiumScreenPage());
+                                    },
+                                    child: const Text(' 立即订阅>', style: TextStyle(color: Colors.yellow, fontSize: 10)),
                                   )
                                 ],
                               ),

@@ -18,4 +18,8 @@ class Urls {
   static const openaiKeysUrl = 'https://platform.openai.com/account/api-keys';
   static const privacyUrl = 'https://chat.cosyment.com/privacy.html';
   static const termsUrl = 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula';
+  static const appStoreUrl = 'https://apps.apple.com/us/app/id6455787500?l=en-us&platform=iphone';
+  static const googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.waiting.ai.chatbot';
+  static const muyuGooglePlayUrl = 'https://play.google.com/store/apps/details?id=com.xhx.woodenfishs';
+  static const qrCodeGooglePlayUrl = 'https://play.google.com/store/apps/details?id=com.zy.ksymscan';
 }

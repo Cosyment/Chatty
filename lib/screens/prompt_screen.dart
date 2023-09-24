@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:chatty/api/http_request.dart';
 import 'package:chatty/bloc/conversations_bloc.dart';
@@ -35,7 +36,9 @@ class _PromptState extends State<PromptScreenPage> {
 
   @override
   void initState() {
-    fetchPromptList();
+    if (promptList.isEmpty) {
+      fetchPromptList();
+    }
     super.initState();
   }
 
@@ -102,7 +105,11 @@ class _PromptState extends State<PromptScreenPage> {
         conversationsBloc.add(const ConversationsRequested());
 
         if (context.mounted) {
-          Navigation.navigator(context, ChatScreenPage(currentConversation: savedConversation));
+          if (Platform.isAndroid || Platform.isIOS) {
+            Navigation.navigatorChat(context, chatService, savedConversation);
+          } else {
+            Navigation.navigator(context, ChatScreenPage(currentConversation: savedConversation));
+          }
         }
       },
     );
