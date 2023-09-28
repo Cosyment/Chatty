@@ -79,7 +79,10 @@ class _PromptState extends State<PromptScreenPage> {
 
   Widget promptItem(BuildContext context, int index, Prompt prompt, ChatService chatService) {
     MaterialColor randomColor = Colors.primaries[index % Colors.primaries.length];
-    return GestureDetector(
+    return InkWell(
+      hoverColor: Colors.black45,
+      radius: 10,
+      borderRadius: const BorderRadius.all(Radius.circular(5)),
       child: Container(
           margin: const EdgeInsets.fromLTRB(3, 3, 3, 3),
           padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),

@@ -94,13 +94,18 @@ class _HomeScreenState extends State<HomeScreenPage> {
                     margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                     padding: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
-                        color: ThemeColor.appBarBackgroundColor, borderRadius: BorderRadiusDirectional.all(Radius.circular(10))),
+                        color: ThemeColor.appBarBackgroundColor,
+                        borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
                     child: ListView.builder(
                       padding: const EdgeInsets.all(4),
                       shrinkWrap: true,
                       itemCount: conversationIndexs.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return conversationItemWidget(chatService, conversationIndexs[index]);
+                        return conversationItemWidget(chatService, conversationIndexs[index], (conversationIndex) {
+                          print('----------');
+                          conversationIndexs.remove(conversationIndex);
+                          setState(() {});
+                        });
                       },
                     ),
                   )),
@@ -142,14 +147,14 @@ class _HomeScreenState extends State<HomeScreenPage> {
         ));
   }
 
-  Widget conversationItemWidget(ChatService chatService, ConversationIndex conversationIndex) {
+  Widget conversationItemWidget(
+      ChatService chatService, ConversationIndex conversationIndex, Function(ConversationIndex) deleteAction) {
     return SizedBox(
         child: ListTile(
       title: Text(conversationIndex.title, style: const TextStyle(overflow: TextOverflow.ellipsis)),
       horizontalTitleGap: 10,
-      // shape: ShapeBorder.lerp(ShapeBorderClipper(shape: shape), b, t),
       contentPadding: const EdgeInsets.fromLTRB(15, 0, 5, 0),
-      selectedTileColor: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.05),
+      splashColor: Colors.black45,
       onTap: () async {
         var id = conversationIndex.id;
         var conversation = chatService.getConversationById(id);
@@ -200,6 +205,7 @@ class _HomeScreenState extends State<HomeScreenPage> {
               var result = await showDeleteConfirmDialog(context);
               if (result == true) {
                 bloc.add(ConversationDeleted(conversationIndex));
+                deleteAction(conversationIndex);
               }
               break;
             default:

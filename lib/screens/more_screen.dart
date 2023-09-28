@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:chatty/api/http_request.dart';
 import 'package:chatty/screens/premium_screen.dart';
 import 'package:chatty/widgets/common_stateful_widget.dart';
-import 'package:chatty/widgets/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:lottie/lottie.dart';
@@ -328,8 +327,8 @@ class _MoreScreenState extends State<MoreScreenPage> {
 
   Widget categoryWidget(List<Widget> widgets) {
     return Container(
-      decoration: BoxDecoration(
-          color: ThemeColor.appBarBackgroundColor, borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
+      // decoration: BoxDecoration(
+      //     color: ThemeColor.appBarBackgroundColor, borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Column(
         children: widgets,
@@ -343,10 +342,12 @@ class _MoreScreenState extends State<MoreScreenPage> {
 
   Widget itemWidget(IconData icon, String title,
       {ImageIcon? imageIcon, String? subtitle, Widget? trailing, VoidCallback? onPressed}) {
-    return GestureDetector(
-      child: Container(
-          height: 50,
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    return InkWell(
+      hoverColor: Colors.black45,
+      radius: 10,
+      borderRadius: const BorderRadius.all(Radius.circular(5)),
+      child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: Row(
             children: [
               imageIcon ??
