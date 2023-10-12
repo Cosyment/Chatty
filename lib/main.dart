@@ -8,7 +8,7 @@ import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:chatty/widgets/theme_color.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -190,15 +190,15 @@ void checkMembershipInfo() async {
 }
 
 void registerNetWorkListening() {
-  if (!kIsWeb && Platform.isIOS) {
-    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if (result == ConnectivityResult.wifi || result == ConnectivityResult.mobile) {
-        initialConfiguration();
-      }
-    });
-  } else {
-    initialConfiguration();
-  }
+  // if (!kIsWeb && Platform.isIOS) {
+  // Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+  //   if (result == ConnectivityResult.wifi || result == ConnectivityResult.mobile) {
+  //     initialConfiguration();
+  //   }
+  // });
+  // } else {
+  initialConfiguration();
+  // }
 }
 
 void initialConfiguration() async {

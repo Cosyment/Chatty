@@ -93,7 +93,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
           return
               //手机端增加appbar
               Scaffold(
-                key: scaffoldKey,
+            key: scaffoldKey,
             extendBody: true,
             //New added
             body: PageView(
@@ -103,7 +103,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
 
             bottomNavigationBar: AnimatedNotchBottomBar(
               notchBottomBarController: _controller,
-              color: ThemeColor.primaryColor,
+              color: ThemeColor.primaryColor.withOpacity(.7),
               showLabel: true,
               showShadow: false,
               notchColor: ThemeColor.appBarBackgroundColor,

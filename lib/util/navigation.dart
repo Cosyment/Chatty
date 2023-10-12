@@ -32,8 +32,6 @@ class Navigation {
   }
 
   static _route(BuildContext context, CommonStatefulWidget page) {
-    // ConversationScreen conversation = context.widget as ConversationScreen;
-    // conversation.
     return PageRouteBuilder(
         pageBuilder: (_, animation, __) => TabletScreenPage(sidebar: context.widget, body: page),
         transitionDuration: Duration.zero);

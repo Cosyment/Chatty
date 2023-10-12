@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:chatty/models/conversation.dart';
 import 'package:chatty/widgets/common_stateful_widget.dart';
@@ -74,41 +75,53 @@ class _HomeScreenState extends State<HomeScreenPage> {
     List<ConversationIndex> conversationIndexs = chatService.getConversationList();
 
     return Scaffold(
-        appBar: const CommonAppBar(
-          'Home',
-          hasAppBar: true,
-        ),
-        body: Column(
+        body: Stack(
+      fit: StackFit.passthrough,
+      alignment: AlignmentDirectional.topCenter,
+      children: [
+        Image.asset('assets/images/bg.webp', fit: BoxFit.fitWidth),
+        IgnorePointer(
+            ignoring: true,
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 0),
+              child: Container(
+                color: Colors.black.withOpacity(0.5),
+                height: MediaQuery.of(context).size.height,
+              ),
+            )),
+        Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+            child: SizedBox(
+                height: 250,
+                width: 250,
+                child: Lottie.asset('assets/animation_lnnacc87.json', filterQuality: FilterQuality.low, repeat: true))),
+        Column(
           children: [
-            const SizedBox(height: 40),
-            conversationIndexs.isEmpty
-                ? Column(
-                    children: [
-                      const SizedBox(height: 100),
-                      SizedBox(height: 200, width: 200, child: Lottie.asset('assets/thinking.json', repeat: true))
-                    ],
-                  )
-                : SingleChildScrollView(
-                    child: Container(
-                    height: 500,
-                    margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                    padding: const EdgeInsets.all(0),
-                    decoration: BoxDecoration(
-                        color: ThemeColor.appBarBackgroundColor,
-                        borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
-                    child: ListView.builder(
-                      padding: const EdgeInsets.all(4),
-                      shrinkWrap: true,
-                      itemCount: conversationIndexs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return conversationItemWidget(chatService, conversationIndexs[index], (conversationIndex) {
-                          print('----------');
-                          conversationIndexs.remove(conversationIndex);
-                          setState(() {});
-                        });
-                      },
-                    ),
-                  )),
+            const SizedBox(height: 240),
+            Container(
+                width: MediaQuery.of(context).size.width,
+                height: 300,
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                padding: const EdgeInsets.all(0),
+                decoration: BoxDecoration(
+                    color: ThemeColor.appBarBackgroundColor.withOpacity(0.7),
+                    borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
+                child: conversationIndexs.isEmpty
+                    // conversationIndexs.length < 10
+                    ? Center(child: SizedBox(height: 150, width: 150, child: Lottie.asset('assets/empty.json', repeat: false)))
+                    : SingleChildScrollView(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.all(4),
+                          shrinkWrap: true,
+                          itemCount: conversationIndexs.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return conversationItemWidget(chatService, conversationIndexs[index], (conversationIndex) {
+                              conversationIndexs.remove(conversationIndex);
+                              setState(() {});
+                            });
+                          },
+                        ),
+                      )),
             ShakeAnimationWidget(
                 //抖动控制器
                 shakeAnimationController: _shakeAnimationController,
@@ -128,7 +141,8 @@ class _HomeScreenState extends State<HomeScreenPage> {
                     margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                        color: ThemeColor.primaryColor, borderRadius: BorderRadiusDirectional.all(Radius.circular(50))),
+                        color: ThemeColor.primaryColor.withOpacity(.6),
+                        borderRadius: const BorderRadiusDirectional.all(Radius.circular(50))),
                     child: const Row(
                       children: [
                         Text('随便聊聊', style: TextStyle(fontSize: 15, color: Colors.white70)),
@@ -144,7 +158,9 @@ class _HomeScreenState extends State<HomeScreenPage> {
                   },
                 ))
           ],
-        ));
+        ),
+      ],
+    ));
   }
 
   Widget conversationItemWidget(
