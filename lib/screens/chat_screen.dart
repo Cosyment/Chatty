@@ -284,231 +284,269 @@ class _ChatScreenState extends State<ChatScreenPage> {
     return ScaffoldMessenger(
       key: scaffoldMessengerKey,
       child: Scaffold(
-        appBar: CommonAppBar(
-          conversation.title,
-          currentConversation: conversation,
-          actionWidgets: [
-            PopupMenuButton(
-              icon: const Icon(Icons.more_vert),
-              itemBuilder: (context) {
-                return [
-                  PopupMenuItem(
-                    value: 'edit',
-                    child: Text(S.current.edit),
-                  ),
-                  PopupMenuItem(
-                    value: 'clear',
-                    child: Text(S.current.clear_conversation),
-                  ),
-                ];
-              },
-              onSelected: (value) async {
-                var chatService = context.read<ChatService>();
-                var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
-                switch (value) {
-                  case 'edit':
-                    var newConversation = await showConversationDialog(context, true, widget.currentConversation!);
-                    if (newConversation != null) {
-                      widget.currentConversation?.lastUpdated = DateTime.now();
-                      setState(() {
-                        // widget.title = newConversation.title;
-                        widget.currentConversation?.title = newConversation.title;
-                      });
-
-                      await chatService.updateConversation(newConversation);
-
-                      var chatBloc = ChatBloc(chatService: chatService, initialConversation: newConversation);
-
-                      chatBloc.add(ChatLastUpdatedChanged(newConversation, newConversation.lastUpdated));
-                      conversationsBloc.add(const ConversationsRequested());
-                    }
-                    break;
-                  case 'clear':
-                    var result = await showClearConfirmDialog(context);
-                    if (result == true) {
-                      widget.currentConversation?.messages = [];
-                      widget.currentConversation?.lastUpdated = DateTime.now();
-
-                      await chatService.updateConversation(widget.currentConversation!);
-
-                      var chatBloc = ChatBloc(chatService: chatService, initialConversation: widget.currentConversation!);
-
-                      chatBloc.add(ChatLastUpdatedChanged(widget.currentConversation!, widget.currentConversation!.lastUpdated));
-                      conversationsBloc.add(const ConversationsCleared());
-                    }
-                    break;
-                  default:
-                    break;
-                }
-              },
-            ),
+        // resizeToAvoidBottomInset: false,
+        appBar: _appBar(conversation),
+        body: Stack(
+          fit: StackFit.passthrough,
+          alignment: AlignmentDirectional.topCenter,
+          children: [
+            _gaussianWidget(),
+            Column(children: [
+              // system message
+              if (_showSystemMessage) _systemMessage(conversation),
+              // loading indicator
+              if (state.status == ChatStatus.loading) const LinearProgressIndicator(color: Colors.white30),
+              // chat messages
+              _messageContent(state, conversation, isMarkdown),
+              // status bar
+              _valueBuilder(inputBoxWidth!),
+              _bottomInputBox(state, conversation)
+            ])
           ],
         ),
-        body: SafeArea(
-            child: Column(children: [
-          // system message
-          if (_showSystemMessage)
-            Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  children: [Expanded(child: SelectableText(conversation.systemMessage, maxLines: 5))],
-                )),
-          // loading indicator
-          if (state.status == ChatStatus.loading) const LinearProgressIndicator(color: Colors.white30),
-          // chat messages
-          Expanded(
-              child: ScrollConfiguration(
-                  behavior: const ScrollBehavior(),
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    physics: (state.status == ChatStatus.loading) ? const NeverScrollableScrollPhysics() : null,
-                    itemCount:
-                        (state.status == ChatStatus.loading) ? conversation.messages.length + 1 : conversation.messages.length,
-                    itemBuilder: (context, index) {
-                      if ((state.status == ChatStatus.loading) && (index == conversation.messages.length)) {
-                        return const SizedBox(height: 60);
-                      } else {
-                        return ChatMessageWidget(message: conversation.messages[index], isMarkdown: isMarkdown);
-                      }
-                    },
-                  ))),
-          // status bar
-          ValueListenableBuilder<TextEditingValue>(
-              valueListenable: _textEditingController,
-              builder: (context, value, child) {
-                if (value.text.isNotEmpty && value.text.length == 1 && value.text == '/' && _promptList.isNotEmpty) {
-                  _showPromptPopup = true;
-                } else {
-                  _showPromptPopup = false;
-                }
-
-                return Stack(alignment: AlignmentDirectional.center, fit: StackFit.loose, children: [
-                  Positioned(
-                      child: AnimatedSize(
-                          duration: const Duration(milliseconds: 200),
-                          curve: Curves.linear,
-                          child: SizedBox(
-                            height: _showPromptPopup ? 210 : 30,
-                            child: Container(
-                              alignment: Alignment.bottomLeft,
-                              padding: const EdgeInsets.only(left: 16),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    '今日聊天次数仅剩5次,订阅会员即可享受无限聊天次数',
-                                    style: TextStyle(color: Colors.white30, fontSize: 10),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigation.navigator(context, const PremiumScreenPage());
-                                    },
-                                    child: const Text(' 立即订阅>', style: TextStyle(color: Colors.yellow, fontSize: 10)),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ))),
-                  AnimatedPositioned(
-                      bottom: _showPromptPopup ? 0 : -200,
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.easeIn,
-                      child: Container(
-                          constraints: BoxConstraints(minHeight: 10, maxHeight: _showPromptPopup ? 400 : 10),
-                          width: inputBoxWidth! + 5,
-                          height: 200.0,
-                          decoration: BoxDecoration(
-                            color: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.1),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: const EdgeInsets.all(10),
-                          margin: const EdgeInsets.fromLTRB(12, 10, 49, 0),
-                          child: ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: _promptList.length,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    child: SizedBox(
-                                        height: 40,
-                                        child: Center(child: Text(_promptList[index].title, textAlign: TextAlign.center))),
-                                    onTap: () {
-                                      _textEditingController.text = _promptList[index].promptContent;
-                                      _textEditingController.selection =
-                                          TextSelection.fromPosition(TextPosition(offset: _textEditingController.text.length));
-                                      _isPromptMessage = true;
-                                    });
-                              },
-                              separatorBuilder: (BuildContext context, int index) =>
-                                  const Divider(height: 1.0, color: Colors.white10))))
-                ]);
-              }),
-          // chat input
-          Container(
-              padding: const EdgeInsets.only(left: 12, top: 4, bottom: 8),
-              alignment: Alignment.centerRight,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color.lerp(ThemeColor.backgroundColor, Colors.white, 0.1),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Row(
-                        key: _inputGlobalKey,
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  hintText: S.current.send_a_message,
-                                  focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.transparent),
-                                  ),
-                                  enabledBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.transparent),
-                                  ),
-                                  border: InputBorder.none),
-                              controller: _textEditingController,
-                              focusNode: _focusNode,
-                              minLines: 1,
-                              maxLines: 3,
-                              textInputAction: TextInputAction.send,
-                              onSubmitted: (value) async {
-                                if ((state.status != ChatStatus.loading) && (value.isNotEmpty && value.trim().isNotEmpty)) {
-                                  handleSend(context, conversation);
-                                }
-                              },
-                            ),
-                          ),
-                          ValueListenableBuilder<TextEditingValue>(
-                              valueListenable: _textEditingController,
-                              builder: (context, value, child) {
-                                return IconButton(
-                                    icon: const Icon(Icons.send),
-                                    color:
-                                        TokenService.getToken(conversation.systemMessage) + TokenService.getToken(value.text) >=
-                                                TokenService.getTokenLimit()
-                                            ? Theme.of(context).colorScheme.error
-                                            : null,
-                                    onPressed:
-                                        (state.status == ChatStatus.loading) || (value.text.isEmpty || value.text.trim().isEmpty)
-                                            ? null
-                                            : () => handleSend(context, conversation));
-                              }),
-                        ],
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                      icon: const Icon(Icons.refresh),
-                      iconSize: 35,
-                      onPressed: (state.status == ChatStatus.loading) || (conversation.messages.isEmpty)
-                          ? null
-                          : () => handleRefresh(context, conversation))
-                ],
-              )),
-        ])),
       ),
     );
+  }
+
+  PreferredSizeWidget _appBar(conversation) {
+    return CommonAppBar(
+      conversation.title,
+      currentConversation: conversation,
+      actionWidgets: [
+        PopupMenuButton(
+          icon: const Icon(Icons.more_vert),
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                value: 'edit',
+                child: Text(S.current.edit),
+              ),
+              PopupMenuItem(
+                value: 'clear',
+                child: Text(S.current.clear_conversation),
+              ),
+            ];
+          },
+          onSelected: (value) async {
+            var chatService = context.read<ChatService>();
+            var conversationsBloc = BlocProvider.of<ConversationsBloc>(context);
+            switch (value) {
+              case 'edit':
+                var newConversation = await showConversationDialog(context, true, widget.currentConversation!);
+                if (newConversation != null) {
+                  widget.currentConversation?.lastUpdated = DateTime.now();
+                  setState(() {
+                    // widget.title = newConversation.title;
+                    widget.currentConversation?.title = newConversation.title;
+                  });
+
+                  await chatService.updateConversation(newConversation);
+
+                  var chatBloc = ChatBloc(chatService: chatService, initialConversation: newConversation);
+
+                  chatBloc.add(ChatLastUpdatedChanged(newConversation, newConversation.lastUpdated));
+                  conversationsBloc.add(const ConversationsRequested());
+                }
+                break;
+              case 'clear':
+                var result = await showClearConfirmDialog(context);
+                if (result == true) {
+                  widget.currentConversation?.messages = [];
+                  widget.currentConversation?.lastUpdated = DateTime.now();
+
+                  await chatService.updateConversation(widget.currentConversation!);
+
+                  var chatBloc = ChatBloc(chatService: chatService, initialConversation: widget.currentConversation!);
+
+                  chatBloc.add(ChatLastUpdatedChanged(widget.currentConversation!, widget.currentConversation!.lastUpdated));
+                  conversationsBloc.add(const ConversationsCleared());
+                }
+                break;
+              default:
+                break;
+            }
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _systemMessage(conversation) {
+    return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [Expanded(child: SelectableText(conversation.systemMessage, maxLines: 5))],
+        ));
+  }
+
+  Widget _messageContent(state, conversation, isMarkdown) {
+    return Expanded(
+        child: ScrollConfiguration(
+            behavior: const ScrollBehavior(),
+            child: ListView.builder(
+              controller: _scrollController,
+              physics: (state.status == ChatStatus.loading) ? const NeverScrollableScrollPhysics() : null,
+              itemCount: (state.status == ChatStatus.loading) ? conversation.messages.length + 1 : conversation.messages.length,
+              itemBuilder: (context, index) {
+                if ((state.status == ChatStatus.loading) && (index == conversation.messages.length)) {
+                  return const SizedBox(height: 60);
+                } else {
+                  return ChatMessageWidget(message: conversation.messages[index], isMarkdown: isMarkdown);
+                }
+              },
+            )));
+  }
+
+  Widget _valueBuilder(double inputBoxWidth) {
+    return ValueListenableBuilder<TextEditingValue>(
+        valueListenable: _textEditingController,
+        builder: (context, value, child) {
+          if (value.text.isNotEmpty && value.text.length == 1 && value.text == '/' && _promptList.isNotEmpty) {
+            _showPromptPopup = true;
+          } else {
+            _showPromptPopup = false;
+          }
+
+          return Stack(alignment: AlignmentDirectional.center, fit: StackFit.loose, children: [
+            Positioned(
+                child: AnimatedSize(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.linear,
+                    child: SizedBox(
+                      height: _showPromptPopup ? 210 : 30,
+                      child: Container(
+                        alignment: Alignment.bottomLeft,
+                        padding: const EdgeInsets.only(left: 16),
+                        child: Row(
+                          children: [
+                            const Text(
+                              '今日聊天次数仅剩5次,订阅会员即可享受无限聊天次数',
+                              style: TextStyle(color: Colors.white30, fontSize: 10),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigation.navigator(context, const PremiumScreenPage());
+                              },
+                              child: const Text(' 立即订阅>', style: TextStyle(color: Colors.yellow, fontSize: 10)),
+                            )
+                          ],
+                        ),
+                      ),
+                    ))),
+            AnimatedPositioned(
+                bottom: _showPromptPopup ? 0 : -200,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeIn,
+                child: Container(
+                    constraints: BoxConstraints(minHeight: 10, maxHeight: _showPromptPopup ? 400 : 10),
+                    width: inputBoxWidth + 5,
+                    height: 200.0,
+                    decoration: BoxDecoration(
+                      color: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.fromLTRB(12, 10, 49, 0),
+                    child: ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: _promptList.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                              child: SizedBox(
+                                  height: 40, child: Center(child: Text(_promptList[index].title, textAlign: TextAlign.center))),
+                              onTap: () {
+                                _textEditingController.text = _promptList[index].promptContent;
+                                _textEditingController.selection =
+                                    TextSelection.fromPosition(TextPosition(offset: _textEditingController.text.length));
+                                _isPromptMessage = true;
+                              });
+                        },
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const Divider(height: 1.0, color: Colors.white10))))
+          ]);
+        });
+  }
+
+  Widget _bottomInputBox(state, conversation) {
+    return Container(
+        padding: const EdgeInsets.only(left: 12, top: 4, bottom: 8),
+        alignment: Alignment.centerRight,
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color.lerp(ThemeColor.backgroundColor, Colors.white, 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: const EdgeInsets.only(left: 8),
+                child: Row(
+                  key: _inputGlobalKey,
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                            hintText: S.current.send_a_message,
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                            ),
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                            ),
+                            border: InputBorder.none),
+                        controller: _textEditingController,
+                        focusNode: _focusNode,
+                        minLines: 1,
+                        maxLines: 3,
+                        textInputAction: TextInputAction.send,
+                        onSubmitted: (value) async {
+                          if ((state.status != ChatStatus.loading) && (value.isNotEmpty && value.trim().isNotEmpty)) {
+                            handleSend(context, conversation);
+                          }
+                        },
+                      ),
+                    ),
+                    ValueListenableBuilder<TextEditingValue>(
+                        valueListenable: _textEditingController,
+                        builder: (context, value, child) {
+                          return IconButton(
+                              icon: const Icon(Icons.send),
+                              color: TokenService.getToken(conversation.systemMessage) + TokenService.getToken(value.text) >=
+                                      TokenService.getTokenLimit()
+                                  ? Theme.of(context).colorScheme.error
+                                  : null,
+                              onPressed: (state.status == ChatStatus.loading) || (value.text.isEmpty || value.text.trim().isEmpty)
+                                  ? null
+                                  : () => handleSend(context, conversation));
+                        }),
+                  ],
+                ),
+              ),
+            ),
+            IconButton(
+                icon: const Icon(Icons.refresh),
+                iconSize: 35,
+                onPressed: (state.status == ChatStatus.loading) || (conversation.messages.isEmpty)
+                    ? null
+                    : () => handleRefresh(context, conversation))
+          ],
+        ));
+  }
+
+  Widget _gaussianWidget() {
+    return Stack(children: [
+      Image.asset('assets/images/bg.webp', fit: BoxFit.cover),
+      Positioned.fill(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 5,
+            sigmaY: 5,
+          ),
+          child: Container(
+            color: Colors.black12,
+          ),
+        ),
+      )
+    ]);
   }
 }

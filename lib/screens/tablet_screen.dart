@@ -94,6 +94,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
               //手机端增加appbar
               Scaffold(
             key: scaffoldKey,
+            resizeToAvoidBottomInset: false,
             extendBody: true,
             //New added
             body: PageView(

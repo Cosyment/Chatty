@@ -74,22 +74,6 @@ class _HomeScreenState extends State<HomeScreenPage> {
     var chatService = context.read<ChatService>();
     List<ConversationIndex> conversationIndexs = chatService.getConversationList();
 
-    // return Scaffold(
-    //   resizeToAvoidBottomInset: false,
-    //   body:
-    //   ListView.builder(
-    //     padding: const EdgeInsets.all(4),
-    //     shrinkWrap: true,
-    //     itemCount: conversationIndexs.length,
-    //     itemBuilder: (BuildContext context, int index) {
-    //       return conversationItemWidget(chatService, conversationIndexs[index], (conversationIndex) {
-    //         conversationIndexs.remove(conversationIndex);
-    //         setState(() {});
-    //       });
-    //     },
-    //   ),
-    // );
-
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Stack(
@@ -132,7 +116,8 @@ class _HomeScreenState extends State<HomeScreenPage> {
                           itemCount: conversationIndexs.length,
                           itemBuilder: (BuildContext context, int index) {
                             return conversationItemWidget(chatService, conversationIndexs[index], (conversationIndex) {
-                              conversationIndexs.remove(conversationIndex);
+                              // conversationIndexs.remove(conversationIndex);
+                              conversationIndexs.removeAt(index);
                               setState(() {});
                             });
                           },
@@ -169,7 +154,7 @@ class _HomeScreenState extends State<HomeScreenPage> {
                       ),
                       onTap: () {
                         Conversation conversation = Conversation.create();
-                        conversation.title = "测试";
+                        conversation.title = "随便聊聊";
                         Navigation.navigatorChat(context, chatService, conversation);
                       },
                     ))
