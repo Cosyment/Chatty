@@ -74,43 +74,59 @@ class _HomeScreenState extends State<HomeScreenPage> {
     var chatService = context.read<ChatService>();
     List<ConversationIndex> conversationIndexs = chatService.getConversationList();
 
+    // return Scaffold(
+    //   resizeToAvoidBottomInset: false,
+    //   body:
+    //   ListView.builder(
+    //     padding: const EdgeInsets.all(4),
+    //     shrinkWrap: true,
+    //     itemCount: conversationIndexs.length,
+    //     itemBuilder: (BuildContext context, int index) {
+    //       return conversationItemWidget(chatService, conversationIndexs[index], (conversationIndex) {
+    //         conversationIndexs.remove(conversationIndex);
+    //         setState(() {});
+    //       });
+    //     },
+    //   ),
+    // );
+
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
-      fit: StackFit.passthrough,
-      alignment: AlignmentDirectional.topCenter,
-      children: [
-        Image.asset('assets/images/bg.webp', fit: BoxFit.fitWidth),
-        IgnorePointer(
-            ignoring: true,
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 0),
-              child: Container(
-                color: Colors.black.withOpacity(0.5),
-                height: MediaQuery.of(context).size.height,
-              ),
-            )),
-        Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-            child: SizedBox(
-                height: 250,
-                width: 250,
-                child: Lottie.asset('assets/animation_lnnacc87.json', filterQuality: FilterQuality.low, repeat: true))),
-        Column(
+          fit: StackFit.passthrough,
+          alignment: AlignmentDirectional.topCenter,
           children: [
-            const SizedBox(height: 240),
-            Container(
-                width: MediaQuery.of(context).size.width,
-                height: 300,
-                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                padding: const EdgeInsets.all(0),
-                decoration: BoxDecoration(
-                    color: ThemeColor.appBarBackgroundColor.withOpacity(0.7),
-                    borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
-                child: conversationIndexs.isEmpty
-                    // conversationIndexs.length < 10
-                    ? Center(child: SizedBox(height: 150, width: 150, child: Lottie.asset('assets/empty.json', repeat: false)))
-                    : SingleChildScrollView(
-                        child: ListView.builder(
+            Image.asset('assets/images/bg.webp', fit: BoxFit.fitWidth),
+            IgnorePointer(
+                ignoring: true,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 0),
+                  child: Container(
+                    color: Colors.black.withOpacity(0.5),
+                    height: MediaQuery.of(context).size.height,
+                  ),
+                )),
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                child: SizedBox(
+                    height: 250,
+                    width: 250,
+                    child: Lottie.asset('assets/animation_lnnacc87.json', filterQuality: FilterQuality.low, repeat: true))),
+            Column(
+              children: [
+                const SizedBox(height: 240),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  padding: const EdgeInsets.all(0),
+                  decoration: BoxDecoration(
+                      color: ThemeColor.appBarBackgroundColor.withOpacity(0.7),
+                      borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
+                  child: conversationIndexs.isEmpty
+                      // conversationIndexs.length < 10
+                      ? Center(child: SizedBox(height: 150, width: 150, child: Lottie.asset('assets/empty.json', repeat: false)))
+                      : ListView.builder(
                           padding: const EdgeInsets.all(4),
                           shrinkWrap: true,
                           itemCount: conversationIndexs.length,
@@ -121,46 +137,46 @@ class _HomeScreenState extends State<HomeScreenPage> {
                             });
                           },
                         ),
-                      )),
-            ShakeAnimationWidget(
-                //抖动控制器
-                shakeAnimationController: _shakeAnimationController,
-                //微旋转的抖动
-                shakeAnimationType: ShakeAnimationType.RoateShake,
-                //设置不开启抖动
-                isForward: false,
-                //默认为 0 无限执行
-                shakeCount: 0,
-                //抖动的幅度 取值范围为[0,1]
-                shakeRange: 0.03,
-                //执行抖动动画的子Widget
-                child: GestureDetector(
-                  child: Container(
-                    width: 400,
-                    height: 50,
-                    margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                        color: ThemeColor.primaryColor.withOpacity(.6),
-                        borderRadius: const BorderRadiusDirectional.all(Radius.circular(50))),
-                    child: const Row(
-                      children: [
-                        Text('随便聊聊', style: TextStyle(fontSize: 15, color: Colors.white70)),
-                        Spacer(),
-                        Icon(Icons.edit, color: Colors.white70)
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    Conversation conversation = Conversation.create();
-                    conversation.title = "测试";
-                    Navigation.navigatorChat(context, chatService, conversation);
-                  },
-                ))
+                ),
+                ShakeAnimationWidget(
+                    //抖动控制器
+                    shakeAnimationController: _shakeAnimationController,
+                    //微旋转的抖动
+                    shakeAnimationType: ShakeAnimationType.RoateShake,
+                    //设置不开启抖动
+                    isForward: false,
+                    //默认为 0 无限执行
+                    shakeCount: 0,
+                    //抖动的幅度 取值范围为[0,1]
+                    shakeRange: 0.03,
+                    //执行抖动动画的子Widget
+                    child: GestureDetector(
+                      child: Container(
+                        width: 400,
+                        height: 50,
+                        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            color: ThemeColor.primaryColor.withOpacity(.6),
+                            borderRadius: const BorderRadiusDirectional.all(Radius.circular(50))),
+                        child: const Row(
+                          children: [
+                            Text('随便聊聊', style: TextStyle(fontSize: 15, color: Colors.white70)),
+                            Spacer(),
+                            Icon(Icons.edit, color: Colors.white70)
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        Conversation conversation = Conversation.create();
+                        conversation.title = "测试";
+                        Navigation.navigatorChat(context, chatService, conversation);
+                      },
+                    ))
+              ],
+            ),
           ],
-        ),
-      ],
-    ));
+        ));
   }
 
   Widget conversationItemWidget(

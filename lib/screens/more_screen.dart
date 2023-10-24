@@ -300,7 +300,7 @@ class _MoreScreenState extends State<MoreScreenPage> {
             //     }
             //   }),
             // ]),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             FutureBuilder<PackageInfo>(
                 future: PackageInfo.fromPlatform(),
                 builder: (context, packageInfo) {
@@ -329,7 +329,7 @@ class _MoreScreenState extends State<MoreScreenPage> {
     return Container(
       // decoration: BoxDecoration(
       //     color: ThemeColor.appBarBackgroundColor, borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      margin: const EdgeInsets.symmetric(vertical: 5),
       child: Column(
         children: widgets,
       ),
@@ -337,7 +337,7 @@ class _MoreScreenState extends State<MoreScreenPage> {
   }
 
   Widget divider() {
-    return const Divider(height: 0.1, indent: 40.0, color: Colors.white10);
+    return Divider(height: 0.1, indent: 30.0, color: Colors.white.withOpacity(.05));
   }
 
   Widget itemWidget(IconData icon, String title,
@@ -346,8 +346,9 @@ class _MoreScreenState extends State<MoreScreenPage> {
       hoverColor: Colors.black45,
       radius: 10,
       borderRadius: const BorderRadius.all(Radius.circular(5)),
-      child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      child: Container(
+          height: 65,
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
             children: [
               imageIcon ??
