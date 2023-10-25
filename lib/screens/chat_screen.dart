@@ -283,27 +283,28 @@ class _ChatScreenState extends State<ChatScreenPage> {
 
     return ScaffoldMessenger(
       key: scaffoldMessengerKey,
-      child: Scaffold(
-        // resizeToAvoidBottomInset: false,
-        appBar: _appBar(conversation),
-        body: Stack(
-          fit: StackFit.passthrough,
-          alignment: AlignmentDirectional.topCenter,
-          children: [
-            _gaussianWidget(),
-            Column(children: [
-              // system message
-              if (_showSystemMessage) _systemMessage(conversation),
-              // loading indicator
-              if (state.status == ChatStatus.loading) const LinearProgressIndicator(color: Colors.white30),
-              // chat messages
-              _messageContent(state, conversation, isMarkdown),
-              // status bar
-              _valueBuilder(inputBoxWidth!),
-              _bottomInputBox(state, conversation)
-            ])
-          ],
-        ),
+      child: Stack(
+        fit: StackFit.passthrough,
+        alignment: AlignmentDirectional.topCenter,
+        children: [
+          _gaussianWidget(),
+          Scaffold(
+              // resizeToAvoidBottomInset: false,
+              appBar: _appBar(conversation),
+              body: SafeArea(
+                  child: Column(children: [
+                // system message
+                if (_showSystemMessage) _systemMessage(conversation),
+                // loading indicator
+                if (state.status == ChatStatus.loading) const LinearProgressIndicator(color: Colors.white30),
+                // chat messages
+                _messageContent(state, conversation, isMarkdown),
+                // status bar
+                _valueBuilder(inputBoxWidth!),
+
+                _bottomInputBox(state, conversation)
+              ]))),
+        ],
       ),
     );
   }
@@ -476,7 +477,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color.lerp(ThemeColor.backgroundColor, Colors.white, 0.1),
+                  color: Color.lerp(ThemeColor.backgroundColor.withOpacity(.3), Colors.white, 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 padding: const EdgeInsets.only(left: 8),
@@ -535,7 +536,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
 
   Widget _gaussianWidget() {
     return Stack(children: [
-      Image.asset('assets/images/bg.webp', fit: BoxFit.cover),
+      Image.asset('assets/images/bg.webp', fit: BoxFit.fill),
       Positioned.fill(
         child: BackdropFilter(
           filter: ImageFilter.blur(

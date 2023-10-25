@@ -1,3 +1,4 @@
+import 'package:chatty/widgets/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -21,26 +22,33 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
   Widget build(BuildContext context) {
     var isUser = widget.message.role == 'user';
     return Container(
-        padding: const EdgeInsets.all(10),
-        color: Color.lerp(Theme.of(context).colorScheme.background.withOpacity(.5), Colors.white, isUser ? 0.1 : 0.2),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        // color: Colors.yellowAccent,
+        // margin: const EdgeInsets.all(1),
+        // color: Color.lerp(Theme.of(context).colorScheme.background.withOpacity(.2), Colors.white, isUser ? 0.1 : 0.2),
         child: Row(
           mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             isUser ? const SizedBox() : itemUser(),
             const SizedBox(width: 5),
-            Expanded(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
-                    child: Container(
-                        alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-                        child: widget.isMarkdown
-                            ?
-                            // MarkdownBody(data: widget.message.content)
-                            CustomMarkdownWidget(
-                                markdownData: widget.message.content,
-                              )
-                            : SelectableText(widget.message.content)))),
+            // Expanded( child:
+            Container(
+                padding: const EdgeInsets.only(left: 5, top: 4, right: 5, bottom: 10),
+                // color: Color.lerp(Theme.of(context).colorScheme.background.withOpacity(.2), Colors.white, isUser ? 0.1 : 0.2),
+                alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+                decoration: BoxDecoration(
+                  color: Color.lerp(ThemeColor.backgroundColor.withOpacity(.2), Colors.white, 0.1),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: widget.isMarkdown
+                    ?
+                    // MarkdownBody(data: widget.message.content)
+                    CustomMarkdownWidget(
+                        markdownData: widget.message.content,
+                      )
+                    : SelectableText(widget.message.content)),
+            // ),
             isUser ? itemUser() : const SizedBox(),
           ],
         ));
