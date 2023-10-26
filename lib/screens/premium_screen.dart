@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:chatty/screens/screens.dart';
 import 'package:chatty/services/local_storage_service.dart';
 import 'package:chatty/util/platform_util.dart';
 import 'package:chatty/widgets/common_appbar.dart';
@@ -265,143 +266,147 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
   Widget build(BuildContext context) {
     return ScaffoldMessenger(
         key: scaffoldMessengerKey,
-        child: Scaffold(
-            appBar: CommonAppBar(S.current.premium),
-            body: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: PlatformUtil.isMobile ? 180 : 110,
-                    height: PlatformUtil.isMobile ? 180 : 110,
-                    child: Lottie.asset('assets/animation_ll82pe8f.json', repeat: true),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '${S.current.appName} ${S.current.premium_plus_explain}',
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+        child: Stack(fit: StackFit.passthrough, alignment: AlignmentDirectional.topCenter, children: [
+          backgroundWidget(),
+          Scaffold(
+              appBar: CommonAppBar(S.current.premium),
+              body: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 20,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: _generateFeatureItems(),
-                  ),
-                  SizedBox(height: PlatformUtil.isMobile ? 20 : 10),
-                  if (_products.isEmpty)
-                    Shimmer.fromColors(
-                      baseColor: ThemeColor.backgroundColor,
-                      highlightColor: Colors.white12,
-                      enabled: true,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _membershipPlaceholder(),
-                          _membershipPlaceholder(),
-                          _membershipPlaceholder(),
-                        ],
+                    SizedBox(
+                      width: PlatformUtil.isMobile ? 180 : 110,
+                      height: PlatformUtil.isMobile ? 180 : 110,
+                      child: Lottie.asset('assets/animation_ll82pe8f.json', repeat: true),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      '${S.current.appName} ${S.current.premium_plus_explain}',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
+                      textAlign: TextAlign.center,
                     ),
-                  if (_products.isNotEmpty)
-                    SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: SizedBox(
-                            height: PlatformUtil.isMobile ? 130 : 115,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: _membershipOptions(),
-                            ))),
-                  const SizedBox(height: 25),
-                  ShakeAnimationWidget(
-                      //抖动控制器
-                      shakeAnimationController: _shakeAnimationController,
-                      //微旋转的抖动
-                      shakeAnimationType: ShakeAnimationType.RoateShake,
-                      //设置不开启抖动
-                      isForward: false,
-                      //默认为 0 无限执行
-                      shakeCount: 0,
-                      //抖动的幅度 取值范围为[0,1]
-                      shakeRange: 0.03,
-                      //执行抖动动画的子Widget
-                      child: Card(
-                          elevation: 5,
-                          shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.all(Radius.circular(50))),
-                          shadowColor: gradientColor.colors[2],
-                          child: Container(
-                              width: 250,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  gradient: gradientColor, borderRadius: const BorderRadiusDirectional.all(Radius.circular(50))),
-                              child: ElevatedButton(
-                                  onPressed: () async {
-                                    HapticFeedback.mediumImpact();
-                                    if (isAvailable) {
-                                      final ProductDetails productDetail = _products[_checkedIndex];
-                                      PurchaseParam purchaseParam;
-                                      if (Platform.isAndroid) {
-                                        final GooglePlayPurchaseDetails? oldSubscription = await _getOldSubscription();
-                                        purchaseParam = GooglePlayPurchaseParam(
-                                            productDetails: productDetail,
-                                            changeSubscriptionParam: (oldSubscription != null)
-                                                ? ChangeSubscriptionParam(
-                                                    oldPurchaseDetails: oldSubscription,
-                                                    prorationMode: ProrationMode.immediateWithTimeProration,
-                                                  )
-                                                : null);
+                    const SizedBox(height: 8),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: _generateFeatureItems(),
+                    ),
+                    SizedBox(height: PlatformUtil.isMobile ? 20 : 10),
+                    if (_products.isEmpty)
+                      Shimmer.fromColors(
+                        baseColor: ThemeColor.backgroundColor,
+                        highlightColor: Colors.white12,
+                        enabled: true,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _membershipPlaceholder(),
+                            _membershipPlaceholder(),
+                            _membershipPlaceholder(),
+                          ],
+                        ),
+                      ),
+                    if (_products.isNotEmpty)
+                      SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: SizedBox(
+                              height: PlatformUtil.isMobile ? 130 : 115,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: _membershipOptions(),
+                              ))),
+                    const SizedBox(height: 25),
+                    ShakeAnimationWidget(
+                        //抖动控制器
+                        shakeAnimationController: _shakeAnimationController,
+                        //微旋转的抖动
+                        shakeAnimationType: ShakeAnimationType.RoateShake,
+                        //设置不开启抖动
+                        isForward: false,
+                        //默认为 0 无限执行
+                        shakeCount: 0,
+                        //抖动的幅度 取值范围为[0,1]
+                        shakeRange: 0.03,
+                        //执行抖动动画的子Widget
+                        child: Card(
+                            elevation: 5,
+                            shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.all(Radius.circular(50))),
+                            shadowColor: gradientColor.colors[2],
+                            child: Container(
+                                width: 250,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    gradient: gradientColor,
+                                    borderRadius: const BorderRadiusDirectional.all(Radius.circular(50))),
+                                child: ElevatedButton(
+                                    onPressed: () async {
+                                      HapticFeedback.mediumImpact();
+                                      if (isAvailable) {
+                                        final ProductDetails productDetail = _products[_checkedIndex];
+                                        PurchaseParam purchaseParam;
+                                        if (Platform.isAndroid) {
+                                          final GooglePlayPurchaseDetails? oldSubscription = await _getOldSubscription();
+                                          purchaseParam = GooglePlayPurchaseParam(
+                                              productDetails: productDetail,
+                                              changeSubscriptionParam: (oldSubscription != null)
+                                                  ? ChangeSubscriptionParam(
+                                                      oldPurchaseDetails: oldSubscription,
+                                                      prorationMode: ProrationMode.immediateWithTimeProration,
+                                                    )
+                                                  : null);
+                                        } else {
+                                          finishTransaction();
+                                          purchaseParam = PurchaseParam(productDetails: productDetail);
+                                        }
+                                        _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
                                       } else {
-                                        finishTransaction();
-                                        purchaseParam = PurchaseParam(productDetails: productDetail);
+                                        showToast(S.current.purchase_error);
                                       }
-                                      _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
-                                    } else {
-                                      showToast(S.current.purchase_error);
-                                    }
-                                  },
-                                  style: ButtonStyle(
-                                    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                    elevation: MaterialStateProperty.all(10.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
-                                    child: Text(
-                                      S.current.subscribe,
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
+                                    },
+                                    style: ButtonStyle(
+                                      shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                      elevation: MaterialStateProperty.all(10.0),
                                     ),
-                                  ))))),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _agreementWidget(S.current.terms_use, () async {
-                        await launchUrl(Uri.parse(Urls.termsUrl), mode: LaunchMode.inAppWebView);
-                      }),
-                      _agreementWidget(S.current.privacy_policy, () async {
-                        await launchUrl(Uri.parse(Urls.privacyUrl), mode: LaunchMode.inAppWebView);
-                      }),
-                      _agreementWidget(S.current.restore, () {
-                        showLottieDialog(context, 'assets/loading.json');
-                        _manualRestore = true;
-                        _inAppPurchase.restorePurchases();
-                      })
-                    ],
-                  )
-                ],
-              ),
-            )));
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
+                                      child: Text(
+                                        S.current.subscribe,
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ))))),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _agreementWidget(S.current.terms_use, () async {
+                          await launchUrl(Uri.parse(Urls.termsUrl), mode: LaunchMode.inAppWebView);
+                        }),
+                        _agreementWidget(S.current.privacy_policy, () async {
+                          await launchUrl(Uri.parse(Urls.privacyUrl), mode: LaunchMode.inAppWebView);
+                        }),
+                        _agreementWidget(S.current.restore, () {
+                          showLottieDialog(context, 'assets/loading.json');
+                          _manualRestore = true;
+                          _inAppPurchase.restorePurchases();
+                        })
+                      ],
+                    )
+                  ],
+                ),
+              ))
+        ]));
   }
 
   List<Widget> _generateFeatureItems() {

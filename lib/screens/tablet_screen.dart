@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:chatty/bloc/blocs.dart';
 import 'package:chatty/event/event_bus.dart';
@@ -91,34 +93,34 @@ class _TableScreenPage extends State<TabletScreenPage> {
           }
 
           return
-              //手机端增加appbar
-              Scaffold(
-            key: scaffoldKey,
-            resizeToAvoidBottomInset: false,
-            extendBody: true,
-            //New added
-            body: PageView(
-                controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: List.generate(bottomBarPages.length, (index) => bottomBarPages[index])),
+            //手机端增加appbar
+            Scaffold(
+              key: scaffoldKey,
+              resizeToAvoidBottomInset: false,
+              extendBody: true,
+              //New added
+              body: PageView(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: List.generate(bottomBarPages.length, (index) => bottomBarPages[index])),
 
-            bottomNavigationBar: AnimatedNotchBottomBar(
-              notchBottomBarController: _controller,
-              color: ThemeColor.primaryColor.withOpacity(.7),
-              showLabel: true,
-              showShadow: false,
-              notchColor: ThemeColor.appBarBackgroundColor,
-              removeMargins: false,
-              bottomBarWidth: 450,
-              durationInMilliSeconds: 150,
-              bottomBarItems: const [
-                BottomBarItem(inActiveItem: Icon(Icons.home_outlined), activeItem: Icon(Icons.home), itemLabel: '首页'),
-                BottomBarItem(inActiveItem: Icon(Icons.explore_outlined), activeItem: Icon(Icons.explore), itemLabel: '发现'),
-                // BottomBarItem(inActiveItem: Icon(Icons.abc_outlined), activeItem: Icon(Icons.abc), itemLabel: '翻译'),
-                // BottomBarItem(inActiveItem: Icon(Icons.draw_outlined), activeItem: Icon(Icons.draw), itemLabel: '绘图'),
-                BottomBarItem(inActiveItem: Icon(Icons.menu_outlined), activeItem: Icon(Icons.menu_rounded), itemLabel: '更多')
-              ],
-              onTap: (int value) {
+              bottomNavigationBar: AnimatedNotchBottomBar(
+                notchBottomBarController: _controller,
+                color: ThemeColor.primaryColor.withOpacity(.7),
+                showLabel: true,
+                showShadow: false,
+                notchColor: ThemeColor.appBarBackgroundColor,
+                removeMargins: false,
+                bottomBarWidth: 450,
+                durationInMilliSeconds: 150,
+                bottomBarItems: const [
+                  BottomBarItem(inActiveItem: Icon(Icons.home_outlined), activeItem: Icon(Icons.home), itemLabel: '首页'),
+                  BottomBarItem(inActiveItem: Icon(Icons.explore_outlined), activeItem: Icon(Icons.explore), itemLabel: '发现'),
+                  // BottomBarItem(inActiveItem: Icon(Icons.abc_outlined), activeItem: Icon(Icons.abc), itemLabel: '翻译'),
+                  // BottomBarItem(inActiveItem: Icon(Icons.draw_outlined), activeItem: Icon(Icons.draw), itemLabel: '绘图'),
+                  BottomBarItem(inActiveItem: Icon(Icons.menu_outlined), activeItem: Icon(Icons.menu_rounded), itemLabel: '更多')
+                ],
+                onTap: (int value) {
                 _pageController.animateToPage(value, duration: const Duration(milliseconds: 100), curve: Curves.easeOutQuad);
               },
             ),
@@ -127,6 +129,23 @@ class _TableScreenPage extends State<TabletScreenPage> {
       },
     );
   }
+}
+
+Widget backgroundWidget() {
+  return Stack(children: [
+    Image.asset('assets/images/bg.jpeg', fit: BoxFit.fitWidth),
+    Positioned.fill(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 2,
+          sigmaY: 0,
+        ),
+        child: Container(
+          color: Colors.black12,
+        ),
+      ),
+    )
+  ]);
 }
 
 enum TabletMainView { sidebar, body }

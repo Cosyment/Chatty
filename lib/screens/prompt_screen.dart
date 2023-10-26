@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:chatty/api/http_request.dart';
 import 'package:chatty/bloc/conversations_bloc.dart';
 import 'package:chatty/models/models.dart';
-import 'package:chatty/screens/chat_screen.dart';
+import 'package:chatty/screens/screens.dart';
 import 'package:chatty/services/chat_service.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/navigation.dart';
@@ -58,10 +58,11 @@ class _PromptState extends State<PromptScreenPage> {
   @override
   Widget build(BuildContext context) {
     ChatService chatService = context.read<ChatService>();
-    return Scaffold(
-        appBar: CommonAppBar(S.current.prompt),
-        body: Stack(
-          children: [
+    return Stack(alignment: AlignmentDirectional.topCenter, fit: StackFit.passthrough, children: [
+      backgroundWidget(),
+      Scaffold(
+          appBar: CommonAppBar(S.current.prompt),
+          body: Stack(alignment: AlignmentDirectional.topCenter, fit: StackFit.passthrough, children: [
             MasonryGridView.count(
               crossAxisCount: 3,
               mainAxisSpacing: 5,
@@ -73,8 +74,8 @@ class _PromptState extends State<PromptScreenPage> {
               },
             ),
             if (promptList.isEmpty) const Center(child: CircularProgressIndicator(color: Colors.white30))
-          ],
-        ));
+          ]))
+    ]);
   }
 
   Widget promptItem(BuildContext context, int index, Prompt prompt, ChatService chatService) {

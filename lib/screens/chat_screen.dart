@@ -7,7 +7,7 @@ import 'package:chatty/api/http_request.dart';
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/models/prompt.dart';
-import 'package:chatty/screens/premium_screen.dart';
+import 'package:chatty/screens/screens.dart';
 import 'package:chatty/util/constants.dart';
 import 'package:chatty/util/environment_config.dart';
 import 'package:chatty/util/navigation.dart';
@@ -46,12 +46,13 @@ class _ChatScreenState extends State<ChatScreenPage> {
   late ScrollController _scrollController;
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
-  final bool _showSystemMessage = false;
+  late bool _showSystemMessage = false;
   late bool _initScroll = true;
   late bool _showPromptPopup = false;
   late List<Prompt> _promptList = [];
   bool _isPromptMessage = false;
   final GlobalKey _inputGlobalKey = GlobalKey();
+  double? promptContentWidth = 100;
 
   Future<bool?> showRewardConfirmDialog(BuildContext context) => showDialog<bool>(
         context: context,
@@ -119,6 +120,13 @@ class _ChatScreenState extends State<ChatScreenPage> {
         TokenService.getTokenLimit()) return;
     var chatService = context.read<ChatService>();
     var newMessage = ConversationMessage('user', _textEditingController.text);
+
+    if (conversation.title.isEmpty) {
+      setState(() {
+        conversation.title = conversation.messages.first.content;
+        chatService.updateConversation(conversation);
+      });
+    }
 
     if (_isPromptMessage) {
       conversation.systemMessage = _textEditingController.text;
@@ -236,7 +244,6 @@ class _ChatScreenState extends State<ChatScreenPage> {
     final conversationState = context.watch<ConversationsBloc>().state;
     // var conversation = state.initialConversation;
     var isMarkdown = LocalStorageService().renderMode == 'markdown';
-    double? inputBoxWidth = 10.0;
 
     var conversation = widget.currentConversation ?? state.initialConversation;
 
@@ -277,43 +284,49 @@ class _ChatScreenState extends State<ChatScreenPage> {
       });
     }
 
-    Future.delayed(const Duration(milliseconds: 200), () {
-      inputBoxWidth = _inputGlobalKey.currentContext?.size?.width;
-    });
-
     return ScaffoldMessenger(
       key: scaffoldMessengerKey,
       child: Stack(
         fit: StackFit.passthrough,
         alignment: AlignmentDirectional.topCenter,
         children: [
-          _gaussianWidget(),
+          backgroundWidget(),
           Scaffold(
               // resizeToAvoidBottomInset: false,
               appBar: _appBar(conversation),
               body: SafeArea(
                   child: Column(children: [
                 // system message
-                if (_showSystemMessage) _systemMessage(conversation),
+                if (_showSystemMessage) _systemMessageContent(conversation),
                 // loading indicator
                 if (state.status == ChatStatus.loading) const LinearProgressIndicator(color: Colors.white30),
                 // chat messages
                 _messageContent(state, conversation, isMarkdown),
-                // status bar
-                _valueBuilder(inputBoxWidth!),
 
-                _bottomInputBox(state, conversation)
+                _promptContent(),
+
+                // status bar
+                _bottomContent(state, conversation),
               ]))),
         ],
       ),
     );
   }
 
-  PreferredSizeWidget _appBar(conversation) {
+  PreferredSizeWidget _appBar(Conversation conversation) {
     return CommonAppBar(
       conversation.title,
       currentConversation: conversation,
       actionWidgets: [
+        if (conversation.systemMessage.isNotEmpty)
+          IconButton(
+              iconSize: 20,
+              onPressed: () {
+                setState(() {
+                  _showSystemMessage = !_showSystemMessage;
+                });
+              },
+              icon: const Icon(Icons.tips_and_updates_outlined)),
         PopupMenuButton(
           icon: const Icon(Icons.more_vert),
           itemBuilder: (context) {
@@ -372,11 +385,14 @@ class _ChatScreenState extends State<ChatScreenPage> {
     );
   }
 
-  Widget _systemMessage(conversation) {
+  Widget _systemMessageContent(conversation) {
     return Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
-          children: [Expanded(child: SelectableText(conversation.systemMessage, maxLines: 5))],
+          children: [
+            Expanded(
+                child: SelectableText(conversation.systemMessage, style: const TextStyle(color: Colors.grey), maxLines: null))
+          ],
         ));
   }
 
@@ -398,7 +414,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
             )));
   }
 
-  Widget _valueBuilder(double inputBoxWidth) {
+  Widget _promptContent() {
     return ValueListenableBuilder<TextEditingValue>(
         valueListenable: _textEditingController,
         builder: (context, value, child) {
@@ -407,6 +423,10 @@ class _ChatScreenState extends State<ChatScreenPage> {
           } else {
             _showPromptPopup = false;
           }
+
+          Future.delayed(const Duration(milliseconds: 100), () {
+            promptContentWidth = _inputGlobalKey.currentContext?.size?.width;
+          });
 
           return Stack(alignment: AlignmentDirectional.center, fit: StackFit.loose, children: [
             Positioned(
@@ -440,10 +460,10 @@ class _ChatScreenState extends State<ChatScreenPage> {
                 curve: Curves.easeIn,
                 child: Container(
                     constraints: BoxConstraints(minHeight: 10, maxHeight: _showPromptPopup ? 400 : 10),
-                    width: inputBoxWidth + 5,
+                    width: promptContentWidth! + 5,
                     height: 200.0,
                     decoration: BoxDecoration(
-                      color: Color.lerp(Theme.of(context).colorScheme.background, Colors.white, 0.1),
+                      color: Color.lerp(Theme.of(context).colorScheme.background.withOpacity(.7), Colors.white, 0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     padding: const EdgeInsets.all(10),
@@ -468,7 +488,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
         });
   }
 
-  Widget _bottomInputBox(state, conversation) {
+  Widget _bottomContent(state, conversation) {
     return Container(
         padding: const EdgeInsets.only(left: 12, top: 4, bottom: 8),
         alignment: Alignment.centerRight,
@@ -534,14 +554,14 @@ class _ChatScreenState extends State<ChatScreenPage> {
         ));
   }
 
-  Widget _gaussianWidget() {
+  Widget _gaussianContent() {
     return Stack(children: [
-      Image.asset('assets/images/bg.webp', fit: BoxFit.fill),
+      Image.asset('assets/images/bg.jpeg', fit: BoxFit.cover),
       Positioned.fill(
         child: BackdropFilter(
           filter: ImageFilter.blur(
-            sigmaX: 5,
-            sigmaY: 5,
+            sigmaX: 2,
+            sigmaY: 0,
           ),
           child: Container(
             color: Colors.black12,
