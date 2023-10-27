@@ -45,7 +45,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
                       CustomMarkdownWidget(
                           markdownData: widget.message.content,
                         )
-                      : SelectableText(widget.message.content)),
+                      : SelectableText(widget.message.content, style: TextStyle(color: Colors.white70))),
             ),
             isUser ? itemUser() : const SizedBox(),
           ],

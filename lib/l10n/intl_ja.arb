@@ -2,6 +2,8 @@
   "@@locale": "ja",
   "appName": "Chatty",
   "chat": "おしゃべり",
+  "discover": "Discover",
+  "more": "More",
   "conversations": "ダイアログ",
   "settings": "設定＃セッテイ＃",
   "version": "バージョン",
@@ -72,5 +74,13 @@
   "premium_weekly": "週刊",
   "premium_monthly": "月刊",
   "premium_quarterly": "四半期",
-  "premium_yearly": "年度"
+  "premium_yearly": "年度",
+  "ask_anything": "Ask Anything",
+  "today_conversation_limit_tips": "There are only 5 chats left today, so subscribe to a member and enjoy unlimited chats",
+  "upgrade_premium": "Upgrade to Premium",
+  "unlock_premium_tips": "Unlocking unlimited sessions without advertising",
+  "proxy_host": "Proxy Host",
+  "share_app": "Share App",
+  "rate_app": "Rate App",
+  "feedback": "Feedback"
 }

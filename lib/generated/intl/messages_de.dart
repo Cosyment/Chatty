@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_key": MessageLookupByLibrary.simpleMessage("API-Schlüssel"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("Erscheinungsbild"),
+        "ask_anything": MessageLookupByLibrary.simpleMessage("Ask Anything"),
         "authentication":
             MessageLookupByLibrary.simpleMessage("Authentifizierung"),
         "cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
@@ -60,11 +61,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Unterhaltung löschen"),
         "delete_conversation_tips": MessageLookupByLibrary.simpleMessage(
             "Möchten Sie die Unterhaltung wirklich löschen?"),
+        "discover": MessageLookupByLibrary.simpleMessage("Discover"),
         "edit": MessageLookupByLibrary.simpleMessage("Bearbeiten"),
         "edit_conversation":
             MessageLookupByLibrary.simpleMessage("Unterhaltung bearbeiten"),
         "enter_a_conversation_title": MessageLookupByLibrary.simpleMessage(
             "Geben Sie einen Gesprächstitel ein"),
+        "feedback": MessageLookupByLibrary.simpleMessage("Feedback"),
         "history_limit": MessageLookupByLibrary.simpleMessage("Verlaufsgrenze"),
         "invalid_api_key":
             MessageLookupByLibrary.simpleMessage("Ungültiger API-Schlüssel"),
@@ -76,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Nachricht, um das Verhalten festzulegen"),
         "model": MessageLookupByLibrary.simpleMessage("Modell"),
+        "more": MessageLookupByLibrary.simpleMessage("More"),
         "new_conversation":
             MessageLookupByLibrary.simpleMessage("Neue Unterhaltung"),
         "nothing_to_restore":
@@ -108,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacy": MessageLookupByLibrary.simpleMessage("Datenschutz"),
         "privacy_policy": MessageLookupByLibrary.simpleMessage("Politik"),
         "prompt": MessageLookupByLibrary.simpleMessage("Aufforderungen"),
+        "proxy_host": MessageLookupByLibrary.simpleMessage("Proxy Host"),
         "purchase_cancel":
             MessageLookupByLibrary.simpleMessage("Kauf abgebrochen"),
         "purchase_error":
@@ -116,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kauf fehlgeschlagen"),
         "purchase_success": MessageLookupByLibrary.simpleMessage(
             "Herzlichen Glückwunsch! Abonnement erfolgreich abgeschlossen!"),
+        "rate_app": MessageLookupByLibrary.simpleMessage("Rate App"),
         "refuse": MessageLookupByLibrary.simpleMessage("Nicht jetzt"),
         "reminder": MessageLookupByLibrary.simpleMessage("Erinnerung"),
         "render_mode": MessageLookupByLibrary.simpleMessage("Rendermodus"),
@@ -128,10 +134,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "send_a_message":
             MessageLookupByLibrary.simpleMessage("Nachricht senden..."),
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
+        "share_app": MessageLookupByLibrary.simpleMessage("Share App"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Abonnieren"),
         "terms_use": MessageLookupByLibrary.simpleMessage("Klausel"),
         "title_should_not_be_empty":
             MessageLookupByLibrary.simpleMessage("Titel darf nicht leer sein"),
+        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage(
+            "There are only 5 chats left today, so subscribe to a member and enjoy unlimited chats"),
+        "unlock_premium_tips": MessageLookupByLibrary.simpleMessage(
+            "Unlocking unlimited sessions without advertising"),
+        "upgrade_premium":
+            MessageLookupByLibrary.simpleMessage("Upgrade to Premium"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
         "your_are_not_membership": MessageLookupByLibrary.simpleMessage(
             "Sie haben den Mitgliederservice noch nicht abonniert")

@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
+        "ask_anything": MessageLookupByLibrary.simpleMessage("Ask Anything"),
         "authentication":
             MessageLookupByLibrary.simpleMessage("Authentication"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -60,11 +61,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Delete conversation"),
         "delete_conversation_tips": MessageLookupByLibrary.simpleMessage(
             "Would you like to delete the conversation?"),
+        "discover": MessageLookupByLibrary.simpleMessage("Discover"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "edit_conversation":
             MessageLookupByLibrary.simpleMessage("Edit conversation"),
         "enter_a_conversation_title":
             MessageLookupByLibrary.simpleMessage("Enter a conversation title"),
+        "feedback": MessageLookupByLibrary.simpleMessage("Feedback"),
         "history_limit": MessageLookupByLibrary.simpleMessage("History Limit"),
         "invalid_api_key":
             MessageLookupByLibrary.simpleMessage("Invalid API Key"),
@@ -75,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Message to help set the behavior of the"),
         "model": MessageLookupByLibrary.simpleMessage("Model"),
+        "more": MessageLookupByLibrary.simpleMessage("More"),
         "new_conversation":
             MessageLookupByLibrary.simpleMessage("New conversation"),
         "nothing_to_restore":
@@ -106,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacy_policy":
             MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "prompt": MessageLookupByLibrary.simpleMessage("Prompts"),
+        "proxy_host": MessageLookupByLibrary.simpleMessage("Proxy Host"),
         "purchase_cancel":
             MessageLookupByLibrary.simpleMessage("Purchase Cancel"),
         "purchase_error":
@@ -114,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Purchase Failure"),
         "purchase_success": MessageLookupByLibrary.simpleMessage(
             "Congratulations Subscribe Success!"),
+        "rate_app": MessageLookupByLibrary.simpleMessage("Rate App"),
         "refuse": MessageLookupByLibrary.simpleMessage("Not now"),
         "reminder": MessageLookupByLibrary.simpleMessage("Tips"),
         "render_mode": MessageLookupByLibrary.simpleMessage("Render Mode"),
@@ -125,10 +131,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "send_a_message":
             MessageLookupByLibrary.simpleMessage("Send a message..."),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "share_app": MessageLookupByLibrary.simpleMessage("Share App"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
         "terms_use": MessageLookupByLibrary.simpleMessage("Terms Use"),
         "title_should_not_be_empty":
             MessageLookupByLibrary.simpleMessage("Title should not be empty"),
+        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage(
+            "There are only 5 chats left today, so subscribe to a member and enjoy unlimited chats"),
+        "unlock_premium_tips":
+            MessageLookupByLibrary.simpleMessage("Unlimited sessions & No Ad"),
+        "upgrade_premium":
+            MessageLookupByLibrary.simpleMessage("Upgrade Premium"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
         "your_are_not_membership": MessageLookupByLibrary.simpleMessage(
             "You have not subscribed to the membership service yet")

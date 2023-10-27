@@ -2,6 +2,8 @@
   "@@locale": "ko",
   "appName": "Chatty",
   "chat": "잡담",
+  "discover": "Discover",
+  "more": "More",
   "conversations": "대화",
   "settings": "설치",
   "version": "버전",
@@ -72,5 +74,13 @@
   "premium_weekly": "매주",
   "premium_monthly": "매월",
   "premium_quarterly": "분기별",
-  "premium_yearly": "연간"
+  "premium_yearly": "연간",
+  "ask_anything": "Ask Anything",
+  "today_conversation_limit_tips": "There are only 5 chats left today, so subscribe to a member and enjoy unlimited chats",
+  "upgrade_premium": "Upgrade to Premium",
+  "unlock_premium_tips": "Unlocking unlimited sessions without advertising",
+  "proxy_host": "Proxy Host",
+  "share_app": "Share App",
+  "rate_app": "Rate App",
+  "feedback": "Feedback"
 }

@@ -2,6 +2,8 @@
   "@@locale": "zh_TW",
   "appName": "Chatty",
   "chat": "閒聊",
+  "discover": "Discover",
+  "more": "更多",
   "conversations": "對話",
   "settings": "設定",
   "version": "版本",
@@ -72,5 +74,13 @@
   "premium_weekly": "周會員",
   "premium_monthly": "月會員",
   "premium_quarterly": "季度會員",
-  "premium_yearly": "年度會員"
+  "premium_yearly": "年度會員",
+  "ask_anything": "随便聊聊",
+  "today_conversation_limit_tips": "今日聊天次数仅剩5次,订阅会员即可享受无限聊天次数",
+  "upgrade_premium": "升级高级版",
+  "unlock_premium_tips": "解锁无限会话次数&免广告",
+  "proxy_host": "代理地址",
+  "share_app": "分享应用",
+  "rate_app": "给个好评",
+  "feedback": "反馈"
 }

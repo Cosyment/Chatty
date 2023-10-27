@@ -34,7 +34,7 @@ class _MoreScreenState extends State<MoreScreenPage> {
       begin: Alignment.bottomLeft,
       end: Alignment.topRight);
 
-  bool isEnableMarkdown = false;
+  bool isEnableMarkdown = LocalStorageService().renderMode == 'markdown';
 
   String apiHost = LocalStorageService().apiHost;
   List<Domain> domainList = [
@@ -138,17 +138,17 @@ class _MoreScreenState extends State<MoreScreenPage> {
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                         gradient: gradientColor, borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
-                    child: const Row(
+                    child: Row(
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('升级高级版', style: TextStyle(fontSize: 25, color: Colors.white)),
-                            Text('解锁无限次数&免广告', style: TextStyle(fontSize: 15, color: Colors.white70))
+                            Text(S.current.upgrade_premium, style: const TextStyle(fontSize: 25, color: Colors.white)),
+                            Text(S.current.unlock_premium_tips, style: const TextStyle(fontSize: 15, color: Colors.white70))
                           ],
                         ),
-                        Spacer(flex: 1),
-                        Card(
+                        const Spacer(flex: 1),
+                        const Card(
                             color: Colors.transparent,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.all(Radius.circular(10))),
                             child: Padding(
@@ -169,7 +169,7 @@ class _MoreScreenState extends State<MoreScreenPage> {
               ),
               titleWidget(S.current.settings),
               categoryWidget([
-                itemWidget(Icons.flight_takeoff, '代理地址',
+                itemWidget(Icons.flight_takeoff, S.current.proxy_host,
                     subtitle: domainList
                         .firstWhere((element) => element.hostname == apiHost,
                             orElse: () => Domain(hostname: 'hostname', area: 'area'))
@@ -229,9 +229,9 @@ class _MoreScreenState extends State<MoreScreenPage> {
               //     InAppPurchase.instance.restorePurchases();
               //   })
               // ]),
-              titleWidget('更多'),
+              titleWidget(S.current.more),
               categoryWidget([
-                itemWidget(Icons.share_outlined, '分享应用', onPressed: () {
+                itemWidget(Icons.share_outlined, S.current.share_app, onPressed: () {
                   if (Platform.isIOS || Platform.isMacOS) {
                     Share.share(Urls.appStoreUrl);
                   } else {
@@ -239,7 +239,7 @@ class _MoreScreenState extends State<MoreScreenPage> {
                   }
                 }),
                 divider(),
-                itemWidget(Icons.rate_review_outlined, '给个好评', onPressed: () async {
+                itemWidget(Icons.rate_review_outlined, S.current.rate_app, onPressed: () async {
                   if (Platform.isIOS || Platform.isMacOS) {
                     InAppReview.instance.openStoreListing(appStoreId: '6455787500');
                   } else if (Platform.isAndroid) {
@@ -247,15 +247,15 @@ class _MoreScreenState extends State<MoreScreenPage> {
                   }
                 }),
                 divider(),
-                itemWidget(Icons.privacy_tip_outlined, '使用条款', onPressed: () async {
+                itemWidget(Icons.privacy_tip_outlined, S.current.terms_use, onPressed: () async {
                   await launchUrl(Uri.parse(Urls.termsUrl), mode: LaunchMode.inAppWebView);
                 }),
                 divider(),
-                itemWidget(Icons.info_outline, '隐私政策', onPressed: () async {
+                itemWidget(Icons.info_outline, S.current.privacy, onPressed: () async {
                   await launchUrl(Uri.parse(Urls.privacyUrl), mode: LaunchMode.inAppWebView);
                 }),
                 divider(),
-                itemWidget(Icons.feedback_outlined, '反馈', onPressed: () async {
+                itemWidget(Icons.feedback_outlined, S.current.feedback, onPressed: () async {
                   final url = 'mailto:waitinghc@gmail.com?body=xxxx&subject=xxxx';
                   await launchUrlString(url);
                   // final Uri params = Uri(

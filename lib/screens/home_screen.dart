@@ -144,17 +144,17 @@ class _HomeScreenState extends State<HomeScreenPage> {
                         decoration: BoxDecoration(
                             color: ThemeColor.primaryColor.withOpacity(.6),
                             borderRadius: const BorderRadiusDirectional.all(Radius.circular(50))),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Text('随便聊聊', style: TextStyle(fontSize: 15, color: Colors.white70)),
-                            Spacer(),
-                            Icon(Icons.edit, color: Colors.white70)
+                            Text(S.current.ask_anything, style: const TextStyle(fontSize: 15, color: Colors.white70)),
+                            const Spacer(),
+                            const Icon(Icons.edit, color: Colors.white70)
                           ],
                         ),
                       ),
                       onTap: () {
                         Conversation conversation = Conversation.create();
-                        conversation.title = "随便聊聊";
+                        conversation.title = S.current.ask_anything;
                         Navigation.navigatorChat(context, chatService, conversation);
                       },
                     ))

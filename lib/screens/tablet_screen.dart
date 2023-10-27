@@ -106,21 +106,26 @@ class _TableScreenPage extends State<TabletScreenPage> {
 
               bottomNavigationBar: AnimatedNotchBottomBar(
                 notchBottomBarController: _controller,
-                color: ThemeColor.primaryColor.withOpacity(.7),
-                showLabel: true,
-                showShadow: false,
-                notchColor: ThemeColor.appBarBackgroundColor,
-                removeMargins: false,
-                bottomBarWidth: 450,
-                durationInMilliSeconds: 150,
-                bottomBarItems: const [
-                  BottomBarItem(inActiveItem: Icon(Icons.home_outlined), activeItem: Icon(Icons.home), itemLabel: '首页'),
-                  BottomBarItem(inActiveItem: Icon(Icons.explore_outlined), activeItem: Icon(Icons.explore), itemLabel: '发现'),
-                  // BottomBarItem(inActiveItem: Icon(Icons.abc_outlined), activeItem: Icon(Icons.abc), itemLabel: '翻译'),
-                  // BottomBarItem(inActiveItem: Icon(Icons.draw_outlined), activeItem: Icon(Icons.draw), itemLabel: '绘图'),
-                  BottomBarItem(inActiveItem: Icon(Icons.menu_outlined), activeItem: Icon(Icons.menu_rounded), itemLabel: '更多')
-                ],
-                onTap: (int value) {
+              color: ThemeColor.primaryColor.withOpacity(.7),
+              showLabel: true,
+              showShadow: false,
+              notchColor: ThemeColor.appBarBackgroundColor,
+              removeMargins: false,
+              bottomBarWidth: 450,
+              durationInMilliSeconds: 150,
+              bottomBarItems: [
+                BottomBarItem(
+                    inActiveItem: Icon(Icons.chat_bubble_outline),
+                    activeItem: Icon(Icons.chat_bubble),
+                    itemLabel: S.current.chat),
+                BottomBarItem(
+                    inActiveItem: Icon(Icons.explore_outlined), activeItem: Icon(Icons.explore), itemLabel: S.current.discover),
+                // BottomBarItem(inActiveItem: Icon(Icons.abc_outlined), activeItem: Icon(Icons.abc), itemLabel: '翻译'),
+                // BottomBarItem(inActiveItem: Icon(Icons.draw_outlined), activeItem: Icon(Icons.draw), itemLabel: '绘图'),
+                BottomBarItem(
+                    inActiveItem: Icon(Icons.menu_outlined), activeItem: Icon(Icons.menu_rounded), itemLabel: S.current.more)
+              ],
+              onTap: (int value) {
                 _pageController.animateToPage(value, duration: const Duration(milliseconds: 100), curve: Curves.easeOutQuad);
               },
             ),

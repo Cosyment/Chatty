@@ -391,7 +391,8 @@ class _ChatScreenState extends State<ChatScreenPage> {
         child: Row(
           children: [
             Expanded(
-                child: SelectableText(conversation.systemMessage, style: const TextStyle(color: Colors.grey), maxLines: null))
+                child: SelectableText(conversation.systemMessage,
+                    style: const TextStyle(color: Colors.grey, fontSize: 12), maxLines: null))
           ],
         ));
   }
@@ -440,15 +441,15 @@ class _ChatScreenState extends State<ChatScreenPage> {
                         padding: const EdgeInsets.only(left: 16),
                         child: Row(
                           children: [
-                            const Text(
-                              '今日聊天次数仅剩5次,订阅会员即可享受无限聊天次数',
-                              style: TextStyle(color: Colors.white30, fontSize: 10),
+                            Text(
+                              S.current.today_conversation_limit_tips,
+                              style: const TextStyle(color: Colors.white30, fontSize: 10),
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigation.navigator(context, const PremiumScreenPage());
                               },
-                              child: const Text(' 立即订阅>', style: TextStyle(color: Colors.yellow, fontSize: 10)),
+                              child: Text('${S.current.subscribe}>', style: TextStyle(color: Color(0xFF7769FF), fontSize: 10)),
                             )
                           ],
                         ),
@@ -552,22 +553,5 @@ class _ChatScreenState extends State<ChatScreenPage> {
                     : () => handleRefresh(context, conversation))
           ],
         ));
-  }
-
-  Widget _gaussianContent() {
-    return Stack(children: [
-      Image.asset('assets/images/bg.jpeg', fit: BoxFit.cover),
-      Positioned.fill(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 2,
-            sigmaY: 0,
-          ),
-          child: Container(
-            color: Colors.black12,
-          ),
-        ),
-      )
-    ]);
   }
 }

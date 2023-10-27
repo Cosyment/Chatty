@@ -70,6 +70,26 @@ class S {
     );
   }
 
+  /// `Discover`
+  String get discover {
+    return Intl.message(
+      'Discover',
+      name: 'discover',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More`
+  String get more {
+    return Intl.message(
+      'More',
+      name: 'more',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Conversations`
   String get conversations {
     return Intl.message(
@@ -775,6 +795,86 @@ class S {
     return Intl.message(
       'Yearly',
       name: 'premium_yearly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ask Anything`
+  String get ask_anything {
+    return Intl.message(
+      'Ask Anything',
+      name: 'ask_anything',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There are only 5 chats left today, so subscribe to a member and enjoy unlimited chats`
+  String get today_conversation_limit_tips {
+    return Intl.message(
+      'There are only 5 chats left today, so subscribe to a member and enjoy unlimited chats',
+      name: 'today_conversation_limit_tips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upgrade Premium`
+  String get upgrade_premium {
+    return Intl.message(
+      'Upgrade Premium',
+      name: 'upgrade_premium',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlimited sessions & No Ad`
+  String get unlock_premium_tips {
+    return Intl.message(
+      'Unlimited sessions & No Ad',
+      name: 'unlock_premium_tips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Proxy Host`
+  String get proxy_host {
+    return Intl.message(
+      'Proxy Host',
+      name: 'proxy_host',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share App`
+  String get share_app {
+    return Intl.message(
+      'Share App',
+      name: 'share_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rate App`
+  String get rate_app {
+    return Intl.message(
+      'Rate App',
+      name: 'rate_app',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Feedback`
+  String get feedback {
+    return Intl.message(
+      'Feedback',
+      name: 'feedback',
       desc: '',
       args: [],
     );

@@ -2,6 +2,8 @@
   "@@locale": "de",
   "appName": "Chatty",
   "chat": "Chat",
+  "discover": "Discover",
+  "more": "More",
   "conversations": "Gespräche",
   "settings": "Einstellungen",
   "version": "Version",
@@ -72,5 +74,13 @@
   "premium_weekly": "Wöchentlich",
   "premium_monthly": "Monatlich",
   "premium_quarterly": "Quartalsweise",
-  "premium_yearly": "Jährlich"
+  "premium_yearly": "Jährlich",
+  "ask_anything": "Ask Anything",
+  "today_conversation_limit_tips": "There are only 5 chats left today, so subscribe to a member and enjoy unlimited chats",
+  "upgrade_premium": "Upgrade to Premium",
+  "unlock_premium_tips": "Unlocking unlimited sessions without advertising",
+  "proxy_host": "Proxy Host",
+  "share_app": "Share App",
+  "rate_app": "Rate App",
+  "feedback": "Feedback"
 }

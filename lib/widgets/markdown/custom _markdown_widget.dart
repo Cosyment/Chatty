@@ -13,33 +13,26 @@ class CustomMarkdownWidget extends StatelessWidget {
   final String markdownData;
   final int style;
 
-  const CustomMarkdownWidget(
-      {Key? key, this.markdownData = "", this.style = kDarkTheme})
-      : super(key: key);
+  const CustomMarkdownWidget({Key? key, this.markdownData = "", this.style = kDarkTheme}) : super(key: key);
 
-  MarkdownStyleSheet _getCommonSheet(
-      BuildContext context, Color codeBackground) {
-    MarkdownStyleSheet markdownStyleSheet =
-        MarkdownStyleSheet.fromTheme(Theme.of(context));
+  MarkdownStyleSheet _getCommonSheet(BuildContext context, Color codeBackground) {
+    MarkdownStyleSheet markdownStyleSheet = MarkdownStyleSheet.fromTheme(Theme.of(context));
     return markdownStyleSheet
         .copyWith(
             codeblockDecoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                 color: codeBackground,
-                border:
-                    Border.all(color: MdTextStyles.subTextColor, width: 0.3)))
+                border: Border.all(color: MdTextStyles.subTextColor, width: 0.3)))
         .copyWith(
             blockquoteDecoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                 color: MdTextStyles.subTextColor,
-                border:
-                    Border.all(color: MdTextStyles.subTextColor, width: 0.3)),
+                border: Border.all(color: MdTextStyles.subTextColor, width: 0.3)),
             blockquote: MdTextStyles.smallTextWhite);
   }
 
   _getStyleSheetDark(BuildContext context) {
-    return _getCommonSheet(context, const Color.fromRGBO(40, 44, 52, 1.00))
-        .copyWith(
+    return _getCommonSheet(context, const Color.fromRGBO(40, 44, 52, 1.00)).copyWith(
       p: MdTextStyles.smallTextWhite,
       h1: MdTextStyles.largeLargeTextWhite,
       h2: MdTextStyles.largeTextWhiteBold,
@@ -54,8 +47,7 @@ class CustomMarkdownWidget extends StatelessWidget {
   }
 
   MarkdownStyleSheet _getStyleSheetWhite(BuildContext context) {
-    return _getCommonSheet(context, const Color.fromRGBO(40, 44, 52, 1.00))
-        .copyWith(
+    return _getCommonSheet(context, const Color.fromRGBO(40, 44, 52, 1.00)).copyWith(
       p: MdTextStyles.smallText,
       h1: MdTextStyles.largeLargeText,
       h2: MdTextStyles.largeTextBold,
@@ -69,8 +61,7 @@ class CustomMarkdownWidget extends StatelessWidget {
   }
 
   _getStyleSheetTheme(BuildContext context) {
-    return _getCommonSheet(context, const Color.fromRGBO(40, 44, 52, 1.00))
-        .copyWith(
+    return _getCommonSheet(context, const Color.fromRGBO(40, 44, 52, 1.00)).copyWith(
       p: MdTextStyles.smallTextWhite,
       h1: MdTextStyles.largeLargeTextWhite,
       h2: MdTextStyles.largeTextWhiteBold,
@@ -126,9 +117,7 @@ class CustomMarkdownWidget extends StatelessWidget {
             String match = imageMatch.replaceAll(")", "?raw=true)");
             if (!match.contains(".svg") && match.contains("http")) {
               ///增加点击
-              String src = match
-                  .replaceAll(RegExp(r'!\[.*\]\('), "")
-                  .replaceAll(")", "");
+              String src = match.replaceAll(RegExp(r'!\[.*\]\('), "").replaceAll(")", "");
               String actionMatch = "[$match]($src)";
               match = actionMatch;
             } else {
@@ -149,8 +138,7 @@ class CustomMarkdownWidget extends StatelessWidget {
           for (Match srcMatch in srcTags) {
             String srcString = srcMatch.group(0) ?? '';
             if (srcString.contains("http")) {
-              String newSrc =
-                  "${srcString.substring(srcString.indexOf("http"), srcString.length - 1)}?raw=true";
+              String newSrc = "${srcString.substring(srcString.indexOf("http"), srcString.length - 1)}?raw=true";
               match = "[![]($newSrc)]($newSrc)";
             }
           }
