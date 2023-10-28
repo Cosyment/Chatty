@@ -128,22 +128,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to reset the api key? After the reset, you need to add a new api key or restart the app"),
         "restore": MessageLookupByLibrary.simpleMessage("Restore"),
-        "send_a_message":
-            MessageLookupByLibrary.simpleMessage("Send a message..."),
+        "send_a_message": MessageLookupByLibrary.simpleMessage("Send a message..."),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share_app": MessageLookupByLibrary.simpleMessage("Share App"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
         "terms_use": MessageLookupByLibrary.simpleMessage("Terms Use"),
-        "title_should_not_be_empty":
-            MessageLookupByLibrary.simpleMessage("Title should not be empty"),
-        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage(
-            "There are only 5 chats left today, so subscribe to a member and enjoy unlimited chats"),
-        "unlock_premium_tips":
-            MessageLookupByLibrary.simpleMessage("Unlimited sessions & No Ad"),
-        "upgrade_premium":
-            MessageLookupByLibrary.simpleMessage("Upgrade Premium"),
+        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("Title should not be empty"),
+        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage("You have 5 free messages left"),
+        "unlock_premium_tips": MessageLookupByLibrary.simpleMessage("Unlimited sessions & No Ad"),
+        "upgrade_premium": MessageLookupByLibrary.simpleMessage("Upgrade Premium"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
-        "your_are_not_membership": MessageLookupByLibrary.simpleMessage(
-            "You have not subscribed to the membership service yet")
+        "your_are_not_membership": MessageLookupByLibrary.simpleMessage("You have not subscribed to the membership service yet")
       };
 }

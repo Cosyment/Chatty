@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -810,10 +811,10 @@ class S {
     );
   }
 
-  /// `There are only 5 chats left today, so subscribe to a member and enjoy unlimited chats`
+  /// `You have 5 free messages left`
   String get today_conversation_limit_tips {
     return Intl.message(
-      'There are only 5 chats left today, so subscribe to a member and enjoy unlimited chats',
+      'You have 5 free messages left',
       name: 'today_conversation_limit_tips',
       desc: '',
       args: [],

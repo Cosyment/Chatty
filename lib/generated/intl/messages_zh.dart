@@ -69,8 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "premium": MessageLookupByLibrary.simpleMessage("会员订阅"),
         "premium_features1": MessageLookupByLibrary.simpleMessage("聊天无限制"),
         "premium_features2": MessageLookupByLibrary.simpleMessage("支持GPT4"),
-        "premium_features3":
-            MessageLookupByLibrary.simpleMessage("支持Markdown渲染"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage("支持Markdown渲染"),
         "premium_features4": MessageLookupByLibrary.simpleMessage("更高的字数上限"),
         "premium_features5": MessageLookupByLibrary.simpleMessage("支持自定义域名"),
         "premium_features6": MessageLookupByLibrary.simpleMessage("纯净无广告"),
@@ -101,7 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscribe": MessageLookupByLibrary.simpleMessage("立即订阅"),
         "terms_use": MessageLookupByLibrary.simpleMessage("使用条款"),
         "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("标题不能为空"),
-        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage("今日聊天次数仅剩5次,订阅会员即可享受无限聊天次数"),
+        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage("你还有5条免费消息"),
         "unlock_premium_tips": MessageLookupByLibrary.simpleMessage("解锁无限会话次数&免广告"),
         "upgrade_premium": MessageLookupByLibrary.simpleMessage("升级高级版"),
         "version": MessageLookupByLibrary.simpleMessage("版本"),

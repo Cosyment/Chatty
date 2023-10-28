@@ -120,8 +120,8 @@ class _MoreScreenState extends State<MoreScreenPage> {
     return Stack(fit: StackFit.passthrough, alignment: AlignmentDirectional.topCenter, children: [
       backgroundWidget(),
       Scaffold(
-          appBar: const CommonAppBar(
-            'More',
+          appBar: CommonAppBar(
+            S.current.more,
           ),
           body: SingleChildScrollView(
               child: Column(
@@ -154,7 +154,7 @@ class _MoreScreenState extends State<MoreScreenPage> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                               child: Text(
-                                'Plus',
+                                'Pro',
                                 style: TextStyle(fontSize: 20),
                               ),
                             ))
@@ -239,7 +239,7 @@ class _MoreScreenState extends State<MoreScreenPage> {
                   }
                 }),
                 divider(),
-                itemWidget(Icons.rate_review_outlined, S.current.rate_app, onPressed: () async {
+                itemWidget(Icons.star_rate_outlined, S.current.rate_app, onPressed: () async {
                   if (Platform.isIOS || Platform.isMacOS) {
                     InAppReview.instance.openStoreListing(appStoreId: '6455787500');
                   } else if (Platform.isAndroid) {
@@ -251,7 +251,7 @@ class _MoreScreenState extends State<MoreScreenPage> {
                   await launchUrl(Uri.parse(Urls.termsUrl), mode: LaunchMode.inAppWebView);
                 }),
                 divider(),
-                itemWidget(Icons.info_outline, S.current.privacy, onPressed: () async {
+                itemWidget(Icons.info_outline, S.current.privacy_policy, onPressed: () async {
                   await launchUrl(Uri.parse(Urls.privacyUrl), mode: LaunchMode.inAppWebView);
                 }),
                 divider(),
