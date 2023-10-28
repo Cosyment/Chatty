@@ -20,7 +20,10 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'it';
 
+  static String m0(times) => "Hai ancora ${times} messaggi gratuiti oggi";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Informazioni"),
         "ad_load_failure": MessageLookupByLibrary.simpleMessage("Errore nel caricamento degli annunci, riprova per favore!"),
@@ -104,7 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscribe": MessageLookupByLibrary.simpleMessage("Iscriviti"),
         "terms_use": MessageLookupByLibrary.simpleMessage("Termini d\'uso"),
         "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("Il titolo non deve essere vuoto"),
-        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage("Hai ancora 5 messaggi gratuiti"),
+        "today_conversation_limit_tips": m0,
         "unlock_premium_tips": MessageLookupByLibrary.simpleMessage("Sessioni illimitate senza pubblicità"),
         "upgrade_premium": MessageLookupByLibrary.simpleMessage("Passa a Premium"),
         "version": MessageLookupByLibrary.simpleMessage("Versione"),

@@ -20,7 +20,10 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ko';
 
+  static String m0(times) => "오늘 무료 소식 ${times}가지 더 있어요";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("정보"),
         "ad_load_failure": MessageLookupByLibrary.simpleMessage("광고 로드 실패, 다시 시도해 주세요!"),
@@ -100,7 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscribe": MessageLookupByLibrary.simpleMessage("구독하기"),
         "terms_use": MessageLookupByLibrary.simpleMessage("이용 약관"),
         "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("제목은 비워둘 수 없습니다"),
-        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage("무료 메시지가 5개 남았습니다."),
+        "today_conversation_limit_tips": m0,
         "unlock_premium_tips": MessageLookupByLibrary.simpleMessage("광고 없는 무제한 세션"),
         "upgrade_premium": MessageLookupByLibrary.simpleMessage("프리미엄으로 업그레이드"),
         "version": MessageLookupByLibrary.simpleMessage("버전"),

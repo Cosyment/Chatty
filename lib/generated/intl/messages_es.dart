@@ -20,7 +20,10 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es';
 
+  static String m0(times) => "Todavía tienes ${times} mensajes gratuitos hoy.";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Acerca de"),
         "ad_load_failure": MessageLookupByLibrary.simpleMessage("Error de carga de anuncios, intente nuevamente"),
@@ -41,8 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "conversation_chat_reached_limit": MessageLookupByLibrary.simpleMessage(
             "La frecuencia de chat ha alcanzado el límite de hoy. Revise los anuncios para desbloquear más veces"),
         "conversations": MessageLookupByLibrary.simpleMessage("Conversaciones"),
-        "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
-            "Consejo: Ingresar \'/\' puede desencadenar más sorpresas"),
+        "create_conversation_tip":
+            MessageLookupByLibrary.simpleMessage("Consejo: Ingresar \'/\' puede desencadenar más sorpresas"),
         "create_conversation_to_start": MessageLookupByLibrary.simpleMessage("Crear o seleccionar una conversación"),
         "current_level": MessageLookupByLibrary.simpleMessage("Actual"),
         "custom_api_host": MessageLookupByLibrary.simpleMessage("Host de API personalizado"),
@@ -70,18 +73,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "other": MessageLookupByLibrary.simpleMessage("Otro"),
         "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Por favor, agregue su clave API primero"),
         "premium": MessageLookupByLibrary.simpleMessage("Primas de seguro"),
-        "premium_features1":
-            MessageLookupByLibrary.simpleMessage("Enviar ilimitadamente"),
-        "premium_features2":
-            MessageLookupByLibrary.simpleMessage("Soporte para GPT4"),
-        "premium_features3": MessageLookupByLibrary.simpleMessage(
-            "Soporte para renderizado de Markdown"),
-        "premium_features4":
-            MessageLookupByLibrary.simpleMessage("Límite de palabras más alto"),
-        "premium_features5":
-            MessageLookupByLibrary.simpleMessage("Host de API personalizado"),
-        "premium_features6":
-            MessageLookupByLibrary.simpleMessage("Sin anuncios"),
+        "premium_features1": MessageLookupByLibrary.simpleMessage("Enviar ilimitadamente"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("Soporte para GPT4"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage("Soporte para renderizado de Markdown"),
+        "premium_features4": MessageLookupByLibrary.simpleMessage("Límite de palabras más alto"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage("Host de API personalizado"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("Sin anuncios"),
         "premium_monthly": MessageLookupByLibrary.simpleMessage("Mensual"),
         "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Características Primas"),
         "premium_quarterly": MessageLookupByLibrary.simpleMessage("Trimestral"),
@@ -110,7 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscribe": MessageLookupByLibrary.simpleMessage("Suscribirse"),
         "terms_use": MessageLookupByLibrary.simpleMessage("Términos de uso"),
         "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("El título no debe estar vacío"),
-        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage("Te quedan 5 mensajes gratis"),
+        "today_conversation_limit_tips": m0,
         "unlock_premium_tips": MessageLookupByLibrary.simpleMessage("Sesiones ilimitadas sin publicidad"),
         "upgrade_premium": MessageLookupByLibrary.simpleMessage("Primas de seguro"),
         "version": MessageLookupByLibrary.simpleMessage("Versión"),

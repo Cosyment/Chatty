@@ -20,7 +20,10 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'de';
 
+  static String m0(times) => "Sie haben heute noch ${times} kostenlose Nachrichten";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Über"),
         "ad_load_failure": MessageLookupByLibrary.simpleMessage("Fehler beim Laden der Werbung, bitte versuchen Sie es erneut!"),
@@ -37,13 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "chat_parameters": MessageLookupByLibrary.simpleMessage("Chat-Parameter"),
         "clean_conversation_tips": MessageLookupByLibrary.simpleMessage("Möchten Sie wirklich alle Unterhaltungen löschen?"),
         "clear_conversation": MessageLookupByLibrary.simpleMessage("Unterhaltung löschen"),
-        "clear_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "Möchten Sie den Chatverlauf wirklich löschen?"),
+        "clear_conversation_tips": MessageLookupByLibrary.simpleMessage("Möchten Sie den Chatverlauf wirklich löschen?"),
         "conversation_chat_reached_limit": MessageLookupByLibrary.simpleMessage(
             "Das Chat-Limit für heute wurde erreicht. Bitte schauen Sie sich Anzeigen an, um mehr freizuschalten"),
         "conversations": MessageLookupByLibrary.simpleMessage("Gespräche"),
-        "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
-            "Tipp: Verwenden Sie \'/\' um mehr Überraschungen auszulösen"),
+        "create_conversation_tip":
+            MessageLookupByLibrary.simpleMessage("Tipp: Verwenden Sie \'/\' um mehr Überraschungen auszulösen"),
         "create_conversation_to_start": MessageLookupByLibrary.simpleMessage("Erstellen oder wählen Sie eine Unterhaltung aus"),
         "current_level": MessageLookupByLibrary.simpleMessage("Aktuell"),
         "custom_api_host": MessageLookupByLibrary.simpleMessage("Benutzerdefinierter API-Host"),
@@ -71,18 +73,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "other": MessageLookupByLibrary.simpleMessage("Andere"),
         "please_add_your_api_key": MessageLookupByLibrary.simpleMessage("Bitte fügen Sie zuerst Ihren API-Schlüssel hinzu"),
         "premium": MessageLookupByLibrary.simpleMessage("Prämie"),
-        "premium_features1":
-            MessageLookupByLibrary.simpleMessage("Unbegrenztes Senden"),
-        "premium_features2":
-            MessageLookupByLibrary.simpleMessage("Unterstützung für GPT4"),
-        "premium_features3": MessageLookupByLibrary.simpleMessage(
-            "Unterstützung für Markdown-Render"),
-        "premium_features4":
-            MessageLookupByLibrary.simpleMessage("Höhere Wortgrenze"),
-        "premium_features5": MessageLookupByLibrary.simpleMessage(
-            "Benutzerdefinierter API-Host"),
-        "premium_features6":
-            MessageLookupByLibrary.simpleMessage("Keine Werbung"),
+        "premium_features1": MessageLookupByLibrary.simpleMessage("Unbegrenztes Senden"),
+        "premium_features2": MessageLookupByLibrary.simpleMessage("Unterstützung für GPT4"),
+        "premium_features3": MessageLookupByLibrary.simpleMessage("Unterstützung für Markdown-Render"),
+        "premium_features4": MessageLookupByLibrary.simpleMessage("Höhere Wortgrenze"),
+        "premium_features5": MessageLookupByLibrary.simpleMessage("Benutzerdefinierter API-Host"),
+        "premium_features6": MessageLookupByLibrary.simpleMessage("Keine Werbung"),
         "premium_monthly": MessageLookupByLibrary.simpleMessage("Monatlich"),
         "premium_plus_explain": MessageLookupByLibrary.simpleMessage("Prämie Funktionen"),
         "premium_quarterly": MessageLookupByLibrary.simpleMessage("Quartalsweise"),
@@ -111,7 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscribe": MessageLookupByLibrary.simpleMessage("Abonnieren"),
         "terms_use": MessageLookupByLibrary.simpleMessage("Klausel"),
         "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("Titel darf nicht leer sein"),
-        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage("Sie haben noch fünf freie Nachrichten"),
+        "today_conversation_limit_tips": m0,
         "unlock_premium_tips": MessageLookupByLibrary.simpleMessage("Unbegrenzt für keine Anzeige"),
         "upgrade_premium": MessageLookupByLibrary.simpleMessage("Prämie"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),

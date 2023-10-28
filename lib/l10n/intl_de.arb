@@ -76,7 +76,16 @@
   "premium_quarterly": "Quartalsweise",
   "premium_yearly": "Jährlich",
   "ask_anything": "Fragen Sie alles",
-  "today_conversation_limit_tips": "Sie haben noch fünf freie Nachrichten",
+  "today_conversation_limit_tips": "Sie haben heute noch {times} kostenlose Nachrichten",
+  "@today_conversation_limit_tips": {
+    "description": "A message with a single parameter",
+    "placeholders": {
+      "times": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
   "upgrade_premium": "Prämie",
   "unlock_premium_tips": "Unbegrenzt für keine Anzeige",
   "proxy_host": "Proxy-Host",

@@ -76,7 +76,16 @@
   "premium_quarterly": "Mensile",
   "premium_yearly": "Annuale",
   "ask_anything": "Chiedi qualsiasi cosa",
-  "today_conversation_limit_tips": "Hai ancora 5 messaggi gratuiti",
+  "today_conversation_limit_tips": "Hai ancora {times} messaggi gratuiti oggi",
+  "@today_conversation_limit_tips": {
+    "description": "A message with a single parameter",
+    "placeholders": {
+      "times": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
   "upgrade_premium": "Passa a Premium",
   "unlock_premium_tips": "Sessioni illimitate senza pubblicità",
   "proxy_host": "Proxy Host",

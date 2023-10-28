@@ -256,18 +256,18 @@ class _MoreScreenState extends State<MoreScreenPage> {
                 }),
                 divider(),
                 itemWidget(Icons.feedback_outlined, S.current.feedback, onPressed: () async {
-                  final url = 'mailto:waitinghc@gmail.com?body=xxxx&subject=xxxx';
+                  String subject = S.current.appName;
+                  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+                  String body = 'Platform: ${Platform.operatingSystem}%0D%0A'
+                          'Version: ${packageInfo.version}%0D%0A'
+                          'Channel: ${EnvironmentConfig.APP_CHANNEL}%0D%0A'
+                          'PlatformVersion: ${Platform.operatingSystemVersion}%0D%0A'
+                          'Language: ${Platform.localeName}%0D%0A'
+                          'BuildNumber: ${packageInfo.buildNumber}%0D%0A'
+                          'CreateTime: ${HttpDate.format(DateTime.timestamp())}%0D%0A'
+                      .replaceAll(' ', '%20');
+                  String url = 'mailto:waitinghc@foxmail.com?body=$body&subject=$subject';
                   await launchUrlString(url);
-                  // final Uri params = Uri(
-                  //   scheme: 'mailto',
-                  //   path: 'waitinghc@gmail.com',
-                  //   query: 'xxxxxxx'
-                  //   // query: encodeQueryParameters(<String, String>{
-                  //   //   'subject': 'Your subject goes here'
-                  //   // }),
-                  // );
-                  // var url = params.toString();
-                  // await launchUrl(params);
                 })
               ]),
               // titleWidget('应用推荐'),

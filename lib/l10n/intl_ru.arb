@@ -76,7 +76,16 @@
   "premium_quarterly": "Ежеквартальный",
   "premium_yearly": "Ежегодный",
   "ask_anything": "Спросите о чем угодно",
-  "today_conversation_limit_tips": "У вас осталось 5 бесплатных сообщений",
+  "today_conversation_limit_tips": "Сегодня у вас {times} бесплатных новостей.",
+  "@today_conversation_limit_tips": {
+    "description": "A message with a single parameter",
+    "placeholders": {
+      "times": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
   "upgrade_premium": "Премия",
   "unlock_premium_tips": "Без ограничений без рекламы",
   "proxy_host": "Прокси-хост",

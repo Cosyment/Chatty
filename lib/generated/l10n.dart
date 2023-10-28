@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -521,10 +520,10 @@ class S {
     );
   }
 
-  /// `The chat frequency has reached the limit today. Please check the advertisement to unlock more times`
+  /// `Chat times has reached the limit today. review the ad to unlock more times`
   String get conversation_chat_reached_limit {
     return Intl.message(
-      'The chat frequency has reached the limit today. Please check the advertisement to unlock more times',
+      'Chat times has reached the limit today. review the ad to unlock more times',
       name: 'conversation_chat_reached_limit',
       desc: '',
       args: [],
@@ -801,23 +800,23 @@ class S {
     );
   }
 
-  /// `Ask Anything`
+  /// `Ask me anything`
   String get ask_anything {
     return Intl.message(
-      'Ask Anything',
+      'Ask me anything',
       name: 'ask_anything',
       desc: '',
       args: [],
     );
   }
 
-  /// `You have 5 free messages left`
-  String get today_conversation_limit_tips {
+  /// `You still have {times} free messages today`
+  String today_conversation_limit_tips(int times) {
     return Intl.message(
-      'You have 5 free messages left',
+      'You still have $times free messages today',
       name: 'today_conversation_limit_tips',
-      desc: '',
-      args: [],
+      desc: 'A message with a single parameter',
+      args: [times],
     );
   }
 

@@ -76,7 +76,16 @@
   "premium_quarterly": "季度會員",
   "premium_yearly": "年度會員",
   "ask_anything": "隨便聊聊",
-  "today_conversation_limit_tips": "您還剩 5 條免費消息",
+  "today_conversation_limit_tips": "您今天還有{times}條免費消息",
+  "@today_conversation_limit_tips": {
+    "description": "A message with a single parameter",
+    "placeholders": {
+      "times": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
   "upgrade_premium": "升級高級版",
   "unlock_premium_tips": "解鎖無限會話次數&免廣告",
   "proxy_host": "代理位址",

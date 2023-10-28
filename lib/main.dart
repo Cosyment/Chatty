@@ -202,10 +202,11 @@ void registerNetWorkListening() {
 }
 
 void initialConfiguration() async {
-  if (!LocalStorageService().isCustomApiKey) {
-    var secretKey = await HttpRequest.request<SecretKey>(Urls.querySecretKey, (jsonData) => SecretKey.fromJson(jsonData));
-    LocalStorageService().apiKey = secretKey.apiKey;
-  }
+  // if (!LocalStorageService().isCustomApiKey) {
+  var secretKey = await HttpRequest.request<SecretKey>(Urls.querySecretKey, (jsonData) => SecretKey.fromJson(jsonData));
+  LocalStorageService().apiKey = secretKey.apiKey;
+  // LocalStorageService().apiKey = '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';
+  // }
 
   if (LocalStorageService().currentLanguageCode != null) {
     S.delegate.load(Locale(LocalStorageService().currentLanguageCode ?? 'en'));

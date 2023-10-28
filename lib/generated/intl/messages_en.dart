@@ -20,45 +20,36 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(times) => "You still have ${times} free messages today";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
-        "ad_load_failure": MessageLookupByLibrary.simpleMessage(
-            "Ad load failure,Please try again!"),
-        "add_your_secret_api_key":
-            MessageLookupByLibrary.simpleMessage("Add your api key"),
+        "ad_load_failure": MessageLookupByLibrary.simpleMessage("Ad load failure,Please try again!"),
+        "add_your_secret_api_key": MessageLookupByLibrary.simpleMessage("Add your api key"),
         "api_host": MessageLookupByLibrary.simpleMessage("API Host"),
-        "api_host_optional":
-            MessageLookupByLibrary.simpleMessage("API Host Optional"),
+        "api_host_optional": MessageLookupByLibrary.simpleMessage("API Host Optional"),
         "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
-        "ask_anything": MessageLookupByLibrary.simpleMessage("Ask Anything"),
-        "authentication":
-            MessageLookupByLibrary.simpleMessage("Authentication"),
+        "ask_anything": MessageLookupByLibrary.simpleMessage("Ask me anything"),
+        "authentication": MessageLookupByLibrary.simpleMessage("Authentication"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
-        "chat_parameters":
-            MessageLookupByLibrary.simpleMessage("Chat Parameters"),
-        "clean_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "Are you sure to clear all conversations？"),
-        "clear_conversation":
-            MessageLookupByLibrary.simpleMessage("Clear conversation"),
-        "clear_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "Would you like to clear conversation history?"),
-        "conversation_chat_reached_limit": MessageLookupByLibrary.simpleMessage(
-            "The chat frequency has reached the limit today. Please check the advertisement to unlock more times"),
+        "chat_parameters": MessageLookupByLibrary.simpleMessage("Chat Parameters"),
+        "clean_conversation_tips": MessageLookupByLibrary.simpleMessage("Are you sure to clear all conversations？"),
+        "clear_conversation": MessageLookupByLibrary.simpleMessage("Clear conversation"),
+        "clear_conversation_tips": MessageLookupByLibrary.simpleMessage("Would you like to clear conversation history?"),
+        "conversation_chat_reached_limit":
+            MessageLookupByLibrary.simpleMessage("Chat times has reached the limit today. review the ad to unlock more times"),
         "conversations": MessageLookupByLibrary.simpleMessage("Conversations"),
-        "create_conversation_tip": MessageLookupByLibrary.simpleMessage(
-            "tips: Entering \'/\' can trigger more surprises"),
-        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage(
-            "Create or select a conversation"),
+        "create_conversation_tip": MessageLookupByLibrary.simpleMessage("tips: Entering \'/\' can trigger more surprises"),
+        "create_conversation_to_start": MessageLookupByLibrary.simpleMessage("Create or select a conversation"),
         "current_level": MessageLookupByLibrary.simpleMessage("Current"),
-        "custom_api_host":
-            MessageLookupByLibrary.simpleMessage("Customization API Host"),
+        "custom_api_host": MessageLookupByLibrary.simpleMessage("Customization API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
-        "delete_conversation":
-            MessageLookupByLibrary.simpleMessage("Delete conversation"),
+        "delete_conversation": MessageLookupByLibrary.simpleMessage("Delete conversation"),
         "delete_conversation_tips": MessageLookupByLibrary.simpleMessage(
             "Would you like to delete the conversation?"),
         "discover": MessageLookupByLibrary.simpleMessage("Discover"),
@@ -117,8 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Purchase Unknown Error"),
         "purchase_failure":
             MessageLookupByLibrary.simpleMessage("Purchase Failure"),
-        "purchase_success": MessageLookupByLibrary.simpleMessage(
-            "Congratulations Subscribe Success!"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage("Congratulations Subscribe Success!"),
         "rate_app": MessageLookupByLibrary.simpleMessage("Rate App"),
         "refuse": MessageLookupByLibrary.simpleMessage("Not now"),
         "reminder": MessageLookupByLibrary.simpleMessage("Tips"),
@@ -134,7 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
         "terms_use": MessageLookupByLibrary.simpleMessage("Terms Use"),
         "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("Title should not be empty"),
-        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage("You have 5 free messages left"),
+        "today_conversation_limit_tips": m0,
         "unlock_premium_tips": MessageLookupByLibrary.simpleMessage("Unlimited sessions & No Ad"),
         "upgrade_premium": MessageLookupByLibrary.simpleMessage("Upgrade Premium"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),

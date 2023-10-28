@@ -121,7 +121,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
     var chatService = context.read<ChatService>();
     var newMessage = ConversationMessage('user', _textEditingController.text);
 
-    if (conversation.title.isEmpty) {
+    if (conversation.title.isEmpty || conversation.title == S.current.ask_anything) {
       setState(() {
         conversation.title = conversation.messages.first.content;
         chatService.updateConversation(conversation);
@@ -157,8 +157,8 @@ class _ChatScreenState extends State<ChatScreenPage> {
   Future<bool> _hasConversationLimit(BuildContext context) async {
     if (LocalStorageService().isMembershipUser()) return false;
     if (PlatformUtil.isMobile) {
-      var conversationReachedLimit = LocalStorageService().conversationLimit;
-      if (conversationReachedLimit >= AdvertManager.DAILY_CONVERSATION_LIMIT) {
+      var conversationReachedLimit = getTodayConversationTimes();
+      if (conversationReachedLimit <= 0) {
         // if (conversationReachedLimit >= 2) {
         var result = await showRewardConfirmDialog(context);
         if (result == true) {
@@ -179,6 +179,11 @@ class _ChatScreenState extends State<ChatScreenPage> {
       return false;
     }
     return false;
+  }
+
+  int getTodayConversationTimes() {
+    var times = AdvertManager.DAILY_CONVERSATION_LIMIT - LocalStorageService().conversationLimit;
+    return times < 0 ? 0 : times;
   }
 
   void report(ConversationMessage message) async {
@@ -265,6 +270,10 @@ class _ChatScreenState extends State<ChatScreenPage> {
 
     if (state.status == ChatStatus.success) {
       LocalStorageService().conversationLimit += 1;
+      if (conversation.title.isEmpty || conversation.title == S.current.ask_anything) {
+        conversation.title = conversation.messages.first.content;
+        BlocProvider.of<ChatBloc>(context).add(ChatSubmitted(conversation));
+      }
     }
 
     if (conversationState.status == ConversationsStatus.clear) {
@@ -435,24 +444,27 @@ class _ChatScreenState extends State<ChatScreenPage> {
                     duration: const Duration(milliseconds: 200),
                     curve: Curves.linear,
                     child: SizedBox(
-                      height: _showPromptPopup ? 210 : 30,
+                      height: _showPromptPopup ? 210 : (LocalStorageService().isMembershipUser() ? 0 : 30),
                       child: Container(
                         alignment: Alignment.bottomLeft,
                         padding: const EdgeInsets.only(left: 16),
-                        child: Row(
-                          children: [
-                            Text(
-                              S.current.today_conversation_limit_tips,
-                              style: const TextStyle(color: Colors.white30, fontSize: 10),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigation.navigator(context, const PremiumScreenPage());
-                              },
-                              child: Text('${S.current.subscribe}>', style: TextStyle(color: Color(0xFF7769FF), fontSize: 10)),
-                            )
-                          ],
-                        ),
+                        child: LocalStorageService().isMembershipUser()
+                            ? const SizedBox()
+                            : Row(
+                                children: [
+                                  Text(
+                                    S.current.today_conversation_limit_tips(getTodayConversationTimes()),
+                                    style: const TextStyle(color: Colors.white30, fontSize: 10),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigation.navigator(context, const PremiumScreenPage());
+                                    },
+                                    child: Text('${S.current.subscribe} >',
+                                        style: const TextStyle(color: Color(0xFF7769FF), fontSize: 10)),
+                                  )
+                                ],
+                              ),
                       ),
                     ))),
             AnimatedPositioned(

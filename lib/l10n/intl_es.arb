@@ -76,7 +76,16 @@
   "premium_quarterly": "Trimestral",
   "premium_yearly": "Anual",
   "ask_anything": "Pregunte cualquier cosa",
-  "today_conversation_limit_tips": "Te quedan 5 mensajes gratis",
+  "today_conversation_limit_tips": "Todavía tienes {times} mensajes gratuitos hoy.",
+  "@today_conversation_limit_tips": {
+    "description": "A message with a single parameter",
+    "placeholders": {
+      "times": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
   "upgrade_premium": "Primas de seguro",
   "unlock_premium_tips": "Sesiones ilimitadas sin publicidad",
   "proxy_host": "Dirección proxy",

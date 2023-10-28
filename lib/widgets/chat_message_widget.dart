@@ -1,3 +1,4 @@
+import 'package:chatty/widgets/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,7 +16,7 @@ class ChatMessageWidget extends StatefulWidget {
 }
 
 class _ChatMessageWidgetState extends State<ChatMessageWidget> {
-  final bool _showContextMenu = false;
+  bool _showContextMenu = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +33,11 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
             const SizedBox(width: 5),
             Expanded(
               child: Container(
-                  padding: const EdgeInsets.only(left: 5, top: 4, right: 5, bottom: 10),
-                  // color: Color.lerp(Theme.of(context).colorScheme.background.withOpacity(.2), Colors.white, isUser ? 0.1 : 0.2),
+                  padding: const EdgeInsets.only(left: 10, top: 4, right: 5, bottom: 10),
+                  margin: const EdgeInsets.only(left: 0, top: 0, right: 5, bottom: 0),
                   alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
                   decoration: BoxDecoration(
-                    // color: Color.lerp(ThemeColor.backgroundColor.withOpacity(.2), Colors.white, 0.1),
+                    color: Color.lerp(ThemeColor.backgroundColor.withOpacity(.2), Colors.white, 0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: widget.isMarkdown
@@ -56,7 +57,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          // _showContextMenu = !_showContextMenu;
+          _showContextMenu = !_showContextMenu;
         });
       },
       child: SizedBox(

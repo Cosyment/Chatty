@@ -20,7 +20,10 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh';
 
+  static String m0(times) => "你今天还有${times}条免费消息";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("关于"),
         "ad_load_failure": MessageLookupByLibrary.simpleMessage("广告加载失败，请稍后再试"),
@@ -100,7 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscribe": MessageLookupByLibrary.simpleMessage("立即订阅"),
         "terms_use": MessageLookupByLibrary.simpleMessage("使用条款"),
         "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("标题不能为空"),
-        "today_conversation_limit_tips": MessageLookupByLibrary.simpleMessage("你还有5条免费消息"),
+        "today_conversation_limit_tips": m0,
         "unlock_premium_tips": MessageLookupByLibrary.simpleMessage("解锁无限会话次数&免广告"),
         "upgrade_premium": MessageLookupByLibrary.simpleMessage("升级高级版"),
         "version": MessageLookupByLibrary.simpleMessage("版本"),

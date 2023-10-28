@@ -76,7 +76,16 @@
   "premium_quarterly": "분기별",
   "premium_yearly": "연간",
   "ask_anything": "무엇이든 물어보세요",
-  "today_conversation_limit_tips": "무료 메시지가 5개 남았습니다.",
+  "today_conversation_limit_tips": "오늘 무료 소식 {times}가지 더 있어요",
+  "@today_conversation_limit_tips": {
+    "description": "A message with a single parameter",
+    "placeholders": {
+      "times": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
   "upgrade_premium": "프리미엄으로 업그레이드",
   "unlock_premium_tips": "광고 없는 무제한 세션",
   "proxy_host": "프록시 호스트",
