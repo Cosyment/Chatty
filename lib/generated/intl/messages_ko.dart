@@ -23,7 +23,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(times) => "오늘 무료 소식 ${times}가지 더 있어요";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("정보"),
         "ad_load_failure": MessageLookupByLibrary.simpleMessage("광고 로드 실패, 다시 시도해 주세요!"),
@@ -33,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("외모"),
-        "ask_anything": MessageLookupByLibrary.simpleMessage("무엇이든 물어보세요"),
+        "ask_anything": MessageLookupByLibrary.simpleMessage("무엇이든 물어보세요..."),
         "authentication": MessageLookupByLibrary.simpleMessage("인증"),
         "cancel": MessageLookupByLibrary.simpleMessage("취소"),
         "chat": MessageLookupByLibrary.simpleMessage("잡담"),

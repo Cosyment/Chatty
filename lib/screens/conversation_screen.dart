@@ -9,7 +9,6 @@ import 'package:chatty/util/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import '../bloc/conversations_bloc.dart';
 import '../bloc/conversations_event.dart';
@@ -174,18 +173,19 @@ class _ConversationScreen extends State<ConversationScreen> {
                         Navigation.navigator(context, const PromptScreenPage());
                       }),
                       SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                      textButton(S.current.settings, Icons.settings_outlined, () {
+                      textButton(S.current.more, Icons.more_horiz_outlined, () {
                         closeDrawer();
-                        Navigation.navigator(context, const SettingsScreenPage());
+                        // Navigation.navigator(context, const SettingsScreenPage());
+                        Navigation.navigator(context, MoreScreenPage());
                       }),
-                      SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                      FutureBuilder<PackageInfo>(
-                          future: PackageInfo.fromPlatform(),
-                          builder: (context, packageInfo) {
-                            return textButton("${S.current.version}: v${packageInfo.data?.version}", Icons.info_outline, () {
-                              // AdvertManager().showBanner();
-                            });
-                          })
+                      // SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
+                      // FutureBuilder<PackageInfo>(
+                      //     future: PackageInfo.fromPlatform(),
+                      //     builder: (context, packageInfo) {
+                      //       return textButton("${S.current.version}: v${packageInfo.data?.version}", Icons.info_outline, () {
+                      //         // AdvertManager().showBanner();
+                      //       });
+                      //     })
                     ]))),
         ],
       ),

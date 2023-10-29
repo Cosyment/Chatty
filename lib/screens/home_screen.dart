@@ -80,27 +80,28 @@ class _HomeScreenState extends State<HomeScreenPage> {
           fit: StackFit.passthrough,
           alignment: AlignmentDirectional.topCenter,
           children: [
-            Image.asset('assets/images/bg.webp', fit: BoxFit.fitWidth),
-            IgnorePointer(
-                ignoring: true,
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 0),
-                  child: Container(
-                    color: Colors.black.withOpacity(0.5),
-                    height: MediaQuery.of(context).size.height,
-                  ),
-                )),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-                child: SizedBox(
-                    height: 250,
-                    width: 250,
-                    child: Lottie.asset('assets/animation_lnnacc87.json', filterQuality: FilterQuality.low, repeat: true))),
+            Positioned.fill(child: Image.asset('assets/images/bg.webp', fit: BoxFit.cover)),
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 5,
+                  sigmaY: 2,
+                ),
+                child: Container(
+                  color: Colors.black12,
+                ),
+              ),
+            ),
             Column(
               children: [
-                const SizedBox(height: 240),
+                SizedBox(height: LocalStorageService().isPad ? 100 : 40, width: MediaQuery.of(context).size.width),
+                SizedBox(
+                    height: 250,
+                    width: 250,
+                    child: Lottie.asset('assets/animation_lnnacc87.json', filterQuality: FilterQuality.low, repeat: true)),
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  // width: MediaQuery.of(context).size.width,
+                  width: 400,
                   height: 300,
                   margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   padding: const EdgeInsets.all(0),

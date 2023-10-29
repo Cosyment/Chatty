@@ -75,7 +75,7 @@
   "premium_monthly": "Mensuel",
   "premium_quarterly": "Trimestriel",
   "premium_yearly": "Annuel",
-  "ask_anything": "Demandez n’importe quoi",
+  "ask_anything": "Demandez n’importe quoi...",
   "today_conversation_limit_tips": "Vous avez encore {times} messages gratuits aujourd'hui",
   "@today_conversation_limit_tips": {
     "description": "A message with a single parameter",

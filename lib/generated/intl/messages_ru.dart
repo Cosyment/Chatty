@@ -23,7 +23,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(times) => "Сегодня у вас ${times} бесплатных новостей.";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("О приложении"),
         "ad_load_failure": MessageLookupByLibrary.simpleMessage("Ошибка загрузки рекламы, пожалуйста, попробуйте еще раз!"),
@@ -33,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_key": MessageLookupByLibrary.simpleMessage("API ключ"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("Внешний вид"),
-        "ask_anything": MessageLookupByLibrary.simpleMessage("Спросите о чем угодно"),
+        "ask_anything": MessageLookupByLibrary.simpleMessage("Спросите о чем угодно..."),
         "authentication": MessageLookupByLibrary.simpleMessage("Аутентификация"),
         "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
         "chat": MessageLookupByLibrary.simpleMessage("Чат"),

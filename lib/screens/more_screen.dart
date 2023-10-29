@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:chatty/api/http_request.dart';
 import 'package:chatty/screens/screens.dart';
 import 'package:chatty/widgets/common_stateful_widget.dart';
+import 'package:chatty/widgets/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:lottie/lottie.dart';
@@ -117,7 +118,7 @@ class _MoreScreenState extends State<MoreScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(fit: StackFit.passthrough, alignment: AlignmentDirectional.topCenter, children: [
+    return Stack(fit: StackFit.loose, alignment: AlignmentDirectional.topCenter, children: [
       backgroundWidget(),
       Scaffold(
           appBar: CommonAppBar(
@@ -191,6 +192,10 @@ class _MoreScreenState extends State<MoreScreenPage> {
                 itemWidget(Icons.text_format, 'Markdown',
                     trailing: Switch(
                         value: isEnableMarkdown,
+                        activeColor: Colors.white,
+                        activeTrackColor: Colors.white30,
+                        inactiveTrackColor: ThemeColor.primaryColor,
+                        inactiveThumbColor: Colors.white30,
                         onChanged: (v) {
                           setState(() {
                             isEnableMarkdown = v;
@@ -266,7 +271,7 @@ class _MoreScreenState extends State<MoreScreenPage> {
                           'BuildNumber: ${packageInfo.buildNumber}%0D%0A'
                           'CreateTime: ${HttpDate.format(DateTime.timestamp())}%0D%0A'
                       .replaceAll(' ', '%20');
-                  String url = 'mailto:waitinghc@foxmail.com?body=$body&subject=$subject';
+                  String url = 'mailto:waitinghc@gmail.com?body=$body&subject=$subject';
                   await launchUrlString(url);
                 })
               ]),

@@ -75,7 +75,7 @@
   "premium_monthly": "매월",
   "premium_quarterly": "분기별",
   "premium_yearly": "연간",
-  "ask_anything": "무엇이든 물어보세요",
+  "ask_anything": "무엇이든 물어보세요...",
   "today_conversation_limit_tips": "오늘 무료 소식 {times}가지 더 있어요",
   "@today_conversation_limit_tips": {
     "description": "A message with a single parameter",

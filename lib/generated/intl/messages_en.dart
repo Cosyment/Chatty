@@ -23,7 +23,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(times) => "You still have ${times} free messages today";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "ad_load_failure": MessageLookupByLibrary.simpleMessage("Ad load failure,Please try again!"),
@@ -33,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_key": MessageLookupByLibrary.simpleMessage("API Key"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
-        "ask_anything": MessageLookupByLibrary.simpleMessage("Ask me anything"),
+        "ask_anything": MessageLookupByLibrary.simpleMessage("Ask me anything..."),
         "authentication": MessageLookupByLibrary.simpleMessage("Authentication"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
@@ -50,14 +49,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "custom_api_host": MessageLookupByLibrary.simpleMessage("Customization API Host"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "delete_conversation": MessageLookupByLibrary.simpleMessage("Delete conversation"),
-        "delete_conversation_tips": MessageLookupByLibrary.simpleMessage(
-            "Would you like to delete the conversation?"),
+        "delete_conversation_tips": MessageLookupByLibrary.simpleMessage("Would you like to delete the conversation?"),
         "discover": MessageLookupByLibrary.simpleMessage("Discover"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
-        "edit_conversation":
-            MessageLookupByLibrary.simpleMessage("Edit conversation"),
-        "enter_a_conversation_title":
-            MessageLookupByLibrary.simpleMessage("Enter a conversation title"),
+        "edit_conversation": MessageLookupByLibrary.simpleMessage("Edit conversation"),
+        "enter_a_conversation_title": MessageLookupByLibrary.simpleMessage("Enter a conversation title"),
         "feedback": MessageLookupByLibrary.simpleMessage("Feedback"),
         "history_limit": MessageLookupByLibrary.simpleMessage("History Limit"),
         "invalid_api_key":
@@ -98,16 +94,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "premium_weekly": MessageLookupByLibrary.simpleMessage("Weekly"),
         "premium_yearly": MessageLookupByLibrary.simpleMessage("Yearly"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy"),
-        "privacy_policy":
-            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "privacy_policy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "prompt": MessageLookupByLibrary.simpleMessage("Prompts"),
         "proxy_host": MessageLookupByLibrary.simpleMessage("Proxy Host"),
-        "purchase_cancel":
-            MessageLookupByLibrary.simpleMessage("Purchase Cancel"),
-        "purchase_error":
-            MessageLookupByLibrary.simpleMessage("Purchase Unknown Error"),
-        "purchase_failure":
-            MessageLookupByLibrary.simpleMessage("Purchase Failure"),
+        "purchase_cancel": MessageLookupByLibrary.simpleMessage("Purchase Cancel"),
+        "purchase_error": MessageLookupByLibrary.simpleMessage("Purchase Unknown Error"),
+        "purchase_failure": MessageLookupByLibrary.simpleMessage("Purchase Failure"),
         "purchase_success": MessageLookupByLibrary.simpleMessage("Congratulations Subscribe Success!"),
         "rate_app": MessageLookupByLibrary.simpleMessage("Rate App"),
         "refuse": MessageLookupByLibrary.simpleMessage("Not now"),

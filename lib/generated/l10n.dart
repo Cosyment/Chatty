@@ -800,10 +800,10 @@ class S {
     );
   }
 
-  /// `Ask me anything`
+  /// `Ask me anything...`
   String get ask_anything {
     return Intl.message(
-      'Ask me anything',
+      'Ask me anything...',
       name: 'ask_anything',
       desc: '',
       args: [],

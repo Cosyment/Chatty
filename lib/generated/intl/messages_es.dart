@@ -23,7 +23,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(times) => "Todavía tienes ${times} mensajes gratuitos hoy.";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Acerca de"),
         "ad_load_failure": MessageLookupByLibrary.simpleMessage("Error de carga de anuncios, intente nuevamente"),
@@ -33,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_key": MessageLookupByLibrary.simpleMessage("Clave API"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("Apariencia"),
-        "ask_anything": MessageLookupByLibrary.simpleMessage("Pregunte cualquier cosa"),
+        "ask_anything": MessageLookupByLibrary.simpleMessage("Pregunte cualquier cosa..."),
         "authentication": MessageLookupByLibrary.simpleMessage("Autenticación"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),

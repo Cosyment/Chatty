@@ -12,7 +12,7 @@ import '../event/event_message.dart';
 
 class Navigation {
   static navigator(BuildContext context, CommonStatefulWidget page) {
-    if (PlatformUtil.isMobile) {
+    if (PlatformUtil.isMobile && !PlatformUtil.isLandscape(context)) {
       Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
     } else {
       // if (Navigator.of(context).canPop()) {

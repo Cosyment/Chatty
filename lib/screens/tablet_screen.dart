@@ -93,19 +93,19 @@ class _TableScreenPage extends State<TabletScreenPage> {
           }
 
           return
-            //手机端增加appbar
-            Scaffold(
-              key: scaffoldKey,
-              resizeToAvoidBottomInset: false,
-              extendBody: true,
-              //New added
-              body: PageView(
-                  controller: _pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: List.generate(bottomBarPages.length, (index) => bottomBarPages[index])),
+              //手机端增加appbar
+              Scaffold(
+            key: scaffoldKey,
+            resizeToAvoidBottomInset: false,
+            extendBody: true,
+            //New added
+            body: PageView(
+                controller: _pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: List.generate(bottomBarPages.length, (index) => bottomBarPages[index])),
 
-              bottomNavigationBar: AnimatedNotchBottomBar(
-                notchBottomBarController: _controller,
+            bottomNavigationBar: AnimatedNotchBottomBar(
+              notchBottomBarController: _controller,
               color: ThemeColor.primaryColor.withOpacity(.7),
               showLabel: true,
               showShadow: false,
@@ -138,7 +138,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
 
 Widget backgroundWidget() {
   return Stack(children: [
-    Image.asset('assets/images/bg.jpeg', fit: BoxFit.fitWidth),
+    Positioned.fill(child: Image.asset('assets/images/bg.jpeg', fit: BoxFit.cover)),
     Positioned.fill(
       child: BackdropFilter(
         filter: ImageFilter.blur(

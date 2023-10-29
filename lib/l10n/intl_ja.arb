@@ -75,7 +75,7 @@
   "premium_monthly": "月刊",
   "premium_quarterly": "四半期",
   "premium_yearly": "年度",
-  "ask_anything": "何でも聞いてください",
+  "ask_anything": "何でも聞いてください...",
   "today_conversation_limit_tips": "今日は{times}つの無料メッセージがあります",
   "@today_conversation_limit_tips": {
     "description": "A message with a single parameter",

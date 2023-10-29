@@ -75,7 +75,7 @@
   "premium_monthly": "Ежемесячный",
   "premium_quarterly": "Ежеквартальный",
   "premium_yearly": "Ежегодный",
-  "ask_anything": "Спросите о чем угодно",
+  "ask_anything": "Спросите о чем угодно...",
   "today_conversation_limit_tips": "Сегодня у вас {times} бесплатных новостей.",
   "@today_conversation_limit_tips": {
     "description": "A message with a single parameter",

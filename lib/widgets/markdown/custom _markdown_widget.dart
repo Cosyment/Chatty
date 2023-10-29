@@ -19,16 +19,16 @@ class CustomMarkdownWidget extends StatelessWidget {
     MarkdownStyleSheet markdownStyleSheet = MarkdownStyleSheet.fromTheme(Theme.of(context));
     return markdownStyleSheet
         .copyWith(
-            codeblockDecoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                color: codeBackground,
-                border: Border.all(color: MdTextStyles.subTextColor, width: 0.3)))
+        codeblockDecoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+            color: codeBackground,
+            border: Border.all(color: MdTextStyles.subTextColor, width: 0.3)))
         .copyWith(
-            blockquoteDecoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                color: MdTextStyles.subTextColor,
-                border: Border.all(color: MdTextStyles.subTextColor, width: 0.3)),
-            blockquote: MdTextStyles.smallTextWhite);
+        blockquoteDecoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+            color: MdTextStyles.subTextColor,
+            border: Border.all(color: MdTextStyles.subTextColor, width: 0.3)),
+        blockquote: MdTextStyles.smallTextWhite);
   }
 
   _getStyleSheetDark(BuildContext context) {
@@ -157,11 +157,15 @@ class CustomMarkdownWidget extends StatelessWidget {
       color: _getBackgroundColor(context),
       child: SingleChildScrollView(
           child: MarkdownBody(
-        // styleSheet: _getStyle(context),
-        styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(textScaleFactor: 1.1),
+            // styleSheet: _getStyle(context),
+            styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(textScaleFactor: 1.1),
         syntaxHighlighter: Highlighter(),
         data: _getMarkDownData(markdownData),
         selectable: true,
+        shrinkWrap: true,
+        // builders: {
+        //   'sub': CustomElementBuilder(),
+        // },
         onTapLink: (String text, String? href, String title) {
           print(href);
           // jumpLaunchUrl(href);

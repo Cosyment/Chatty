@@ -33,7 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "api_key": MessageLookupByLibrary.simpleMessage("API-Schlüssel"),
         "appName": MessageLookupByLibrary.simpleMessage("Chatty"),
         "appearance": MessageLookupByLibrary.simpleMessage("Erscheinungsbild"),
-        "ask_anything": MessageLookupByLibrary.simpleMessage("Fragen Sie alles"),
+        "ask_anything": MessageLookupByLibrary.simpleMessage("Fragen Sie alles..."),
         "authentication": MessageLookupByLibrary.simpleMessage("Authentifizierung"),
         "cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
