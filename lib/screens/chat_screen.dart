@@ -123,8 +123,10 @@ class _ChatScreenState extends State<ChatScreenPage> {
 
     if (conversation.title.isEmpty || conversation.title == S.current.ask_anything) {
       setState(() {
-        conversation.title = conversation.messages.first.content;
-        chatService.updateConversation(conversation);
+        if (conversation.messages.isNotEmpty) {
+          conversation.title = conversation.messages.first.content;
+          chatService.updateConversation(conversation);
+        }
       });
     }
 
