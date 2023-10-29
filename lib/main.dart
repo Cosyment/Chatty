@@ -134,8 +134,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               theme: ThemeData(
                 useMaterial3: true,
                 colorScheme: ColorScheme.dark(brightness: Brightness.dark, primary: ThemeColor.primaryColor),
-                appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor.withOpacity(.7)),
-                scaffoldBackgroundColor: ThemeColor.backgroundColor.withOpacity(.9),
+                appBarTheme: AppBarTheme(backgroundColor: ThemeColor.appBarBackgroundColor.withOpacity(.4)),
+                scaffoldBackgroundColor: ThemeColor.backgroundColor.withOpacity(.5),
                 popupMenuTheme: PopupMenuThemeData(color: ThemeColor.popupBackground, elevation: 10),
                 dialogBackgroundColor: ThemeColor.dialogBackground,
                 textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.white70),

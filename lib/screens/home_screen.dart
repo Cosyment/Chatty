@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:chatty/models/conversation.dart';
+import 'package:chatty/screens/screens.dart';
 import 'package:chatty/widgets/common_stateful_widget.dart';
 import 'package:chatty/widgets/theme_color.dart';
 import 'package:chatty/widgets/widgets.dart';
@@ -80,21 +81,21 @@ class _HomeScreenState extends State<HomeScreenPage> {
           fit: StackFit.passthrough,
           alignment: AlignmentDirectional.topCenter,
           children: [
-            Positioned.fill(child: Image.asset('assets/images/bg.webp', fit: BoxFit.cover)),
+            Positioned.fill(child: Image.asset('assets/images/home.jpeg', fit: BoxFit.cover)),
             Positioned.fill(
               child: BackdropFilter(
                 filter: ImageFilter.blur(
-                  sigmaX: 5,
-                  sigmaY: 2,
+                  sigmaX: 0,
+                  sigmaY: 0,
                 ),
                 child: Container(
-                  color: Colors.black12,
+                  color: Colors.black.withOpacity(.1),
                 ),
               ),
             ),
             Column(
               children: [
-                SizedBox(height: LocalStorageService().isPad ? 100 : 40, width: MediaQuery.of(context).size.width),
+                SizedBox(height: LocalStorageService().isPad ? 100 : 50, width: MediaQuery.of(context).size.width),
                 SizedBox(
                     height: 250,
                     width: 250,
@@ -103,10 +104,10 @@ class _HomeScreenState extends State<HomeScreenPage> {
                   // width: MediaQuery.of(context).size.width,
                   width: 400,
                   height: 300,
-                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                   padding: const EdgeInsets.all(0),
                   decoration: BoxDecoration(
-                      color: ThemeColor.appBarBackgroundColor.withOpacity(0.7),
+                      color: ThemeColor.appBarBackgroundColor.withOpacity(0.5),
                       borderRadius: const BorderRadiusDirectional.all(Radius.circular(10))),
                   child: conversationIndexs.isEmpty
                       // conversationIndexs.length < 10

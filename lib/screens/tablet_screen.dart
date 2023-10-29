@@ -106,7 +106,7 @@ class _TableScreenPage extends State<TabletScreenPage> {
 
             bottomNavigationBar: AnimatedNotchBottomBar(
               notchBottomBarController: _controller,
-              color: ThemeColor.primaryColor.withOpacity(.7),
+              color: ThemeColor.primaryColor.withOpacity(.5),
               showLabel: true,
               showShadow: false,
               notchColor: ThemeColor.appBarBackgroundColor,
@@ -115,15 +115,19 @@ class _TableScreenPage extends State<TabletScreenPage> {
               durationInMilliSeconds: 150,
               bottomBarItems: [
                 BottomBarItem(
-                    inActiveItem: Icon(Icons.chat_bubble_outline),
-                    activeItem: Icon(Icons.chat_bubble),
+                    inActiveItem: const Icon(Icons.chat_bubble_outline),
+                    activeItem: const Icon(Icons.chat_bubble),
                     itemLabel: S.current.chat),
                 BottomBarItem(
-                    inActiveItem: Icon(Icons.explore_outlined), activeItem: Icon(Icons.explore), itemLabel: S.current.discover),
+                    inActiveItem: const Icon(Icons.explore_outlined),
+                    activeItem: const Icon(Icons.explore),
+                    itemLabel: S.current.discover),
                 // BottomBarItem(inActiveItem: Icon(Icons.abc_outlined), activeItem: Icon(Icons.abc), itemLabel: '翻译'),
                 // BottomBarItem(inActiveItem: Icon(Icons.draw_outlined), activeItem: Icon(Icons.draw), itemLabel: '绘图'),
                 BottomBarItem(
-                    inActiveItem: Icon(Icons.menu_outlined), activeItem: Icon(Icons.menu_rounded), itemLabel: S.current.more)
+                    inActiveItem: const Icon(Icons.menu_outlined),
+                    activeItem: const Icon(Icons.menu_rounded),
+                    itemLabel: S.current.more)
               ],
               onTap: (int value) {
                 _pageController.animateToPage(value, duration: const Duration(milliseconds: 100), curve: Curves.easeOutQuad);
@@ -138,15 +142,15 @@ class _TableScreenPage extends State<TabletScreenPage> {
 
 Widget backgroundWidget() {
   return Stack(children: [
-    Positioned.fill(child: Image.asset('assets/images/bg.jpeg', fit: BoxFit.cover)),
+    Positioned.fill(child: Image.asset('assets/images/star.jpeg', fit: BoxFit.cover)),
     Positioned.fill(
       child: BackdropFilter(
         filter: ImageFilter.blur(
-          sigmaX: 2,
+          sigmaX: 0,
           sigmaY: 0,
         ),
         child: Container(
-          color: Colors.black12,
+          color: Colors.black.withOpacity(.2),
         ),
       ),
     )

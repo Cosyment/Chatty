@@ -18,7 +18,6 @@ import '../services/chat_service.dart';
 import '../services/local_storage_service.dart';
 import '../util/environment_config.dart';
 import '../widgets/common_stateful_widget.dart';
-import '../widgets/theme_color.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
 
@@ -82,18 +81,20 @@ class _ConversationScreen extends State<ConversationScreen> {
       });
     }
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false, //解决平板模式显示键盘时，内容被顶上去问题
-      appBar: CommonAppBar(
-        S.current.conversations,
-        actionWidgets: currentConversation != null
-            ? [
-                IconButton(
-                    onPressed: () async {
-                      var result = await showCleanConfirmDialog(context);
-                      if (result == true) {
-                        List<ConversationIndex> list = chatService.getConversationList();
-                        for (var element in list) {
+    return Stack(alignment: AlignmentDirectional.topCenter, fit: StackFit.passthrough, children: [
+      backgroundWidget(),
+      Scaffold(
+        resizeToAvoidBottomInset: false, //解决平板模式显示键盘时，内容被顶上去问题
+        appBar: CommonAppBar(
+          S.current.conversations,
+          actionWidgets: currentConversation != null
+              ? [
+                  IconButton(
+                      onPressed: () async {
+                        var result = await showCleanConfirmDialog(context);
+                        if (result == true) {
+                          List<ConversationIndex> list = chatService.getConversationList();
+                          for (var element in list) {
                           chatService.removeConversationById(element.id);
                           LocalStorageService().removeConversationJsonById(element.id);
                         }
@@ -139,8 +140,8 @@ class _ConversationScreen extends State<ConversationScreen> {
             ),
           if (PlatformUtil.isLandscape(context) || Platform.isMacOS || Platform.isWindows)
             Container(
-                color: ThemeColor.backgroundColor,
-                width: PlatformUtil.isMobile ? 300 : 250,
+              // color: ThemeColor.backgroundColor.withOpacity(.2),
+                  width: PlatformUtil.isMobile ? 300 : 250,
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(10, 0, 10, PlatformUtil.isMobile ? 0 : 15),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -179,17 +180,18 @@ class _ConversationScreen extends State<ConversationScreen> {
                         Navigation.navigator(context, MoreScreenPage());
                       }),
                       // SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
-                      // FutureBuilder<PackageInfo>(
-                      //     future: PackageInfo.fromPlatform(),
-                      //     builder: (context, packageInfo) {
-                      //       return textButton("${S.current.version}: v${packageInfo.data?.version}", Icons.info_outline, () {
-                      //         // AdvertManager().showBanner();
-                      //       });
-                      //     })
-                    ]))),
-        ],
-      ),
-    );
+                        // FutureBuilder<PackageInfo>(
+                        //     future: PackageInfo.fromPlatform(),
+                        //     builder: (context, packageInfo) {
+                        //       return textButton("${S.current.version}: v${packageInfo.data?.version}", Icons.info_outline, () {
+                        //         // AdvertManager().showBanner();
+                        //       });
+                        //     })
+                      ]))),
+          ],
+        ),
+      )
+    ]);
   }
 
   void closeDrawer() {
