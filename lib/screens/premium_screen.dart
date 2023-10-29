@@ -41,9 +41,9 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
   final List<String> _premiumFeatures = [
     S.current.premium_features1,
     S.current.premium_features2,
-    S.current.premium_features3,
+    // S.current.premium_features3,
     S.current.premium_features4,
-    S.current.premium_features5,
+    // S.current.premium_features5,
     S.current.premium_features6
   ];
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
