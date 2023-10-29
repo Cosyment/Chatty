@@ -177,6 +177,13 @@ class _ChatScreenState extends State<ChatScreenPage> {
         return true;
       }
       return false;
+    } else if (Platform.isMacOS) {
+      var conversationReachedLimit = getTodayConversationTimes();
+      if (conversationReachedLimit <= 0) {
+        scaffoldMessengerKey.currentState
+            ?.showSnackBar(SnackBar(content: Text(S.current.today_conversation_limit_tips(conversationReachedLimit))));
+        return true;
+      }
     }
     return false;
   }
