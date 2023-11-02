@@ -98,35 +98,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "prompt": MessageLookupByLibrary.simpleMessage("提示語"),
         "proxy_host": MessageLookupByLibrary.simpleMessage("代理位址"),
         "purchase_cancel": MessageLookupByLibrary.simpleMessage("支付已取消"),
-        "purchase_error": MessageLookupByLibrary.simpleMessage(
-            "支付出錯，請稍後再試"),
-        "purchase_failure": MessageLookupByLibrary.simpleMessage(
-            "支付失敗，請稍後再試"),
-        "purchase_success": MessageLookupByLibrary.simpleMessage(
-            "恭喜會員開通成功"),
+        "purchase_error": MessageLookupByLibrary.simpleMessage("支付出錯，請稍後再試"),
+        "purchase_failure": MessageLookupByLibrary.simpleMessage("支付失敗，請稍後再試"),
+        "purchase_success": MessageLookupByLibrary.simpleMessage("恭喜會員開通成功"),
         "rate_app": MessageLookupByLibrary.simpleMessage("給個好評"),
         "refuse": MessageLookupByLibrary.simpleMessage("殘忍拒絕"),
         "reminder": MessageLookupByLibrary.simpleMessage("温馨提示"),
         "render_mode": MessageLookupByLibrary.simpleMessage("渲染模式"),
         "resend": MessageLookupByLibrary.simpleMessage("重新發送"),
         "reset_api_key": MessageLookupByLibrary.simpleMessage("重置API Key"),
-        "reset_api_key_tips": MessageLookupByLibrary.simpleMessage(
-            "您確定要重置API Key嗎？ 重置後您需要添加新的API Key或重新啟動應用程序"),
+        "reset_api_key_tips": MessageLookupByLibrary.simpleMessage("您確定要重置API Key嗎？ 重置後您需要添加新的API Key或重新啟動應用程序"),
         "restore": MessageLookupByLibrary.simpleMessage("恢復"),
         "send_a_message": MessageLookupByLibrary.simpleMessage("發送消息..."),
         "settings": MessageLookupByLibrary.simpleMessage("設定"),
         "share_app": MessageLookupByLibrary.simpleMessage("分享應用"),
         "subscribe": MessageLookupByLibrary.simpleMessage("立即訂閱"),
         "terms_use": MessageLookupByLibrary.simpleMessage("使用條款"),
-        "title_should_not_be_empty":
-        MessageLookupByLibrary.simpleMessage("標題不應為空"),
+        "title_should_not_be_empty": MessageLookupByLibrary.simpleMessage("標題不應為空"),
         "today_conversation_limit_tips": m0,
-        "unlock_premium_tips":
-        MessageLookupByLibrary.simpleMessage("解鎖無限會話次數&免廣告"),
+        "unlock_premium_tips": MessageLookupByLibrary.simpleMessage("解鎖無限會話次數&免廣告"),
         "upgrade_premium": MessageLookupByLibrary.simpleMessage("升級高級版"),
         "version": MessageLookupByLibrary.simpleMessage("版本"),
-        "your_are_not_membership":
-        MessageLookupByLibrary.simpleMessage(
-            "很抱歉，您還沒有訂閱會員服務哦，該功能僅對會員用戶開放！")
-  };
+        "your_are_not_membership": MessageLookupByLibrary.simpleMessage("很抱歉，您還沒有訂閱會員服務哦，該功能僅對會員用戶開放！")
+      };
 }

@@ -48,13 +48,13 @@ dependencies:
   tiktoken: ^1.0.2
   url_launcher: ^6.1.10
   package_info_plus: ^4.0.1
-  umeng_common_sdk: 1.2.6
+  umeng_common_sdk: 1.2.7
   device_info_plus: 9.0.3
   #  connectivity_plus: ^4.0.1
   flutter_staggered_grid_view: ^0.7.0
   window_manager: ^0.3.5
   lottie: ^2.5.0
-  google_mobile_ads: ^3.0.0
+  #  google_mobile_ads: ^3.0.0
   applovin_max: ^3.1.1
   in_app_review: ^2.0.6
   in_app_purchase: ^3.1.8
@@ -62,6 +62,7 @@ dependencies:
   shake_animation_widget: ^3.0.4
   share_plus: ^8.0.0
   animated_notch_bottom_bar: ^1.0.0
+  flutter_easyloading: ^3.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

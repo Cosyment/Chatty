@@ -8,6 +8,7 @@ import 'package:chatty/widgets/common_appbar.dart';
 import 'package:chatty/widgets/common_stateful_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/billing_client_wrappers.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
@@ -131,7 +132,8 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
     for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
       if (purchaseDetails.status == PurchaseStatus.pending) {
         debugPrint('purchase pending... productId: ${purchaseDetails.productID}, purchaseId: ${purchaseDetails.purchaseID}');
-        showLottieDialog(context, 'assets/loading.json');
+        // showLottieDialog(context, 'assets/loading.json');
+        EasyLoading.showToast('loading...');
       } else {
         if (context.mounted && Navigator.canPop(context)) {
           if (Platform.isMacOS || PlatformUtil.isLandscape(context)) {
@@ -149,13 +151,19 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
 
           if (context.mounted) {
             if (purchaseDetails.status == PurchaseStatus.purchased) {
-              showLottieDialog(context, 'assets/animation_ll82qc8x.json');
-              Future.delayed(const Duration(milliseconds: 2500), () {
+              int transactionDate = int.tryParse(purchaseDetails.transactionDate ?? '') ?? 0;
+              if ((DateTime.now().millisecondsSinceEpoch - transactionDate) / 1000 / 60 < 3) {
                 if (Navigator.canPop(context)) {
                   Navigator.pop(context);
                 }
-                showToast(S.current.purchase_success);
-              });
+                showLottieDialog(context, 'assets/animation_ll82qc8x.json');
+                Future.delayed(const Duration(milliseconds: 2500), () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
+                  showToast(S.current.purchase_success);
+                });
+              }
               setState(() {
                 LocalStorageService().currentMembershipProductId = purchaseDetails.productID;
               });
@@ -173,6 +181,9 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
           if (purchaseDetails.status == PurchaseStatus.canceled) {
             showToast(S.current.purchase_cancel);
           }
+          // if (context.mounted && Navigator.canPop(context) && PlatformUtil.isMobile) {
+          //   Navigator.pop(context);
+          // }
         }
       }
     }

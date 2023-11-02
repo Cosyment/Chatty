@@ -96,10 +96,10 @@ class _HomeScreenState extends State<HomeScreenPage> {
             Column(
               children: [
                 SizedBox(height: LocalStorageService().isPad ? 100 : 50, width: MediaQuery.of(context).size.width),
-                SizedBox(
-                    height: 250,
-                    width: 250,
-                    child: Lottie.asset('assets/animation_lnnacc87.json', filterQuality: FilterQuality.low, repeat: true)),
+                // SizedBox(height: 250, width: 250, child: Lottie.asset('assets/animation_lnnacc87.json', repeat: true)),
+                const SizedBox(
+                  height: 230,
+                ),
                 Container(
                   // width: MediaQuery.of(context).size.width,
                   width: 400,

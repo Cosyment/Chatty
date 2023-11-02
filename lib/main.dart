@@ -13,6 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -157,6 +158,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                 listTileTheme: const ListTileThemeData(textColor: Colors.white70, selectedColor: Colors.white),
               ),
               debugShowCheckedModeBanner: false,
+              builder: EasyLoading.init(),
               home: const MainScreen(),
             )));
   }
