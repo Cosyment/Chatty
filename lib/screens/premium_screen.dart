@@ -114,9 +114,8 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
 
     //未订阅过
     if (purchaseDetailsList.isEmpty) {
-      if (context.mounted && Navigator.canPop(context) && _manualRestore) {
+      if (_manualRestore) {
         showToast(S.current.nothing_to_restore);
-        Navigator.pop(context);
         _manualRestore = false;
         setState(() {
           LocalStorageService().remove(LocalStorageService.prefMembershipProductId);
@@ -133,17 +132,18 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
       if (purchaseDetails.status == PurchaseStatus.pending) {
         debugPrint('purchase pending... productId: ${purchaseDetails.productID}, purchaseId: ${purchaseDetails.purchaseID}');
         // showLottieDialog(context, 'assets/loading.json');
-        EasyLoading.showToast('loading...');
+        EasyLoading.show(status: 'Loading...', dismissOnTap: false);
       } else {
-        if (context.mounted && Navigator.canPop(context)) {
-          if (Platform.isMacOS || PlatformUtil.isLandscape(context)) {
-            Navigator.pop(context);
-          }
-        }
+        // if (context.mounted && Navigator.canPop(context)) {
+        //   if (Platform.isMacOS || PlatformUtil.isLandscape(context)) {
+        //     Navigator.pop(context);
+        //   }
+        // }
+        EasyLoading.dismiss();
 
         if (purchaseDetails.status == PurchaseStatus.error) {
           debugPrint('purchase error ${purchaseDetails.status}');
-          showToast(S.current.purchase_failure);
+          showToast(S.current.purchase_failure, error: true);
           finishTransaction();
         } else if (purchaseDetails.status == PurchaseStatus.purchased || purchaseDetails.status == PurchaseStatus.restored) {
           debugPrint(
@@ -153,15 +153,15 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
             if (purchaseDetails.status == PurchaseStatus.purchased) {
               int transactionDate = int.tryParse(purchaseDetails.transactionDate ?? '') ?? 0;
               if ((DateTime.now().millisecondsSinceEpoch - transactionDate) / 1000 / 60 < 3) {
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                }
+                // if (Navigator.canPop(context)) {
+                //   Navigator.pop(context);
+                // }
                 showLottieDialog(context, 'assets/animation_ll82qc8x.json');
                 Future.delayed(const Duration(milliseconds: 2500), () {
                   if (Navigator.canPop(context)) {
                     Navigator.pop(context);
                   }
-                  showToast(S.current.purchase_success);
+                  showToast(S.current.purchase_success, success: true);
                 });
               }
               setState(() {
@@ -228,18 +228,25 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
         return Center(child: Lottie.asset(name, repeat: true));
       });
 
-  void showToast(String message) {
-    scaffoldMessengerKey.currentState?.showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 1),
-        backgroundColor: ThemeColor.primaryColor.shade300,
-        // action: SnackBarAction(
-        //   label: S.current.resend,
-        //   onPressed: () {},
-        // ),
-      ),
-    );
+  void showToast(String message, {bool? success, bool? error}) {
+    // scaffoldMessengerKey.currentState?.showSnackBar(
+    //   SnackBar(
+    //     content: Text(message),
+    //     duration: const Duration(seconds: 1),
+    //     backgroundColor: ThemeColor.primaryColor.shade300,
+    //     // action: SnackBarAction(
+    //     //   label: S.current.resend,
+    //     //   onPressed: () {},
+    //     // ),
+    //   ),
+    // );
+    if (success == true) {
+      EasyLoading.showSuccess(message);
+    } else if (error == true) {
+      EasyLoading.showError(message);
+    } else {
+      EasyLoading.showToast(message);
+    }
   }
 
   void startShake() async {
@@ -408,7 +415,8 @@ class _PremiumScreen extends State<CommonStatefulWidget> {
                           await launchUrl(Uri.parse(Urls.privacyUrl), mode: LaunchMode.inAppWebView);
                         }),
                         _agreementWidget(S.current.restore, () {
-                          showLottieDialog(context, 'assets/loading.json');
+                          // showLottieDialog(context, 'assets/loading.json');
+                          EasyLoading.show(status: 'Loading...', dismissOnTap: false);
                           _manualRestore = true;
                           _inAppPurchase.restorePurchases();
                         })
