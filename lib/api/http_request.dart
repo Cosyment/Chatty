@@ -4,25 +4,32 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 import '../util/constants.dart';
+import '../util/encrypted_utils.dart';
 import '../util/extend_http_client.dart';
 
 class HttpRequest {
   static final SafeHttpClient _httpClient = SafeHttpClient(http.Client());
 
   static Future<dynamic> request<T>(String url, T Function(dynamic) fromJson,
-      {method = 'GET', Map<String, dynamic>? params, Function(Object)? exception}) async {
-    var headers = {'Content-Type': 'application/json'};
+      {method = 'GET',
+      Map<String, dynamic>? params,
+      Function(Object)? exception}) async {
+    var headers = {
+      'Sign': EncryptedUtils.createSign(params ?? <String, String>{})
+    };
     http.Response? response;
 
     String errorMessage = '';
     try {
       if (method == 'GET') {
-        response = await _httpClient.get(Uri.https(Urls.hostname, url, params), headers: headers);
+        response = await _httpClient.get(Uri.https(Urls.hostname, url, params),
+            headers: headers);
       } else {
-        response = await _httpClient.post(Uri.https(Urls.hostname, url), headers: headers, body: params);
+        response = await _httpClient.post(Uri.https(Urls.hostname, url),
+            headers: headers, body: params);
       }
-
-      debugPrint("request url： ${response.request?.url} \nheaders：${response.headers} \nparams：${params}");
+      debugPrint(
+          "request url： ${response.request?.url} \nheaders：${response.headers} \nparams：${params}");
 
       Utf8Decoder decoder = const Utf8Decoder();
       var content = jsonDecode(decoder.convert(response.bodyBytes));
@@ -46,7 +53,8 @@ class HttpRequest {
     throw Exception(errorMessage);
   }
 
-  static Future<Map<String, dynamic>> requestJson(String url, {method = 'GET', Map<String, dynamic>? params}) async {
+  static Future<Map<String, dynamic>> requestJson(String url,
+      {method = 'GET', Map<String, dynamic>? params}) async {
     Uri uri = Uri.parse(url);
     var headers = {'Content-Type': 'application/json'};
     http.Response? response;

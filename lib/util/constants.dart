@@ -4,11 +4,12 @@ class Constants {
 
 class Urls {
   static const String hostname = 'openai.api.firefix.cn';
-
   static const queryDomain = '/domain/queryAll';
   static const queryLanguageModel = '/model/query';
   static const querySecretKey = '/apikey/query';
   static const queryPromptAll = '/prompt/queryAll';
+  static const String submitOrder = "/tOrder/submitOrder";
+  static const String updateOrder = "/tOrder/updateOrder";
   static const queryPromptByType = '/prompt/queryByType';
   static const queryPromptByCountryCode = '/prompt/queryByCountryCode';
   static const queryPromptByLanguageCode = '/prompt/queryByLanguage';
