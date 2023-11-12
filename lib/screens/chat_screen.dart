@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
 import '../bloc/blocs.dart';
 import '../generated/l10n.dart';
@@ -209,7 +208,7 @@ class _ChatScreenState extends State<ChatScreenPage> {
       'createTime': HttpDate.format(DateTime.timestamp())
     };
 
-    UmengCommonSdk.onEvent("Chat Message", reportMap);
+    // UmengCommonSdk.onEvent("Chat Message", reportMap);
   }
 
   void handleRefresh(BuildContext context, Conversation conversation) async {

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
-import 'package:applovin_max/applovin_max.dart';
 import 'package:chatty/event/event_bus.dart';
 import 'package:chatty/event/event_message.dart';
 import 'package:chatty/util/navigation.dart';
@@ -115,39 +114,23 @@ class _ConversationScreen extends State<ConversationScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          currentConversation != null
-              ? ConversationListWidget(selectedConversation: currentConversation)
-              : Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child:
-                      Center(child: SizedBox(width: 100, height: 100, child: Lottie.asset('assets/empty.json', repeat: true)))),
-          if (PlatformUtil.isMobile && !LocalStorageService().isMembershipUser())
-            MaxAdView(
-              adUnitId: Platform.isIOS ? '9f972dbea4fce16c' : '3e59dece9a59c908',
-              adFormat: AdFormat.banner,
-              listener: AdViewAdListener(onAdLoadedCallback: (ad) {
-                debugPrint('banner onAdLoadedCallback ad $ad');
-              }, onAdLoadFailedCallback: (adUnitId, error) {
-                debugPrint('banner onAdLoadFailedCallback ad $adUnitId,$error');
-              }, onAdClickedCallback: (ad) {
-                debugPrint('banner onAdClickedCallback ad $ad');
-              }, onAdExpandedCallback: (ad) {
-                debugPrint('banner onAdExpandedCallback ad $ad');
-              }, onAdCollapsedCallback: (ad) {
-                debugPrint('banner onAdCollapsedCallback ad $ad');
-              }),
-            ),
-          if (PlatformUtil.isLandscape(context) || Platform.isMacOS || Platform.isWindows)
-            Container(
-              // color: ThemeColor.backgroundColor.withOpacity(.2),
+            currentConversation != null
+                ? ConversationListWidget(selectedConversation: currentConversation)
+                : Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Center(
+                        child: SizedBox(width: 100, height: 100, child: Lottie.asset('assets/empty.json', repeat: false)))),
+            if (PlatformUtil.isLandscape(context) || Platform.isMacOS || Platform.isWindows)
+              Container(
+                  // color: ThemeColor.backgroundColor.withOpacity(.2),
                   width: PlatformUtil.isMobile ? 300 : 250,
-                child: Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, PlatformUtil.isMobile ? 0 : 15),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      const Divider(thickness: .2),
-                      textButton(S.current.new_conversation, Icons.add_box_outlined, () async {
-                        var newConversation = await showConversationDialog(context, false, Conversation.create());
+                  child: Padding(
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, PlatformUtil.isMobile ? 0 : 15),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        const Divider(thickness: .2),
+                        textButton(S.current.new_conversation, Icons.add_box_outlined, () async {
+                          var newConversation = await showConversationDialog(context, false, Conversation.create());
                         if (newConversation != null) {
                           LocalStorageService().currentConversationId = newConversation.id;
                           await chatService.updateConversation(newConversation);
@@ -176,9 +159,9 @@ class _ConversationScreen extends State<ConversationScreen> {
                       SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
                       textButton(S.current.more, Icons.more_horiz_outlined, () {
                         closeDrawer();
-                        // Navigation.navigator(context, const SettingsScreenPage());
-                        Navigation.navigator(context, MoreScreenPage());
-                      }),
+                          // Navigation.navigator(context, const SettingsScreenPage());
+                          Navigation.navigator(context, const MoreScreenPage());
+                        }),
                       // SizedBox(height: PlatformUtil.isMobile ? 0 : 5),
                         // FutureBuilder<PackageInfo>(
                         //     future: PackageInfo.fromPlatform(),
@@ -221,7 +204,7 @@ class _ConversationScreen extends State<ConversationScreen> {
       icon: SizedBox(
         width: 20,
         height: 20,
-        child: Lottie.asset('assets/animation_ll82pe8f.json', repeat: true),
+        child: Lottie.asset('assets/animation_ll82pe8f.json', repeat: false),
       ),
     );
   }

@@ -16,6 +16,8 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		9C430B21AEF0B6A9E6CC963C /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAC0E4A773E7437F02D41A9 /* Pods_RunnerTests.framework */; };
 		A403D7982A877F380046B777 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A403D7972A877F380046B777 /* StoreKit.framework */; };
+		A41ED8142AFFB3B400944FC1 /* UMCommon.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A41ED8132AFFB3B400944FC1 /* UMCommon.xcframework */; };
+		A41ED8162AFFB3BD00944FC1 /* UMDevice.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A41ED8152AFFB3BD00944FC1 /* UMDevice.xcframework */; };
 		A45D21282A7BE9B400E25B62 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A45D21272A7BE9B400E25B62 /* icon.png */; };
 		A46917C82A51730100690EDF /* Launch Screen-custom.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A46917C72A51730100690EDF /* Launch Screen-custom.storyboard */; };
 		A48E27A82A22513100C591F2 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A48E27A72A22513100C591F2 /* Launch Screen.storyboard */; };
@@ -69,6 +71,8 @@
 		A403D7992A877F520046B777 /* RunnerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunnerRelease.entitlements; sourceTree = "<group>"; };
 		A403D79A2A8782520046B777 /* RunnerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunnerDebug.entitlements; sourceTree = "<group>"; };
 		A403D79B2A87825B0046B777 /* RunnerProfile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunnerProfile.entitlements; sourceTree = "<group>"; };
+		A41ED8132AFFB3B400944FC1 /* UMCommon.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = UMCommon.xcframework; path = Pods/UMCommon/UMCommon_7.4.2/UMCommon.xcframework; sourceTree = "<group>"; };
+		A41ED8152AFFB3BD00944FC1 /* UMDevice.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = UMDevice.xcframework; path = Pods/UMDevice/UMDevice_3.2.0/UMDevice.xcframework; sourceTree = "<group>"; };
 		A45D21272A7BE9B400E25B62 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../screenshots/icon.png; sourceTree = "<group>"; };
 		A46917C72A51730100690EDF /* Launch Screen-custom.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen-custom.storyboard"; sourceTree = "<group>"; };
 		A46917C92A517AF500690EDF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -98,6 +102,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A41ED8162AFFB3BD00944FC1 /* UMDevice.xcframework in Frameworks */,
+				A41ED8142AFFB3B400944FC1 /* UMCommon.xcframework in Frameworks */,
 				3FDED131B03C50BAFFFB7150 /* Pods_Runner.framework in Frameworks */,
 				A403D7982A877F380046B777 /* StoreKit.framework in Frameworks */,
 			);
@@ -109,6 +115,8 @@
 		196D3D0B27A7144F947E0037 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A41ED8152AFFB3BD00944FC1 /* UMDevice.xcframework */,
+				A41ED8132AFFB3B400944FC1 /* UMCommon.xcframework */,
 				A403D7972A877F380046B777 /* StoreKit.framework */,
 				2E1204430024AB6079AB21CD /* Pods_Runner.framework */,
 				7EAC0E4A773E7437F02D41A9 /* Pods_RunnerTests.framework */,

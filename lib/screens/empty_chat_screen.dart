@@ -100,7 +100,7 @@ class _EmptyChatScreen extends State<EmptyChatScreenPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 120, width: 120, child: Lottie.asset('assets/thinking.json', repeat: true)),
+          SizedBox(height: 120, width: 120, child: Lottie.asset('assets/thinking.json', repeat: false)),
           PlatformUtil.isMobile ? const SizedBox.shrink() : const SizedBox(height: 20),
           Container(
               margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
