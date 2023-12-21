@@ -43,7 +43,3 @@ Chatty是您聊天的首选。无论您对影视、音乐、体育、政治、�
 ### 关键字
 
 chatgpt,gpt,gpt4,实时聊天,gpr,openai,jpt,免费聊天,gpt中文,chat,聊天软件,写作助手,Claude,threads,匿名聊天,autogpt,聊天应用,talk
-
-### 武汉小浣熊网络科技有限公司
-
-### Wuhan Raccoon Network Technology Co., Ltd
